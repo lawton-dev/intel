@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INTEL — OneRoof Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07070f;
+      --surface: #0d0d1a;
+      --surface2: #121224;
+      --border: #1a1a2e;
+      --border2: #242440;
+      --accent: #f59e0b;
+      --text: #dde4f0;
+      --text-muted: #52526e;
+      --text-dim: #8888aa;
+      --tax-delinquent: #f59e0b;
+      --tax-foreclosure: #ef4444;
+      --probate: #a855f7;
+      --state-warrant: #f97316;
+      --attom: #3b82f6;
+      --green: #22c55e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'JetBrains Mono',monospace; min-height:100vh; }
+
+    /* ── GATE ── */
+    #gate {
+      position:fixed; inset:0; background:var(--bg);
+      display:flex; align-items:center; justify-content:center; z-index:1000;
+    }
+    .gate-box {
+      width:380px; background:var(--surface);
+      border:1px solid var(--border2); padding:52px 48px;
+    }
+    .gate-logo {
+      font-family:'Syne',sans-serif; font-size:32px; font-weight:800;
+      letter-spacing:8px; color:var(--accent); margin-bottom:6px;
+    }
+    .gate-eyebrow {
+      font-size:9px; letter-spacing:3px; color:var(--text-muted);
+      text-transform:uppercase; margin-bottom:48px;
+    }
+    .gate-input {
+      width:100%; background:var(--bg); border:1px solid var(--border2);
+      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:14px;
+      padding:14px 16px; outline:none; margin-bottom:10px; transition:border-color .2s;
+    }
+    .gate-input:focus { border-color:var(--accent); }
+    .gate-btn {
+      width:100%; background:var(--accent); color:#000; border:none;
+      font-family:'Syne',sans-serif; font-weight:800; font-size:11px;
+      letter-spacing:4px; text-transform:uppercase; padding:15px; cursor:pointer;
+      transition:opacity .2s;
+    }
+    .gate-btn:hover { opacity:.85; }
+    .gate-error { color:#ef4444; font-size:10px; margin-top:10px; display:none; letter-spacing:1px; }
+
+    /* ── APP ── */
+    #app { display:none; }
+
+    /* ── HEADER ── */
+    .header {
+      border-bottom:1px solid var(--border); padding:0 32px;
+      display:flex; align-items:center; justify-content:space-between;
+      height:58px; position:sticky; top:0; background:var(--bg); z-index:100;
+    }
+    .header-left { display:flex; align-items:center; gap:20px; }
+    .logo { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; letter-spacing:6px; color:var(--accent); }
+    .logo-sub { font-size:9px; letter-spacing:2px; color:var(--text-muted); margin-top:1px; }
+    .live-pill {
+      display:flex; align-items:center; gap:6px; border:1px solid var(--border2);
+      padding:4px 10px; font-size:9px; letter-spacing:2px; color:var(--text-muted);
+    }
+    .live-dot { width:5px; height:5px; background:var(--green); border-radius:50%; animation:blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .header-right { display:flex; align-items:center; gap:12px; }
+    .last-updated { font-size:10px; color:var(--text-muted); }
+    .refresh-btn {
+      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px;
+      padding:6px 14px; cursor:pointer; transition:all .2s;
+    }
+    .refresh-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* ── CONFIG BANNER ── */
+    .config-banner {
+      background:rgba(245,158,11,.07); border-bottom:1px solid rgba(245,158,11,.2);
+      padding:9px 32px; font-size:10px; color:var(--accent); letter-spacing:.5px; display:none;
+    }
+    .config-banner.show { display:block; }
+
+    /* ── STATS ── */
+    .stats-bar { display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--border); }
+    .stat-item { padding:18px 28px; border-right:1px solid var(--border); }
+    .stat-item:last-child { border-right:none; }
+    .stat-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; }
+    .stat-num {
+      font-family:'Syne',sans-serif; font-size:34px; font-weight:800; line-height:1;
+      transition:all .3s;
+    }
+    .stat-num.amber { color:var(--tax-delinquent); }
+    .stat-num.red { color:var(--tax-foreclosure); }
+    .stat-num.purple { color:var(--probate); }
+    .stat-num.orange { color:var(--state-warrant); }
+
+    /* ── FILTERS ── */
+    .filters {
+      padding:16px 32px; display:flex; align-items:center; gap:8px;
+      border-bottom:1px solid var(--border); flex-wrap:wrap;
+    }
+    .ftab {
+      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px;
+      padding:5px 14px; cursor:pointer; transition:all .2s; text-transform:uppercase;
+    }
+    .ftab:hover { border-color:var(--accent); color:var(--accent); }
+    .ftab.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight:600; }
+    .filter-search {
+      margin-left:auto; background:var(--surface); border:1px solid var(--border2);
+      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:11px;
+      padding:6px 14px; outline:none; width:260px; transition:border-color .2s;
+    }
+    .filter-search:focus { border-color:var(--accent); }
+    .filter-search::placeholder { color:var(--text-muted); }
+
+    /* ── GRID ── */
+    .lead-grid {
+      padding:24px 32px;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:14px;
+    }
+
+    /* ── LEAD CARD ── */
+    .lead-card {
+      background:var(--surface); border:1px solid var(--border);
+      padding:18px 20px; transition:border-color .2s; position:relative; overflow:hidden;
+    }
+    .lead-card:hover { border-color:var(--border2); }
+    .lead-card::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    }
+    .lead-card.tax-delinquent::before { background:var(--tax-delinquent); }
+    .lead-card.tax-foreclosure::before { background:var(--tax-foreclosure); }
+    .lead-card.probate::before { background:var(--probate); }
+    .lead-card.state-warrant::before { background:var(--state-warrant); }
+    .lead-card.attom::before { background:var(--attom); }
+    .lead-card.contacted { opacity:.45; }
+
+    .card-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+    .type-badge {
+      font-size:8px; letter-spacing:2px; text-transform:uppercase;
+      padding:3px 8px; font-weight:600;
+    }
+    .type-badge.tax-delinquent { background:rgba(245,158,11,.12); color:var(--tax-delinquent); }
+    .type-badge.tax-foreclosure { background:rgba(239,68,68,.12); color:var(--tax-foreclosure); }
+    .type-badge.probate { background:rgba(168,85,247,.12); color:var(--probate); }
+    .type-badge.state-warrant { background:rgba(249,115,22,.12); color:var(--state-warrant); }
+    .type-badge.attom { background:rgba(59,130,246,.12); color:var(--attom); }
+
+    .contacted-btn {
+      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:1px;
+      padding:3px 8px; cursor:pointer; transition:all .2s;
+    }
+    .contacted-btn.on { background:rgba(34,197,94,.1); border-color:var(--green); color:var(--green); }
+
+    .owner { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:3px; }
+    .address { font-size:10px; color:var(--text-dim); margin-bottom:14px; line-height:1.6; }
+
+    .card-meta { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .meta-label { font-size:8px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:3px; }
+    .meta-val { font-size:11px; color:var(--text-dim); }
+    .meta-val.money { color:var(--accent); font-weight:600; }
+
+    .card-actions { display:flex; gap:8px; }
+    .btn-sms, .btn-mon {
+      flex:1; background:transparent; border:1px solid var(--border2); color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1px;
+      padding:8px; cursor:pointer; transition:all .2s; text-transform:uppercase;
+    }
+    .btn-sms:hover { border-color:#3b82f6; color:#3b82f6; background:rgba(59,130,246,.06); }
+    .btn-mon:hover { border-color:var(--green); color:var(--green); background:rgba(34,197,94,.06); }
+    .btn-mon.pushed { border-color:var(--green); color:var(--green); background:rgba(34,197,94,.06); }
+
+    /* ── EMPTY / LOADING ── */
+    .empty { grid-column:1/-1; text-align:center; padding:80px 0; color:var(--text-muted); }
+    .empty-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:6px; }
+    .empty-sub { font-size:10px; letter-spacing:1px; }
+
+    /* ── MODAL ── */
+    .overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.85);
+      display:none; align-items:center; justify-content:center; z-index:500;
+    }
+    .overlay.open { display:flex; }
+    .modal {
+      background:var(--surface); border:1px solid var(--border2);
+      width:500px; padding:36px; animation:slideUp .25s ease;
+    }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .modal-title {
+      font-family:'Syne',sans-serif; font-size:14px; font-weight:700;
+      letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:24px;
+    }
+    .modal-field { margin-bottom:14px; }
+    .modal-lbl { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:5px; display:block; }
+    .modal-input, .modal-ta {
+      width:100%; background:var(--bg); border:1px solid var(--border2);
+      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:13px;
+      padding:10px 14px; outline:none; transition:border-color .2s;
+    }
+    .modal-ta { resize:vertical; min-height:110px; line-height:1.6; }
+    .modal-input:focus, .modal-ta:focus { border-color:var(--accent); }
+    .char-count { font-size:9px; color:var(--text-muted); text-align:right; margin-top:4px; }
+    .modal-actions { display:flex; gap:10px; margin-top:24px; }
+    .btn-cancel {
+      flex:1; background:transparent; border:1px solid var(--border2); color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px; padding:12px; cursor:pointer;
+    }
+    .btn-send {
+      flex:2; background:var(--accent); border:none; color:#000;
+      font-family:'Syne',sans-serif; font-weight:800; font-size:11px;
+      letter-spacing:3px; text-transform:uppercase; padding:12px; cursor:pointer; transition:opacity .2s;
+    }
+    .btn-send:hover { opacity:.85; }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; bottom:28px; right:28px; background:var(--surface2);
+      border:1px solid var(--border2); padding:12px 18px; font-size:11px;
+      letter-spacing:.5px; transform:translateY(16px); opacity:0;
+      transition:all .3s; z-index:999;
+    }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.ok { border-color:var(--green); color:var(--green); }
+    .toast.err { border-color:#ef4444; color:#ef4444; }
+  </style>
+</head>
+<body>
+
+<!-- ── GATE ── -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">INTEL</div>
+    <div class="gate-eyebrow">OneRoof · County Intelligence Platform</div>
+    <input type="password" class="gate-input" id="gateInput" placeholder="Access code" />
+    <button class="gate-btn" onclick="unlock()">ENTER</button>
+    <div class="gate-error" id="gateError">Access denied.</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+
+  <div class="config-banner" id="cfgBanner">
+    ⚠ &nbsp;Zapier webhook and/or SlickText API key not configured — lead actions disabled. Edit CONFIG in index.html.
+  </div>
+
+  <header class="header">
+    <div class="header-left">
+      <div>
+        <div class="logo">INTEL</div>
+        <div class="logo-sub">SEDGWICK COUNTY · LEAD INTELLIGENCE</div>
+      </div>
+      <div class="live-pill">
+        <div class="live-dot"></div>
+        <span>LIVE DATA</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="last-updated" id="lastUpdated">—</span>
+      <button class="refresh-btn" onclick="loadLeads()">↻ REFRESH</button>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-label">Total Leads</div>
+      <div class="stat-num" id="sTotal">—</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Tax Delinquent</div>
+      <div class="stat-num amber" id="sDelinquent">—</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Tax Foreclosure</div>
+      <div class="stat-num red" id="sForeclosure">—</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Probate</div>
+      <div class="stat-num purple" id="sProbate">—</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">State Warrant</div>
+      <div class="stat-num orange" id="sWarrant">—</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="ftab active" onclick="setFilter('all',this)">All</button>
+    <button class="ftab" onclick="setFilter('tax-delinquent',this)">Tax Delinquent</button>
+    <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
+    <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
+    <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
+    <button class="ftab" onclick="setFilter('new-today',this)">New Today</button>
+    <button class="ftab" onclick="setFilter('not-contacted',this)">Not Contacted</button>
+    <input class="filter-search" type="text" placeholder="Search name or address..." oninput="handleSearch(this.value)" />
+  </div>
+
+  <div class="lead-grid" id="leadGrid">
+    <div class="empty"><div class="empty-title">Loading...</div></div>
+  </div>
+
+</div>
+
+<!-- ── SMS MODAL ── -->
+<div class="overlay" id="smsOverlay">
+  <div class="modal">
+    <div class="modal-title">📱 Send Text Message</div>
+    <div class="modal-field">
+      <label class="modal-lbl">Lead</label>
+      <input class="modal-input" id="smsName" readonly />
+    </div>
+    <div class="modal-field">
+      <label class="modal-lbl">Phone Number</label>
+      <input class="modal-input" id="smsPhone" placeholder="(316) 555-0000" />
+    </div>
+    <div class="modal-field">
+      <label class="modal-lbl">Message</label>
+      <textarea class="modal-ta" id="smsMsg" oninput="countChars()"></textarea>
+      <div class="char-count"><span id="charCount">0</span>/160 chars</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeOverlay('smsOverlay')">Cancel</button>
+      <button class="btn-send" onclick="sendSMS()">SEND TEXT</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// CONFIG — edit these before deploying
+// ══════════════════════════════════════════════════════
+const CONFIG = {
+  password:       'OneRoof2025',   // change this
+  zapierWebhook:  '',              // paste your Zapier webhook URL
+  slickApiKey:    '',              // SlickText API key
+  slickAccount:   '',              // SlickText account number
+  dataUrl:        '/data/leads.json',
+};
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let allLeads = [];
+let activeFilter = 'all';
+let searchQ = '';
+let activeLead = null;
+let contacted = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
+let pushed    = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
+
+// ══════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════
+function unlock() {
+  const val = document.getElementById('gateInput').value;
+  if (val === CONFIG.password) {
+    localStorage.setItem('intel_auth', btoa(CONFIG.password));
+    boot();
+  } else {
+    document.getElementById('gateError').style.display = 'block';
+    document.getElementById('gateInput').style.borderColor = '#ef4444';
+  }
+}
+document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key==='Enter') unlock(); });
+
+if (localStorage.getItem('intel_auth') === btoa(CONFIG.password)) boot();
+
+function boot() {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  if (!CONFIG.zapierWebhook || !CONFIG.slickApiKey) {
+    document.getElementById('cfgBanner').classList.add('show');
+  }
+  loadLeads();
+}
+
+// ══════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════
+async function loadLeads() {
+  document.getElementById('leadGrid').innerHTML =
+    '<div class="empty"><div class="empty-title" style="letter-spacing:3px;font-size:13px">SCANNING COUNTY RECORDS...</div></div>';
+  try {
+    const res = await fetch(CONFIG.dataUrl + '?v=' + Date.now());
+    if (!res.ok) throw new Error('no data');
+    const data = await res.json();
+    allLeads = (data.leads || []).map(hydrate);
+    if (data.lastUpdated) {
+      const d = new Date(data.lastUpdated);
+      document.getElementById('lastUpdated').textContent =
+        'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
+        ' at ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    }
+  } catch {
+    allLeads = sampleLeads().map(hydrate);
+    document.getElementById('lastUpdated').textContent = 'Sample data — scraper pending';
+  }
+  updateStats();
+  render();
+}
+
+function hydrate(l) {
+  return { ...l, contacted: contacted.has(l.id), pushed: pushed.has(l.id) };
+}
+
+function updateStats() {
+  const t = type => allLeads.filter(l => l.type === type).length;
+  document.getElementById('sTotal').textContent      = allLeads.length;
+  document.getElementById('sDelinquent').textContent = t('tax-delinquent');
+  document.getElementById('sForeclosure').textContent= t('tax-foreclosure');
+  document.getElementById('sProbate').textContent    = t('probate');
+  document.getElementById('sWarrant').textContent    = t('state-warrant');
+}
+
+// ══════════════════════════════════════════════════════
+// FILTER + SEARCH
+// ══════════════════════════════════════════════════════
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function handleSearch(q) { searchQ = q; render(); }
+
+function getFiltered() {
+  let leads = [...allLeads];
+  if (activeFilter === 'new-today') {
+    const today = new Date().toDateString();
+    leads = leads.filter(l => new Date(l.scrapedAt).toDateString() === today);
+  } else if (activeFilter === 'not-contacted') {
+    leads = leads.filter(l => !l.contacted);
+  } else if (activeFilter !== 'all') {
+    leads = leads.filter(l => l.type === activeFilter);
+  }
+  if (searchQ) {
+    const q = searchQ.toLowerCase();
+    leads = leads.filter(l =>
+      (l.owner||'').toLowerCase().includes(q) ||
+      (l.address||'').toLowerCase().includes(q) ||
+      (l.caseNumber||'').toLowerCase().includes(q)
+    );
+  }
+  return leads;
+}
+
+// ══════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════
+function render() {
+  const leads = getFiltered();
+  const grid  = document.getElementById('leadGrid');
+  if (!leads.length) {
+    grid.innerHTML = `<div class="empty">
+      <div class="empty-title">No leads match</div>
+      <div class="empty-sub">Adjust filters or refresh data</div>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = leads.map(card).join('');
+}
+
+const typeLabels = {
+  'tax-delinquent':  'TAX DELINQUENT',
+  'tax-foreclosure': 'TAX FORECLOSURE',
+  'probate':         'PROBATE',
+  'state-warrant':   'STATE WARRANT',
+  'attom':           'ATTOM LEAD',
+};
+
+function card(l) {
+  const label   = typeLabels[l.type] || l.type.toUpperCase();
+  const dateStr = fmtDate(l.filingDate || l.scrapedAt);
+  return `
+  <div class="lead-card ${l.type}${l.contacted?' contacted':''}" id="lc-${l.id}">
+    <div class="card-top">
+      <span class="type-badge ${l.type}">${label}</span>
+      <button class="contacted-btn${l.contacted?' on':''}" onclick="toggleContact('${l.id}')">
+        ${l.contacted ? '✓ CONTACTED' : 'MARK CONTACTED'}
+      </button>
+    </div>
+    <div class="owner">${l.owner || 'Unknown Owner'}</div>
+    <div class="address">${l.address || '—'}</div>
+    <div class="card-meta">
+      ${l.amount ? `<div><div class="meta-label">Amount Owed</div><div class="meta-val money">${l.amount}</div></div>` : ''}
+      <div><div class="meta-label">Date</div><div class="meta-val">${dateStr}</div></div>
+      ${l.caseNumber ? `<div><div class="meta-label">Case #</div><div class="meta-val">${l.caseNumber}</div></div>` : ''}
+      ${l.notes ? `<div style="grid-column:1/-1"><div class="meta-label">Notes</div><div class="meta-val">${l.notes}</div></div>` : ''}
+    </div>
+    <div class="card-actions">
+      <button class="btn-sms" onclick="openSMS('${l.id}')">📱 SEND TEXT</button>
+      <button class="btn-mon${l.pushed?' pushed':''}" onclick="pushMonday('${l.id}')" id="mon-${l.id}">
+        ${l.pushed ? '✓ PUSHED' : '📋 PUSH TO MONDAY'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+  catch { return d; }
+}
+
+// ══════════════════════════════════════════════════════
+// ACTIONS
+// ══════════════════════════════════════════════════════
+function toggleContact(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  l.contacted = !l.contacted;
+  if (l.contacted) contacted.add(id); else contacted.delete(id);
+  localStorage.setItem('intel_contacted', JSON.stringify([...contacted]));
+  render();
+}
+
+async function pushMonday(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  if (!CONFIG.zapierWebhook) { toast('Configure Zapier webhook in CONFIG first', 'err'); return; }
+
+  const btn = document.getElementById('mon-' + id);
+  btn.textContent = 'PUSHING...';
+  btn.disabled = true;
+
+  try {
+    await fetch(CONFIG.zapierWebhook, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:        l.owner || 'Unknown',
+        address:     l.address || '',
+        lead_type:   typeLabels[l.type] || l.type,
+        amount:      l.amount || '',
+        case_number: l.caseNumber || '',
+        filing_date: l.filingDate || '',
+        notes:       l.notes || '',
+        source:      'INTEL — Sedgwick County',
+        pushed_at:   new Date().toISOString(),
+      })
+    });
+    l.pushed = true;
+    pushed.add(id);
+    localStorage.setItem('intel_pushed', JSON.stringify([...pushed]));
+    btn.textContent = '✓ PUSHED';
+    btn.classList.add('pushed');
+    toast('Lead pushed to Monday.com ✓', 'ok');
+  } catch {
+    btn.textContent = '📋 PUSH TO MONDAY';
+    btn.disabled = false;
+    toast('Push failed — check webhook URL', 'err');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// SMS
+// ══════════════════════════════════════════════════════
+function openSMS(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  activeLead = l;
+  const first = (l.owner || 'there').split(' ')[0];
+  document.getElementById('smsName').value = l.owner || '';
+  document.getElementById('smsPhone').value = l.phone || '';
+  document.getElementById('smsMsg').value =
+    `Hi ${first}, this is [Name] with OneRoof. We purchase homes in Wichita and I came across your property at ${l.address}. If you've ever considered a cash offer with no hassle, I'd love a quick chat. Reply STOP to opt out.`;
+  countChars();
+  document.getElementById('smsOverlay').classList.add('open');
+}
+
+function closeOverlay(id) {
+  document.getElementById(id).classList.remove('open');
+  activeLead = null;
+}
+
+function countChars() {
+  const n = document.getElementById('smsMsg').value.length;
+  const el = document.getElementById('charCount');
+  el.textContent = n;
+  el.style.color = n > 160 ? '#ef4444' : n > 140 ? '#f59e0b' : '';
+}
+
+async function sendSMS() {
+  const phone = document.getElementById('smsPhone').value.replace(/\D/g,'');
+  const msg   = document.getElementById('smsMsg').value.trim();
+  if (phone.length < 10) { toast('Enter a valid phone number', 'err'); return; }
+  if (!msg)              { toast('Message cannot be empty', 'err'); return; }
+
+  try {
+    const res = await fetch('/.netlify/functions/send-sms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, message: msg, leadId: activeLead?.id })
+    });
+    const data = await res.json();
+    if (data.success) {
+      closeOverlay('smsOverlay');
+      toast('Text sent ✓', 'ok');
+    } else {
+      toast(data.error || 'Send failed', 'err');
+    }
+  } catch {
+    toast('SMS failed — check SlickText config', 'err');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════
+function toast(msg, type = 'ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══════════════════════════════════════════════════════
+// SAMPLE DATA (shown before first scraper run)
+// ══════════════════════════════════════════════════════
+function sampleLeads() {
+  const now = new Date().toISOString();
+  return [
+    { id:'s1', type:'tax-delinquent', owner:'JOHNSON ROBERT E', address:'2314 N Hydraulic Ave, Wichita KS 67219', amount:'$6,842.14', filingDate:'2022-01-01', scrapedAt:now, notes:'Real estate delinquent 3+ yrs' },
+    { id:'s2', type:'probate', owner:'Estate of MARTHA L WILLIAMS', address:'1847 S Grove St, Wichita KS 67211', amount:null, filingDate:now, scrapedAt:now, caseNumber:'2026-PR-000412', notes:'Probate hearing scheduled' },
+    { id:'s3', type:'tax-foreclosure', owner:'PATEL VIKRAM S', address:'934 W 13th St N, Wichita KS 67203', amount:'$11,204.00', filingDate:'2025-12-15', scrapedAt:now, notes:'Tax foreclosure auction — 30-day window' },
+    { id:'s4', type:'state-warrant', owner:'ANDERSON CAROL J', address:'3201 E Lincoln St, Wichita KS 67218', amount:'$3,155.22', filingDate:'2025-11-20', scrapedAt:now, caseNumber:'KS-W-2025-84421', notes:'State tax warrant via KDOR' },
+    { id:'s5', type:'tax-delinquent', owner:'TAYLOR JAMES D', address:'501 S Seneca St, Wichita KS 67213', amount:'$4,219.66', filingDate:'2022-01-01', scrapedAt:now, notes:'Real estate delinquent 3+ yrs' },
+    { id:'s6', type:'probate', owner:'Estate of DOROTHY M CLARK', address:'738 N Clifton Ave, Wichita KS 67208', amount:null, filingDate:now, scrapedAt:now, caseNumber:'2026-PR-000398', notes:'Property ownership under review' },
+    { id:'s7', type:'tax-delinquent', owner:'WASHINGTON LINDA K', address:'1120 N Mosley St, Wichita KS 67214', amount:'$8,901.33', filingDate:'2021-01-01', scrapedAt:now, notes:'Real estate delinquent 4+ yrs — high priority' },
+    { id:'s8', type:'state-warrant', owner:'GARCIA MIGUEL A', address:'2809 W 21st St N, Wichita KS 67204', amount:'$5,488.00', filingDate:'2025-09-10', scrapedAt:now, caseNumber:'KS-W-2025-71093', notes:'State tax warrant via KDOR' },
+  ];
+}
+</script>
+</body>
+</html>
