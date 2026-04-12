@@ -3,338 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INTEL — OneRoof Intelligence</title>
+  <title>INTEL — OneRoof</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07070f;
-      --surface: #0d0d1a;
-      --surface2: #121224;
-      --border: #1a1a2e;
-      --border2: #242440;
-      --accent: #f59e0b;
-      --text: #dde4f0;
-      --text-muted: #52526e;
-      --text-dim: #8888aa;
-      --tax-delinquent: #f59e0b;
-      --tax-foreclosure: #ef4444;
-      --probate: #a855f7;
-      --state-warrant: #f97316;
-      --attom: #3b82f6;
-      --green: #22c55e;
+      --bg:       #06060e;
+      --surface:  #0c0c1a;
+      --surface2: #111128;
+      --border:   #181830;
+      --border2:  #222244;
+      --accent:   #f59e0b;
+      --text:     #dde4f0;
+      --muted:    #44445a;
+      --dim:      #7777aa;
+      --green:    #22c55e;
+      --red:      #ef4444;
+      --purple:   #a855f7;
+      --orange:   #f97316;
+      --blue:     #3b82f6;
+      --c-td:     #f59e0b;
+      --c-tf:     #ef4444;
+      --c-pr:     #a855f7;
+      --c-sw:     #f97316;
+      --c-lp:     #3b82f6;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:var(--bg); color:var(--text); font-family:'JetBrains Mono',monospace; min-height:100vh; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;}
 
-    /* ── GATE ── */
-    #gate {
-      position:fixed; inset:0; background:var(--bg);
-      display:flex; align-items:center; justify-content:center; z-index:1000;
-    }
-    .gate-box {
-      width:380px; background:var(--surface);
-      border:1px solid var(--border2); padding:52px 48px;
-    }
-    .gate-logo {
-      font-family:'Syne',sans-serif; font-size:32px; font-weight:800;
-      letter-spacing:8px; color:var(--accent); margin-bottom:6px;
-    }
-    .gate-eyebrow {
-      font-size:9px; letter-spacing:3px; color:var(--text-muted);
-      text-transform:uppercase; margin-bottom:48px;
-    }
-    .gate-input {
-      width:100%; background:var(--bg); border:1px solid var(--border2);
-      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:14px;
-      padding:14px 16px; outline:none; margin-bottom:10px; transition:border-color .2s;
-    }
-    .gate-input:focus { border-color:var(--accent); }
-    .gate-btn {
-      width:100%; background:var(--accent); color:#000; border:none;
-      font-family:'Syne',sans-serif; font-weight:800; font-size:11px;
-      letter-spacing:4px; text-transform:uppercase; padding:15px; cursor:pointer;
-      transition:opacity .2s;
-    }
-    .gate-btn:hover { opacity:.85; }
-    .gate-error { color:#ef4444; font-size:10px; margin-top:10px; display:none; letter-spacing:1px; }
+    /* GATE */
+    #gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;flex-direction:column;gap:0;}
+    .gate-inner{width:360px;}
+    .gate-logo{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;letter-spacing:12px;color:var(--accent);line-height:1;}
+    .gate-sub{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:52px;margin-top:4px;}
+    .gate-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:18px;padding:12px 0;outline:none;letter-spacing:4px;transition:border-color .2s;}
+    .gate-input:focus{border-color:var(--accent);}
+    .gate-input::placeholder{color:var(--muted);font-size:11px;letter-spacing:2px;}
+    .gate-btn{width:100%;background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:5px;text-transform:uppercase;padding:16px;cursor:pointer;margin-top:20px;transition:opacity .2s;}
+    .gate-btn:hover{opacity:.85;}
+    .gate-err{color:var(--red);font-size:9px;margin-top:10px;letter-spacing:1px;display:none;}
 
-    /* ── APP ── */
-    #app { display:none; }
+    /* APP */
+    #app{display:none;}
 
-    /* ── HEADER ── */
-    .header {
-      border-bottom:1px solid var(--border); padding:0 32px;
-      display:flex; align-items:center; justify-content:space-between;
-      height:58px; position:sticky; top:0; background:var(--bg); z-index:100;
-    }
-    .header-left { display:flex; align-items:center; gap:20px; }
-    .logo { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; letter-spacing:6px; color:var(--accent); }
-    .logo-sub { font-size:9px; letter-spacing:2px; color:var(--text-muted); margin-top:1px; }
-    .live-pill {
-      display:flex; align-items:center; gap:6px; border:1px solid var(--border2);
-      padding:4px 10px; font-size:9px; letter-spacing:2px; color:var(--text-muted);
-    }
-    .live-dot { width:5px; height:5px; background:var(--green); border-radius:50%; animation:blink 2s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-    .header-right { display:flex; align-items:center; gap:12px; }
-    .last-updated { font-size:10px; color:var(--text-muted); }
-    .refresh-btn {
-      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px;
-      padding:6px 14px; cursor:pointer; transition:all .2s;
-    }
-    .refresh-btn:hover { border-color:var(--accent); color:var(--accent); }
+    /* HEADER */
+    .hdr{height:54px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;background:var(--bg);z-index:100;}
+    .hdr-left{display:flex;align-items:center;gap:16px;}
+    .logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:6px;color:var(--accent);}
+    .logo-sub{font-size:8px;letter-spacing:2px;color:var(--muted);}
+    .pulse{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:2px;color:var(--muted);border:1px solid var(--border2);padding:3px 10px;}
+    .pulse-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    .hdr-right{display:flex;align-items:center;gap:10px;}
+    .updated{font-size:9px;color:var(--muted);}
+    .btn-refresh{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 12px;cursor:pointer;transition:all .2s;}
+    .btn-refresh:hover{border-color:var(--accent);color:var(--accent);}
 
-    /* ── CONFIG BANNER ── */
-    .config-banner {
-      background:rgba(245,158,11,.07); border-bottom:1px solid rgba(245,158,11,.2);
-      padding:9px 32px; font-size:10px; color:var(--accent); letter-spacing:.5px; display:none;
-    }
-    .config-banner.show { display:block; }
+    /* COUNTY TABS */
+    .county-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 28px;gap:0;overflow-x:auto;}
+    .ctab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:12px 20px;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+    .ctab:hover{color:var(--text);}
+    .ctab.active{color:var(--accent);border-bottom-color:var(--accent);}
+    .ctab .cnt{background:var(--border2);color:var(--dim);font-size:8px;padding:2px 6px;border-radius:2px;}
+    .ctab.active .cnt{background:rgba(245,158,11,.15);color:var(--accent);}
+    .ctab.coming{opacity:.35;cursor:default;}
 
-    /* ── STATS ── */
-    .stats-bar { display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--border); }
-    .stat-item { padding:18px 28px; border-right:1px solid var(--border); }
-    .stat-item:last-child { border-right:none; }
-    .stat-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; }
-    .stat-num {
-      font-family:'Syne',sans-serif; font-size:34px; font-weight:800; line-height:1;
-      transition:all .3s;
-    }
-    .stat-num.amber { color:var(--tax-delinquent); }
-    .stat-num.red { color:var(--tax-foreclosure); }
-    .stat-num.purple { color:var(--probate); }
-    .stat-num.orange { color:var(--state-warrant); }
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border);}
+    .stat{padding:16px 24px;border-right:1px solid var(--border);}
+    .stat:last-child{border-right:none;}
+    .stat-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+    .stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;}
+    .stat-val.amber{color:var(--c-td);}
+    .stat-val.red{color:var(--c-tf);}
+    .stat-val.purple{color:var(--c-pr);}
+    .stat-val.orange{color:var(--c-sw);}
+    .stat-val.blue{color:var(--c-lp);}
 
-    /* ── FILTERS ── */
-    .filters {
-      padding:16px 32px; display:flex; align-items:center; gap:8px;
-      border-bottom:1px solid var(--border); flex-wrap:wrap;
-    }
-    .ftab {
-      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px;
-      padding:5px 14px; cursor:pointer; transition:all .2s; text-transform:uppercase;
-    }
-    .ftab:hover { border-color:var(--accent); color:var(--accent); }
-    .ftab.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight:600; }
-    .filter-search {
-      margin-left:auto; background:var(--surface); border:1px solid var(--border2);
-      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:11px;
-      padding:6px 14px; outline:none; width:260px; transition:border-color .2s;
-    }
-    .filter-search:focus { border-color:var(--accent); }
-    .filter-search::placeholder { color:var(--text-muted); }
+    /* FILTERS */
+    .filters{padding:12px 28px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+    .ftab{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.5px;padding:4px 12px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+    .ftab:hover{border-color:var(--accent);color:var(--accent);}
+    .ftab.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
+    .fsearch{margin-left:auto;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 12px;outline:none;width:240px;transition:border-color .2s;}
+    .fsearch:focus{border-color:var(--accent);}
+    .fsearch::placeholder{color:var(--muted);}
+    .sort-wrap{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--muted);letter-spacing:1px;}
+    .sort-select{background:var(--surface);border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:8px;padding:4px 8px;outline:none;cursor:pointer;}
 
-    /* ── GRID ── */
-    .lead-grid {
-      padding:24px 32px;
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:14px;
-    }
+    /* LEAD TABLE */
+    .lead-wrap{padding:20px 28px;}
+    .lead-table{width:100%;border-collapse:collapse;}
+    .lead-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;font-weight:400;border-bottom:1px solid var(--border);}
+    .lead-table th:first-child{padding-left:0;}
+    .lead-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+    .lead-row:hover{background:var(--surface);}
+    .lead-row.contacted{opacity:.4;}
+    .lead-row td{padding:12px;vertical-align:middle;font-size:11px;}
+    .lead-row td:first-child{padding-left:0;}
 
-    /* ── LEAD CARD ── */
-    .lead-card {
-      background:var(--surface); border:1px solid var(--border);
-      padding:18px 20px; transition:border-color .2s; position:relative; overflow:hidden;
-    }
-    .lead-card:hover { border-color:var(--border2); }
-    .lead-card::before {
-      content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-    }
-    .lead-card.tax-delinquent::before { background:var(--tax-delinquent); }
-    .lead-card.tax-foreclosure::before { background:var(--tax-foreclosure); }
-    .lead-card.probate::before { background:var(--probate); }
-    .lead-card.state-warrant::before { background:var(--state-warrant); }
-    .lead-card.attom::before { background:var(--attom); }
-    .lead-card.contacted { opacity:.45; }
+    /* Score badge */
+    .score-badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;border:2px solid;}
+    .score-hot{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.08);}
+    .score-warm{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.08);}
+    .score-cool{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,.08);}
+    .score-cold{border-color:var(--border2);color:var(--muted);background:transparent;}
 
-    .card-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
-    .type-badge {
-      font-size:8px; letter-spacing:2px; text-transform:uppercase;
-      padding:3px 8px; font-weight:600;
-    }
-    .type-badge.tax-delinquent { background:rgba(245,158,11,.12); color:var(--tax-delinquent); }
-    .type-badge.tax-foreclosure { background:rgba(239,68,68,.12); color:var(--tax-foreclosure); }
-    .type-badge.probate { background:rgba(168,85,247,.12); color:var(--probate); }
-    .type-badge.state-warrant { background:rgba(249,115,22,.12); color:var(--state-warrant); }
-    .type-badge.attom { background:rgba(59,130,246,.12); color:var(--attom); }
+    /* Type badge */
+    .type-badge{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;font-weight:600;white-space:nowrap;}
+    .type-badge.tax-delinquent{background:rgba(245,158,11,.1);color:var(--c-td);}
+    .type-badge.tax-foreclosure{background:rgba(239,68,68,.1);color:var(--c-tf);}
+    .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
+    .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
+    .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
 
-    .contacted-btn {
-      background:transparent; border:1px solid var(--border2); color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:1px;
-      padding:3px 8px; cursor:pointer; transition:all .2s;
-    }
-    .contacted-btn.on { background:rgba(34,197,94,.1); border-color:var(--green); color:var(--green); }
+    /* Signal dots */
+    .signals{display:flex;gap:4px;align-items:center;}
+    .sig-dot{width:8px;height:8px;border-radius:50%;}
+    .sig-dot.td{background:var(--c-td);}
+    .sig-dot.tf{background:var(--c-tf);}
+    .sig-dot.pr{background:var(--c-pr);}
+    .sig-dot.sw{background:var(--c-sw);}
+    .sig-dot.lp{background:var(--c-lp);}
+    .sig-dot.off{background:var(--border2);}
 
-    .owner { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:3px; }
-    .address { font-size:10px; color:var(--text-dim); margin-bottom:14px; line-height:1.6; }
+    /* Owner / address */
+    .owner-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:2px;}
+    .owner-addr{font-size:9px;color:var(--dim);line-height:1.5;}
 
-    .card-meta { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
-    .meta-label { font-size:8px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:3px; }
-    .meta-val { font-size:11px; color:var(--text-dim); }
-    .meta-val.money { color:var(--accent); font-weight:600; }
+    /* Amount */
+    .amount-val{color:var(--accent);font-weight:600;font-size:12px;}
+    .amount-nil{color:var(--muted);font-size:10px;}
 
-    .card-actions { display:flex; gap:8px; }
-    .btn-sms, .btn-mon {
-      flex:1; background:transparent; border:1px solid var(--border2); color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1px;
-      padding:8px; cursor:pointer; transition:all .2s; text-transform:uppercase;
-    }
-    .btn-sms:hover { border-color:#3b82f6; color:#3b82f6; background:rgba(59,130,246,.06); }
-    .btn-mon:hover { border-color:var(--green); color:var(--green); background:rgba(34,197,94,.06); }
-    .btn-mon.pushed { border-color:var(--green); color:var(--green); background:rgba(34,197,94,.06); }
+    /* Phone cell */
+    .phone-val{color:var(--green);font-size:11px;}
+    .phone-nil{color:var(--muted);font-size:9px;letter-spacing:.5px;}
 
-    /* ── EMPTY / LOADING ── */
-    .empty { grid-column:1/-1; text-align:center; padding:80px 0; color:var(--text-muted); }
-    .empty-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:6px; }
-    .empty-sub { font-size:10px; letter-spacing:1px; }
+    /* Action buttons */
+    .actions{display:flex;gap:6px;align-items:center;}
+    .btn-st,.btn-sms,.btn-mon,.btn-contacted{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st{color:var(--dim);}
+    .btn-st:hover{border-color:var(--accent);color:var(--accent);}
+    .btn-st.loading{color:var(--muted);cursor:wait;}
+    .btn-st.done{border-color:var(--green);color:var(--green);cursor:default;}
+    .btn-sms{color:var(--dim);}
+    .btn-sms:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
+    .btn-sms:disabled{opacity:.3;cursor:not-allowed;}
+    .btn-mon{color:var(--dim);}
+    .btn-mon:hover{border-color:var(--green);color:var(--green);}
+    .btn-mon.pushed{border-color:var(--green);color:var(--green);}
+    .btn-contacted{color:var(--dim);}
+    .btn-contacted.on{border-color:var(--green);color:var(--green);}
 
-    /* ── MODAL ── */
-    .overlay {
-      position:fixed; inset:0; background:rgba(0,0,0,.85);
-      display:none; align-items:center; justify-content:center; z-index:500;
-    }
-    .overlay.open { display:flex; }
-    .modal {
-      background:var(--surface); border:1px solid var(--border2);
-      width:500px; padding:36px; animation:slideUp .25s ease;
-    }
-    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
-    .modal-title {
-      font-family:'Syne',sans-serif; font-size:14px; font-weight:700;
-      letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:24px;
-    }
-    .modal-field { margin-bottom:14px; }
-    .modal-lbl { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:5px; display:block; }
-    .modal-input, .modal-ta {
-      width:100%; background:var(--bg); border:1px solid var(--border2);
-      color:var(--text); font-family:'JetBrains Mono',monospace; font-size:13px;
-      padding:10px 14px; outline:none; transition:border-color .2s;
-    }
-    .modal-ta { resize:vertical; min-height:110px; line-height:1.6; }
-    .modal-input:focus, .modal-ta:focus { border-color:var(--accent); }
-    .char-count { font-size:9px; color:var(--text-muted); text-align:right; margin-top:4px; }
-    .modal-actions { display:flex; gap:10px; margin-top:24px; }
-    .btn-cancel {
-      flex:1; background:transparent; border:1px solid var(--border2); color:var(--text-muted);
-      font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px; padding:12px; cursor:pointer;
-    }
-    .btn-send {
-      flex:2; background:var(--accent); border:none; color:#000;
-      font-family:'Syne',sans-serif; font-weight:800; font-size:11px;
-      letter-spacing:3px; text-transform:uppercase; padding:12px; cursor:pointer; transition:opacity .2s;
-    }
-    .btn-send:hover { opacity:.85; }
+    /* EMPTY */
+    .empty-state{text-align:center;padding:80px 0;color:var(--muted);}
+    .empty-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:2px;}
+    .empty-sub{font-size:9px;letter-spacing:1px;}
 
-    /* ── TOAST ── */
-    .toast {
-      position:fixed; bottom:28px; right:28px; background:var(--surface2);
-      border:1px solid var(--border2); padding:12px 18px; font-size:11px;
-      letter-spacing:.5px; transform:translateY(16px); opacity:0;
-      transition:all .3s; z-index:999;
-    }
-    .toast.show { transform:translateY(0); opacity:1; }
-    .toast.ok { border-color:var(--green); color:var(--green); }
-    .toast.err { border-color:#ef4444; color:#ef4444; }
+    /* SMS MODAL */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:500;}
+    .overlay.open{display:flex;}
+    .modal{background:var(--surface);border:1px solid var(--border2);width:480px;padding:32px;animation:up .2s ease;}
+    @keyframes up{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+    .mfield{margin-bottom:12px;}
+    .mlbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;display:block;}
+    .minput,.mta{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:9px 12px;outline:none;transition:border-color .2s;}
+    .mta{resize:vertical;min-height:100px;line-height:1.6;}
+    .minput:focus,.mta:focus{border-color:var(--accent);}
+    .chars{font-size:8px;color:var(--muted);text-align:right;margin-top:3px;}
+    .mactions{display:flex;gap:8px;margin-top:20px;}
+    .btn-cancel{flex:1;background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:10px;cursor:pointer;}
+    .btn-send{flex:2;background:var(--accent);border:none;color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:10px;letter-spacing:4px;text-transform:uppercase;padding:10px;cursor:pointer;transition:opacity .2s;}
+    .btn-send:hover{opacity:.85;}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);padding:10px 16px;font-size:10px;letter-spacing:.5px;transform:translateY(12px);opacity:0;transition:all .25s;z-index:999;}
+    .toast.show{transform:translateY(0);opacity:1;}
+    .toast.ok{border-color:var(--green);color:var(--green);}
+    .toast.err{border-color:var(--red);color:var(--red);}
+
+    /* ATTOM placeholder tab notice */
+    .attom-notice{padding:60px;text-align:center;color:var(--muted);}
+    .attom-notice h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--blue);margin-bottom:8px;letter-spacing:2px;}
+    .attom-notice p{font-size:10px;letter-spacing:1px;line-height:1.8;}
   </style>
 </head>
 <body>
 
-<!-- ── GATE ── -->
+<!-- GATE -->
 <div id="gate">
-  <div class="gate-box">
+  <div class="gate-inner">
     <div class="gate-logo">INTEL</div>
-    <div class="gate-eyebrow">OneRoof · County Intelligence Platform</div>
-    <input type="password" class="gate-input" id="gateInput" placeholder="Access code" />
+    <div class="gate-sub">OneRoof · County Intelligence</div>
+    <input type="password" class="gate-input" id="gPwd" placeholder="access code" />
     <button class="gate-btn" onclick="unlock()">ENTER</button>
-    <div class="gate-error" id="gateError">Access denied.</div>
+    <div class="gate-err" id="gErr">Access denied.</div>
   </div>
 </div>
 
-<!-- ── APP ── -->
+<!-- APP -->
 <div id="app">
-
-  <div class="config-banner" id="cfgBanner">
-    ⚠ &nbsp;Zapier webhook and/or SlickText API key not configured — lead actions disabled. Edit CONFIG in index.html.
-  </div>
-
-  <header class="header">
-    <div class="header-left">
+  <header class="hdr">
+    <div class="hdr-left">
       <div>
         <div class="logo">INTEL</div>
-        <div class="logo-sub">SEDGWICK COUNTY · LEAD INTELLIGENCE</div>
+        <div class="logo-sub">LEAD INTELLIGENCE PLATFORM</div>
       </div>
-      <div class="live-pill">
-        <div class="live-dot"></div>
-        <span>LIVE DATA</span>
-      </div>
+      <div class="pulse"><div class="pulse-dot"></div>LIVE</div>
     </div>
-    <div class="header-right">
-      <span class="last-updated" id="lastUpdated">—</span>
-      <button class="refresh-btn" onclick="loadLeads()">↻ REFRESH</button>
+    <div class="hdr-right">
+      <span class="updated" id="updatedAt">—</span>
+      <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
     </div>
   </header>
 
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-label">Total Leads</div>
-      <div class="stat-num" id="sTotal">—</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Tax Delinquent</div>
-      <div class="stat-num amber" id="sDelinquent">—</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Tax Foreclosure</div>
-      <div class="stat-num red" id="sForeclosure">—</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Probate</div>
-      <div class="stat-num purple" id="sProbate">—</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">State Warrant</div>
-      <div class="stat-num orange" id="sWarrant">—</div>
-    </div>
+  <!-- COUNTY TABS -->
+  <div class="county-tabs">
+    <button class="ctab active" onclick="setCounty('sedgwick',this)">
+      Sedgwick <span class="cnt" id="cnt-sedgwick">0</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Harris <span class="cnt">—</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Clark <span class="cnt">—</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Shelby <span class="cnt">—</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Maricopa <span class="cnt">—</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Tarrant <span class="cnt">—</span>
+    </button>
+    <button class="ctab coming" title="Coming soon">
+      Dallas <span class="cnt">—</span>
+    </button>
+    <button class="ctab" onclick="setCounty('attom',this)" style="margin-left:auto;border-left:1px solid var(--border);">
+      ATTOM Feed <span class="cnt" id="cnt-attom" style="background:rgba(59,130,246,.15);color:var(--blue);">PENDING</span>
+    </button>
   </div>
 
+  <!-- STATS BAR -->
+  <div class="stats" id="statsBar">
+    <div class="stat"><div class="stat-lbl">Total Leads</div><div class="stat-val" id="sTotal">—</div></div>
+    <div class="stat"><div class="stat-lbl">Tax Delinquent</div><div class="stat-val amber" id="sTD">—</div></div>
+    <div class="stat"><div class="stat-lbl">Tax Foreclosure</div><div class="stat-val red" id="sTF">—</div></div>
+    <div class="stat"><div class="stat-lbl">Probate</div><div class="stat-val purple" id="sPR">—</div></div>
+    <div class="stat"><div class="stat-lbl">State Warrant</div><div class="stat-val orange" id="sSW">—</div></div>
+    <div class="stat"><div class="stat-lbl">Hot (Score 60+)</div><div class="stat-val" style="color:var(--red)" id="sHot">—</div></div>
+  </div>
+
+  <!-- FILTERS -->
   <div class="filters">
     <button class="ftab active" onclick="setFilter('all',this)">All</button>
     <button class="ftab" onclick="setFilter('tax-delinquent',this)">Tax Delinquent</button>
     <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
     <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
+    <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
     <button class="ftab" onclick="setFilter('new-today',this)">New Today</button>
     <button class="ftab" onclick="setFilter('not-contacted',this)">Not Contacted</button>
-    <input class="filter-search" type="text" placeholder="Search name or address..." oninput="handleSearch(this.value)" />
+    <div class="sort-wrap">
+      SORT
+      <select class="sort-select" onchange="setSort(this.value)">
+        <option value="score">Score ↓</option>
+        <option value="date">Date ↓</option>
+        <option value="amount">Amount ↓</option>
+      </select>
+    </div>
+    <input class="fsearch" type="text" placeholder="Search name or address..." oninput="handleSearch(this.value)" />
   </div>
 
-  <div class="lead-grid" id="leadGrid">
-    <div class="empty"><div class="empty-title">Loading...</div></div>
+  <!-- LEAD TABLE -->
+  <div class="lead-wrap" id="leadWrap">
+    <table class="lead-table">
+      <thead>
+        <tr>
+          <th style="width:50px">SCORE</th>
+          <th style="width:100px">TYPE</th>
+          <th>OWNER / ADDRESS</th>
+          <th style="width:80px">SIGNALS</th>
+          <th style="width:110px">AMT OWED</th>
+          <th style="width:90px">DATE</th>
+          <th style="width:130px">PHONE</th>
+          <th style="width:260px">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="leadBody"></tbody>
+    </table>
+    <div id="emptyState" class="empty-state" style="display:none">
+      <div class="empty-title">No leads match</div>
+      <div class="empty-sub">Adjust filters or refresh data</div>
+    </div>
   </div>
 
+  <!-- ATTOM PLACEHOLDER -->
+  <div id="attomPanel" class="attom-notice" style="display:none">
+    <h3>ATTOM FEED — PENDING</h3>
+    <p>Pre-Foreclosure endpoint subscription is being activated.<br>
+    Once confirmed, this tab will populate with:<br><br>
+    Lis Pendens · Mortgage Foreclosures · REOs · Notice of Sale<br><br>
+    Daily refresh · All 7 counties</p>
+  </div>
 </div>
 
-<!-- ── SMS MODAL ── -->
+<!-- SMS MODAL -->
 <div class="overlay" id="smsOverlay">
   <div class="modal">
-    <div class="modal-title">📱 Send Text Message</div>
-    <div class="modal-field">
-      <label class="modal-lbl">Lead</label>
-      <input class="modal-input" id="smsName" readonly />
+    <div class="modal-title">📱 Send Text</div>
+    <div class="mfield">
+      <label class="mlbl">To</label>
+      <input class="minput" id="smsName" readonly />
     </div>
-    <div class="modal-field">
-      <label class="modal-lbl">Phone Number</label>
-      <input class="modal-input" id="smsPhone" placeholder="(316) 555-0000" />
+    <div class="mfield">
+      <label class="mlbl">Phone</label>
+      <input class="minput" id="smsPhone" placeholder="(316) 555-0000" />
     </div>
-    <div class="modal-field">
-      <label class="modal-lbl">Message</label>
-      <textarea class="modal-ta" id="smsMsg" oninput="countChars()"></textarea>
-      <div class="char-count"><span id="charCount">0</span>/160 chars</div>
+    <div class="mfield">
+      <label class="mlbl">Message</label>
+      <textarea class="mta" id="smsMsg" oninput="countChars()"></textarea>
+      <div class="chars"><span id="charCount">0</span>/160</div>
     </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeOverlay('smsOverlay')">Cancel</button>
+    <div class="mactions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-send" onclick="sendSMS()">SEND TEXT</button>
     </div>
   </div>
@@ -343,94 +337,165 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════
-// CONFIG — edit these before deploying
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
 const CONFIG = {
-  password:       'dispo3020$',   // 
-  zapierWebhook:  'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
-  slickApiKey:    '40713e485851eaf3f7efbbc71b25092e73d83356ba589a0cc8022e6519926f7ab14699',            
-  slickAccount:   'b14699',            
-  dataUrl:        '/data/leads.json',
+  password:      'OneRoof2025',
+  zapierWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
+  dataUrl:       '/data/leads.json',
 };
 
-// ══════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════
-let allLeads = [];
-let activeFilter = 'all';
-let searchQ = '';
-let activeLead = null;
-let contacted = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
-let pushed    = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
+// ═══════════════════════════════════════════════════════════
+// SCORING ENGINE
+// ═══════════════════════════════════════════════════════════
+const WEIGHTS = {
+  'tax-delinquent':  20,
+  'tax-foreclosure': 35,
+  'probate':         25,
+  'state-warrant':   20,
+  'lis-pendens':     30,
+};
 
-// ══════════════════════════════════════════════════════
+function scoreSignals(signals) {
+  let score = 0;
+  const active = signals.filter(s => s.active);
+  active.forEach(s => { score += WEIGHTS[s.type] || 0; });
+  if (active.length >= 2) score += 15; // stacking bonus
+  if (active.length >= 3) score += 10;
+  return Math.min(score, 100);
+}
+
+function computeScore(lead) {
+  // Build signal array from available data
+  const signals = [
+    { type: 'tax-delinquent',  active: lead.type === 'tax-delinquent' },
+    { type: 'tax-foreclosure', active: lead.type === 'tax-foreclosure' },
+    { type: 'probate',         active: lead.type === 'probate' },
+    { type: 'state-warrant',   active: lead.type === 'state-warrant' },
+    { type: 'lis-pendens',     active: lead.type === 'lis-pendens' },
+  ];
+  // If lead has stackedSignals from ATTOM, use those too
+  if (lead.stackedSignals) {
+    lead.stackedSignals.forEach(s => {
+      const existing = signals.find(x => x.type === s);
+      if (existing) existing.active = true;
+    });
+  }
+  return scoreSignals(signals);
+}
+
+function scoreClass(s) {
+  if (s >= 60) return 'score-hot';
+  if (s >= 40) return 'score-warm';
+  if (s >= 20) return 'score-cool';
+  return 'score-cold';
+}
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+let allLeads   = [];
+let activeFilter = 'all';
+let activeCounty = 'sedgwick';
+let sortBy     = 'score';
+let searchQ    = '';
+let activeLead = null;
+let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
+let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
+let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
+
+// ═══════════════════════════════════════════════════════════
 // AUTH
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 function unlock() {
-  const val = document.getElementById('gateInput').value;
-  if (val === CONFIG.password) {
+  if (document.getElementById('gPwd').value === CONFIG.password) {
     localStorage.setItem('intel_auth', btoa(CONFIG.password));
     boot();
   } else {
-    document.getElementById('gateError').style.display = 'block';
-    document.getElementById('gateInput').style.borderColor = '#ef4444';
+    document.getElementById('gErr').style.display = 'block';
   }
 }
-document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key==='Enter') unlock(); });
-
+document.getElementById('gPwd').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
 if (localStorage.getItem('intel_auth') === btoa(CONFIG.password)) boot();
 
 function boot() {
   document.getElementById('gate').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  if (!CONFIG.zapierWebhook || !CONFIG.slickApiKey) {
-    document.getElementById('cfgBanner').classList.add('show');
-  }
+  document.getElementById('app').style.display  = 'block';
   loadLeads();
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // DATA
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 async function loadLeads() {
-  document.getElementById('leadGrid').innerHTML =
-    '<div class="empty"><div class="empty-title" style="letter-spacing:3px;font-size:13px">SCANNING COUNTY RECORDS...</div></div>';
+  setLoading(true);
   try {
     const res = await fetch(CONFIG.dataUrl + '?v=' + Date.now());
     if (!res.ok) throw new Error('no data');
     const data = await res.json();
-    allLeads = (data.leads || []).map(hydrate);
+    allLeads = (data.leads || []).map(l => ({
+      ...l,
+      score:     computeScore(l),
+      contacted: contacted.has(l.id),
+      pushed:    pushed.has(l.id),
+      phone:     phones[l.id] || l.phone || null,
+    }));
     if (data.lastUpdated) {
       const d = new Date(data.lastUpdated);
-      document.getElementById('lastUpdated').textContent =
+      document.getElementById('updatedAt').textContent =
         'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
-        ' at ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+        ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
     }
   } catch {
-    allLeads = sampleLeads().map(hydrate);
-    document.getElementById('lastUpdated').textContent = 'Sample data — scraper pending';
+    allLeads = sampleLeads().map(l => ({
+      ...l,
+      score:     computeScore(l),
+      contacted: contacted.has(l.id),
+      pushed:    pushed.has(l.id),
+      phone:     phones[l.id] || null,
+    }));
+    document.getElementById('updatedAt').textContent = 'Sample data — scraper pending';
   }
   updateStats();
   render();
+  setLoading(false);
 }
 
-function hydrate(l) {
-  return { ...l, contacted: contacted.has(l.id), pushed: pushed.has(l.id) };
+function setLoading(on) {
+  if (on) document.getElementById('leadBody').innerHTML =
+    '<tr><td colspan="8" style="text-align:center;padding:60px;color:var(--muted);font-size:10px;letter-spacing:3px;">SCANNING COUNTY RECORDS...</td></tr>';
 }
 
+// ═══════════════════════════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════════════════════════
 function updateStats() {
   const t = type => allLeads.filter(l => l.type === type).length;
-  document.getElementById('sTotal').textContent      = allLeads.length;
-  document.getElementById('sDelinquent').textContent = t('tax-delinquent');
-  document.getElementById('sForeclosure').textContent= t('tax-foreclosure');
-  document.getElementById('sProbate').textContent    = t('probate');
-  document.getElementById('sWarrant').textContent    = t('state-warrant');
+  document.getElementById('sTotal').textContent = allLeads.length;
+  document.getElementById('sTD').textContent    = t('tax-delinquent');
+  document.getElementById('sTF').textContent    = t('tax-foreclosure');
+  document.getElementById('sPR').textContent    = t('probate');
+  document.getElementById('sSW').textContent    = t('state-warrant');
+  document.getElementById('sHot').textContent   = allLeads.filter(l => l.score >= 60).length;
+  document.getElementById('cnt-sedgwick').textContent = allLeads.length;
 }
 
-// ══════════════════════════════════════════════════════
-// FILTER + SEARCH
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// COUNTY / FILTER / SORT
+// ═══════════════════════════════════════════════════════════
+function setCounty(county, el) {
+  if (el.classList.contains('coming')) return;
+  activeCounty = county;
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  const isAttom = county === 'attom';
+  document.getElementById('statsBar').style.display   = isAttom ? 'none' : '';
+  document.getElementById('leadWrap').style.display   = isAttom ? 'none' : '';
+  document.getElementById('attomPanel').style.display = isAttom ? 'block' : 'none';
+}
+
 function setFilter(f, el) {
   activeFilter = f;
   document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
@@ -439,17 +504,18 @@ function setFilter(f, el) {
 }
 
 function handleSearch(q) { searchQ = q; render(); }
+function setSort(s)       { sortBy  = s; render(); }
 
 function getFiltered() {
   let leads = [...allLeads];
-  if (activeFilter === 'new-today') {
+  if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
+  else if (activeFilter === 'new-today') {
     const today = new Date().toDateString();
     leads = leads.filter(l => new Date(l.scrapedAt).toDateString() === today);
-  } else if (activeFilter === 'not-contacted') {
-    leads = leads.filter(l => !l.contacted);
-  } else if (activeFilter !== 'all') {
-    leads = leads.filter(l => l.type === activeFilter);
   }
+  else if (activeFilter === 'not-contacted') leads = leads.filter(l => !l.contacted);
+  else if (activeFilter !== 'all')      leads = leads.filter(l => l.type === activeFilter);
+
   if (searchQ) {
     const q = searchQ.toLowerCase();
     leads = leads.filter(l =>
@@ -458,59 +524,102 @@ function getFiltered() {
       (l.caseNumber||'').toLowerCase().includes(q)
     );
   }
+
+  leads.sort((a,b) => {
+    if (sortBy === 'score')  return b.score - a.score;
+    if (sortBy === 'amount') return (parseFloat((b.amount||'0').replace(/[^0-9.]/g,''))||0) -
+                                    (parseFloat((a.amount||'0').replace(/[^0-9.]/g,''))||0);
+    if (sortBy === 'date')   return new Date(b.scrapedAt) - new Date(a.scrapedAt);
+    return 0;
+  });
+
   return leads;
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // RENDER
-// ══════════════════════════════════════════════════════
-function render() {
-  const leads = getFiltered();
-  const grid  = document.getElementById('leadGrid');
-  if (!leads.length) {
-    grid.innerHTML = `<div class="empty">
-      <div class="empty-title">No leads match</div>
-      <div class="empty-sub">Adjust filters or refresh data</div>
-    </div>`;
-    return;
-  }
-  grid.innerHTML = leads.map(card).join('');
-}
-
-const typeLabels = {
+// ═══════════════════════════════════════════════════════════
+const TYPE_LABELS = {
   'tax-delinquent':  'TAX DELINQUENT',
   'tax-foreclosure': 'TAX FORECLOSURE',
   'probate':         'PROBATE',
   'state-warrant':   'STATE WARRANT',
-  'attom':           'ATTOM LEAD',
+  'lis-pendens':     'LIS PENDENS',
 };
 
-function card(l) {
-  const label   = typeLabels[l.type] || l.type.toUpperCase();
-  const dateStr = fmtDate(l.filingDate || l.scrapedAt);
-  return `
-  <div class="lead-card ${l.type}${l.contacted?' contacted':''}" id="lc-${l.id}">
-    <div class="card-top">
-      <span class="type-badge ${l.type}">${label}</span>
-      <button class="contacted-btn${l.contacted?' on':''}" onclick="toggleContact('${l.id}')">
-        ${l.contacted ? '✓ CONTACTED' : 'MARK CONTACTED'}
-      </button>
-    </div>
-    <div class="owner">${l.owner || 'Unknown Owner'}</div>
-    <div class="address">${l.address || '—'}</div>
-    <div class="card-meta">
-      ${l.amount ? `<div><div class="meta-label">Amount Owed</div><div class="meta-val money">${l.amount}</div></div>` : ''}
-      <div><div class="meta-label">Date</div><div class="meta-val">${dateStr}</div></div>
-      ${l.caseNumber ? `<div><div class="meta-label">Case #</div><div class="meta-val">${l.caseNumber}</div></div>` : ''}
-      ${l.notes ? `<div style="grid-column:1/-1"><div class="meta-label">Notes</div><div class="meta-val">${l.notes}</div></div>` : ''}
-    </div>
-    <div class="card-actions">
-      <button class="btn-sms" onclick="openSMS('${l.id}')">📱 SEND TEXT</button>
-      <button class="btn-mon${l.pushed?' pushed':''}" onclick="pushMonday('${l.id}')" id="mon-${l.id}">
-        ${l.pushed ? '✓ PUSHED' : '📋 PUSH TO MONDAY'}
-      </button>
-    </div>
-  </div>`;
+function render() {
+  const leads = getFiltered();
+  const body  = document.getElementById('leadBody');
+  const empty = document.getElementById('emptyState');
+
+  if (!leads.length) {
+    body.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  body.innerHTML = leads.map(row).join('');
+}
+
+function row(l) {
+  const sc    = l.score;
+  const scCls = scoreClass(sc);
+  const lbl   = TYPE_LABELS[l.type] || l.type.toUpperCase();
+  const date  = fmtDate(l.filingDate || l.scrapedAt);
+  const hasPhone = !!l.phone;
+
+  const dots = [
+    { cls: 'td', active: l.type==='tax-delinquent'  || (l.stackedSignals||[]).includes('tax-delinquent')  },
+    { cls: 'tf', active: l.type==='tax-foreclosure' || (l.stackedSignals||[]).includes('tax-foreclosure') },
+    { cls: 'pr', active: l.type==='probate'         || (l.stackedSignals||[]).includes('probate')         },
+    { cls: 'sw', active: l.type==='state-warrant'   || (l.stackedSignals||[]).includes('state-warrant')   },
+    { cls: 'lp', active: l.type==='lis-pendens'     || (l.stackedSignals||[]).includes('lis-pendens')     },
+  ];
+
+  return `<tr class="lead-row${l.contacted?' contacted':''}" id="lr-${l.id}">
+    <td>
+      <div class="score-badge ${scCls}">${sc}</div>
+    </td>
+    <td><span class="type-badge ${l.type}">${lbl}</span></td>
+    <td>
+      <div class="owner-name">${l.owner||'Unknown'}</div>
+      <div class="owner-addr">${l.address||'—'}</div>
+      ${l.caseNumber ? `<div style="font-size:8px;color:var(--muted);margin-top:2px">Case: ${l.caseNumber}</div>` : ''}
+    </td>
+    <td>
+      <div class="signals">
+        ${dots.map(d=>`<div class="sig-dot ${d.cls}${d.active?'':' off'}" title="${d.cls.toUpperCase()}"></div>`).join('')}
+      </div>
+    </td>
+    <td>
+      ${l.amount
+        ? `<span class="amount-val">${l.amount}</span>`
+        : `<span class="amount-nil">—</span>`}
+    </td>
+    <td style="font-size:9px;color:var(--dim)">${date}</td>
+    <td>
+      ${hasPhone
+        ? `<span class="phone-val">${l.phone}</span>`
+        : `<span class="phone-nil">NOT TRACED</span>`}
+    </td>
+    <td>
+      <div class="actions">
+        <button class="btn-st${l.phone?' done':''}" id="st-${l.id}"
+          onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
+          ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
+        </button>
+        <button class="btn-sms" onclick="openSMS('${l.id}')" ${!hasPhone?'disabled':''}>
+          📱 TEXT
+        </button>
+        <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
+          ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
+        </button>
+        <button class="btn-contacted${l.contacted?' on':''}" onclick="toggleContacted('${l.id}')">
+          ${l.contacted ? '✓' : '○'}
+        </button>
+      </div>
+    </td>
+  </tr>`;
 }
 
 function fmtDate(d) {
@@ -519,39 +628,79 @@ function fmtDate(d) {
   catch { return d; }
 }
 
-// ══════════════════════════════════════════════════════
-// ACTIONS
-// ══════════════════════════════════════════════════════
-function toggleContact(id) {
+// ═══════════════════════════════════════════════════════════
+// SKIP TRACE
+// ═══════════════════════════════════════════════════════════
+async function skipTrace(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l) return;
-  l.contacted = !l.contacted;
-  if (l.contacted) contacted.add(id); else contacted.delete(id);
-  localStorage.setItem('intel_contacted', JSON.stringify([...contacted]));
-  render();
+
+  const btn = document.getElementById(`st-${l.id}`);
+  btn.textContent = 'TRACING...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/.netlify/functions/skip-trace', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        owner:   l.owner,
+        address: l.address,
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.phone) {
+      l.phone = data.phone;
+      phones[l.id] = data.phone;
+      localStorage.setItem('intel_phones', JSON.stringify(phones));
+      btn.textContent = '✓ TRACED';
+      btn.classList.remove('loading');
+      btn.classList.add('done');
+      // Update row phone cell + enable SMS button
+      render();
+      toast('Skip trace complete — phone number found ✓', 'ok');
+    } else {
+      btn.textContent = '⚡ SKIP TRACE';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      toast('No phone found — try manual lookup', 'err');
+    }
+  } catch(e) {
+    btn.textContent = '⚡ SKIP TRACE';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    toast('Skip trace failed — check BatchData config', 'err');
+  }
 }
 
+// ═══════════════════════════════════════════════════════════
+// MONDAY PUSH
+// ═══════════════════════════════════════════════════════════
 async function pushMonday(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l) return;
-  if (!CONFIG.zapierWebhook) { toast('Configure Zapier webhook in CONFIG first', 'err'); return; }
 
-  const btn = document.getElementById('mon-' + id);
+  const btn = document.getElementById(`mon-${l.id}`);
   btn.textContent = 'PUSHING...';
-  btn.disabled = true;
+  btn.disabled    = true;
 
   try {
     await fetch(CONFIG.zapierWebhook, {
       method: 'POST',
-      mode: 'no-cors',
+      mode:   'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name:        l.owner || 'Unknown',
         address:     l.address || '',
-        lead_type:   typeLabels[l.type] || l.type,
+        lead_type:   TYPE_LABELS[l.type] || l.type,
         amount:      l.amount || '',
         case_number: l.caseNumber || '',
         filing_date: l.filingDate || '',
+        score:       l.score,
+        phone:       l.phone || '',
         notes:       l.notes || '',
         source:      'INTEL — Sedgwick County',
         pushed_at:   new Date().toISOString(),
@@ -560,34 +709,46 @@ async function pushMonday(id) {
     l.pushed = true;
     pushed.add(id);
     localStorage.setItem('intel_pushed', JSON.stringify([...pushed]));
-    btn.textContent = '✓ PUSHED';
+    btn.textContent = '✓ SENT';
     btn.classList.add('pushed');
-    toast('Lead pushed to Monday.com ✓', 'ok');
+    toast('Pushed to Monday ✓', 'ok');
   } catch {
-    btn.textContent = '📋 PUSH TO MONDAY';
-    btn.disabled = false;
-    toast('Push failed — check webhook URL', 'err');
+    btn.textContent = '📋 MONDAY';
+    btn.disabled    = false;
+    toast('Push failed', 'err');
   }
 }
 
-// ══════════════════════════════════════════════════════
-// SMS
-// ══════════════════════════════════════════════════════
-function openSMS(id) {
+// ═══════════════════════════════════════════════════════════
+// CONTACTED
+// ═══════════════════════════════════════════════════════════
+function toggleContacted(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l) return;
+  l.contacted = !l.contacted;
+  if (l.contacted) contacted.add(id); else contacted.delete(id);
+  localStorage.setItem('intel_contacted', JSON.stringify([...contacted]));
+  render();
+}
+
+// ═══════════════════════════════════════════════════════════
+// SMS
+// ═══════════════════════════════════════════════════════════
+function openSMS(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l || !l.phone) return;
   activeLead = l;
-  const first = (l.owner || 'there').split(' ')[0];
-  document.getElementById('smsName').value = l.owner || '';
+  const first = (l.owner||'there').split(' ').pop(); // last name as salutation
+  document.getElementById('smsName').value  = l.owner || '';
   document.getElementById('smsPhone').value = l.phone || '';
-  document.getElementById('smsMsg').value =
-    `Hi ${first}, this is [Name] with OneRoof. We purchase homes in Wichita and I came across your property at ${l.address}. If you've ever considered a cash offer with no hassle, I'd love a quick chat. Reply STOP to opt out.`;
+  document.getElementById('smsMsg').value   =
+    `Hi ${first}, this is [Name] with OneRoof Real Estate. We buy homes directly from homeowners in Wichita — no agents, no repairs, no hassle. I came across your property at ${l.address} and wanted to reach out. Would you be open to a quick conversation about a cash offer? Reply STOP to opt out.`;
   countChars();
   document.getElementById('smsOverlay').classList.add('open');
 }
 
-function closeOverlay(id) {
-  document.getElementById(id).classList.remove('open');
+function closeModal() {
+  document.getElementById('smsOverlay').classList.remove('open');
   activeLead = null;
 }
 
@@ -595,14 +756,14 @@ function countChars() {
   const n = document.getElementById('smsMsg').value.length;
   const el = document.getElementById('charCount');
   el.textContent = n;
-  el.style.color = n > 160 ? '#ef4444' : n > 140 ? '#f59e0b' : '';
+  el.style.color = n > 160 ? 'var(--red)' : n > 140 ? 'var(--accent)' : '';
 }
 
 async function sendSMS() {
   const phone = document.getElementById('smsPhone').value.replace(/\D/g,'');
   const msg   = document.getElementById('smsMsg').value.trim();
   if (phone.length < 10) { toast('Enter a valid phone number', 'err'); return; }
-  if (!msg)              { toast('Message cannot be empty', 'err'); return; }
+  if (!msg)              { toast('Message is empty', 'err'); return; }
 
   try {
     const res = await fetch('/.netlify/functions/send-sms', {
@@ -612,7 +773,7 @@ async function sendSMS() {
     });
     const data = await res.json();
     if (data.success) {
-      closeOverlay('smsOverlay');
+      closeModal();
       toast('Text sent ✓', 'ok');
     } else {
       toast(data.error || 'Send failed', 'err');
@@ -622,31 +783,31 @@ async function sendSMS() {
   }
 }
 
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // TOAST
-// ══════════════════════════════════════════════════════
-function toast(msg, type = 'ok') {
+// ═══════════════════════════════════════════════════════════
+function toast(msg, type='ok') {
   const t = document.getElementById('toast');
   t.textContent = msg;
-  t.className = 'toast show ' + type;
+  t.className   = `toast show ${type}`;
   clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 3000);
+  t._t = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// ══════════════════════════════════════════════════════
-// SAMPLE DATA (shown before first scraper run)
-// ══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// SAMPLE DATA
+// ═══════════════════════════════════════════════════════════
 function sampleLeads() {
-  const now = new Date().toISOString();
+  const n = new Date().toISOString();
   return [
-    { id:'s1', type:'tax-delinquent', owner:'JOHNSON ROBERT E', address:'2314 N Hydraulic Ave, Wichita KS 67219', amount:'$6,842.14', filingDate:'2022-01-01', scrapedAt:now, notes:'Real estate delinquent 3+ yrs' },
-    { id:'s2', type:'probate', owner:'Estate of MARTHA L WILLIAMS', address:'1847 S Grove St, Wichita KS 67211', amount:null, filingDate:now, scrapedAt:now, caseNumber:'2026-PR-000412', notes:'Probate hearing scheduled' },
-    { id:'s3', type:'tax-foreclosure', owner:'PATEL VIKRAM S', address:'934 W 13th St N, Wichita KS 67203', amount:'$11,204.00', filingDate:'2025-12-15', scrapedAt:now, notes:'Tax foreclosure auction — 30-day window' },
-    { id:'s4', type:'state-warrant', owner:'ANDERSON CAROL J', address:'3201 E Lincoln St, Wichita KS 67218', amount:'$3,155.22', filingDate:'2025-11-20', scrapedAt:now, caseNumber:'KS-W-2025-84421', notes:'State tax warrant via KDOR' },
-    { id:'s5', type:'tax-delinquent', owner:'TAYLOR JAMES D', address:'501 S Seneca St, Wichita KS 67213', amount:'$4,219.66', filingDate:'2022-01-01', scrapedAt:now, notes:'Real estate delinquent 3+ yrs' },
-    { id:'s6', type:'probate', owner:'Estate of DOROTHY M CLARK', address:'738 N Clifton Ave, Wichita KS 67208', amount:null, filingDate:now, scrapedAt:now, caseNumber:'2026-PR-000398', notes:'Property ownership under review' },
-    { id:'s7', type:'tax-delinquent', owner:'WASHINGTON LINDA K', address:'1120 N Mosley St, Wichita KS 67214', amount:'$8,901.33', filingDate:'2021-01-01', scrapedAt:now, notes:'Real estate delinquent 4+ yrs — high priority' },
-    { id:'s8', type:'state-warrant', owner:'GARCIA MIGUEL A', address:'2809 W 21st St N, Wichita KS 67204', amount:'$5,488.00', filingDate:'2025-09-10', scrapedAt:now, caseNumber:'KS-W-2025-71093', notes:'State tax warrant via KDOR' },
+    { id:'s1', type:'tax-delinquent',  owner:'JOHNSON ROBERT E',              address:'2314 N Hydraulic Ave, Wichita KS 67219', amount:'$6,842.14', filingDate:'2022-01-01', scrapedAt:n, notes:'Real estate delinquent 3+ yrs' },
+    { id:'s2', type:'probate',          owner:'Estate of MARTHA L WILLIAMS',   address:'1847 S Grove St, Wichita KS 67211',      amount:null,        filingDate:n,            scrapedAt:n, caseNumber:'2026-PR-000412', notes:'Probate hearing scheduled', stackedSignals:['tax-delinquent'] },
+    { id:'s3', type:'tax-foreclosure', owner:'PATEL VIKRAM S',                 address:'934 W 13th St N, Wichita KS 67203',      amount:'$11,204.00', filingDate:'2025-12-15', scrapedAt:n, notes:'Tax foreclosure auction' },
+    { id:'s4', type:'state-warrant',   owner:'ANDERSON CAROL J',               address:'3201 E Lincoln St, Wichita KS 67218',    amount:'$3,155.22', filingDate:'2025-11-20', scrapedAt:n, caseNumber:'KS-W-2025-84421' },
+    { id:'s5', type:'tax-delinquent',  owner:'TAYLOR JAMES D',                 address:'501 S Seneca St, Wichita KS 67213',      amount:'$4,219.66', filingDate:'2022-01-01', scrapedAt:n, stackedSignals:['state-warrant'] },
+    { id:'s6', type:'probate',          owner:'Estate of DOROTHY M CLARK',     address:'738 N Clifton Ave, Wichita KS 67208',    amount:null,        filingDate:n,            scrapedAt:n, caseNumber:'2026-PR-000398' },
+    { id:'s7', type:'tax-delinquent',  owner:'WASHINGTON LINDA K',             address:'1120 N Mosley St, Wichita KS 67214',     amount:'$8,901.33', filingDate:'2021-01-01', scrapedAt:n, notes:'4+ yrs delinquent', stackedSignals:['probate'] },
+    { id:'s8', type:'state-warrant',   owner:'GARCIA MIGUEL A',                address:'2809 W 21st St N, Wichita KS 67204',     amount:'$5,488.00', filingDate:'2025-09-10', scrapedAt:n, caseNumber:'KS-W-2025-71093' },
   ];
 }
 </script>
