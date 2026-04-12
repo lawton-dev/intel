@@ -160,6 +160,49 @@
     .empty-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:2px;}
     .empty-sub{font-size:9px;letter-spacing:1px;}
 
+    /* LEAD PANEL (slide-out) */
+    .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .panel-overlay.open{opacity:1;pointer-events:all;}
+    .lead-panel{position:fixed;top:0;right:0;bottom:0;width:440px;background:var(--surface);border-left:1px solid var(--border2);z-index:301;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+    .lead-panel.open{transform:translateX(0);}
+    .panel-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1;}
+    .panel-close{background:transparent;border:1px solid var(--border2);color:var(--muted);font-size:14px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+    .panel-close:hover{border-color:var(--red);color:var(--red);}
+    .panel-score-wrap{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+    .panel-score{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;border:2px solid;flex-shrink:0;}
+    .panel-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;line-height:1.3;}
+    .panel-addr{font-size:10px;color:var(--dim);margin-top:3px;line-height:1.6;}
+    .panel-body{padding:20px 24px;flex:1;}
+    .panel-section{margin-bottom:20px;}
+    .panel-section-title{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+    .panel-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);}
+    .panel-row:last-child{border-bottom:none;}
+    .panel-key{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+    .panel-val{font-size:11px;color:var(--text);text-align:right;}
+    .panel-val.money{color:var(--accent);font-weight:600;}
+    .panel-val.phone{color:var(--green);}
+    .panel-val.red{color:var(--red);}
+    .panel-signals{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    .panel-sig{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;}
+    .panel-sig.active-td{background:rgba(245,158,11,.1);color:var(--c-td);}
+    .panel-sig.active-tf{background:rgba(239,68,68,.1);color:var(--c-tf);}
+    .panel-sig.active-pr{background:rgba(168,85,247,.1);color:var(--c-pr);}
+    .panel-sig.active-sw{background:rgba(249,115,22,.1);color:var(--c-sw);}
+    .panel-sig.active-lp{background:rgba(59,130,246,.1);color:var(--c-lp);}
+    .panel-sig.inactive{background:var(--border);color:var(--muted);}
+    .panel-actions{display:flex;flex-direction:column;gap:8px;}
+    .panel-btn{width:100%;background:transparent;border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:10px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-align:left;}
+    .panel-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .panel-btn.green:hover{border-color:var(--green);color:var(--green);}
+    .panel-btn.blue:hover{border-color:var(--blue);color:var(--blue);}
+    .panel-btn.red-btn:hover{border-color:var(--red);color:var(--red);}
+    .panel-btn.done{border-color:var(--green);color:var(--green);}
+    .panel-btn.pushed{border-color:var(--green);color:var(--green);}
+    .panel-btn:disabled{opacity:.3;cursor:not-allowed;}
+    .panel-link{display:block;width:100%;background:transparent;border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:10px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-decoration:none;box-sizing:border-box;}
+    .panel-link:hover{border-color:var(--blue);color:var(--blue);}
+    .panel-notes{font-size:10px;color:var(--dim);line-height:1.7;background:var(--bg);padding:10px 12px;margin-top:4px;}
+
     /* SMS MODAL */
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:500;}
     .overlay.open{display:flex;}
@@ -182,6 +225,13 @@
     .toast.show{transform:translateY(0);opacity:1;}
     .toast.ok{border-color:var(--green);color:var(--green);}
     .toast.err{border-color:var(--red);color:var(--red);}
+
+    /* EXPORT */
+    .btn-export{background:transparent;border:1px solid var(--green);color:var(--green);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+    .btn-export:hover{background:rgba(34,197,94,.1);}
+    .btn-export:disabled{opacity:.3;cursor:not-allowed;}
+    .export-wrap{display:flex;align-items:center;gap:8px;}
+    .export-count{font-size:9px;color:var(--muted);}
 
     /* ATTOM placeholder tab notice */
     .attom-notice{padding:60px;text-align:center;color:var(--muted);}
@@ -214,6 +264,11 @@
     </div>
     <div class="hdr-right">
       <span class="updated" id="updatedAt">—</span>
+      <div class="export-wrap">
+        <span class="export-count" id="exportCount"></span>
+        <button class="btn-export" onclick="exportCSV('traced')" title="Export skip traced leads only">⬇ TRACED ONLY</button>
+        <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
+      </div>
       <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
     </div>
   </header>
@@ -307,6 +362,81 @@
     Once confirmed, this tab will populate with:<br><br>
     Lis Pendens · Mortgage Foreclosures · REOs · Notice of Sale<br><br>
     Daily refresh · All 7 counties</p>
+  </div>
+</div>
+
+<!-- LEAD DETAIL PANEL -->
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+<div class="lead-panel" id="leadPanel">
+  <div class="panel-hdr">
+    <div style="flex:1;min-width:0;">
+      <div class="panel-score-wrap">
+        <div class="panel-score score-cold" id="panelScore">—</div>
+        <div>
+          <div class="panel-title" id="panelOwner">—</div>
+          <div id="panelBadge"></div>
+        </div>
+      </div>
+      <div class="panel-addr" id="panelAddr">—</div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body">
+
+    <!-- SIGNALS -->
+    <div class="panel-section">
+      <div class="panel-section-title">Distress Signals</div>
+      <div class="panel-signals" id="panelSignals"></div>
+    </div>
+
+    <!-- KEY DETAILS -->
+    <div class="panel-section">
+      <div class="panel-section-title">Record Details</div>
+      <div class="panel-row">
+        <span class="panel-key">Amount Owed</span>
+        <span class="panel-val money" id="panelAmount">—</span>
+      </div>
+      <div class="panel-row">
+        <span class="panel-key">Filing Date</span>
+        <span class="panel-val" id="panelDate">—</span>
+      </div>
+      <div class="panel-row">
+        <span class="panel-key">Case Number</span>
+        <span class="panel-val" id="panelCase">—</span>
+      </div>
+      <div class="panel-row">
+        <span class="panel-key">Source</span>
+        <span class="panel-val" id="panelSource">—</span>
+      </div>
+      <div class="panel-row">
+        <span class="panel-key">Phone</span>
+        <span class="panel-val phone" id="panelPhone">NOT TRACED</span>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="panel-section" id="panelNotesWrap" style="display:none">
+      <div class="panel-section-title">Notes</div>
+      <div class="panel-notes" id="panelNotes"></div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="panel-section">
+      <div class="panel-section-title">Actions</div>
+      <div class="panel-actions">
+        <button class="panel-btn" id="panelBtnST" onclick="panelSkipTrace()">⚡ Skip Trace — Find Phone Number</button>
+        <button class="panel-btn blue" id="panelBtnSMS" onclick="panelSendSMS()" disabled>📱 Send Text Message</button>
+        <button class="panel-btn green" id="panelBtnMon" onclick="panelPushMonday()">📋 Push to Monday.com</button>
+        <button class="panel-btn red-btn" id="panelBtnContacted" onclick="panelToggleContacted()">○ Mark as Contacted</button>
+        <a class="panel-link" id="panelApprLink" href="#" target="_blank" rel="noopener">
+          🏠 View on Sedgwick County Appraiser
+        </a>
+        <a class="panel-link" id="panelGoogleLink" href="#" target="_blank" rel="noopener">
+          📍 View Address on Google Maps
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -559,6 +689,7 @@ function render() {
   }
   empty.style.display = 'none';
   body.innerHTML = leads.map(row).join('');
+  updateExportCount();
 }
 
 function row(l) {
@@ -576,7 +707,7 @@ function row(l) {
     { cls: 'lp', active: l.type==='lis-pendens'     || (l.stackedSignals||[]).includes('lis-pendens')     },
   ];
 
-  return `<tr class="lead-row${l.contacted?' contacted':''}" id="lr-${l.id}">
+  return `<tr class="lead-row${l.contacted?' contacted':''}" id="lr-${l.id}" onclick="openPanel('${l.id}')" style="cursor:pointer;">
     <td>
       <div class="score-badge ${scCls}">${sc}</div>
     </td>
@@ -602,7 +733,7 @@ function row(l) {
         ? `<span class="phone-val">${l.phone}</span>`
         : `<span class="phone-nil">NOT TRACED</span>`}
     </td>
-    <td>
+    <td onclick="event.stopPropagation()">
       <div class="actions">
         <button class="btn-st${l.phone?' done':''}" id="st-${l.id}"
           onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
@@ -795,7 +926,201 @@ function toast(msg, type='ok') {
 }
 
 // ═══════════════════════════════════════════════════════════
-// SAMPLE DATA
+// LEAD DETAIL PANEL
+// ═══════════════════════════════════════════════════════════
+let panelLeadId = null;
+
+const SIGNAL_DEFS = [
+  { type:'tax-delinquent',  cls:'td', label:'Tax Delinquent' },
+  { type:'tax-foreclosure', cls:'tf', label:'Tax Foreclosure' },
+  { type:'probate',         cls:'pr', label:'Probate / Estate' },
+  { type:'state-warrant',   cls:'sw', label:'State Warrant' },
+  { type:'lis-pendens',     cls:'lp', label:'Lis Pendens' },
+];
+
+function openPanel(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  panelLeadId = id;
+
+  const sc    = l.score;
+  const scCls = scoreClass(sc);
+  const lbl   = TYPE_LABELS[l.type] || l.type;
+
+  // Score
+  const scoreEl = document.getElementById('panelScore');
+  scoreEl.textContent = sc;
+  scoreEl.className   = `panel-score ${scCls}`;
+
+  // Header
+  document.getElementById('panelOwner').textContent = l.owner || 'Unknown';
+  document.getElementById('panelAddr').textContent  = l.address || '—';
+  document.getElementById('panelBadge').innerHTML   =
+    `<span class="type-badge ${l.type}" style="margin-top:4px;display:inline-block">${lbl}</span>`;
+
+  // Details
+  document.getElementById('panelAmount').textContent = l.amount || '—';
+  document.getElementById('panelAmount').className   = l.amount ? 'panel-val money' : 'panel-val';
+  document.getElementById('panelDate').textContent   = fmtDate(l.filingDate || l.scrapedAt);
+  document.getElementById('panelCase').textContent   = l.caseNumber || '—';
+  document.getElementById('panelSource').textContent = 'INTEL — Sedgwick County';
+
+  const phoneEl = document.getElementById('panelPhone');
+  if (l.phone) {
+    phoneEl.textContent = l.phone;
+    phoneEl.className   = 'panel-val phone';
+  } else {
+    phoneEl.textContent = 'NOT TRACED';
+    phoneEl.className   = 'panel-val';
+  }
+
+  // Signals
+  const stacked = l.stackedSignals || [];
+  document.getElementById('panelSignals').innerHTML = SIGNAL_DEFS.map(s => {
+    const active = l.type === s.type || stacked.includes(s.type);
+    return `<span class="panel-sig ${active ? 'active-'+s.cls : 'inactive'}">${s.label}</span>`;
+  }).join('');
+
+  // Notes
+  const notesWrap = document.getElementById('panelNotesWrap');
+  if (l.notes) {
+    notesWrap.style.display = 'block';
+    document.getElementById('panelNotes').textContent = l.notes;
+  } else {
+    notesWrap.style.display = 'none';
+  }
+
+  // Action buttons
+  const stBtn = document.getElementById('panelBtnST');
+  if (l.phone) {
+    stBtn.textContent = '✓ Already Skip Traced';
+    stBtn.classList.add('done');
+    stBtn.disabled = true;
+  } else {
+    stBtn.textContent = '⚡ Skip Trace — Find Phone Number';
+    stBtn.classList.remove('done');
+    stBtn.disabled = false;
+  }
+
+  const smsBtn = document.getElementById('panelBtnSMS');
+  smsBtn.disabled = !l.phone;
+
+  const monBtn = document.getElementById('panelBtnMon');
+  if (l.pushed) {
+    monBtn.textContent = '✓ Already Pushed to Monday';
+    monBtn.classList.add('pushed');
+  } else {
+    monBtn.textContent = '📋 Push to Monday.com';
+    monBtn.classList.remove('pushed');
+  }
+
+  const contactBtn = document.getElementById('panelBtnContacted');
+  contactBtn.textContent = l.contacted ? '✓ Mark as Not Contacted' : '○ Mark as Contacted';
+  contactBtn.classList.toggle('done', l.contacted);
+
+  // External links
+  const addrEncoded = encodeURIComponent((l.address || '').replace(', Wichita KS','') + ' Wichita KS');
+  document.getElementById('panelApprLink').href =
+    `https://ssc.sedgwickcounty.org/propertytax/default.aspx?search=${addrEncoded}`;
+  document.getElementById('panelGoogleLink').href =
+    `https://www.google.com/maps/search/${encodeURIComponent(l.address || 'Wichita KS')}`;
+
+  // Open
+  document.getElementById('panelOverlay').classList.add('open');
+  document.getElementById('leadPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('panelOverlay').classList.remove('open');
+  document.getElementById('leadPanel').classList.remove('open');
+  document.body.style.overflow = '';
+  panelLeadId = null;
+}
+
+// Panel action wrappers
+async function panelSkipTrace() {
+  if (!panelLeadId) return;
+  closePanel();
+  await skipTrace(panelLeadId);
+  // Reopen with fresh data
+  openPanel(panelLeadId);
+}
+
+function panelSendSMS() {
+  if (!panelLeadId) return;
+  closePanel();
+  openSMS(panelLeadId);
+}
+
+async function panelPushMonday() {
+  if (!panelLeadId) return;
+  await pushMonday(panelLeadId);
+  openPanel(panelLeadId); // refresh panel state
+}
+
+function panelToggleContacted() {
+  if (!panelLeadId) return;
+  toggleContacted(panelLeadId);
+  openPanel(panelLeadId); // refresh panel state
+}
+
+// Close panel on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// ═══════════════════════════════════════════════════════════
+// EXPORT CSV
+// ═══════════════════════════════════════════════════════════
+function exportCSV(mode) {
+  const leads = mode === 'traced'
+    ? getFiltered().filter(l => l.phone)
+    : getFiltered();
+
+  if (!leads.length) {
+    toast(mode === 'traced' ? 'No skip traced leads to export' : 'No leads to export', 'err');
+    return;
+  }
+
+  const headers = ['Owner','Address','Phone','Type','Score','Amount Owed','Case Number','Filing Date','Notes','Source'];
+
+  const rows = leads.map(l => [
+    csvCell(l.owner),
+    csvCell(l.address),
+    csvCell(l.phone || ''),
+    csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
+    l.score,
+    csvCell(l.amount || ''),
+    csvCell(l.caseNumber || ''),
+    csvCell(l.filingDate || ''),
+    csvCell(l.notes || ''),
+    csvCell('INTEL — Sedgwick County'),
+  ]);
+
+  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const date = new Date().toISOString().slice(0,10);
+  a.href     = url;
+  a.download = `intel-sedgwick-${mode}-${date}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  toast(`Exported ${leads.length} leads ✓`, 'ok');
+}
+
+function csvCell(val) {
+  const s = String(val || '').replace(/"/g, '""');
+  return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s}"` : s;
+}
+
+// update export count whenever filter changes
+function updateExportCount() {
+  const traced = getFiltered().filter(l => l.phone).length;
+  const el = document.getElementById('exportCount');
+  if (el) el.textContent = traced > 0 ? `${traced} traced` : '';
+}
+
 // ═══════════════════════════════════════════════════════════
 function sampleLeads() {
   const n = new Date().toISOString();
