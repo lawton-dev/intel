@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install playwright beautifulsoup4 requests
+          pip install playwright pdfminer.six requests beautifulsoup4
           playwright install chromium
           playwright install-deps chromium
 
