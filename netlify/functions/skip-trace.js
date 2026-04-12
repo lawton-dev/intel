@@ -1,5 +1,6 @@
 // ── INTEL · Skip Trace via BatchData ────────────────────────────────────────
-// POSTs owner name + address to BatchData, returns phone number
+// Fix 1: Strip zip+4 digits before sending (672032921 → 67203)
+// Fix 2: Name-only fallback if address+name returns no phone
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -20,56 +21,45 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'owner or address required' }) };
   }
 
-  // Parse address components
+  // ── Parse address ──────────────────────────────────────────
   const addrParts = (address || '').split(',');
   const street    = (addrParts[0] || '').trim();
   const cityState = (addrParts[1] || '').trim();
-  const zip       = (addrParts[2] || '').trim();
+  let   zip       = (addrParts[2] || '').trim();
 
-  // Parse city/state
-  const csMatch  = cityState.match(/^(.*?)\s+([A-Z]{2})$/);
-  const city     = csMatch ? csMatch[1].trim() : cityState;
-  const state    = csMatch ? csMatch[2] : 'KS';
+  // FIX 1: Strip zip+4 (e.g. 672032921 → 67203, 67203-2921 → 67203)
+  zip = zip.replace(/[-\s]?\d{4}$/, '').trim();
+  // Also strip from street if embedded (e.g. "1628 N PORTER AVE, WICHITA, KS 672032921")
+  // Sometimes the zip is the last part of cityState instead
+  const zipFromCityState = cityState.match(/(\d{5})(?:\d{4})?$/);
+  if (!zip && zipFromCityState) {
+    zip = zipFromCityState[1];
+  }
 
-  // Parse owner name (Last First or First Last)
-  const nameParts   = (owner || '').replace(/^Estate of\s+/i, '').trim().split(/\s+/);
-  const firstName   = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : '';
-  const lastName    = nameParts[nameParts.length - 1] || nameParts[0] || '';
+  const csMatch = cityState.match(/^(.*?)\s+([A-Z]{2})\s*\d*/);
+  const city    = csMatch ? csMatch[1].trim() : 'Wichita';
+  const state   = csMatch ? csMatch[2] : 'KS';
 
-  try {
-    const res = await fetch('https://api.batchdata.com/api/v1/property/skip-trace', {
-      method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${API_KEY}`,
-      },
-      body: JSON.stringify({
-        requests: [{
-          propertyAddress: {
-            street:  street,
-            city:    city || 'Wichita',
-            state:   state,
-            zip:     zip || '',
-          },
-          person: {
-            firstName: firstName,
-            lastName:  lastName,
-          }
-        }]
-      })
-    });
+  // ── Parse owner name ───────────────────────────────────────
+  // Strip "Estate of" prefix for probate leads
+  const cleanName  = (owner || '').replace(/^Estate of\s+/i, '').trim();
+  const nameParts  = cleanName.split(/\s+/);
+  // BatchData works best with firstName / lastName split
+  // County records are usually "LAST FIRST M" format
+  const lastName   = nameParts[0] || '';
+  const firstName  = nameParts.slice(1).join(' ') || '';
 
-    const data = await res.json();
-
-    // Navigate BatchData response structure
-    const result   = data?.results?.[0] || data?.result || data;
-    const persons  = result?.persons || result?.owner?.persons || [];
-    const phones   = [];
+  // ── Helper: extract phones from BatchData response ─────────
+  function extractPhones(data) {
+    const phones = [];
+    const result  = data?.results?.[0] || data?.result || data;
+    const persons = result?.persons || result?.owner?.persons || result?.owners || [];
 
     persons.forEach(p => {
-      (p.phones || p.phoneNumbers || []).forEach(ph => {
-        const num = ph.phone || ph.phoneNumber || ph.number || ph;
-        if (num && typeof num === 'string' && num.replace(/\D/g,'').length >= 10) {
+      const phoneSources = p.phones || p.phoneNumbers || p.contactInfo?.phones || [];
+      phoneSources.forEach(ph => {
+        const num = ph.phone || ph.phoneNumber || ph.number || (typeof ph === 'string' ? ph : null);
+        if (num && num.replace(/\D/g,'').length >= 10) {
           phones.push({
             number: formatPhone(num),
             type:   ph.phoneType || ph.type || 'unknown',
@@ -79,28 +69,146 @@ exports.handler = async (event) => {
       });
     });
 
-    // Sort by confidence score, prefer mobile
+    // Sort: mobile first, then by confidence score
     phones.sort((a,b) => {
       if (a.type === 'mobile' && b.type !== 'mobile') return -1;
       if (b.type === 'mobile' && a.type !== 'mobile') return 1;
       return (b.score - a.score);
     });
 
-    if (phones.length > 0) {
+    return phones;
+  }
+
+  // ── Attempt 1: Full address + name ─────────────────────────
+  try {
+    const res1 = await fetch('https://api.batchdata.com/api/v1/property/skip-trace', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          propertyAddress: {
+            street: street,
+            city:   city,
+            state:  state,
+            zip:    zip,
+          },
+          person: {
+            firstName: firstName,
+            lastName:  lastName,
+          }
+        }]
+      })
+    });
+
+    const data1  = await res1.json();
+    const phones1 = extractPhones(data1);
+
+    if (phones1.length > 0) {
       return {
         statusCode: 200,
         body: JSON.stringify({
-          success: true,
-          phone:   phones[0].number,
-          allPhones: phones,
+          success:   true,
+          phone:     phones1[0].number,
+          allPhones: phones1,
+          method:    'address+name',
         })
       };
-    } else {
+    }
+
+    // ── Attempt 2: Name + city/state only (no address) ────────
+    console.log('Attempt 1 returned no phones — trying name-only fallback');
+
+    const res2 = await fetch('https://api.batchdata.com/api/v1/property/skip-trace', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          propertyAddress: {
+            city:  city,
+            state: state,
+            zip:   zip,
+          },
+          person: {
+            firstName: firstName,
+            lastName:  lastName,
+          }
+        }]
+      })
+    });
+
+    const data2  = await res2.json();
+    const phones2 = extractPhones(data2);
+
+    if (phones2.length > 0) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ success: false, phone: null, message: 'No phone found' })
+        body: JSON.stringify({
+          success:   true,
+          phone:     phones2[0].number,
+          allPhones: phones2,
+          method:    'name-only',
+        })
       };
     }
+
+    // ── Attempt 3: Swap first/last name (some records are FIRST LAST) ──
+    if (nameParts.length >= 2) {
+      const swapFirst = nameParts.slice(0, -1).join(' ');
+      const swapLast  = nameParts[nameParts.length - 1];
+
+      const res3 = await fetch('https://api.batchdata.com/api/v1/property/skip-trace', {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${API_KEY}`,
+        },
+        body: JSON.stringify({
+          requests: [{
+            propertyAddress: {
+              street: street,
+              city:   city,
+              state:  state,
+              zip:    zip,
+            },
+            person: {
+              firstName: swapFirst,
+              lastName:  swapLast,
+            }
+          }]
+        })
+      });
+
+      const data3  = await res3.json();
+      const phones3 = extractPhones(data3);
+
+      if (phones3.length > 0) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            success:   true,
+            phone:     phones3[0].number,
+            allPhones: phones3,
+            method:    'name-swapped',
+          })
+        };
+      }
+    }
+
+    // All attempts exhausted
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: false,
+        phone:   null,
+        message: 'No phone found after 3 attempts',
+      })
+    };
 
   } catch (err) {
     console.error('Skip trace error:', err);
