@@ -2,17 +2,14 @@ name: INTEL Daily Scraper
 
 on:
   schedule:
-    # 6:00 AM Central Time = 11:00 AM UTC (CST) / 12:00 PM UTC (CDT)
-    # Runs every morning before your team starts working
-    - cron: '0 11 * * 1-5'   # Weekdays only
-
-  workflow_dispatch:          # Allow manual trigger from GitHub UI
+    - cron: '0 11 * * 1-5'   # 6:00 AM CT weekdays
+  workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     permissions:
-      contents: write         # Needed to commit data/leads.json back to repo
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -25,7 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 lxml
+          pip install playwright beautifulsoup4 requests
+          playwright install chromium
+          playwright install-deps chromium
 
       - name: Run INTEL scraper
         run: python scripts/scrape.py
@@ -35,16 +34,20 @@ jobs:
           git config user.name  "INTEL Bot"
           git config user.email "intel-bot@oneroofre.net"
           git add data/leads.json
-          git diff --cached --quiet && echo "No changes to commit" || \
-          git commit -m "🤖 INTEL: Daily lead refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git diff --cached --quiet && echo "No changes" || \
+          git commit -m "🤖 INTEL: Daily refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Summary
         run: |
-          if [ -f data/leads.json ]; then
-            echo "### INTEL Scrape Complete" >> $GITHUB_STEP_SUMMARY
-            echo "Total leads: $(python3 -c "import json; d=json.load(open('data/leads.json')); print(d['totalLeads'])")" >> $GITHUB_STEP_SUMMARY
-            echo "Updated: $(python3 -c "import json; d=json.load(open('data/leads.json')); print(d['lastUpdated'])")" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "### INTEL Scrape Complete" >> $GITHUB_STEP_SUMMARY
+          python3 -c "
+          import json
+          d = json.load(open('data/leads.json'))
+          print(f'Total leads: {d[\"totalLeads\"]}')
+          for k,v in d['sources'].items():
+              print(f'  {k}: {v}')
+          print(f'Updated: {d[\"lastUpdated\"]}')
+          " >> $GITHUB_STEP_SUMMARY
