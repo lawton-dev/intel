@@ -72,25 +72,49 @@ def dedup(leads):
 
 def save(county, leads):
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+    path = DATA_DIR / f'leads-{county}.json'
+
+    # Load existing leads and keep those scraped within the last 7 days
+    existing = []
+    if path.exists():
+        try:
+            with open(path) as f:
+                old_data = json.load(f)
+            cutoff = datetime.now(timezone.utc).timestamp() - (7 * 24 * 3600)
+            for l in old_data.get('leads', []):
+                try:
+                    scraped_ts = datetime.fromisoformat(l['scrapedAt']).timestamp()
+                    if scraped_ts >= cutoff:
+                        existing.append(l)
+                except Exception:
+                    existing.append(l)  # keep if we can't parse date
+            log.info(f'  Loaded {len(existing)} existing leads (≤7 days) from {path.name}')
+        except Exception as e:
+            log.warning(f'  Could not load existing leads: {e}')
+
+    # Merge: new leads take precedence (freshen scrapedAt), old leads fill the rest
+    new_ids = {l['id'] for l in leads}
+    merged = leads + [l for l in existing if l['id'] not in new_ids]
+
     order = {'tax-foreclosure':0,'probate':1,'state-warrant':2,'tax-delinquent':3}
-    leads = dedup(leads)
-    leads.sort(key=lambda l: order.get(l['type'], 9))
+    merged = dedup(merged)
+    merged.sort(key=lambda l: order.get(l['type'], 9))
+
     output = {
         'lastUpdated': now_iso(),
         'county':      county,
-        'totalLeads':  len(leads),
+        'totalLeads':  len(merged),
         'sources': {
-            'tax_delinquent':  len([l for l in leads if l['type']=='tax-delinquent']),
-            'tax_foreclosure': len([l for l in leads if l['type']=='tax-foreclosure']),
-            'probate':         len([l for l in leads if l['type']=='probate']),
-            'state_warrant':   len([l for l in leads if l['type']=='state-warrant']),
+            'tax_delinquent':  len([l for l in merged if l['type']=='tax-delinquent']),
+            'tax_foreclosure': len([l for l in merged if l['type']=='tax-foreclosure']),
+            'probate':         len([l for l in merged if l['type']=='probate']),
+            'state_warrant':   len([l for l in merged if l['type']=='state-warrant']),
         },
-        'leads': leads,
+        'leads': merged,
     }
-    path = DATA_DIR / f'leads-{county}.json'
     with open(path, 'w') as f:
         json.dump(output, f, indent=2)
-    log.info(f'  Saved {len(leads)} leads → {path}')
+    log.info(f'  Saved {len(merged)} total leads ({len(leads)} new + {len(merged)-len(leads)} retained) → {path}')
     return output
 
 
