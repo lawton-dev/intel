@@ -1,7 +1,12 @@
 {
-  "lastUpdated": null,
+  "lastUpdated": "2026-04-13T18:43:30.828130+00:00",
   "county": "clark",
   "totalLeads": 0,
-  "sources": {"tax_delinquent":0,"tax_foreclosure":0,"probate":0,"state_warrant":0},
+  "sources": {
+    "tax_delinquent": 0,
+    "tax_foreclosure": 0,
+    "probate": 0,
+    "state_warrant": 0
+  },
   "leads": []
 }
