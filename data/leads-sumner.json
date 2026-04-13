@@ -1,7 +1,25 @@
 {
-  "lastUpdated": null,
+  "lastUpdated": "2026-04-13T18:59:59.430932+00:00",
   "county": "sumner",
-  "totalLeads": 0,
-  "sources": {"tax_delinquent":0,"tax_foreclosure":0,"probate":0,"state_warrant":0},
-  "leads": []
+  "totalLeads": 1,
+  "sources": {
+    "tax_delinquent": 0,
+    "tax_foreclosure": 1,
+    "probate": 0,
+    "state_warrant": 0
+  },
+  "leads": [
+    {
+      "id": "d68f806b42d9",
+      "county": "sumner",
+      "type": "tax-foreclosure",
+      "owner": "SEE SHERIFF SALE LISTING",
+      "address": "Notice of sales are advertised in the local newspapers giving the exact date & t, Wellington KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Sumner County Sheriff Sale \u2014 sumnersheriff.net",
+      "scrapedAt": "2026-04-13T18:59:55.183971+00:00"
+    }
+  ]
 }
