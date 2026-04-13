@@ -43,9 +43,23 @@ def fmt_amount(s):
 def norm_addr(raw, city='', state=''):
     if not raw: return ''
     a = re.sub(r'\s+', ' ', raw).strip()
-    suffix = f', {city} {state}'.strip(', ') if city or state else ''
-    if suffix and suffix.replace(', ','') not in a:
-        a += suffix
+
+    # Strip trailing zip codes (5 or 9 digit) embedded by county records
+    a = re.sub(r'\s*\d{5}(?:-?\d{4})?\s*$', '', a).strip()
+
+    # Strip trailing state abbreviation if already present (e.g. "...KS" or "... KS")
+    a = re.sub(r'\s+[A-Z]{2}\s*$', '', a).strip()
+
+    # Strip trailing city name if already present (case-insensitive)
+    if city and re.search(re.escape(city), a, re.IGNORECASE):
+        # Remove the city and anything after it (city was embedded mid-string from county format)
+        a = re.sub(re.escape(city) + r'.*$', '', a, flags=re.IGNORECASE).strip().rstrip(',').strip()
+
+    # Append clean city, state suffix
+    if city or state:
+        suffix = ', ' + ' '.join(filter(None, [city, state]))
+        a = a + suffix
+
     return a
 
 def lead(county, ltype, owner, address, amount=None, date=None, case=None, notes=None):
@@ -162,7 +176,11 @@ def scrape_sedgwick(page):
     except Exception as e:
         log.warning(f'  x Sedgwick tax delinquent: {e}')
 
-    time.sleep(2)  # let last navigation settle before next page.goto
+    # Reset page state before next navigation
+    try:
+        page.goto('about:blank', wait_until='domcontentloaded', timeout=5000)
+    except: pass
+    time.sleep(2)
 
     # 2. Tax Foreclosure Auction (seasonal)
     try:
@@ -185,9 +203,16 @@ def scrape_sedgwick(page):
     log.info('  Scraping KDOR warrants...')
     sw_count = 0
     try:
+        # Clear any pending navigation before KDOR
+        try:
+            page.goto('about:blank', wait_until='domcontentloaded', timeout=5000)
+        except: pass
+        time.sleep(1)
+
         for wtype, lbl in [('i','individual'),('b','business')]:
             page.goto(f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}',
-                      wait_until='networkidle', timeout=20000)
+                      wait_until='domcontentloaded', timeout=20000)
+            time.sleep(1)
             table = page.query_selector('table')
             if not table: continue
             hdr = False
@@ -679,9 +704,16 @@ def scrape_kdor_warrants(page, county_key, county_name, city, state='KS'):
     """Pull KS DOR state tax warrants for a specific county name."""
     leads = []
     try:
+        # Clear any pending navigation first
+        try:
+            page.goto('about:blank', wait_until='domcontentloaded', timeout=5000)
+        except: pass
+        time.sleep(1)
+
         for wtype, lbl in [('i','individual'),('b','business')]:
             page.goto(f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}',
-                      wait_until='networkidle', timeout=20000)
+                      wait_until='domcontentloaded', timeout=20000)
+            time.sleep(1)
             table = page.query_selector('table')
             if not table: continue
             hdr = False
