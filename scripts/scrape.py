@@ -162,6 +162,8 @@ def scrape_sedgwick(page):
     except Exception as e:
         log.warning(f'  x Sedgwick tax delinquent: {e}')
 
+    time.sleep(2)  # let last navigation settle before next page.goto
+
     # 2. Tax Foreclosure Auction (seasonal)
     try:
         page.goto('https://www.sedgwickcounty.org/treasurer/tax-foreclosure-auctions/',
@@ -928,27 +930,42 @@ def main():
 
     results = {}
 
+    def new_page(browser):
+        """Create a fresh page with standard settings."""
+        ctx = browser.new_context(
+            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                       'AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+            viewport={'width':1280,'height':900},
+        )
+        return ctx.new_page()
+
     with sync_playwright() as pw:
         browser = pw.chromium.launch(
             headless=True,
             args=['--no-sandbox','--disable-setuid-sandbox',
                   '--disable-dev-shm-usage','--disable-gpu']
         )
-        ctx  = browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                       'AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
-            viewport={'width':1280,'height':900},
-        )
-        page = ctx.new_page()
 
-        results['sedgwick'] = scrape_sedgwick(page)
-        results['harris']   = scrape_harris(page)
-        results['shelby']   = scrape_shelby(page)
-        results['clark']    = scrape_clark(page)
-        results['maricopa'] = scrape_maricopa(page)
-        results['harvey']   = scrape_harvey(page)
-        results['butler']   = scrape_butler(page)
-        results['sumner']   = scrape_sumner(page)
+        # Fresh page per county — prevents navigation bleed between counties
+        for county, fn in [
+            ('sedgwick', scrape_sedgwick),
+            ('harris',   scrape_harris),
+            ('shelby',   scrape_shelby),
+            ('clark',    scrape_clark),
+            ('maricopa', scrape_maricopa),
+            ('harvey',   scrape_harvey),
+            ('butler',   scrape_butler),
+            ('sumner',   scrape_sumner),
+        ]:
+            page = new_page(browser)
+            try:
+                results[county] = fn(page)
+            except Exception as e:
+                log.error(f'County {county} failed entirely: {e}')
+                results[county] = {'totalLeads': 0, 'sources': {}}
+            finally:
+                try: page.context.close()
+                except: pass
 
         browser.close()
 
@@ -960,7 +977,7 @@ def main():
     index = {
         'lastUpdated': now_iso(),
         'counties': {
-            k: {'totalLeads': v['totalLeads'], 'sources': v['sources']}
+            k: {'totalLeads': v['totalLeads'], 'sources': v.get('sources', {})}
             for k, v in results.items()
         }
     }
