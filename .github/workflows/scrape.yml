@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name  "INTEL Bot"
           git config user.email "intel-bot@oneroofre.net"
-          git add data/leads.json
+          git add data/leads*.json
           git diff --cached --quiet && echo "No changes" || \
           git commit -m "🤖 INTEL: Daily refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
