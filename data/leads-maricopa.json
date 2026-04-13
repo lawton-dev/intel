@@ -1,0 +1,7 @@
+{
+  "lastUpdated": null,
+  "county": "maricopa",
+  "totalLeads": 0,
+  "sources": {"tax_delinquent":0,"tax_foreclosure":0,"probate":0,"state_warrant":0},
+  "leads": []
+}
