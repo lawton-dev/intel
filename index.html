@@ -338,8 +338,8 @@
 
   <!-- COUNTY TABS -->
   <div class="county-tabs">
-    <button class="ctab active" onclick="setCounty('sedgwick',this)">
-      Sedgwick <span class="cnt" id="cnt-sedgwick">0</span>
+    <button class="ctab active" onclick="setCounty('sck',this)">
+      SCK <span class="cnt" id="cnt-sck">0</span>
     </button>
     <button class="ctab" onclick="setCounty('harris',this)">
       Harris <span class="cnt" id="cnt-harris">—</span>
@@ -590,7 +590,7 @@ function scoreClass(s) {
 // ═══════════════════════════════════════════════════════════
 let allLeads   = [];
 let activeFilter = 'all';
-let activeCounty = 'sedgwick';
+let activeCounty = 'sck';
 let sortBy     = 'score';
 let searchQ    = '';
 let activeLead = null;
@@ -625,40 +625,66 @@ function boot() {
 // ═══════════════════════════════════════════════════════════
 async function loadLeads() {
   setLoading(true);
-  const dataUrl = activeCounty === 'sedgwick'
-    ? CONFIG.dataUrl
-    : `/data/leads-${activeCounty}.json`;
-  try {
-    const res = await fetch(dataUrl + '?v=' + Date.now());
-    if (!res.ok) throw new Error('no data');
-    const data = await res.json();
-    allLeads = (data.leads || []).map(l => ({
+
+  // SCK = Sedgwick + Harvey + Butler + Sumner merged
+  const SCK_COUNTIES = ['sedgwick','harvey','butler','sumner'];
+  const isSCK = activeCounty === 'sck';
+
+  function mapLead(l) {
+    return {
       ...l,
       score:     computeScore(l),
       contacted: contacted.has(l.id),
       pushed:    pushed.has(l.id),
       phone:     phones[l.id] || l.phone || null,
-    }));
-    if (data.lastUpdated) {
-      const d = new Date(data.lastUpdated);
-      document.getElementById('updatedAt').textContent =
-        'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
-        ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    };
+  }
+
+  try {
+    if (isSCK) {
+      // Load all four KS county files and merge
+      const files = await Promise.all(
+        SCK_COUNTIES.map(c =>
+          fetch(`/data/leads-${c}.json?v=` + Date.now())
+            .then(r => r.ok ? r.json() : { leads: [] })
+            .catch(() => ({ leads: [] }))
+        )
+      );
+      const merged = files.flatMap(d => d.leads || []);
+      allLeads = merged.map(mapLead);
+
+      // Show most recent update across all four
+      const dates = files.map(d => d.lastUpdated).filter(Boolean).sort();
+      if (dates.length) {
+        const d = new Date(dates[dates.length - 1]);
+        document.getElementById('updatedAt').textContent =
+          'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
+          ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      }
+    } else {
+      const dataUrl = `/data/leads-${activeCounty}.json`;
+      const res = await fetch(dataUrl + '?v=' + Date.now());
+      if (!res.ok) throw new Error('no data');
+      const data = await res.json();
+      allLeads = (data.leads || []).map(mapLead);
+      if (data.lastUpdated) {
+        const d = new Date(data.lastUpdated);
+        document.getElementById('updatedAt').textContent =
+          'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
+          ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      }
     }
+
     // Update tab count
     const cntEl = document.getElementById(`cnt-${activeCounty}`);
     if (cntEl) cntEl.textContent = allLeads.length;
+
   } catch {
-    allLeads = activeCounty === 'sedgwick' ? sampleLeads().map(l => ({
-      ...l,
-      score:     computeScore(l),
-      contacted: contacted.has(l.id),
-      pushed:    pushed.has(l.id),
-      phone:     phones[l.id] || null,
-    })) : [];
+    allLeads = isSCK ? sampleLeads().map(mapLead) : [];
     document.getElementById('updatedAt').textContent =
-      activeCounty === 'sedgwick' ? 'Sample data — scraper pending' : 'No data yet — run scraper';
+      isSCK ? 'Sample data — scraper pending' : 'No data yet — run scraper';
   }
+
   updateStats();
   render();
   setLoading(false);
@@ -713,6 +739,20 @@ function setSort(s)       { sortBy  = s; render(); }
 
 function getFiltered() {
   let leads = [...allLeads];
+
+  // Tax-delinquent: only show 2+ years delinquent
+  // Filter out leads where filingDate is within the last 2 years
+  const twoYearsAgo = new Date();
+  twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+
+  leads = leads.filter(l => {
+    if (l.type !== 'tax-delinquent') return true;
+    if (!l.filingDate) return true; // no date = keep (can't tell)
+    const filed = new Date(l.filingDate);
+    if (isNaN(filed)) return true;
+    return filed <= twoYearsAgo; // only 2+ years old
+  });
+
   if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
   else if (activeFilter === 'new-today') {
     const today = new Date().toDateString();

@@ -671,6 +671,253 @@ def scrape_maricopa(page):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# KDOR WARRANTS HELPER — reusable for any KS county
+# ══════════════════════════════════════════════════════════════════════════════
+def scrape_kdor_warrants(page, county_key, county_name, city, state='KS'):
+    """Pull KS DOR state tax warrants for a specific county name."""
+    leads = []
+    try:
+        for wtype, lbl in [('i','individual'),('b','business')]:
+            page.goto(f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}',
+                      wait_until='networkidle', timeout=20000)
+            table = page.query_selector('table')
+            if not table: continue
+            hdr = False
+            for row in table.query_selector_all('tr'):
+                cells = [c.inner_text().strip() for c in row.query_selector_all('td,th')]
+                if not cells or not cells[0]: continue
+                if not hdr:
+                    hdr = True
+                    if any(h.lower() in ('name','taxpayer','county') for h in cells): continue
+                name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
+                if not name or len(name) < 2: continue
+                if county_col and county_col.strip() and county_name.lower() not in county_col.lower(): continue
+                parts = re.split(r'\xa0{2,}|\s{3,}', name)
+                owner = parts[0].strip()
+                address = parts[1].strip() if len(parts) > 1 else addr
+                leads.append(lead(county_key, 'state-warrant', owner,
+                                  norm_addr(address, city, state), amt, None, case_num,
+                                  notes=f'Kansas DOR state tax warrant ({lbl})'))
+    except Exception as e:
+        log.warning(f'  x KDOR warrants ({county_name}): {e}')
+    log.info(f'  → {len(leads)} KDOR warrants')
+    return leads
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# HARVEY COUNTY, KS  (Newton)
+# ══════════════════════════════════════════════════════════════════════════════
+def scrape_harvey(page):
+    leads = []
+    log.info('\n' + '='*50)
+    log.info('HARVEY COUNTY, KS')
+    log.info('='*50)
+
+    # 1. Delinquent tax search via CIC Hosting portal
+    log.info('  Scraping tax delinquent...')
+    try:
+        page.goto('https://ks1355.cichosting.com/ttp/Tax/Search/search_tax.aspx',
+                  wait_until='networkidle', timeout=30000)
+        seen = set()
+        for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            try:
+                for sel in ['input[name*="name"]','input[name*="Name"]','input[type="text"]','#txtName']:
+                    try:
+                        page.fill(sel, letter, timeout=3000)
+                        break
+                    except: continue
+                for sel in ['input[type="submit"]','button[type="submit"]','#btnSearch']:
+                    try:
+                        page.click(sel, timeout=3000)
+                        page.wait_for_load_state('networkidle', timeout=12000)
+                        break
+                    except: continue
+                for table in page.query_selector_all('table'):
+                    for row in table.query_selector_all('tr')[1:]:
+                        cells = [c.inner_text().strip() for c in row.query_selector_all('td')]
+                        if len(cells) < 2 or not cells[0]: continue
+                        owner = cells[0]
+                        if re.match(r'^(name|owner|taxpayer)', owner, re.I) or len(owner) < 3: continue
+                        addr = next((c for c in cells[1:] if re.search(r'\d+\s+\w+', c)), '')
+                        amt  = next((c for c in cells if re.match(r'^\$[\d,]+', c)), '')
+                        uid  = make_id('harvey','td', owner, addr)
+                        if uid in seen: continue
+                        seen.add(uid)
+                        leads.append(lead('harvey','tax-delinquent', owner,
+                                         norm_addr(addr,'Newton','KS'), amt,
+                                         notes='Real estate tax delinquent — Harvey County Treasurer'))
+                time.sleep(0.4)
+            except: continue
+        log.info(f'  → {len(leads)} tax delinquent')
+    except Exception as e:
+        log.warning(f'  x Harvey tax delinquent: {e}')
+
+    # 2. Tax foreclosure auction (seasonal)
+    try:
+        page.goto('https://www.harveycounty.com/departments/treasurer/taxes.html',
+                  wait_until='networkidle', timeout=20000)
+        text = page.inner_text('body')
+        date_m = re.search(r'(\w+ \d{1,2},?\s*202\d)', text)
+        if date_m and 'foreclosure' in text.lower():
+            leads.append(lead('harvey','tax-foreclosure',
+                              'MULTIPLE PROPERTIES — SEE AUCTION LIST',
+                              'Harvey County, KS', None, date_m.group(1),
+                              notes='Harvey County tax foreclosure auction. Visit harveycounty.com'))
+    except Exception as e:
+        log.warning(f'  x Harvey tax foreclosure: {e}')
+
+    # 3. KDOR state warrants
+    log.info('  Scraping KDOR warrants...')
+    leads += scrape_kdor_warrants(page, 'harvey', 'Harvey', 'Newton')
+
+    return save('harvey', leads)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# BUTLER COUNTY, KS  (El Dorado)
+# ══════════════════════════════════════════════════════════════════════════════
+def scrape_butler(page):
+    leads = []
+    log.info('\n' + '='*50)
+    log.info('BUTLER COUNTY, KS')
+    log.info('='*50)
+
+    # 1. Delinquent tax listing (published on bucoks.gov in August/October)
+    log.info('  Scraping delinquent tax listing...')
+    try:
+        page.goto('https://www.bucoks.gov/501/Real-Estate-Taxes',
+                  wait_until='networkidle', timeout=30000)
+        # Look for link to the delinquent list PDF or page
+        for a in page.query_selector_all('a'):
+            href = a.get_attribute('href') or ''
+            txt  = (a.inner_text() or '').lower()
+            if 'delinquent' in txt or 'delinquent' in href.lower():
+                full = href if href.startswith('http') else 'https://www.bucoks.gov' + href
+                try:
+                    page.goto(full, wait_until='networkidle', timeout=15000)
+                    break
+                except: continue
+
+        text = page.inner_text('body')
+        seen = set()
+        # Parse name + amount patterns from published list
+        for line in text.splitlines():
+            line = line.strip()
+            if len(line) < 5: continue
+            amt_m = re.search(r'\$[\d,]+\.?\d*', line)
+            name_m = re.search(r'^([A-Z][A-Z\s,\.]{3,40})', line)
+            if amt_m and name_m:
+                owner = name_m.group(1).strip().rstrip(',')
+                uid = make_id('butler','td', owner, line[:40])
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('butler','tax-delinquent', owner,
+                                  'Butler County, KS — run skip trace for address',
+                                  amt_m.group(0),
+                                  notes='Real estate tax delinquent — Butler County Treasurer'))
+        log.info(f'  → {len(leads)} tax delinquent')
+    except Exception as e:
+        log.warning(f'  x Butler tax delinquent: {e}')
+
+    # 2. Tax foreclosure info
+    try:
+        page.goto('https://www.bucoks.gov/501/Real-Estate-Taxes',
+                  wait_until='networkidle', timeout=20000)
+        text = page.inner_text('body')
+        date_m = re.search(r'(\w+ \d{1,2},?\s*202\d)', text)
+        if date_m and ('foreclosure' in text.lower() or 'auction' in text.lower()):
+            leads.append(lead('butler','tax-foreclosure',
+                              'MULTIPLE PROPERTIES — SEE AUCTION LIST',
+                              'Butler County, KS', None, date_m.group(1),
+                              notes='Butler County tax foreclosure. Visit bucoks.gov'))
+    except Exception as e:
+        log.warning(f'  x Butler tax foreclosure: {e}')
+
+    # 3. KDOR state warrants
+    log.info('  Scraping KDOR warrants...')
+    leads += scrape_kdor_warrants(page, 'butler', 'Butler', 'El Dorado')
+
+    return save('butler', leads)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SUMNER COUNTY, KS  (Wellington)
+# ══════════════════════════════════════════════════════════════════════════════
+def scrape_sumner(page):
+    leads = []
+    log.info('\n' + '='*50)
+    log.info('SUMNER COUNTY, KS')
+    log.info('='*50)
+
+    # 1. Delinquent tax search via PublicAccessNow portal
+    log.info('  Scraping tax delinquent...')
+    try:
+        page.goto('https://ks-search-sumner.publicaccessnow.com/tax/',
+                  wait_until='networkidle', timeout=30000)
+        seen = set()
+        for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            try:
+                for sel in ['input[name*="name"]','input[name*="Name"]',
+                            'input[name*="last"]','input[type="text"]']:
+                    try:
+                        page.fill(sel, letter, timeout=3000)
+                        break
+                    except: continue
+                for sel in ['input[type="submit"]','button[type="submit"]',
+                            'button:has-text("Search")']:
+                    try:
+                        page.click(sel, timeout=3000)
+                        page.wait_for_load_state('networkidle', timeout=12000)
+                        break
+                    except: continue
+                for table in page.query_selector_all('table'):
+                    for row in table.query_selector_all('tr')[1:]:
+                        cells = [c.inner_text().strip() for c in row.query_selector_all('td')]
+                        if len(cells) < 2 or not cells[0]: continue
+                        owner = cells[0]
+                        if re.match(r'^(name|owner|taxpayer)', owner, re.I) or len(owner) < 3: continue
+                        addr = next((c for c in cells[1:] if re.search(r'\d+\s+\w+', c)), '')
+                        amt  = next((c for c in cells if re.match(r'^\$[\d,]+', c)), '')
+                        uid  = make_id('sumner','td', owner, addr)
+                        if uid in seen: continue
+                        seen.add(uid)
+                        leads.append(lead('sumner','tax-delinquent', owner,
+                                         norm_addr(addr,'Wellington','KS'), amt,
+                                         notes='Real estate tax delinquent — Sumner County Treasurer'))
+                time.sleep(0.4)
+            except: continue
+        log.info(f'  → {len(leads)} tax delinquent')
+    except Exception as e:
+        log.warning(f'  x Sumner tax delinquent: {e}')
+
+    # 2. Tax foreclosure / sheriff sale
+    try:
+        page.goto('https://www.sumnersheriff.net/divisions/civil-process/sheriff-sales/',
+                  wait_until='networkidle', timeout=20000)
+        text = page.inner_text('body')
+        seen = set()
+        for line in text.splitlines():
+            line = line.strip()
+            if re.search(r'\d+\s+\w+.*?(St|Ave|Dr|Rd|Blvd|Ln)', line, re.I) and len(line) > 10:
+                uid = make_id('sumner','tf', line[:60])
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('sumner','tax-foreclosure',
+                                  'SEE SHERIFF SALE LISTING',
+                                  line[:80] + ', Wellington KS',
+                                  notes='Sumner County Sheriff Sale — sumnersheriff.net'))
+        log.info(f'  → {len([l for l in leads if l["type"]=="tax-foreclosure"])} sheriff sales')
+    except Exception as e:
+        log.warning(f'  x Sumner sheriff sales: {e}')
+
+    # 3. KDOR state warrants
+    log.info('  Scraping KDOR warrants...')
+    leads += scrape_kdor_warrants(page, 'sumner', 'Sumner', 'Wellington')
+
+    return save('sumner', leads)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ══════════════════════════════════════════════════════════════════════════════
 def main():
@@ -699,6 +946,9 @@ def main():
         results['shelby']   = scrape_shelby(page)
         results['clark']    = scrape_clark(page)
         results['maricopa'] = scrape_maricopa(page)
+        results['harvey']   = scrape_harvey(page)
+        results['butler']   = scrape_butler(page)
+        results['sumner']   = scrape_sumner(page)
 
         browser.close()
 
