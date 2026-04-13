@@ -5,53 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>INTEL — OneRoof</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:       #06060e;
-      --surface:  #0c0c1a;
-      --surface2: #111128;
-      --border:   #181830;
-      --border2:  #222244;
-      --accent:   #f59e0b;
-      --text:     #dde4f0;
-      --muted:    #44445a;
-      --dim:      #7777aa;
+      --bg:       #0a0c0f;
+      --surface:  #111318;
+      --surface2: #181c23;
+      --border:   #2a2f3d;
+      --border2:  #353d50;
+      --accent:   #f97316;
+      --text:     #e8ecf4;
+      --muted:    #555e72;
+      --dim:      #8b93a8;
       --green:    #22c55e;
       --red:      #ef4444;
       --purple:   #a855f7;
       --orange:   #f97316;
       --blue:     #3b82f6;
-      --c-td:     #f59e0b;
+      --c-td:     #f97316;
       --c-tf:     #ef4444;
       --c-pr:     #a855f7;
-      --c-sw:     #f97316;
+      --c-sw:     #f59e0b;
       --c-lp:     #3b82f6;
     }
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-    /* GATE */
-    #gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;flex-direction:column;gap:0;}
-    .gate-inner{width:360px;}
-    .gate-logo{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;letter-spacing:12px;color:var(--accent);line-height:1;}
-    .gate-sub{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:52px;margin-top:4px;}
-    .gate-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:18px;padding:12px 0;outline:none;letter-spacing:4px;transition:border-color .2s;}
-    .gate-input:focus{border-color:var(--accent);}
-    .gate-input::placeholder{color:var(--muted);font-size:11px;letter-spacing:2px;}
-    .gate-btn{width:100%;background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:5px;text-transform:uppercase;padding:16px;cursor:pointer;margin-top:20px;transition:opacity .2s;}
-    .gate-btn:hover{opacity:.85;}
-    .gate-err{color:var(--red);font-size:9px;margin-top:10px;letter-spacing:1px;display:none;}
+    /* GATE — matches DISPO exactly */
+    #gate{
+      position:fixed;inset:0;background:#080808;
+      display:flex;align-items:center;justify-content:center;
+      z-index:9999;font-family:'DM Sans',sans-serif;
+    }
+    .gate-inner{display:flex;flex-direction:column;align-items:center;text-align:center;width:320px;}
+    .gate-icon{
+      width:90px;height:90px;margin-bottom:28px;
+      background:rgba(249,115,22,0.12);border:1.5px solid rgba(249,115,22,0.3);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 32px rgba(249,115,22,0.15);
+    }
+    .gate-icon svg{width:44px;height:44px;}
+    .gate-title{
+      font-family:'Rajdhani',sans-serif;font-size:52px;font-weight:700;
+      color:#fff;letter-spacing:6px;line-height:1;margin-bottom:8px;
+    }
+    .gate-tagline{
+      font-family:'DM Sans',sans-serif;font-size:11px;
+      letter-spacing:3px;text-transform:uppercase;color:#f97316;margin-bottom:6px;
+    }
+    .gate-org{
+      font-family:'DM Sans',sans-serif;font-size:10px;
+      letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:40px;
+    }
+    .gate-input{
+      width:100%;background:#111;border:1px solid #222;
+      border-radius:6px;color:#e8ecf4;font-family:'JetBrains Mono',monospace;
+      font-size:16px;padding:13px 16px;outline:none;
+      text-align:center;letter-spacing:4px;margin-bottom:12px;transition:border-color .2s;
+    }
+    .gate-input:focus{border-color:#f97316;}
+    .gate-btn{
+      width:100%;padding:13px;background:#f97316;color:#fff;
+      border:none;border-radius:6px;font-family:'Rajdhani',sans-serif;
+      font-size:15px;font-weight:700;cursor:pointer;letter-spacing:2px;transition:background .15s;
+    }
+    .gate-btn:hover{background:#ea6c0a;}
+    .gate-err{font-size:12px;color:#f97316;margin-top:10px;min-height:16px;font-family:'JetBrains Mono',monospace;}
 
     /* APP */
     #app{display:none;}
 
-    /* HEADER */
-    .hdr{height:54px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;background:var(--bg);z-index:100;}
-    .hdr-left{display:flex;align-items:center;gap:16px;}
-    .logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:6px;color:var(--accent);}
-    .logo-sub{font-size:8px;letter-spacing:2px;color:var(--muted);}
-    .pulse{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:2px;color:var(--muted);border:1px solid var(--border2);padding:3px 10px;}
+    /* HEADER — matches DISPO */
+    .hdr{
+      height:60px;border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 24px;position:sticky;top:0;background:var(--surface);z-index:100;
+    }
+    .hdr-left{display:flex;align-items:center;gap:14px;}
+    .logo-icon{
+      width:40px;height:40px;background:var(--orange);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      box-shadow:0 0 16px rgba(249,115,22,0.3);
+    }
+    .logo-icon svg{width:22px;height:22px;}
+    .brand{display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1;}
+    .brand-title{
+      font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;
+      letter-spacing:3px;color:var(--text);
+    }
+    .brand-sep{color:var(--border2);font-size:18px;font-weight:300;line-height:1;}
+    .brand-sub{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--orange);}
+    .oneroof-logo{display:flex;align-items:center;opacity:0.85;}
+    .oneroof-logo svg{height:36px;width:auto;}
+    .pulse{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:2px;color:var(--muted);border:1px solid var(--border2);padding:3px 10px;border-radius:3px;}
     .pulse-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
     .hdr-right{display:flex;align-items:center;gap:10px;}
@@ -244,11 +290,18 @@
 <!-- GATE -->
 <div id="gate">
   <div class="gate-inner">
-    <div class="gate-logo">INTEL</div>
-    <div class="gate-sub">OneRoof · County Intelligence</div>
-    <input type="password" class="gate-input" id="gPwd" placeholder="access code" />
-    <button class="gate-btn" onclick="unlock()">ENTER</button>
-    <div class="gate-err" id="gErr">Access denied.</div>
+    <div class="gate-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10" cy="10" r="7"/>
+        <line x1="15.5" y1="15.5" x2="22" y2="22"/>
+      </svg>
+    </div>
+    <div class="gate-title">INTEL</div>
+    <div class="gate-tagline">Predictive Property Intelligence</div>
+    <div class="gate-org">OneRoof Real Estate | 2026</div>
+    <input class="gate-input" type="password" id="gPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')unlock()">
+    <button class="gate-btn" onclick="unlock()">UNLOCK</button>
+    <div class="gate-err" id="gErr">Incorrect password. Try again.</div>
   </div>
 </div>
 
@@ -256,9 +309,16 @@
 <div id="app">
   <header class="hdr">
     <div class="hdr-left">
-      <div>
-        <div class="logo">INTEL</div>
-        <div class="logo-sub">LEAD INTELLIGENCE PLATFORM</div>
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10" cy="10" r="7"/>
+        <line x1="15.5" y1="15.5" x2="22" y2="22"/>
+      </svg>
+      </div>
+      <div class="brand">
+        <span class="brand-title">INTEL</span>
+        <span class="brand-sep">|</span>
+        <span class="brand-sub">Predictive Property Intelligence</span>
       </div>
       <div class="pulse"><div class="pulse-dot"></div>LIVE</div>
     </div>
@@ -270,6 +330,9 @@
         <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
       </div>
       <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
+      <div class="oneroof-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet"><defs><g/><clipPath id="a1"><path d="M 87.808594 111.339844 L 375 111.339844 L 375 176.589844 L 87.808594 176.589844 Z M 87.808594 111.339844 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a1)"><path fill="#ffffff" d="M 348.988281 288.757812 L 348.988281 198.300781 L 353.585938 201.261719 L 369.019531 176.832031 L 267.847656 111.5625 L 267.527344 111.351562 L 262.320312 111.339844 L 225.707031 134.960938 L 225.707031 131.707031 L 186.4375 131.707031 L 186.4375 160.292969 L 160.800781 176.832031 L 176.242188 201.261719 L 180.832031 198.300781 L 180.832031 288.757812 L 87.8125 288.757812 L 87.8125 297.9375 L 189.8125 297.9375 L 189.925781 181.539062 L 179.011719 188.578125 L 173.351562 179.632812 L 195.53125 165.324219 L 195.53125 140.886719 L 216.621094 140.886719 L 216.621094 151.71875 L 264.253906 120.988281 L 265.546875 120.976562 L 356.46875 179.632812 L 350.816406 188.578125 L 339.90625 181.542969 L 339.753906 297.9375 L 442.011719 297.9375 L 442.011719 288.757812 L 348.988281 288.757812 " fill-opacity="1" fill-rule="nonzero"/></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(2.776946, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(59.37894, 227.838251)"><g><path d="M 46.4375 0 L 38.734375 0 L 13.953125 -33.359375 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 13.8125 -46.5 L 38.734375 -13.09375 L 38.734375 -46.5 L 46.4375 -46.5 Z M 46.4375 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(114.785129, 227.838251)"><g><path d="M 39.328125 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.90625 L 36.671875 -26.90625 L 36.671875 -19.859375 L 13.953125 -19.859375 L 13.953125 -7.046875 L 40.125 -7.046875 L 40.125 0 L 6.109375 0 L 6.109375 -46.5 L 39.328125 -46.5 Z M 39.328125 -39.46875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(161.156335, 227.838251)"><g><path d="M 35.609375 0 L 27.109375 -14.078125 C 26.660156 -14.035156 25.953125 -14.015625 24.984375 -14.015625 L 13.953125 -14.015625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 24.984375 -46.5 C 30.921875 -46.5 35.523438 -45.113281 38.796875 -42.34375 C 42.078125 -39.582031 43.71875 -35.675781 43.71875 -30.625 C 43.71875 -26.90625 42.882812 -23.757812 41.21875 -21.1875 C 39.5625 -18.625 37.179688 -16.742188 34.078125 -15.546875 L 44.515625 0 Z M 13.953125 -21.0625 L 24.984375 -21.0625 C 32.515625 -21.0625 36.28125 -24.179688 36.28125 -30.421875 C 36.28125 -36.453125 32.515625 -39.46875 24.984375 -39.46875 L 13.953125 -39.46875 Z M 13.953125 -21.0625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(211.978593, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(268.580587, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(325.182581, 227.838251)"><g><path d="M 37.265625 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.046875 L 35.078125 -26.046875 L 35.078125 -19.0625 L 13.953125 -19.0625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 37.34375 -46.5 Z M 37.265625 -39.46875 "/></g></g></g></svg>
+      </div>
     </div>
   </header>
 
@@ -278,17 +341,17 @@
     <button class="ctab active" onclick="setCounty('sedgwick',this)">
       Sedgwick <span class="cnt" id="cnt-sedgwick">0</span>
     </button>
-    <button class="ctab coming" title="Coming soon">
-      Harris <span class="cnt">—</span>
+    <button class="ctab" onclick="setCounty('harris',this)">
+      Harris <span class="cnt" id="cnt-harris">—</span>
     </button>
-    <button class="ctab coming" title="Coming soon">
-      Clark <span class="cnt">—</span>
+    <button class="ctab" onclick="setCounty('shelby',this)">
+      Shelby <span class="cnt" id="cnt-shelby">—</span>
     </button>
-    <button class="ctab coming" title="Coming soon">
-      Shelby <span class="cnt">—</span>
+    <button class="ctab" onclick="setCounty('clark',this)">
+      Clark <span class="cnt" id="cnt-clark">—</span>
     </button>
-    <button class="ctab coming" title="Coming soon">
-      Maricopa <span class="cnt">—</span>
+    <button class="ctab" onclick="setCounty('maricopa',this)">
+      Maricopa <span class="cnt" id="cnt-maricopa">—</span>
     </button>
     <button class="ctab coming" title="Coming soon">
       Tarrant <span class="cnt">—</span>
@@ -543,7 +606,9 @@ function unlock() {
     localStorage.setItem('intel_auth', btoa(CONFIG.password));
     boot();
   } else {
-    document.getElementById('gErr').style.display = 'block';
+    const err = document.getElementById('gErr');
+    err.style.display = 'block';
+    document.getElementById('gPwd').value = '';
   }
 }
 document.getElementById('gPwd').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
@@ -560,8 +625,11 @@ function boot() {
 // ═══════════════════════════════════════════════════════════
 async function loadLeads() {
   setLoading(true);
+  const dataUrl = activeCounty === 'sedgwick'
+    ? CONFIG.dataUrl
+    : `/data/leads-${activeCounty}.json`;
   try {
-    const res = await fetch(CONFIG.dataUrl + '?v=' + Date.now());
+    const res = await fetch(dataUrl + '?v=' + Date.now());
     if (!res.ok) throw new Error('no data');
     const data = await res.json();
     allLeads = (data.leads || []).map(l => ({
@@ -577,15 +645,19 @@ async function loadLeads() {
         'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
         ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
     }
+    // Update tab count
+    const cntEl = document.getElementById(`cnt-${activeCounty}`);
+    if (cntEl) cntEl.textContent = allLeads.length;
   } catch {
-    allLeads = sampleLeads().map(l => ({
+    allLeads = activeCounty === 'sedgwick' ? sampleLeads().map(l => ({
       ...l,
       score:     computeScore(l),
       contacted: contacted.has(l.id),
       pushed:    pushed.has(l.id),
       phone:     phones[l.id] || null,
-    }));
-    document.getElementById('updatedAt').textContent = 'Sample data — scraper pending';
+    })) : [];
+    document.getElementById('updatedAt').textContent =
+      activeCounty === 'sedgwick' ? 'Sample data — scraper pending' : 'No data yet — run scraper';
   }
   updateStats();
   render();
@@ -608,7 +680,8 @@ function updateStats() {
   document.getElementById('sPR').textContent    = t('probate');
   document.getElementById('sSW').textContent    = t('state-warrant');
   document.getElementById('sHot').textContent   = allLeads.filter(l => l.score >= 60).length;
-  document.getElementById('cnt-sedgwick').textContent = allLeads.length;
+  const cntEl = document.getElementById(`cnt-${activeCounty}`);
+  if (cntEl && activeCounty !== 'attom') cntEl.textContent = allLeads.length;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -624,6 +697,8 @@ function setCounty(county, el) {
   document.getElementById('statsBar').style.display   = isAttom ? 'none' : '';
   document.getElementById('leadWrap').style.display   = isAttom ? 'none' : '';
   document.getElementById('attomPanel').style.display = isAttom ? 'block' : 'none';
+
+  if (!isAttom) loadLeads();
 }
 
 function setFilter(f, el) {
