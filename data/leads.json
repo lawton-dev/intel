@@ -1,840 +1,809 @@
 {
-  "lastUpdated": "2026-04-12T21:35:10.362150+00:00",
-  "totalLeads": 237,
+  "lastUpdated": "2026-04-13T16:06:36.064458+00:00",
+  "county": "sedgwick",
+  "totalLeads": 232,
   "sources": {
-    "tax_delinquent": 223,
+    "tax_delinquent": 232,
     "tax_foreclosure": 0,
     "probate": 0,
-    "state_warrant": 14
+    "state_warrant": 0
   },
   "leads": [
     {
-      "id": "63793f6c9d94",
-      "type": "state-warrant",
-      "owner": "PATRICK Y GAYNOR",
-      "address": "1628 N PORTER AVE, WICHITA, KS 672032921",
-      "amount": "$13,420.17",
-      "filingDate": null,
-      "caseNumber": "16ST1003",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.175132+00:00"
-    },
-    {
-      "id": "585a20594b1b",
-      "type": "state-warrant",
-      "owner": "CHARLES A THOMPSON",
-      "address": "2722 IVA ST, WICHITA, KS 672202432",
-      "amount": "$3,374.52",
-      "filingDate": null,
-      "caseNumber": "16ST1019",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.193266+00:00"
-    },
-    {
-      "id": "49151d12a0f6",
-      "type": "state-warrant",
-      "owner": "JEFF S LONG",
-      "address": "1409 S HYDRAULIC ST, WICHITA, KS 672113616",
-      "amount": "$6,740.04",
-      "filingDate": null,
-      "caseNumber": "16ST1073",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.210837+00:00"
-    },
-    {
-      "id": "b5a6aa9ae3ad",
-      "type": "state-warrant",
-      "owner": "GABRIELLE MORGAN",
-      "address": "330 S TYLER RD, WICHITA, KS 67209",
-      "amount": "$12,332.75",
-      "filingDate": null,
-      "caseNumber": "16ST2026",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.227927+00:00"
-    },
-    {
-      "id": "0848c756d929",
-      "type": "state-warrant",
-      "owner": "CARL D RAY",
-      "address": "329 N LANCASTER DR, WICHITA, KS 672307806",
-      "amount": "$10,121.36",
-      "filingDate": null,
-      "caseNumber": "16ST2594",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.244752+00:00"
-    },
-    {
-      "id": "8d3fc7070289",
-      "type": "state-warrant",
-      "owner": "DONNA B RAY",
-      "address": "329 N LANCASTER DR, WICHITA, KS 672307806",
-      "amount": "$10,121.36",
-      "filingDate": null,
-      "caseNumber": "16ST2594",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.262309+00:00"
-    },
-    {
-      "id": "cd226d143a00",
-      "type": "state-warrant",
-      "owner": "OLLIS D WHITELY",
-      "address": "1445 N BROADVIEW ST, WICHITA, KS 672082119",
-      "amount": "$3,791.72",
-      "filingDate": null,
-      "caseNumber": "16ST2964",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.279655+00:00"
-    },
-    {
-      "id": "e6820dfbfd11",
-      "type": "state-warrant",
-      "owner": "STEPHANIE M NYSTROM",
-      "address": "114 N OSAGE RD, DERBY, KS 670372100",
-      "amount": "$3,832.05",
-      "filingDate": null,
-      "caseNumber": "16ST0338",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.297420+00:00"
-    },
-    {
-      "id": "daf21cc83602",
-      "type": "state-warrant",
-      "owner": "OSCAR D VEGA",
-      "address": "246 S MT CARMEL, WICHITA, KS 67213",
-      "amount": "$2,700.96",
-      "filingDate": null,
-      "caseNumber": "16ST0366",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.313857+00:00"
-    },
-    {
-      "id": "42829ca546fd",
-      "type": "state-warrant",
-      "owner": "MARY A GOLDWATER-DEVOR",
-      "address": "2505 W 27TH ST S, WICHITA, KS 672171544",
-      "amount": "$9,230.46",
-      "filingDate": null,
-      "caseNumber": "16ST842",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.329612+00:00"
-    },
-    {
-      "id": "0cf29629925b",
-      "type": "state-warrant",
-      "owner": "JOHN C MCKAY",
-      "address": "2592 N BULLINGER ST, WICHITA, KS 672045471",
-      "amount": "$3,627.16",
-      "filingDate": null,
-      "caseNumber": "16ST2252",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.347423+00:00"
-    },
-    {
-      "id": "3c95d39c8b7b",
-      "type": "state-warrant",
-      "owner": "JOHN F AGNEW",
-      "address": "166 N MARLEN DR, HAYSVILLE, KS 670601807",
-      "amount": "$7,552.10",
-      "filingDate": null,
-      "caseNumber": "16ST2902",
-      "notes": "Kansas DOR state tax warrant (individual) \u2014 INCOME TAX",
-      "scrapedAt": "2026-04-12T21:32:57.363247+00:00"
-    },
-    {
-      "id": "1e14c8a3b2ff",
-      "type": "state-warrant",
-      "owner": "COOPER INC",
-      "address": "2910 E HARRY ST, WICHITA, KS 672114748",
-      "amount": "$429,418.44",
-      "filingDate": null,
-      "caseNumber": "16ST2891",
-      "notes": "Kansas DOR state tax warrant (business) \u2014 SALES TAX",
-      "scrapedAt": "2026-04-12T21:32:58.865839+00:00"
-    },
-    {
-      "id": "e5c46e86b6aa",
-      "type": "state-warrant",
-      "owner": "BENEDICT SEAN KLENDA",
-      "address": "2910 E HARRY ST, WICHITA, KS 672114748",
-      "amount": "$429,418.44",
-      "filingDate": null,
-      "caseNumber": "16ST2891",
-      "notes": "Kansas DOR state tax warrant (business) \u2014 SALES TAX",
-      "scrapedAt": "2026-04-12T21:32:58.882261+00:00"
-    },
-    {
-      "id": "af53776f153f",
+      "id": "72b2ee76bd88",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A & A CONTRACTING",
-      "address": "1803 S PATTIE AVE WICHITA, Wichita KS",
+      "address": "1803 S PATTIE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.514387+00:00"
+      "scrapedAt": "2026-04-13T16:01:23.921359+00:00"
     },
     {
-      "id": "8288e975b3bf",
+      "id": "1b345b281335",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A & S LOCKSMITH",
-      "address": "",
+      "address": "502 N OLD MANOR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.532297+00:00"
+      "scrapedAt": "2026-04-13T16:01:23.941910+00:00"
     },
     {
-      "id": "a25eace1c25b",
+      "id": "c37ab6604f7d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A 1 LIQUOR",
-      "address": "1702 E MORRIS ST WICHITA, Wichita KS",
+      "address": "1702 E MORRIS ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.549411+00:00"
+      "scrapedAt": "2026-04-13T16:01:23.960325+00:00"
     },
     {
-      "id": "81f25ee0d9fa",
+      "id": "f5c6b72d124e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A E HENNING SEWER",
-      "address": "2810 E ALOMA ST WICHITA, Wichita KS",
+      "address": "2810 E ALOMA ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.566509+00:00"
+      "scrapedAt": "2026-04-13T16:01:23.979328+00:00"
     },
     {
-      "id": "f7e09cc24142",
+      "id": "2d03c4651bb7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A E PETSCHE CO INC",
-      "address": "4545 W HARRY ST WICHITA, Wichita KS",
+      "address": "4545 W HARRY ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.583507+00:00"
+      "scrapedAt": "2026-04-13T16:01:23.997731+00:00"
     },
     {
-      "id": "8e0acb30b1d9",
+      "id": "e837ce229dda",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A J NEAL PLUMBING",
-      "address": "2449 N POPLAR AVE WICHITA, Wichita KS",
+      "address": "2449 N POPLAR AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.602689+00:00"
+      "scrapedAt": "2026-04-13T16:01:24.015492+00:00"
     },
     {
-      "id": "9ce315a34c16",
+      "id": "abe5a9513135",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A J'S CARRY OUT",
-      "address": "2504 E 9TH ST N WICHITA, Wichita KS",
+      "address": "2504 E 9TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.621399+00:00"
+      "scrapedAt": "2026-04-13T16:01:24.034229+00:00"
     },
     {
-      "id": "831b33eaab8b",
+      "id": "db9b8ecd35de",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A MILLER PROPERTIES LLC",
-      "address": "7429 W FRAZIER LN WICHITA, Wichita KS",
+      "address": "7429 W FRAZIER LN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.638256+00:00"
+      "scrapedAt": "2026-04-13T16:01:24.052227+00:00"
     },
     {
-      "id": "0595d8c2267e",
+      "id": "81688d0f8bcf",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A MILLER PROPERTIES LLC",
-      "address": "9210 W NANTUCKET LN WICHITA, Wichita KS",
+      "address": "9210 W NANTUCKET LN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.655713+00:00"
+      "scrapedAt": "2026-04-13T16:01:24.070605+00:00"
     },
     {
-      "id": "c4378ad4849f",
+      "id": "cd2ed9975c8a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "A&V INVESTMENT LP",
-      "address": "632 N GRANDSTONE ST KECHI, Wichita KS",
+      "address": "632 N GRANDSTONE ST KECHIWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:19.672317+00:00"
+      "scrapedAt": "2026-04-13T16:01:24.088805+00:00"
     },
     {
-      "id": "40fcd3f4c8db",
+      "id": "48626f0ac1ab",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & F GROUP LLC",
-      "address": "1845 N BROADWAY AVE WICHITA, Wichita KS",
+      "address": "1845 N BROADWAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.213877+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.042926+00:00"
     },
     {
-      "id": "b02bc8ce0af8",
+      "id": "444dea1262f3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & H FAST TRIPS",
-      "address": "2796 S SENECA ST WICHITA, Wichita KS",
+      "address": "2796 S SENECA ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.230332+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.061068+00:00"
     },
     {
-      "id": "691c2564d158",
+      "id": "c4d0fab96d33",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R AUTO SALON INC",
-      "address": "1754 N GROVE AVE WICHITA, Wichita KS",
+      "address": "1754 N GROVE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.246482+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.078412+00:00"
     },
     {
-      "id": "39106952026b",
+      "id": "de28db793ee7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "1701 N HILLSIDE AVE WICHITA, Wichita KS",
+      "address": "1701 N HILLSIDE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.262547+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.096309+00:00"
     },
     {
-      "id": "2e9530687eaf",
+      "id": "71c34a5772e4",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "1705 N HILLSIDE AVE WICHITA, Wichita KS",
+      "address": "1705 N HILLSIDE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.281136+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.114204+00:00"
     },
     {
-      "id": "7879de7dcbfa",
+      "id": "fc03aec605b8",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "1719 N HILLSIDE AVE WICHITA, Wichita KS",
+      "address": "1719 N HILLSIDE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.296979+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.131603+00:00"
     },
     {
-      "id": "884fd17a605f",
+      "id": "b5ed516d3b90",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "1742 N LORRAINE AVE WICHITA, Wichita KS",
+      "address": "1742 N LORRAINE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.313175+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.149229+00:00"
     },
     {
-      "id": "857d62469fec",
+      "id": "081bb2b8294d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "2206 E 9TH ST N WICHITA, Wichita KS",
+      "address": "2206 E 9TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.329045+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.166734+00:00"
     },
     {
-      "id": "c9f4801ef369",
+      "id": "329a12e49fc3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "2215 E 9TH ST N WICHITA, Wichita KS",
+      "address": "2215 E 9TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.345612+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.183756+00:00"
     },
     {
-      "id": "2916e5b17697",
+      "id": "07870606592c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "B & R KNOWLES PROPERTIES LLC",
-      "address": "2217 E 9TH ST N WICHITA, Wichita KS",
+      "address": "2217 E 9TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:29.362211+00:00"
+      "scrapedAt": "2026-04-13T16:01:34.200798+00:00"
     },
     {
-      "id": "2308e03ff8c9",
+      "id": "ba0b4f9c6f60",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & A HOMES LLC",
-      "address": "3840 S BLUELAKE ST WICHITA, Wichita KS",
+      "address": "3840 S BLUELAKE ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:34.934220+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.593628+00:00"
     },
     {
-      "id": "cc42cb6a2aed",
+      "id": "fd9982ddf698",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & C MAINTENANCE LC",
-      "address": "200 W DOUGLAS AVE WICHITA, Wichita KS",
+      "address": "200 W DOUGLAS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:34.951565+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.612291+00:00"
     },
     {
-      "id": "3ae160af9938",
+      "id": "96c05f7f77cc",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & J REALTY",
-      "address": "1118 S TERRACE DR WICHITA, Wichita KS",
+      "address": "1118 S TERRACE DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:34.967967+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.630376+00:00"
     },
     {
-      "id": "8e444b7a3578",
+      "id": "fe3a7a685d03",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & J REALTY",
-      "address": "4300 E BAYLEY DR WICHITA, Wichita KS",
+      "address": "4300 E BAYLEY DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:34.984420+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.648986+00:00"
     },
     {
-      "id": "f4f587d9fe56",
+      "id": "20df624e2d9f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & J REALTY",
-      "address": "4316 E BAYLEY DR WICHITA, Wichita KS",
+      "address": "4316 E BAYLEY DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.001091+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.666870+00:00"
     },
     {
-      "id": "6f90931f27c5",
+      "id": "2738078be4ed",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & J REALTY",
-      "address": "4465 E BOSTON DR WICHITA, Wichita KS",
+      "address": "4465 E BOSTON DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.017983+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.685011+00:00"
     },
     {
-      "id": "364e697833ac",
+      "id": "cf9cab94f1fa",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C & J REALTY",
-      "address": "4517 E LINCOLN ST WICHITA, Wichita KS",
+      "address": "4517 E LINCOLN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.034275+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.702871+00:00"
     },
     {
-      "id": "28313505ec4d",
+      "id": "a370e578203f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C F C PARTNERSHIP",
-      "address": "6914 S RUTAN ST WICHITA, Wichita KS",
+      "address": "6914 S RUTAN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.050690+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.721299+00:00"
     },
     {
-      "id": "97f609b57acf",
+      "id": "d8b1fed0bf3d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C RAE ENTERPRISE & ASSOC",
-      "address": "607 S HYDRAULIC AVE WICHITA, Wichita KS",
+      "address": "607 S HYDRAULIC AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.067204+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.739101+00:00"
     },
     {
-      "id": "c62912392e69",
+      "id": "95ec76c5445c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "C&A EMPIRE LLC",
-      "address": "10301 W 13TH ST N WICHITA, Wichita KS",
+      "address": "10301 W 13TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:35.085950+00:00"
+      "scrapedAt": "2026-04-13T16:01:47.756650+00:00"
     },
     {
-      "id": "caee7183b12c",
+      "id": "d9be141773b7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & D AUTOMOTIVE",
-      "address": "3048 S HILLSIDE AVE WICHITA, Wichita KS",
+      "address": "3048 S HILLSIDE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.421891+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.769932+00:00"
     },
     {
-      "id": "5d2cc4d997cb",
+      "id": "4d0d68a378ce",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & M PARTNERSHIP",
-      "address": "1602 S MERIDIAN AVE WICHITA, Wichita KS",
+      "address": "1602 S MERIDIAN AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.437954+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.788642+00:00"
     },
     {
-      "id": "c55e2d5860a5",
+      "id": "74dcf542b7e3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "1002 S MEAD AVE WICHITA, Wichita KS",
+      "address": "1002 S MEAD AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.454100+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.806860+00:00"
     },
     {
-      "id": "2e72550601bf",
+      "id": "cb8420e3b551",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "1205 S SENECA ST WICHITA, Wichita KS",
+      "address": "1205 S SENECA ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.470612+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.824510+00:00"
     },
     {
-      "id": "94b595a4e42a",
+      "id": "4ef9dbc8871b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "1211 S SENECA ST WICHITA, Wichita KS",
+      "address": "1211 S SENECA ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.487350+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.843346+00:00"
     },
     {
-      "id": "1642965541e3",
+      "id": "3afd9bcbfeaa",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "801 E MORRIS ST WICHITA, Wichita KS",
+      "address": "801 E MORRIS ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.504105+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.860412+00:00"
     },
     {
-      "id": "38ce91574fa2",
+      "id": "2d2557a0ec52",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "815 E GILBERT ST WICHITA, Wichita KS",
+      "address": "815 E GILBERT ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.520908+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.878935+00:00"
     },
     {
-      "id": "11286a790297",
+      "id": "f421121bcf8d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "D & P LAND LLC",
-      "address": "",
+      "address": "LOT 1 BLOCK 1 DOROTHY ADDITIONWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:39.537234+00:00"
+      "scrapedAt": "2026-04-13T16:01:57.898757+00:00"
     },
     {
-      "id": "14225dbbfc07",
+      "id": "5eb9985dd1e2",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "D & P LAND LLC",
+      "address": "LOTS 130-132-134-136 EXC TH PT LOTS134 & 136 LY E RR ROW MEAD AVE. KELSCH'S ADD.Wichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:01:57.918107+00:00"
+    },
+    {
+      "id": "00ef8c4a6492",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "D & P LAND LLC",
+      "address": "ODD LOTS 109 TO 127 INC EXC BEG NE COR LOT 109 S 124 FT TO PT 1 FT N OF S LI LOT 117 W 31.5 FT NELY 127.01 FT TO N LI LOT 109 E 4 FT TO BEG & EXC BEG 1 FT N NE COR LOT 119W 31.5 FT SW TO S LI LOT 127 E 80 FT M-L TO SE COR LOT 127 N TO BEG MOSLEY AVE. HODSON & STANCER'S ADD.Wichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:01:57.936962+00:00"
+    },
+    {
+      "id": "d75fdd020435",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "E & M BODY SHOP",
-      "address": "1817 N BROADWAY AVE WICHITA, Wichita KS",
+      "address": "1817 N BROADWAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.795843+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.581244+00:00"
     },
     {
-      "id": "9ee45494836e",
+      "id": "8944edb7793d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "E S WEBB CO INC",
-      "address": "113 N PARK AVE MAIZE, Wichita KS",
+      "address": "113 N PARK AVE MAIZEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.812564+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.598813+00:00"
     },
     {
-      "id": "e5afd65011a3",
+      "id": "b351052c4f2c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "E WICHITA PROPERTIES LLC",
-      "address": "9840 E 21ST ST N WICHITA, Wichita KS",
+      "address": "9840 E 21ST ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.848231+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.635229+00:00"
     },
     {
-      "id": "9f5e74229372",
+      "id": "b6832ee40a1b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "EAGLE EYE RECOVERY LLC",
-      "address": "1324 S HANDLEY ST WICHITA, Wichita KS",
+      "address": "1324 S HANDLEY ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.865115+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.654196+00:00"
     },
     {
-      "id": "f0b38a82a3c7",
+      "id": "3cd4c8c11cb7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "13650 W HOMESTEAD DR, Wichita KS",
+      "address": "13650 W HOMESTEAD DRWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.882527+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.672477+00:00"
     },
     {
-      "id": "be14dd3170c6",
+      "id": "5442f019eb59",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "",
+      "address": "LOT 1 BLOCK A EAGLE RIDGE ESTATESWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:42.900656+00:00"
+      "scrapedAt": "2026-04-13T16:02:03.691004+00:00"
     },
     {
-      "id": "df8f3eb68586",
+      "id": "731b04cc4248",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "EAGLE RIDGE HOLDINGS LLC",
+      "address": "LOT 1 BLOCK B EAGLE RIDGE ESTATESWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:02:03.710304+00:00"
+    },
+    {
+      "id": "b0d633f1fe8a",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "EAGLE RIDGE HOLDINGS LLC",
+      "address": "LOT 10 BLOCK B EAGLE RIDGE ESTATESWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:02:03.744767+00:00"
+    },
+    {
+      "id": "d17471b99194",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "EAGLE RIDGE HOLDINGS LLC",
+      "address": "LOT 2 BLOCK A EAGLE RIDGE ESTATESWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:02:03.767183+00:00"
+    },
+    {
+      "id": "43bae2c941d9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "F & L HOMES",
-      "address": "",
+      "address": "TH PT SW 1/4 LY N & W OF TURNPIKE SEC 31-27-2EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.549655+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.048758+00:00"
     },
     {
-      "id": "f61bd88bdca1",
+      "id": "d5c294a72d9e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "F & R INVESTMENTS LLC",
-      "address": "1132 N CUSTER AVE WICHITA, Wichita KS",
+      "address": "1132 N CUSTER AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.566641+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.067333+00:00"
     },
     {
-      "id": "b47da5042811",
+      "id": "886ba9307eaa",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "F DOYLE FAIR",
-      "address": "7309 E 21ST ST N WICHITA, Wichita KS",
+      "address": "7309 E 21ST ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.582837+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.085736+00:00"
     },
     {
-      "id": "c7d0a61cd59c",
+      "id": "a4205dc60a71",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "F&L HOMES",
-      "address": "5403 S DODGE AVE WICHITA, Wichita KS",
+      "address": "5403 S DODGE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.599005+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.102777+00:00"
     },
     {
-      "id": "b4f0e0fc44a1",
+      "id": "e3db8ea8e66a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "F&L HOMES",
-      "address": "",
+      "address": "S 1/2 N 1A E 5A W 1/2 SE 1/4 SE 1/4SEC 19-28-1EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.616122+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.120749+00:00"
     },
     {
-      "id": "4c2f5a09c5c5",
+      "id": "6044fd4c863a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "FABELA JAIME",
-      "address": "4960 S SENECA ST WICHITA, Wichita KS",
+      "address": "4960 S SENECA ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.632343+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.139055+00:00"
     },
     {
-      "id": "41ed57acd4c7",
+      "id": "d84dc2d2c460",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "FABER JOSH",
-      "address": "1134 S GORDON AVE WICHITA, Wichita KS",
+      "address": "1134 S GORDON AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.648316+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.158196+00:00"
     },
     {
-      "id": "2af918f92967",
+      "id": "5aa0b082c226",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "FACILITY PROZ LLC",
-      "address": "",
+      "address": "LOT 16 NEW YORK AVE. MATHEWSON'S 4TH. ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.664202+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.177196+00:00"
     },
     {
-      "id": "9a30160abfa0",
+      "id": "b6ee8336c483",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "FAE BETTER HOMES LLC",
-      "address": "",
+      "address": "5111 S MERIDIAN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:46.680798+00:00"
+      "scrapedAt": "2026-04-13T16:02:13.199798+00:00"
     },
     {
-      "id": "48c965e238c0",
+      "id": "a042550d5155",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G & C CONTRACTING",
-      "address": "1543 N PINECREST AVE WICHITA, Wichita KS",
+      "address": "1543 N PINECREST AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.453627+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.848530+00:00"
     },
     {
-      "id": "c50f92bb4036",
+      "id": "21e760ee8561",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G & J ENTERPRISES OF KANSAS LLC",
-      "address": "LOT 3 BLOCK 3 GARDEN PLAIN CITY, Wichita KS",
+      "address": "LOT 3 BLOCK 3 GARDEN PLAIN CITYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.470581+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.867791+00:00"
     },
     {
-      "id": "a8c62de5d79d",
+      "id": "c9e1427887d3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G & J ENTERPRISES OF KS LLC",
-      "address": "203 W HARRY ST GARDEN PLAIN, Wichita KS",
+      "address": "203 W HARRY ST GARDEN PLAINWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.486984+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.886390+00:00"
     },
     {
-      "id": "fabb51ac17fe",
+      "id": "9701d843158d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G AND G SALES AND RENTALS",
-      "address": "2320 E MACARTHUR RD WICHITA, Wichita KS",
+      "address": "2320 E MACARTHUR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.521248+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.905613+00:00"
     },
     {
-      "id": "79b6d005fe2a",
+      "id": "80c7c1033a49",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G GORDANA GORECHAN CPA MD",
-      "address": "8903 E BLUESTEM ST WICHITA, Wichita KS",
+      "address": "8903 E BLUESTEM ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.537254+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.923886+00:00"
     },
     {
-      "id": "f5cdf3622305",
+      "id": "ab50857ccde7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G HOLDING LLC",
-      "address": "",
+      "address": "N 10 FT LOT 5-ALL LOT 7 & S 20 FT VAC EXTONS OUTLET ADJ ON THE N. MEAD AVE. EAST WICHITA ADDITIONWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.553271+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.940978+00:00"
     },
     {
-      "id": "bcfb92c3fe01",
+      "id": "15eae209ed7e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G W BREWER INC DBA BEAR AUTOMOTIVE",
-      "address": "1126 E 17TH ST N WICHITA, Wichita KS",
+      "address": "1126 E 17TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.569415+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.958968+00:00"
     },
     {
-      "id": "9a9cecdd9f92",
+      "id": "48f1c5f702cd",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "G3 AERONAUTICS LLC",
-      "address": "2020 E DOUGLAS AVE WICHITA, Wichita KS",
+      "address": "2020 E DOUGLAS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.586241+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.976617+00:00"
     },
     {
-      "id": "c9ec54af9101",
+      "id": "02ab2f0cf3bb",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "GABEL TRUST LLC",
       "address": "",
@@ -842,274 +811,311 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:33:55.603637+00:00"
+      "scrapedAt": "2026-04-13T16:02:20.994871+00:00"
     },
     {
-      "id": "660c64dd2e26",
+      "id": "a628a1c9ebe5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "H & C INSULATION INC",
-      "address": "6200 S RIDGE RD, Wichita KS",
+      "address": "6200 S RIDGE RDWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.045132+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.022742+00:00"
     },
     {
-      "id": "8c6e698208db",
+      "id": "859d36c504ad",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "H & H AMUSEMENTS INC",
-      "address": "3234 S MERIDIAN AVE WICHITA, Wichita KS",
+      "address": "3234 S MERIDIAN AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.063095+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.040549+00:00"
     },
     {
-      "id": "c7df45e7e5ab",
+      "id": "67f5562a4b52",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "H B & M INC",
-      "address": "1129 N MAIN ST WICHITA, Wichita KS",
+      "address": "1129 N MAIN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.081042+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.057536+00:00"
     },
     {
-      "id": "c83cbeb2d79b",
+      "id": "efb79cdd4bcc",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HA PROPERTY LLC",
-      "address": "",
+      "address": "N 149 FT W 400 FT OF SAID TRACT COMM NW COR E 1/2 NW 1/4 TH S ALG W LI 81.9 FT TO S ROW LI US HWY 54 E ALG HWY ROW 440 FT FOR BEG THE S 520 FT W 440 FT S 558.10 FT E 495 FT N 1078.3 FT TO PT ON S LI SAID HWY ROW W 55 FT TO BEG SEC 28-27-2EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.098372+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.075901+00:00"
     },
     {
-      "id": "38966ebf31f3",
+      "id": "a36ebc098676",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HAAS MARK D & CHERYL K",
-      "address": "1717 S HYDRAULIC AVE WICHITA, Wichita KS",
+      "address": "1717 S HYDRAULIC AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.117245+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.094139+00:00"
     },
     {
-      "id": "3f34fae162c9",
+      "id": "bf7c9ee86bd4",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HAAS MYRNA S LIV TR",
-      "address": "",
+      "address": "3016 E MOUNT VERNON RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.134869+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.110990+00:00"
     },
     {
-      "id": "d28768c1b90b",
+      "id": "0ba53c49179a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HAAS MYRNA S LIV TR",
-      "address": "3536 W 2ND ST N WICHITA, Wichita KS",
+      "address": "3536 W 2ND ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.151795+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.128456+00:00"
     },
     {
-      "id": "7e04547b0a69",
+      "id": "e264688612f2",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "HAAS MYRNA S LIV TR",
+      "address": "616 N SAINT CLAIR AVE WICHITAWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:02:36.147196+00:00"
+    },
+    {
+      "id": "42351d8f8ed0",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "1805 W CAMPUS ST WICHITA, Wichita KS",
+      "address": "1805 W CAMPUS ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.185063+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.164904+00:00"
     },
     {
-      "id": "a772d0377102",
+      "id": "40672170ccef",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "3210 S GREENHAVEN PL, Wichita KS",
+      "address": "3210 S GREENHAVEN PLWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:01.201285+00:00"
+      "scrapedAt": "2026-04-13T16:02:36.181903+00:00"
     },
     {
-      "id": "d49eaa536e7f",
+      "id": "b1d95a9cb9d9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "I2 INVESTMENTS LLC",
-      "address": "328 N BIRCH AVE VALLEY CENTER, Wichita KS",
+      "address": "328 N BIRCH AVE VALLEY CENTERWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.730859+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.607333+00:00"
     },
     {
-      "id": "8d27cbe822f4",
+      "id": "9865d30ad94f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IASIS CHRISTIAN CENTER INC",
-      "address": "",
+      "address": "LOT 203 ROSENTHAL'S 2ND. ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.747534+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.623792+00:00"
     },
     {
-      "id": "53d255490f71",
+      "id": "60824df4e9a4",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBAHN GENERAL HOLDINGS CORP",
-      "address": "",
+      "address": "9100 E CORPORATE HILLS DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.763751+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.640660+00:00"
     },
     {
-      "id": "ace5c5f4ace2",
+      "id": "2fa979b2dd75",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBANEZ MARIO V & LAURA RUEDA-VALDEZ",
-      "address": "2006 W 34TH ST S WICHITA, Wichita KS",
+      "address": "2006 W 34TH ST S WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.779572+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.657506+00:00"
     },
     {
-      "id": "df52cdb7a0ea",
+      "id": "fe6e0907dfd9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA ABEL SAUL BARRERA-",
-      "address": "",
+      "address": "E 50 FT LOT 19 BLOCK 12 FRUITVALE PARK ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.795763+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.674533+00:00"
     },
     {
-      "id": "b384848d9c21",
+      "id": "3ef7123b0458",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA ADOLFO & MARTIN",
-      "address": "3241 E 12TH ST N WICHITA, Wichita KS",
+      "address": "3241 E 12TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.811999+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.690912+00:00"
     },
     {
-      "id": "37cf78ab274f",
+      "id": "6b4bb2436800",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA ARMANDO & ADELA",
-      "address": "",
+      "address": "1511 N SAINT FRANCIS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.827884+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.707889+00:00"
     },
     {
-      "id": "e6aae5112869",
+      "id": "e6f6f52e964e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA BERNARDO IVAN",
-      "address": "2047 N PARK PL WICHITA, Wichita KS",
+      "address": "2047 N PARK PL WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.843762+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.724424+00:00"
     },
     {
-      "id": "293e7ace1d64",
+      "id": "7d07a2c114ae",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA ELEAZAR & MA GUADALUPE OLIVAREZ OLIVAREZ",
-      "address": "3308 S FERN ST WICHITA, Wichita KS",
+      "address": "3308 S FERN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.859822+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.740903+00:00"
     },
     {
-      "id": "d533df2ac840",
+      "id": "d1c52fcc3fb1",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "IBARRA GLORIA",
-      "address": "1744 N MINNEAPOLIS AVE WICHITA, Wichita KS",
+      "address": "1744 N MINNEAPOLIS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:03.876920+00:00"
+      "scrapedAt": "2026-04-13T16:02:41.757405+00:00"
     },
     {
-      "id": "52efdc870668",
+      "id": "c84878c08a66",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J & A RENTALS",
-      "address": "1333 W MAY AVE WICHITA, Wichita KS",
+      "address": "1333 W MAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.230944+00:00"
+      "scrapedAt": "2026-04-13T16:02:51.983700+00:00"
     },
     {
-      "id": "93c260db1a81",
+      "id": "58fb077f1f26",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J & B INVESTMENTS LLC",
-      "address": "440 N HOOVER AVE WICHITA, Wichita KS",
+      "address": "440 N HOOVER AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.247728+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.004102+00:00"
     },
     {
-      "id": "5a53d8c58ac4",
+      "id": "8a4960f6fa52",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J & J HICKORY SMOKE HOUSE",
-      "address": "2308 S MERIDIAN AVE WICHITA, Wichita KS",
+      "address": "2308 S MERIDIAN AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.263767+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.023232+00:00"
     },
     {
-      "id": "e7c9b35a193b",
+      "id": "5ae8a4342a7f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J BLARE INC",
-      "address": "",
+      "address": "BEG 644 FT W OF SW COR E 10A N 1/2 N 1/2 NW 1/4 N 330 FT M-L E 66 FT S 330 FT M-L W TO BEG SEC 20-28-1EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.279654+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.041224+00:00"
     },
     {
-      "id": "b1cf828db8de",
+      "id": "8d25286d5981",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J C CONSTRUCTION & ROOFING LLC",
-      "address": "1939 E DIEDRICH ST HAYSVILLE, Wichita KS",
+      "address": "1939 E DIEDRICH ST HAYSVILLEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.295937+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.059227+00:00"
     },
     {
-      "id": "90f69f45b8fd",
+      "id": "09f6e79715d7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J EDWARDS JONES ROYALTY TRUST",
       "address": "",
@@ -1117,120 +1123,131 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.311941+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.076510+00:00"
     },
     {
-      "id": "fb27c92a0716",
+      "id": "792e01c679f1",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J G PTA",
-      "address": "1212 E 17TH ST N WICHITA, Wichita KS",
+      "address": "1212 E 17TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.327784+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.093992+00:00"
     },
     {
-      "id": "28c55167ee83",
+      "id": "0ba5a72f2201",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J I LORD PROPERTIES LLC",
-      "address": "",
+      "address": "TH PT LOT 1 BEG NW COR TH S 168.91 FT TH E 269.02 FT TH SELY 89.42 FT TH E 146.29 FT TH NWLY 251.36 FT TO NE COR LOT 1 TH W TO BEG EXC N 60 FT E 125 FT THEREOF BLOCK 1 PLAZA AT CHERRY CREEK HILLSWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.343838+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.111670+00:00"
     },
     {
-      "id": "e4301657af27",
+      "id": "b4715cbddaf1",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J R KOONTZ FLOWERS",
-      "address": "633 N BROADWAY AVE WICHITA, Wichita KS",
+      "address": "633 N BROADWAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.360729+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.128892+00:00"
     },
     {
-      "id": "27a2986c3a7e",
+      "id": "f5d5030d1c02",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "J S B LANDSERVICES LLC",
-      "address": "6600 N 167TH ST W, Wichita KS",
+      "address": "6600 N 167TH ST WWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:08.395295+00:00"
+      "scrapedAt": "2026-04-13T16:02:52.147595+00:00"
     },
     {
-      "id": "bf9b0a920870",
+      "id": "74e46ed8b5e7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K AVION 23 LLC",
-      "address": "236 N BROADVIEW AVE WICHITA, Wichita KS",
+      "address": "236 N BROADVIEW AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:11.923793+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.841037+00:00"
     },
     {
-      "id": "07064fc51bcd",
+      "id": "a8959e2dd83b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K MART CORPORATION 3358",
-      "address": "4830 S BROADWAY AVE WICHITA, Wichita KS",
+      "address": "4830 S BROADWAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:11.940357+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.857966+00:00"
     },
     {
-      "id": "6bf82608b9be",
+      "id": "f71502b55a9d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K P WEDEL & ASSOCIATES",
-      "address": "820 N MAIN ST WICHITA, Wichita KS",
+      "address": "820 N MAIN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:11.956406+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.875014+00:00"
     },
     {
-      "id": "b113bf97ec5a",
+      "id": "8c53470bcd6f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K URBAN MAINTENANCE & SERVICES",
-      "address": "10301 W 13th ST N WICHITA, Wichita KS",
+      "address": "10301 W 13th ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:11.972172+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.892774+00:00"
     },
     {
-      "id": "779d92f90f13",
+      "id": "18dd436b587e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K W GROWTH HOLDINGS LLC",
-      "address": "1332 N SPRUCE AVE WICHITA, Wichita KS",
+      "address": "1332 N SPRUCE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:11.988851+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.910770+00:00"
     },
     {
-      "id": "21f3c7bd0b42",
+      "id": "6c79d77636ab",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K-LINE PLASTICS INC",
-      "address": "330 S WATER AVE DERBY, Wichita KS",
+      "address": "330 S WATER AVE DERBYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:12.004959+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.930822+00:00"
     },
     {
-      "id": "1c1b48b9ffeb",
+      "id": "e20f142ac8c5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K-MOCO INC",
       "address": "",
@@ -1238,681 +1255,803 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:12.021151+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.959771+00:00"
     },
     {
-      "id": "9df6bd23d4ba",
+      "id": "2acb8b53d60e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "K-MOCO INC",
-      "address": "4800 W MAPLE ST WICHITA, Wichita KS",
+      "address": "4800 W MAPLE ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:12.037195+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.977362+00:00"
     },
     {
-      "id": "0965b53ecb2b",
+      "id": "b2c76b27715a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "KABIRPANTHI SWATI",
-      "address": "",
+      "address": "LOT 8 BLOCK A SUNSET 2ND. ADD. TO BEL AIREWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:12.052956+00:00"
+      "scrapedAt": "2026-04-13T16:03:02.994869+00:00"
     },
     {
-      "id": "c592d942ead9",
+      "id": "57dda3108f01",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "KACKLEY LESLIE E",
-      "address": "3334 S CUSTER AVE WICHITA, Wichita KS",
+      "address": "3334 S CUSTER AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:12.069297+00:00"
+      "scrapedAt": "2026-04-13T16:03:03.012482+00:00"
     },
     {
-      "id": "f623141672e4",
+      "id": "3bbecd512dee",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "L & L VAN LINES INC",
-      "address": "",
+      "address": "2525 E 36TH CIR N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.193509+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.776255+00:00"
     },
     {
-      "id": "306c2326407a",
+      "id": "f73f67c15211",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "L & M PROPERTY HOLDINGS LLC",
-      "address": "522 N RICHMOND AVE WICHITA, Wichita KS",
+      "address": "522 N RICHMOND AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.209434+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.799191+00:00"
     },
     {
-      "id": "6ad789b84d3c",
+      "id": "a78c8d639928",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "L & S SHEET METAL INC",
-      "address": "952 N MOSLEY AVE WICHITA, Wichita KS",
+      "address": "952 N MOSLEY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.225656+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.817389+00:00"
     },
     {
-      "id": "ee43a8ce1cac",
+      "id": "42912fdf1d33",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "L A & ERMA DE MOSS FAMILY TRUST",
-      "address": "6600 N 143RD ST E, Wichita KS",
+      "address": "6600 N 143RD ST EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.241828+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.838968+00:00"
     },
     {
-      "id": "b1b90e4c84cc",
+      "id": "ca4dca260ab3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "L J THOMPSON INC",
-      "address": "611 E LINCOLN ST WICHITA, Wichita KS",
+      "address": "611 E LINCOLN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.259065+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.857437+00:00"
     },
     {
-      "id": "f717a8e3c4ba",
+      "id": "5f465bc3d46c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "LA CASITA HOMES LLC",
-      "address": "3201 E MACARTHUR RD, Wichita KS",
+      "address": "3201 E MACARTHUR RDWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.274664+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.875456+00:00"
     },
     {
-      "id": "ba85d6096777",
+      "id": "317c07e5ec43",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "LA CENTRE DE MUSIQUE",
-      "address": "2030 E 9TH ST N WICHITA, Wichita KS",
+      "address": "2030 E 9TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.290279+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.892613+00:00"
     },
     {
-      "id": "0c0cc4b8678d",
+      "id": "e020783ea2be",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "LA CHALLE SHAY",
-      "address": "1149 N DELLROSE AVE WICHITA, Wichita KS",
+      "address": "1149 N DELLROSE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.306109+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.910808+00:00"
     },
     {
-      "id": "33663ec2de76",
+      "id": "32e5edda743a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "LA HACIENDA TORTILLERIA",
-      "address": "3108 E 31ST ST S WICHITA, Wichita KS",
+      "address": "3108 E 31ST ST S WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.322005+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.928624+00:00"
     },
     {
-      "id": "f1c2a9f3c88e",
+      "id": "90da1384c07d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "LA MARS LIQUOR STOP",
-      "address": "1048 W PAWNEE AVE WICHITA, Wichita KS",
+      "address": "1048 W PAWNEE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:16.338388+00:00"
+      "scrapedAt": "2026-04-13T16:03:15.945262+00:00"
     },
     {
-      "id": "88568b21ac80",
+      "id": "055439895ecd",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M & C PROPERTIES LLC",
-      "address": "1649 E 13TH ST N WICHITA, Wichita KS",
+      "address": "1649 E 13TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.595550+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.204736+00:00"
     },
     {
-      "id": "bd66f5b53d62",
+      "id": "780187112935",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M & L OF WICHITA INC",
-      "address": "2441 N MAIZE RD WICHITA, Wichita KS",
+      "address": "2441 N MAIZE RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.611751+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.221533+00:00"
     },
     {
-      "id": "259a606c86d8",
+      "id": "f829800ef689",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M & M 1927 E 24TH LLC",
-      "address": "1927 E 24TH ST N WICHITA, Wichita KS",
+      "address": "1927 E 24TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.627845+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.238310+00:00"
     },
     {
-      "id": "e33f9d7641c4",
+      "id": "8d17da087948",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M & V PETROLEUM INC",
-      "address": "10723 W KELLOGG ST WICHITA, Wichita KS",
+      "address": "10723 W KELLOGG ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.643255+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.254528+00:00"
     },
     {
-      "id": "6ca40cc91a4d",
+      "id": "e85e06f370a0",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M & V PETROLEUM INC",
-      "address": "7101 E LINCOLN ST WICHITA, Wichita KS",
+      "address": "7101 E LINCOLN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.659661+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.271788+00:00"
     },
     {
-      "id": "37dabd36512b",
+      "id": "c7416b2e9f86",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M E E H COMMERCIAL LLC",
-      "address": "1332 N CLEVELAND AVE WICHITA, Wichita KS",
+      "address": "1332 N CLEVELAND AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.675406+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.289267+00:00"
     },
     {
-      "id": "52ec211c1724",
+      "id": "21ff05189b02",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M E E H COMMERCIAL LLC",
-      "address": "",
+      "address": "LOT 11 & N 21 FT LOT 13 GRANVILLE PARK ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.692293+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.305857+00:00"
     },
     {
-      "id": "1f38671f0d92",
+      "id": "607c2c26b7c3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M E E H ENTERPRISES",
-      "address": "1223 N GREEN ST WICHITA, Wichita KS",
+      "address": "1223 N GREEN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.708234+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.322712+00:00"
     },
     {
-      "id": "4203d7279a7d",
+      "id": "128cd30c343d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M E E H ENTERPRISES",
-      "address": "1322 N GREEN ST WICHITA, Wichita KS",
+      "address": "1322 N GREEN ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.724628+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.339194+00:00"
     },
     {
-      "id": "12868aace853",
+      "id": "ba382e9afd83",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "M E E H ENTERPRISES",
-      "address": "1611 N HILLSIDE AVE WICHITA, Wichita KS",
+      "address": "1611 N HILLSIDE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:21.740386+00:00"
+      "scrapedAt": "2026-04-13T16:03:27.356222+00:00"
     },
     {
-      "id": "abbb2eb8ef38",
+      "id": "94127aeb5a50",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "N Y HOMES LLC",
-      "address": "",
+      "address": "RESERVE B & W 1/2 VAC EAST KELLOGG DRIVE (DOC# 30221915) BELLE TERRE SOUTH ADDWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.877336+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.584384+00:00"
     },
     {
-      "id": "9f62a8296adc",
+      "id": "220b8d320db3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "N.V.P. INC",
-      "address": "1730 S FABRIQUE DR WICHITA, Wichita KS",
+      "address": "1730 S FABRIQUE DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.894055+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.600886+00:00"
     },
     {
-      "id": "f89d88ac8ce8",
+      "id": "3a721edaecac",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "N21747 LC",
-      "address": "",
+      "address": "90 Aircraft (AP)Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.909746+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.617740+00:00"
     },
     {
-      "id": "13146128764d",
+      "id": "5af84fcfffe5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "N3920C LC",
-      "address": "439 N MCLEAN BLVD WICHITA, Wichita KS",
+      "address": "439 N MCLEAN BLVD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.925866+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.634539+00:00"
     },
     {
-      "id": "ca5a842141c7",
+      "id": "799f82299041",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "N9305Y LLC",
-      "address": "",
+      "address": "90 Aircraft (AP)Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.942108+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.651292+00:00"
     },
     {
-      "id": "15faaf6b8718",
+      "id": "be2375a07dc6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "NAGLE DONALD",
-      "address": "2206 W MACARTHUR RD WICHITA, Wichita KS",
+      "address": "2206 W MACARTHUR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.958381+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.668755+00:00"
     },
     {
-      "id": "25e1cdd0a2a0",
+      "id": "8a07e726b22c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "NAIL COTTAGE",
-      "address": "231 S BALTIMORE AVE DERBY, Wichita KS",
+      "address": "231 S BALTIMORE AVE DERBYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.974669+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.685805+00:00"
     },
     {
-      "id": "9e5b62e38a17",
+      "id": "127b5399b679",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "NAIL JEAN",
-      "address": "3231 S CLIFTON AVE WICHITA, Wichita KS",
+      "address": "3231 S CLIFTON AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:25.989947+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.704234+00:00"
     },
     {
-      "id": "316f94e867ef",
+      "id": "2f689322efd6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "NAILS PLUS",
-      "address": "",
+      "address": "6606 W SCHOOL CIR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:26.005835+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.720720+00:00"
     },
     {
-      "id": "96cd86038536",
+      "id": "57b0fe0882af",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "NAJERA-PEREZ JUAN CARLOS",
-      "address": "3102 E TIMBERLANE ST WICHITA, Wichita KS",
+      "address": "3102 E TIMBERLANE ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:26.021834+00:00"
+      "scrapedAt": "2026-04-13T16:03:42.737442+00:00"
     },
     {
-      "id": "fef7739ff674",
+      "id": "658c6507691a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O & J OF KANSAS INC",
-      "address": "180 S ROCK RD WICHITA, Wichita KS",
+      "address": "180 S ROCK RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:28.975120+00:00"
+      "scrapedAt": "2026-04-13T16:03:54.930617+00:00"
     },
     {
-      "id": "06b8d3d77283",
+      "id": "01354180fc4e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O & J OF KANSAS INC",
-      "address": "20217 W KELLOGG ST GODDARD, Wichita KS",
+      "address": "20217 W KELLOGG ST GODDARDWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:28.990965+00:00"
+      "scrapedAt": "2026-04-13T16:03:54.947785+00:00"
     },
     {
-      "id": "8e7712358666",
+      "id": "0d03e809925f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O QUINN TONYA R",
-      "address": "2351 N GROVE AVE WICHITA, Wichita KS",
+      "address": "2351 N GROVE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.006943+00:00"
+      "scrapedAt": "2026-04-13T16:03:54.964613+00:00"
     },
     {
-      "id": "183fa03b1ceb",
+      "id": "26d0dd765fdb",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'BRIEN JAMES",
-      "address": "1946 E CAMPUS ST WICHITA, Wichita KS",
+      "address": "1946 E CAMPUS ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.022579+00:00"
+      "scrapedAt": "2026-04-13T16:03:54.981199+00:00"
     },
     {
-      "id": "5c14a5568243",
+      "id": "8aa6ac6b0cd1",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'BRIEN JOSEPH P",
-      "address": "1317 W RIVER BLVD WICHITA, Wichita KS",
+      "address": "1317 W RIVER BLVD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.038636+00:00"
+      "scrapedAt": "2026-04-13T16:03:54.998421+00:00"
     },
     {
-      "id": "9d7f3a47fdf4",
+      "id": "1f99eb79ca42",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'CONNER KEVIN G",
-      "address": "2229 S MINNEAPOLIS AVE WICHITA, Wichita KS",
+      "address": "2229 S MINNEAPOLIS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.055407+00:00"
+      "scrapedAt": "2026-04-13T16:03:55.015492+00:00"
     },
     {
-      "id": "c0b15631921b",
+      "id": "2876a387eda6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'DONOGHUE SEAN",
-      "address": "2215 S BROADVIEW AVE WICHITA, Wichita KS",
+      "address": "2215 S BROADVIEW AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.071004+00:00"
+      "scrapedAt": "2026-04-13T16:03:55.031978+00:00"
     },
     {
-      "id": "1f6b77bcec5a",
+      "id": "f9620a2d1848",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'GILVIE KEVIN",
-      "address": "1420 S WACO AVE WICHITA, Wichita KS",
+      "address": "1420 S WACO AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.086881+00:00"
+      "scrapedAt": "2026-04-13T16:03:55.048901+00:00"
     },
     {
-      "id": "1ade6230a247",
+      "id": "b4020a1cef3d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'GILVIE KEVIN M",
-      "address": "240 N KESSLER ST WICHITA, Wichita KS",
+      "address": "240 N KESSLER ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.102741+00:00"
+      "scrapedAt": "2026-04-13T16:03:55.065229+00:00"
     },
     {
-      "id": "982c23bb4168",
+      "id": "64f741282aa5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "O'MALLEY REBECCA R",
-      "address": "1717 N MCCOMAS AVE WICHITA, Wichita KS",
+      "address": "1717 N MCCOMAS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:29.118124+00:00"
+      "scrapedAt": "2026-04-13T16:03:55.082721+00:00"
     },
     {
-      "id": "2496e7e9c6e3",
+      "id": "85394b162a2b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "P & P COMPANY INC",
-      "address": "645 N MCLEAN BLVD WICHITA, Wichita KS",
+      "address": "645 N MCLEAN BLVD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:33.170349+00:00"
+      "scrapedAt": "2026-04-13T16:04:05.602493+00:00"
     },
     {
-      "id": "bd4042eb4de4",
+      "id": "775303705f5e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "P & P PIZZA",
-      "address": "1901 E 21ST ST N WICHITA, Wichita KS",
+      "address": "1901 E 21ST ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:33.186320+00:00"
+      "scrapedAt": "2026-04-13T16:04:05.619671+00:00"
     },
     {
-      "id": "eaa374044729",
+      "id": "d4e8e235675a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "P & S LIQUOR",
-      "address": "2010 E PAWNEE AVE WICHITA, Wichita KS",
+      "address": "2010 E PAWNEE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:33.202834+00:00"
+      "scrapedAt": "2026-04-13T16:04:05.636753+00:00"
     },
     {
-      "id": "b8ea6845770b",
+      "id": "10259ea76021",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "P D S DEVELOPMENT COMPANY INC",
-      "address": "",
+      "address": "329 N JACKSON HEIGHTS ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:33.218935+00:00"
+      "scrapedAt": "2026-04-13T16:04:05.654925+00:00"
     },
     {
-      "id": "e1f058fca50e",
+      "id": "0b9a3d057667",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "P D S DEVELOPMENT COMPANY INC",
+      "address": "LOT 12 BLOCK A MARINITA 3RD ADDITIONWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:04:05.672096+00:00"
+    },
+    {
+      "id": "31cdf5887985",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "P D S DEVELOPMENT COMPANY INC",
+      "address": "LOT 15 BLOCK A MARINITA 3RD ADDITIONWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:04:05.689598+00:00"
+    },
+    {
+      "id": "775b6b6f1349",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "P D S DEVELOPMENT COMPANY INC",
+      "address": "LOT 2 EXC W .7 FT THEREOF BLOCK A MARINITA 3RD ADDITIONWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:04:05.706608+00:00"
+    },
+    {
+      "id": "78883458fd2c",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "P D S DEVELOPMENT COMPANY INC",
+      "address": "LOT 8 BLOCK A MARINITA 3RD ADDITIONWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:04:05.723999+00:00"
+    },
+    {
+      "id": "6d466da26be4",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "P D S DEVELOPMENT COMPANY INC",
+      "address": "LOT 9 BLOCK A MARINITA 3RD ADDITIONWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:04:05.742178+00:00"
+    },
+    {
+      "id": "5fb9105bfcdc",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "PACHECO REFUGIO",
-      "address": "5030 S HEMLOCK AVE, Wichita KS",
+      "address": "5030 S HEMLOCK AVEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:33.335711+00:00"
+      "scrapedAt": "2026-04-13T16:04:05.760488+00:00"
     },
     {
-      "id": "8470e54b231f",
+      "id": "884c3c6b4a85",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "Q CORPORATION",
-      "address": "301 N RIVER ST DERBY, Wichita KS",
+      "address": "301 N RIVER ST DERBYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.508654+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.464423+00:00"
     },
     {
-      "id": "78b8bc0c636f",
+      "id": "6822e4fc060b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QTI II LLC",
-      "address": "2121 S MERIDIAN AVE WICHITA, Wichita KS",
+      "address": "2121 S MERIDIAN AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.525002+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.482174+00:00"
     },
     {
-      "id": "66a89a7fda93",
+      "id": "561b1148c93f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUACH TRUNG A & VANESSA NGUYEN",
-      "address": "",
+      "address": "2338 N VINEGATE CIR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.542087+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.499440+00:00"
     },
     {
-      "id": "f26e8d536e14",
+      "id": "5263157ea6c6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY PROPERTY MANAGEMENT LLC",
-      "address": "1637 N POPLAR AVE WICHITA, Wichita KS",
+      "address": "1637 N POPLAR AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.557719+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.516205+00:00"
     },
     {
-      "id": "ebf76299e5ba",
+      "id": "c629a366d58a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY PROPERTY MANAGEMENT LLC",
-      "address": "1706 N KANSAS AVE WICHITA, Wichita KS",
+      "address": "1706 N KANSAS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.573909+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.533517+00:00"
     },
     {
-      "id": "fa2738d40f4f",
+      "id": "af95957ed2fc",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY PROPERTY MANAGEMENT LLC",
-      "address": "1858 N KANSAS AVE WICHITA, Wichita KS",
+      "address": "1858 N KANSAS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.590218+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.550741+00:00"
     },
     {
-      "id": "1401a6d5d86a",
+      "id": "e84c1e485052",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3040 S CLIFTON ST WICHITA, Wichita KS",
+      "address": "3040 S CLIFTON ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.605977+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.569194+00:00"
     },
     {
-      "id": "9d0ad23f9090",
+      "id": "d5e2e8155de5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3161 S CLIFTON ST WICHITA, Wichita KS",
+      "address": "3161 S CLIFTON ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.622335+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.586252+00:00"
     },
     {
-      "id": "bc11f5025c3d",
+      "id": "20aa3df6696e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3360 E ROSEBERRY CT WICHITA, Wichita KS",
+      "address": "3360 E ROSEBERRY CT WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.638017+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.603210+00:00"
     },
     {
-      "id": "fc2e283c6d8d",
+      "id": "5852ccb174b6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "QUALITY REAL ESTATE LLC",
-      "address": "",
+      "address": "3561 E ROSS PKY WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:35.653956+00:00"
+      "scrapedAt": "2026-04-13T16:04:12.622444+00:00"
     },
     {
-      "id": "96b0e77e484e",
+      "id": "f044c3b1e1eb",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "R & B POWERWASHING",
-      "address": "6720 E SEDONA ST, Wichita KS",
+      "address": "6720 E SEDONA STWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:39.965633+00:00"
+      "scrapedAt": "2026-04-13T16:04:26.755873+00:00"
     },
     {
-      "id": "5dff0f7d150c",
+      "id": "9faad800f597",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "R & C CONCRETE INC",
-      "address": "5315 W 81ST CT N VALLEY CENTER, Wichita KS",
+      "address": "5315 W 81ST CT N VALLEY CENTERWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:39.981556+00:00"
+      "scrapedAt": "2026-04-13T16:04:26.774276+00:00"
     },
     {
-      "id": "70d9b78eb3ff",
+      "id": "e33b0343580c",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "R & D ENTERPRISES INC",
-      "address": "105 S EMPORIA AVE WICHITA, Wichita KS",
+      "address": "105 S EMPORIA AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:39.997339+00:00"
+      "scrapedAt": "2026-04-13T16:04:26.791711+00:00"
     },
     {
-      "id": "6ab7689a390f",
+      "id": "9ce98a86812b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "R & R REALTY LLC",
       "address": "",
@@ -1920,373 +2059,383 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:40.013176+00:00"
+      "scrapedAt": "2026-04-13T16:04:26.808679+00:00"
     },
     {
-      "id": "2f8be3d526d6",
-      "type": "tax-delinquent",
-      "owner": "S & H RANCH LLC",
-      "address": "11438 E LEWIS ST WICHITA, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:45.797052+00:00"
-    },
-    {
-      "id": "c7dafc29b242",
-      "type": "tax-delinquent",
-      "owner": "S & H RANCH LLC",
-      "address": "1618 S EDWARDS AVE WICHITA, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:45.812621+00:00"
-    },
-    {
-      "id": "5e8c941ad43b",
-      "type": "tax-delinquent",
-      "owner": "S & H RANCH LLC",
-      "address": "406 S ILLINOIS AVE WICHITA, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:45.828498+00:00"
-    },
-    {
-      "id": "eae78505fb70",
-      "type": "tax-delinquent",
-      "owner": "S & H RANCH LLC",
-      "address": "",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:45.844506+00:00"
-    },
-    {
-      "id": "fceaebb055e5",
+      "id": "355cf5a8b810",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "T & J CONVENIENCE",
-      "address": "104 W CHICAGO AVE COLWICH, Wichita KS",
+      "address": "104 W CHICAGO AVE COLWICHWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.827835+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.131859+00:00"
     },
     {
-      "id": "8a81b118dfe8",
+      "id": "405137e8e560",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "T CAPITOL LLC",
-      "address": "",
+      "address": "521 N MOUNT CARMEL AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.843800+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.149795+00:00"
     },
     {
-      "id": "b56eef4eaae2",
+      "id": "4df5020e2c88",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "T CAPITOL LLC",
+      "address": "936 N MOUNT CARMEL AVE WICHITAWichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:05:17.167110+00:00"
+    },
+    {
+      "id": "ff0aab8cda13",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "T CONSRUCTION LLC",
-      "address": "",
+      "address": "LOTS 10-11 BLOCK 24 JONES PARK ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.875766+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.184528+00:00"
     },
     {
-      "id": "8477e5cdd47e",
+      "id": "125144818fb4",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "T CONSRUCTION LLC",
+      "address": "LOTS 7-8-9 BLOCK 24 JONES PARK ADD.Wichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:05:17.202274+00:00"
+    },
+    {
+      "id": "57cfac217ac0",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "T N T RESTORATION",
-      "address": "4444 S WEST ST WICHITA, Wichita KS",
+      "address": "4444 S WEST ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.907668+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.219373+00:00"
     },
     {
-      "id": "2e52c1e2786e",
+      "id": "97865f7f661a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "TA MINH V",
-      "address": "2229 S FLYNN LN WICHITA, Wichita KS",
+      "address": "2229 S FLYNN LN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.938938+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.236114+00:00"
     },
     {
-      "id": "dcd9fd644531",
+      "id": "4ba2b7aa50cb",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "TABORSKY JERRY J",
-      "address": "4444 S WEST ST WICHITA, Wichita KS",
+      "address": "4444 S WEST ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.954828+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.253265+00:00"
     },
     {
-      "id": "136be0806cf1",
+      "id": "0937cd4d457a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "TACKETT WILLIAM T",
-      "address": "919 E MORRISON DR DERBY, Wichita KS",
+      "address": "919 E MORRISON DR DERBYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.970861+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.270906+00:00"
     },
     {
-      "id": "50a9b336db92",
+      "id": "bf083fb88942",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "TACO BUENO RESTAURANTS INC",
-      "address": "3530 N ROCK RD WICHITA, Wichita KS",
+      "address": "3530 N ROCK RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:49.986858+00:00"
+      "scrapedAt": "2026-04-13T16:05:17.287809+00:00"
     },
     {
-      "id": "4055ea8b8462",
+      "id": "d2599a0739c3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UBERT JOHN S & LINDA LIES",
-      "address": "1051 N AKSARBEN CT WICHITA",
+      "address": "1051 N AKSARBEN CT WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.463651+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.654398+00:00"
     },
     {
-      "id": "9cf7a9c55ffd",
+      "id": "873b22de23fc",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UDOUDO ANTHONY W",
-      "address": "1748 N POPLAR AVE WICHITA, Wichita KS",
+      "address": "1748 N POPLAR AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.479492+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.671885+00:00"
     },
     {
-      "id": "82a67e70de6e",
+      "id": "e335b5b47095",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UDOUDO ANTHONY W",
-      "address": "2031 E RANDOM RD WICHITA, Wichita KS",
+      "address": "2031 E RANDOM RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.495164+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.693853+00:00"
     },
     {
-      "id": "3215c1912be0",
+      "id": "a252ad67115a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UHLS RONALD E",
-      "address": "831 S DODGE AVE WICHITA, Wichita KS",
+      "address": "831 S DODGE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.511360+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.714334+00:00"
     },
     {
-      "id": "ff97432192f6",
+      "id": "f4c7dac0d4c9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UHLS RONALD E JR",
-      "address": "831 S DODGE AVE WICHITA, Wichita KS",
+      "address": "831 S DODGE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.527367+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.732233+00:00"
     },
     {
-      "id": "ab26d2ad86b5",
+      "id": "c3a37546cf62",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ULTRERAS ERUEC & GLENDA IRIS OVATO",
-      "address": "823 S SURREY LN MAIZE, Wichita KS",
+      "address": "823 S SURREY LN MAIZEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.543721+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.749428+00:00"
     },
     {
-      "id": "0de5a2e36c1c",
+      "id": "e84925cc6b95",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UMANA-SOMOZA ENRIQUE A",
-      "address": "2517 S HYDRAULIC AVE WICHITA, Wichita KS",
+      "address": "2517 S HYDRAULIC AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.559336+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.766939+00:00"
     },
     {
-      "id": "e00d15871459",
+      "id": "f5ca3f94cc56",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UNDERGROUND QUILTER",
-      "address": "10807 W JEWELL ST WICHITA, Wichita KS",
+      "address": "10807 W JEWELL ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.576841+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.783722+00:00"
     },
     {
-      "id": "422709cf7d31",
+      "id": "0126fda13610",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UNGER JOSEPH W & CAROLINE A",
-      "address": "2 N LINDEN DR WICHITA, Wichita KS",
+      "address": "2 N LINDEN DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.593454+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.805310+00:00"
     },
     {
-      "id": "d31f698df390",
+      "id": "2eb4fcccdb42",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "UNGER MARY A TR",
-      "address": "606 W 33RD ST N WICHITA, Wichita KS",
+      "address": "606 W 33RD ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:53.610107+00:00"
+      "scrapedAt": "2026-04-13T16:05:29.822210+00:00"
     },
     {
-      "id": "d42e4174562a",
+      "id": "982f87d3c7d3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "V & J PROPERTIES LLC",
-      "address": "3565 W PECOS AVE WICHITA, Wichita KS",
+      "address": "3565 W PECOS AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.868458+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.147497+00:00"
     },
     {
-      "id": "44203a1d63d2",
+      "id": "014e32e73de9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VACTOR TIMOTHY J B",
-      "address": "",
+      "address": "816 S TODD CIR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.884895+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.165597+00:00"
     },
     {
-      "id": "97ccc4c48bca",
+      "id": "67d2005cb171",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VACTOR TIMOTHY M",
-      "address": "8947 E SCOTT CT WICHITA, Wichita KS",
+      "address": "8947 E SCOTT CT WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.901047+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.183500+00:00"
     },
     {
-      "id": "e376e3066439",
+      "id": "2d573d2ff692",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALADEZ-RODRIGUEZ DANTE & ERICA",
-      "address": "620 W NORTH CT WICHITA, Wichita KS",
+      "address": "620 W NORTH CT WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.917278+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.200540+00:00"
     },
     {
-      "id": "ed20a63d4e53",
+      "id": "40f9e4df0b01",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALDEZ ANGEL & CANDELARIA",
-      "address": "2029 N PARK PL WICHITA, Wichita KS",
+      "address": "2029 N PARK PL WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.933198+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.217648+00:00"
     },
     {
-      "id": "e2abdc127b6b",
+      "id": "fe03e44a1a6e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALDEZ SAMUEL JR & EVANDELINE",
-      "address": "7716 S IDA AVE, Wichita KS",
+      "address": "7716 S IDA AVEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.949992+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.235323+00:00"
     },
     {
-      "id": "7f80ff7d8d05",
+      "id": "0cd3d9c1f919",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALDEZ SAMUEL JR OR EVANGELINE",
-      "address": "7716 S IDA AVE, Wichita KS",
+      "address": "7716 S IDA AVEWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.966147+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.252204+00:00"
     },
     {
-      "id": "94d76e3c624d",
+      "id": "96a1168abdf3",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALDOIS ERNEST K",
-      "address": "1302 E MACARTHUR RD WICHITA, Wichita KS",
+      "address": "1302 E MACARTHUR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.982580+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.269306+00:00"
     },
     {
-      "id": "e23c3988a339",
+      "id": "3e6eb12933e5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALENT NICOLE MICHELLE",
-      "address": "13 E SEMINOLE DR PARK CITY, Wichita KS",
+      "address": "13 E SEMINOLE DR PARK CITYWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:56.998390+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.286713+00:00"
     },
     {
-      "id": "dcb840b3bce2",
+      "id": "da09c506b58b",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "VALENTINE DARIN",
-      "address": "",
+      "address": "9 N HIGH POINT RD VALLEY CENTERWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:34:57.014748+00:00"
+      "scrapedAt": "2026-04-13T16:05:41.303741+00:00"
     },
     {
-      "id": "f52721874edd",
+      "id": "196478c4338f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "W & W DENTAL LAB",
-      "address": "3455 W 13TH ST N WICHITA, Wichita KS",
+      "address": "3455 W 13TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:02.923145+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.076905+00:00"
     },
     {
-      "id": "fee09a1bde38",
+      "id": "fc90692fcdc7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "W B CONSTRUCTION LLC",
       "address": "",
@@ -2294,87 +2443,95 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:02.939707+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.096363+00:00"
     },
     {
-      "id": "f35666fa333d",
+      "id": "d2cdbd3b7544",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAALKES JEFFREY T & ANNA J",
-      "address": "",
+      "address": "BEG 669 FT W SE COR SE1/4 TH N 669.11 FT W 20 FT SELY 669.41 FT M-L TO BEG EXC S 40 FT FOR RD. SEC 17-25-2EWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:02.955977+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.115986+00:00"
     },
     {
-      "id": "60c845e2838b",
+      "id": "74d28baf4586",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WADE TOMMY L ETUX",
-      "address": "1737 S WOODLAWN BLVD WICHITA, Wichita KS",
+      "address": "1737 S WOODLAWN BLVD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:02.972329+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.135119+00:00"
     },
     {
-      "id": "e7a9323f68f6",
+      "id": "7952f907fd64",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGES JAMES L",
-      "address": "3342 N COOLIDGE AVE WICHITA, Wichita KS",
+      "address": "3342 N COOLIDGE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:02.988250+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.153432+00:00"
     },
     {
-      "id": "cf0a350f10db",
+      "id": "49fbd4e062c9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGNER IRENE K",
-      "address": "2812 E MENLO DR WICHITA, Wichita KS",
+      "address": "2812 E MENLO DR WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:03.004215+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.171304+00:00"
     },
     {
-      "id": "6318fd4d5e26",
+      "id": "a57976d0b87a",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGNER IRENE K",
-      "address": "",
+      "address": "LOT 26 EXC W 40 FT BLOCK 2 WOMER'S 2ND. ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:03.019875+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.190131+00:00"
     },
     {
-      "id": "24c9a7e1ebc9",
+      "id": "15347fffc3a6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGNER MICHAEL S",
-      "address": "1539 W 35TH ST N WICHITA, Wichita KS",
+      "address": "1539 W 35TH ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:03.035522+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.209298+00:00"
     },
     {
-      "id": "8d5129cdf386",
+      "id": "41a5793f5ed6",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGNER NICHOLAS MARTIN",
-      "address": "",
+      "address": "146 S SAINT CLAIR AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:03.051299+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.229220+00:00"
     },
     {
-      "id": "2b8014f3be8c",
+      "id": "3c796f6dc1d8",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "WAGNER ORLIN",
       "address": "",
@@ -2382,238 +2539,259 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:03.067864+00:00"
+      "scrapedAt": "2026-04-13T16:06:08.247245+00:00"
     },
     {
-      "id": "87b7fdc93ec4",
+      "id": "d4b1414951b4",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "XEUNXOM VEOMANY",
-      "address": "2201 E MACARTHUR RD WICHITA, Wichita KS",
+      "address": "2201 E MACARTHUR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:04.872977+00:00"
+      "scrapedAt": "2026-04-13T16:06:13.230234+00:00"
     },
     {
-      "id": "901dd3bbdfab",
+      "id": "c4ac1513808e",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "XOM MARKET",
-      "address": "3363 E 47TH ST S, Wichita KS",
+      "address": "3363 E 47TH ST SWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:04.908246+00:00"
+      "scrapedAt": "2026-04-13T16:06:13.248934+00:00"
     },
     {
-      "id": "fcdb5936de03",
+      "id": "e891d477a4cf",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YAEGER DORA LEA",
-      "address": "455 S MAPLE LN WICHITA, Wichita KS",
+      "address": "455 S MAPLE LN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.524199+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.552256+00:00"
     },
     {
-      "id": "8d921f4b5db4",
+      "id": "4ee05f5cd4c8",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YAEGER LOU ANN",
-      "address": "847 S ERIE AVE WICHITA, Wichita KS",
+      "address": "847 S ERIE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.540531+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.570823+00:00"
     },
     {
-      "id": "b9177dd5f822",
+      "id": "b6815bf2be5d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YAGER GARY L & LORRI L",
-      "address": "31711 W HARRY ST, Wichita KS",
+      "address": "31711 W HARRY STWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.556362+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.588933+00:00"
     },
     {
-      "id": "bab709b3b5b5",
+      "id": "e58bf7eed1d9",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YAKSHE GARRET CAMERON & LOYD MAJORS",
-      "address": "2859 S DAVIDSON ST WICHITA, Wichita KS",
+      "address": "2859 S DAVIDSON ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.571916+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.607797+00:00"
     },
     {
-      "id": "a182ade9007c",
+      "id": "0b0a732b7f84",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YANEZ BRENDA",
-      "address": "1206 W 1ST ST N WICHITA, Wichita KS",
+      "address": "1206 W 1ST ST N WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.587506+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.626989+00:00"
     },
     {
-      "id": "a4dc72792c2b",
+      "id": "ea5033e5e051",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YANEZ BRENDA Y",
-      "address": "1246 N POPLAR AVE WICHITA, Wichita KS",
+      "address": "1246 N POPLAR AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.603319+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.645881+00:00"
     },
     {
-      "id": "2b1a59f3d84a",
+      "id": "7464447961f4",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YANEZ CRUZ YVETTE",
-      "address": "",
+      "address": "LOTS 171-172 NORTH LAWN ADD.Wichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.620317+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.663722+00:00"
     },
     {
-      "id": "d0b4dcd6b6f4",
+      "id": "8892cd89dffd",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YANG FEI",
-      "address": "",
+      "address": "LOT 2 BLOCK 2 PARK GLEN ESTATESWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.636485+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.681968+00:00"
     },
     {
-      "id": "972bb7877fa6",
+      "id": "574f65e18b32",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YANGSRILA VISAI",
-      "address": "2465 S HOLYOKE LN WICHITA, Wichita KS",
+      "address": "2465 S HOLYOKE LN WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.652282+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.701128+00:00"
     },
     {
-      "id": "cb97cbe48ddf",
+      "id": "6f9fe0bfba63",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "YARBROUGH CHAD E",
-      "address": "4645 S WATER ST WICHITA, Wichita KS",
+      "address": "4645 S WATER ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:07.668447+00:00"
+      "scrapedAt": "2026-04-13T16:06:24.720182+00:00"
     },
     {
-      "id": "a81ee3be03bf",
+      "id": "5d3682aab9e5",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "Z CORP LOGISTICS INC",
-      "address": "",
+      "address": "229 S GRAND MERE CT WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.670366+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.568826+00:00"
     },
     {
-      "id": "490ea39174a8",
-      "type": "tax-delinquent",
-      "owner": "ZABALZA ALEXIS PAULETTE",
-      "address": "124 S ELDER ST WICHITA, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.686572+00:00"
-    },
-    {
-      "id": "0494b30bdd20",
+      "id": "0b60973916b7",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZACHARE JOSEPH L",
-      "address": "602 E MACARTHUR RD WICHITA, Wichita KS",
+      "address": "602 E MACARTHUR RD WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.702725+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.586472+00:00"
     },
     {
-      "id": "a0ab84174ff2",
+      "id": "74205399e563",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZACHARY CHARLENE & CHERYL RENEE NELSON",
-      "address": "4925 N BISON AVE WICHITA, Wichita KS",
+      "address": "4925 N BISON AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.734810+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.622943+00:00"
     },
     {
-      "id": "b7485b83caca",
+      "id": "5205607c41c8",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZAD ENTERPRISES INC",
-      "address": "1953 S HYDRAULIC AVE WICHITA, Wichita KS",
+      "address": "1953 S HYDRAULIC AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.751571+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.640856+00:00"
     },
     {
-      "id": "6cf9e4563f7c",
+      "id": "f81c80329464",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZAD ENTERPRISES INC",
-      "address": "1963 S BROADWAY AVE WICHITA, Wichita KS",
+      "address": "1963 S BROADWAY AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.767541+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.658283+00:00"
     },
     {
-      "id": "f0f0ff70e0be",
+      "id": "b7aa8ed30c9f",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZAD ENTERPRISES INC",
-      "address": "2405 E PAWNEE AVE WICHITA, Wichita KS",
+      "address": "2405 E PAWNEE AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.783875+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.677389+00:00"
     },
     {
-      "id": "b24efc691881",
+      "id": "d53219a7f27d",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZAD ENTERPRISES INC",
-      "address": "3345 N MARKET ST WICHITA, Wichita KS",
+      "address": "3345 N MARKET ST WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.800145+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.694751+00:00"
     },
     {
-      "id": "71fd5b02ff17",
+      "id": "0342a4b7c9be",
+      "county": "sedgwick",
       "type": "tax-delinquent",
       "owner": "ZAD ENTERPRISES INC",
-      "address": "837 S OLIVER AVE WICHITA, Wichita KS",
+      "address": "837 S OLIVER AVE WICHITAWichita KS",
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-04-12T21:35:09.816520+00:00"
+      "scrapedAt": "2026-04-13T16:06:30.712633+00:00"
+    },
+    {
+      "id": "f3c63860fdfb",
+      "county": "sedgwick",
+      "type": "tax-delinquent",
+      "owner": "ZAD ENTERPRISES INC",
+      "address": "CC-31610 LOTS 1-3 EXC E 10 FT & S 20 FT FOR RD HYDRAULIC AVE STRONG'S ADD.Wichita KS",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
+      "scrapedAt": "2026-04-13T16:06:30.730093+00:00"
     }
   ]
 }
