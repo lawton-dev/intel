@@ -199,42 +199,71 @@ def scrape_sedgwick(page):
     except Exception as e:
         log.warning(f'  x Sedgwick tax foreclosure: {e}')
 
-    # 3. KDOR State Tax Warrants
+    # 3. KDOR State Tax Warrants — requests first, Playwright fallback
     log.info('  Scraping KDOR warrants...')
     sw_count = 0
-    try:
-        # Clear any pending navigation before KDOR
-        try:
-            page.goto('about:blank', wait_until='domcontentloaded', timeout=5000)
-        except: pass
-        time.sleep(1)
 
+    def parse_kdor_html(html, county_filter):
+        from bs4 import BeautifulSoup
+        found = []
+        soup = BeautifulSoup(html, 'html.parser')
+        table = soup.find('table')
+        if not table:
+            return found
+        rows = table.find_all('tr')
+        log.info(f'    KDOR table rows: {len(rows)}')
+        hdr_done = False
+        for row in rows:
+            cells = [c.get_text(strip=True) for c in row.find_all(['td','th'])]
+            if not cells or not cells[0]: continue
+            if not hdr_done:
+                hdr_done = True
+                if any(h.lower() in ('name','taxpayer','county','amount') for h in cells):
+                    continue
+            name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
+            if not name or len(name) < 2: continue
+            if county_col and county_col.strip() and county_filter not in county_col.lower(): continue
+            parts = re.split(r'\xa0{2,}|\s{3,}', name)
+            owner = parts[0].strip()
+            address = parts[1].strip() if len(parts) > 1 else addr
+            found.append((owner, address, amt, case_num))
+        return found
+
+    try:
+        import requests as _req
+        req_headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        }
         for wtype, lbl in [('i','individual'),('b','business')]:
-            page.goto(f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}',
-                      wait_until='domcontentloaded', timeout=20000)
-            time.sleep(1)
-            table = page.query_selector('table')
-            if not table: continue
-            hdr = False
-            for row in table.query_selector_all('tr'):
-                cells = [c.inner_text().strip() for c in row.query_selector_all('td,th')]
-                if not cells or not cells[0]: continue
-                if not hdr:
-                    hdr = True
-                    if any(h.lower() in ('name','taxpayer','county') for h in cells): continue
-                name, addr, county, amt, case_num = (cells+['','','','',''])[:5]
-                if not name or len(name) < 2: continue
-                if county and county.strip() and 'sedgwick' not in county.lower(): continue
-                parts = re.split(r'\xa0{2,}|\s{3,}', name)
-                owner = parts[0].strip()
-                address = parts[1].strip() if len(parts) > 1 else addr
+            url = f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}'
+            resp = _req.get(url, headers=req_headers, timeout=20)
+            if resp.status_code != 200 or '<table' not in resp.text.lower():
+                raise Exception(f'requests got {resp.status_code}, no table found')
+            for owner, address, amt, case_num in parse_kdor_html(resp.text, 'sedgwick'):
                 leads.append(lead('sedgwick','state-warrant', owner,
                                   norm_addr(address,'Wichita','KS'), amt, None, case_num,
                                   notes=f'Kansas DOR state tax warrant ({lbl})'))
                 sw_count += 1
+        log.info(f'  → {sw_count} state warrants [via requests]')
+
     except Exception as e:
-        log.warning(f'  x Sedgwick warrants: {e}')
-    log.info(f'  → {sw_count} state warrants')
+        log.warning(f'  requests failed ({e}) — falling back to Playwright')
+        try:
+            for wtype, lbl in [('i','individual'),('b','business')]:
+                url = f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}'
+                page.goto(url, wait_until='domcontentloaded', timeout=20000)
+                time.sleep(2)
+                html = page.content()
+                for owner, address, amt, case_num in parse_kdor_html(html, 'sedgwick'):
+                    leads.append(lead('sedgwick','state-warrant', owner,
+                                      norm_addr(address,'Wichita','KS'), amt, None, case_num,
+                                      notes=f'Kansas DOR state tax warrant ({lbl})'))
+                    sw_count += 1
+            log.info(f'  → {sw_count} state warrants [via playwright]')
+        except Exception as e2:
+            log.warning(f'  x Sedgwick warrants failed entirely: {e2}')
+            log.info(f'  → {sw_count} state warrants')
 
     return save('sedgwick', leads)
 
@@ -701,39 +730,61 @@ def scrape_maricopa(page):
 # KDOR WARRANTS HELPER — reusable for any KS county
 # ══════════════════════════════════════════════════════════════════════════════
 def scrape_kdor_warrants(page, county_key, county_name, city, state='KS'):
-    """Pull KS DOR state tax warrants for a specific county name."""
+    """Pull KS DOR state tax warrants — requests first, Playwright fallback."""
     leads = []
-    try:
-        # Clear any pending navigation first
-        try:
-            page.goto('about:blank', wait_until='domcontentloaded', timeout=5000)
-        except: pass
-        time.sleep(1)
 
-        for wtype, lbl in [('i','individual'),('b','business')]:
-            page.goto(f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}',
-                      wait_until='domcontentloaded', timeout=20000)
-            time.sleep(1)
-            table = page.query_selector('table')
-            if not table: continue
-            hdr = False
-            for row in table.query_selector_all('tr'):
-                cells = [c.inner_text().strip() for c in row.query_selector_all('td,th')]
-                if not cells or not cells[0]: continue
-                if not hdr:
-                    hdr = True
-                    if any(h.lower() in ('name','taxpayer','county') for h in cells): continue
-                name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
-                if not name or len(name) < 2: continue
-                if county_col and county_col.strip() and county_name.lower() not in county_col.lower(): continue
-                parts = re.split(r'\xa0{2,}|\s{3,}', name)
-                owner = parts[0].strip()
-                address = parts[1].strip() if len(parts) > 1 else addr
-                leads.append(lead(county_key, 'state-warrant', owner,
-                                  norm_addr(address, city, state), amt, None, case_num,
-                                  notes=f'Kansas DOR state tax warrant ({lbl})'))
+    def parse_kdor_html(html):
+        from bs4 import BeautifulSoup
+        found = []
+        soup = BeautifulSoup(html, 'html.parser')
+        table = soup.find('table')
+        if not table: return found
+        hdr_done = False
+        for row in table.find_all('tr'):
+            cells = [c.get_text(strip=True) for c in row.find_all(['td','th'])]
+            if not cells or not cells[0]: continue
+            if not hdr_done:
+                hdr_done = True
+                if any(h.lower() in ('name','taxpayer','county','amount') for h in cells): continue
+            name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
+            if not name or len(name) < 2: continue
+            if county_col and county_col.strip() and county_name.lower() not in county_col.lower(): continue
+            parts = re.split(r'\xa0{2,}|\s{3,}', name)
+            owner = parts[0].strip()
+            address = parts[1].strip() if len(parts) > 1 else addr
+            found.append((owner, address, amt, case_num))
+        return found
+
+    def add_leads(matches, method):
+        for owner, address, amt, case_num in matches:
+            leads.append(lead(county_key, 'state-warrant', owner,
+                              norm_addr(address, city, state), amt, None, case_num,
+                              notes=f'Kansas DOR state tax warrant [{method}]'))
+
+    try:
+        import requests as _req
+        req_headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        }
+        for wtype in ['i', 'b']:
+            url = f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}'
+            resp = _req.get(url, headers=req_headers, timeout=20)
+            if resp.status_code != 200 or '<table' not in resp.text.lower():
+                raise Exception(f'requests got {resp.status_code}')
+            add_leads(parse_kdor_html(resp.text), 'requests')
+
     except Exception as e:
-        log.warning(f'  x KDOR warrants ({county_name}): {e}')
+        log.warning(f'  requests failed for KDOR {county_name} ({e}) — trying Playwright')
+        try:
+            for wtype in ['i', 'b']:
+                url = f'https://www.kdor.ks.gov/Apps/Misc/Miscellaneous/WarrantsOnWebSearch?type={wtype}'
+                page.goto(url, wait_until='domcontentloaded', timeout=20000)
+                time.sleep(2)
+                add_leads(parse_kdor_html(page.content()), 'playwright')
+        except Exception as e2:
+            log.warning(f'  x KDOR warrants ({county_name}) failed entirely: {e2}')
+
     log.info(f'  → {len(leads)} KDOR warrants')
     return leads
 
