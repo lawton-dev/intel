@@ -906,7 +906,7 @@ function row(l) {
           ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
         </button>
         <button class="btn-sms" onclick="openSMS('${l.id}')" ${!hasPhone?'disabled':''}>
-          📱 DRIP
+          📱 TEXT
         </button>
         <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
           ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
@@ -1045,7 +1045,7 @@ async function openSMS(id) {
   if (!l || !l.phone) return;
 
   try {
-    await fetch('https://hooks.zapier.com/hooks/catch/8732778/u7n82ax/', {
+    await fetch('/.netlify/functions/drip-webhook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
