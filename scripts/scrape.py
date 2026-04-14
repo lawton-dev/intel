@@ -213,15 +213,19 @@ def scrape_sedgwick(page):
         rows = table.find_all('tr')
         log.info(f'    KDOR table rows: {len(rows)}')
         hdr_done = False
-        for row in rows:
+        for i, row in enumerate(rows):
             cells = [c.get_text(strip=True) for c in row.find_all(['td','th'])]
             if not cells or not cells[0]: continue
+            if i < 5:
+                log.info(f'    RAW row {i}: {cells}')
             if not hdr_done:
                 hdr_done = True
                 if any(h.lower() in ('name','taxpayer','county','amount') for h in cells):
                     continue
             name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
             if not name or len(name) < 2: continue
+            if i < 8:
+                log.info(f'    county_col={repr(county_col)} filter={repr(county_filter)} match={county_filter in county_col.lower()}')
             if county_col and county_col.strip() and county_filter not in county_col.lower(): continue
             parts = re.split(r'\xa0{2,}|\s{3,}', name)
             owner = parts[0].strip()
