@@ -906,7 +906,7 @@ function row(l) {
           ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
         </button>
         <button class="btn-sms" onclick="openSMS('${l.id}')" ${!hasPhone?'disabled':''}>
-          📱 TEXT
+          📱 DRIP
         </button>
         <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
           ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
@@ -1038,19 +1038,33 @@ function toggleContacted(id) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// SMS
+// SMS — fires drip webhook directly, no modal
 // ═══════════════════════════════════════════════════════════
-function openSMS(id) {
+async function openSMS(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l || !l.phone) return;
-  activeLead = l;
-  const first = (l.owner||'there').split(' ').pop(); // last name as salutation
-  document.getElementById('smsName').value  = l.owner || '';
-  document.getElementById('smsPhone').value = l.phone || '';
-  document.getElementById('smsMsg').value   =
-    `Hi ${first}, this is [Name] with OneRoof Real Estate. We buy homes directly from homeowners in Wichita — no agents, no repairs, no hassle. I came across your property at ${l.address} and wanted to reach out. Would you be open to a quick conversation about a cash offer? Reply STOP to opt out.`;
-  countChars();
-  document.getElementById('smsOverlay').classList.add('open');
+
+  try {
+    await fetch('https://hooks.zapier.com/hooks/catch/8732778/u7n82ax/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:        l.owner      || '',
+        phone:       l.phone      || '',
+        address:     l.address    || '',
+        lead_type:   l.type       || '',
+        amount:      l.amount     || '',
+        case_number: l.caseNumber || '',
+        score:       l.score      || 0,
+        county:      l.county     || '',
+        source:      'INTEL',
+        triggered_at: new Date().toISOString(),
+      })
+    });
+    toast('Sent ✓', 'ok');
+  } catch {
+    toast('Drip webhook failed', 'err');
+  }
 }
 
 function closeModal() {
@@ -1061,8 +1075,13 @@ function closeModal() {
 function countChars() {
   const n = document.getElementById('smsMsg').value.length;
   const el = document.getElementById('charCount');
+  if (!el) return;
   el.textContent = n;
   el.style.color = n > 160 ? 'var(--red)' : n > 140 ? 'var(--accent)' : '';
+}
+
+async function sendSMS() {
+  // Legacy — no longer used
 }
 
 async function sendSMS() {
@@ -1081,27 +1100,6 @@ async function sendSMS() {
     if (data.success) {
       closeModal();
       toast('Text sent ✓', 'ok');
-
-      // Fire Zapier drip webhook
-      try {
-        await fetch('https://hooks.zapier.com/hooks/catch/8732778/u7n82ax/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name:        activeLead?.owner  || '',
-            phone:       document.getElementById('smsPhone').value,
-            address:     activeLead?.address || '',
-            lead_type:   activeLead?.type    || '',
-            amount:      activeLead?.amount  || '',
-            case_number: activeLead?.caseNumber || '',
-            score:       activeLead?.score   || 0,
-            county:      activeLead?.county  || '',
-            source:      'INTEL',
-            texted_at:   new Date().toISOString(),
-          })
-        });
-      } catch { /* drip webhook failure is non-blocking */ }
-
     } else {
       toast(data.error || 'Send failed', 'err');
     }
