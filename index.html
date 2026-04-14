@@ -1044,22 +1044,21 @@ async function openSMS(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l || !l.phone) return;
 
-  // Parse name into first / last
-  // County records are "LASTNAME FIRSTNAME M" or "FIRSTNAME LASTNAME"
-  // We stored them as-is from KDOR/county — split on spaces
-  const nameParts = (l.owner || '').replace(/^Estate of\s+/i, '').trim().split(/\s+/);
-  // First word = first name, last word = last name (handles middle initials)
-  const firstName = nameParts.length > 1
-    ? nameParts.slice(0, -1).join(' ')
-    : nameParts[0] || '';
-  const lastName  = nameParts[nameParts.length - 1] || '';
+  // Title case helper — "PATRICK Y GAYNOR" → "Patrick Y Gaynor"
+  const toTitle = s => s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-  // Parse address down to just "123 N Main St" — strip city, state, zip
-  // Address format: "123 N MAIN ST, Wichita KS" or "123 N MAIN ST, Wichita, KS 67203"
-  const streetOnly = (l.address || '')
-    .split(',')[0]          // take everything before first comma
-    .replace(/\s+/g, ' ')   // normalize spaces
-    .trim();
+  // Parse name into first / last
+  const nameParts = (l.owner || '').replace(/^Estate of\s+/i, '').trim().split(/\s+/);
+  const firstName = toTitle(nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : nameParts[0] || '');
+  const lastName  = toTitle(nameParts[nameParts.length - 1] || '');
+
+  // Parse address down to just "1628 N Porter Ave" — strip city, state, zip
+  const streetRaw  = (l.address || '').split(',')[0].replace(/\s+/g, ' ').trim();
+  // Title case but keep direction abbreviations (N, S, E, W, NE, NW, SE, SW) uppercase
+  const streetOnly = streetRaw.toLowerCase()
+    .replace(/\b\w/g, c => c.toUpperCase())
+    .replace(/\b(N|S|E|W|Ne|Nw|Se|Sw|Ave|St|Rd|Dr|Blvd|Ln|Ct|Pl|Way|Ter)\b/g,
+      m => m.length <= 2 ? m.toUpperCase() : m);
 
   try {
     await fetch('/.netlify/functions/drip-webhook', {
