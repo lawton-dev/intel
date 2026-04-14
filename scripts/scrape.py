@@ -956,8 +956,153 @@ def scrape_sumner(page):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# MAIN
+# TARRANT COUNTY, TX  (Fort Worth)
 # ══════════════════════════════════════════════════════════════════════════════
+def scrape_tarrant(page):
+    leads = []
+    log.info('\n' + '='*50)
+    log.info('TARRANT COUNTY, TX')
+    log.info('='*50)
+
+    # 1. Delinquent Tax Search — Tarrant County Tax Office
+    log.info('  Scraping tax delinquent...')
+    try:
+        import requests as _req
+        from bs4 import BeautifulSoup
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        # Tarrant publishes a delinquent list via their tax office search
+        resp = _req.get('https://tax.tarrantcountytx.gov/Property/Search', headers=headers, timeout=20)
+        if resp.status_code != 200:
+            raise Exception(f'Status {resp.status_code}')
+        # Parse any visible delinquent data
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        text = soup.get_text(separator='\n')
+        seen = set()
+        for line in text.splitlines():
+            line = line.strip()
+            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
+            amt_m  = re.search(r'\$[\d,]+\.?\d*', line)
+            if addr_m and amt_m:
+                addr = addr_m.group(1).strip()
+                uid  = make_id('tarrant','td', addr)
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('tarrant','tax-delinquent',
+                                  'SEE TARRANT COUNTY RECORDS',
+                                  norm_addr(addr,'Fort Worth','TX'), amt_m.group(0),
+                                  notes='Real estate tax delinquent — Tarrant County'))
+        log.info(f'  → {len(leads)} tax delinquent')
+    except Exception as e:
+        log.warning(f'  x Tarrant tax delinquent: {e}')
+        log.info(f'  → 0 tax delinquent')
+
+    # 2. Sheriff Sale / Foreclosure listings
+    log.info('  Scraping sheriff sales...')
+    try:
+        page.goto('https://www.tarrantcounty.com/en/criminal-district-attorney/civil-division/sheriff-sale.html',
+                  wait_until='domcontentloaded', timeout=20000)
+        time.sleep(1)
+        text = page.inner_text('body')
+        seen = set()
+        for line in text.splitlines():
+            line = line.strip()
+            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
+            if addr_m:
+                addr = addr_m.group(1).strip()
+                uid  = make_id('tarrant','tf', addr)
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('tarrant','tax-foreclosure',
+                                  'SEE TARRANT COUNTY RECORDS',
+                                  norm_addr(addr,'Fort Worth','TX'), None,
+                                  notes='Sheriff sale — Tarrant County'))
+        tf = len([l for l in leads if l['type']=='tax-foreclosure'])
+        log.info(f'  → {tf} sheriff sales')
+    except Exception as e:
+        log.warning(f'  x Tarrant sheriff sale: {e}')
+        log.info(f'  → 0 sheriff sales')
+
+    return save('tarrant', leads)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# DALLAS COUNTY, TX  (Dallas)
+# ══════════════════════════════════════════════════════════════════════════════
+def scrape_dallas(page):
+    leads = []
+    log.info('\n' + '='*50)
+    log.info('DALLAS COUNTY, TX')
+    log.info('='*50)
+
+    # 1. Delinquent Tax — Dallas County Tax Office
+    log.info('  Scraping tax delinquent...')
+    try:
+        import requests as _req
+        from bs4 import BeautifulSoup
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        resp = _req.get('https://www.dallascounty.org/departments/tax/', headers=headers, timeout=20)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            # Look for delinquent list links
+            for a in soup.find_all('a', href=True):
+                href = a['href']
+                txt  = a.get_text().lower()
+                if 'delinquent' in txt or 'delinquent' in href.lower():
+                    full = href if href.startswith('http') else 'https://www.dallascounty.org' + href
+                    try:
+                        r2 = _req.get(full, headers=headers, timeout=20)
+                        if r2.status_code == 200:
+                            text2 = BeautifulSoup(r2.text, 'html.parser').get_text(separator='\n')
+                            seen = set()
+                            for line in text2.splitlines():
+                                line = line.strip()
+                                addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
+                                amt_m  = re.search(r'\$[\d,]+\.?\d*', line)
+                                if addr_m and amt_m:
+                                    addr = addr_m.group(1).strip()
+                                    uid  = make_id('dallas','td', addr)
+                                    if uid in seen: continue
+                                    seen.add(uid)
+                                    leads.append(lead('dallas','tax-delinquent',
+                                                      'SEE DALLAS COUNTY RECORDS',
+                                                      norm_addr(addr,'Dallas','TX'), amt_m.group(0),
+                                                      notes='Real estate tax delinquent — Dallas County'))
+                    except: continue
+        log.info(f'  → {len(leads)} tax delinquent')
+    except Exception as e:
+        log.warning(f'  x Dallas tax delinquent: {e}')
+        log.info(f'  → 0 tax delinquent')
+
+    # 2. Constable/Sheriff Sales — Dallas County
+    log.info('  Scraping constable sales...')
+    try:
+        page.goto('https://www.dallascounty.org/departments/constable/foreclosure-sales.php',
+                  wait_until='domcontentloaded', timeout=20000)
+        time.sleep(1)
+        text = page.inner_text('body')
+        seen = set()
+        for line in text.splitlines():
+            line = line.strip()
+            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
+            if addr_m and len(line) > 10:
+                addr = addr_m.group(1).strip()
+                uid  = make_id('dallas','tf', addr)
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('dallas','tax-foreclosure',
+                                  'SEE DALLAS COUNTY RECORDS',
+                                  norm_addr(addr,'Dallas','TX'), None,
+                                  notes='Constable foreclosure sale — Dallas County'))
+        tf = len([l for l in leads if l['type']=='tax-foreclosure'])
+        log.info(f'  → {tf} constable sales')
+    except Exception as e:
+        log.warning(f'  x Dallas constable sales: {e}')
+        log.info(f'  → 0 constable sales')
+
+    return save('dallas', leads)
+
+
+
 def main():
     log.info('=' * 60)
     log.info('INTEL Scraper v5 — Multi-County')
@@ -986,12 +1131,14 @@ def main():
         for county, fn in [
             ('sedgwick', scrape_sedgwick),
             ('harris',   scrape_harris),
-            ('shelby',   scrape_shelby),
+            # ('shelby', scrape_shelby),  # Memphis deprioritized
             ('clark',    scrape_clark),
             ('maricopa', scrape_maricopa),
             ('harvey',   scrape_harvey),
             ('butler',   scrape_butler),
             ('sumner',   scrape_sumner),
+            ('tarrant',  scrape_tarrant),
+            ('dallas',   scrape_dallas),
         ]:
             log.info(f'\n>>> Starting {county.upper()}...')
             page = new_page(browser)
