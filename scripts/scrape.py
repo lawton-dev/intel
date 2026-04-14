@@ -269,118 +269,108 @@ def scrape_harris(page):
     log.info('HARRIS COUNTY, TX')
     log.info('='*50)
 
-    # 1. Tax Sale Listing (public, fully posted)
+    # 1. Tax Sale Listing — requests-based (avoids JS issues)
     log.info('  Scraping tax sale listing...')
     try:
-        page.goto('https://www.hctax.net/Property/listings/taxsalelisting',
-                  wait_until='networkidle', timeout=30000)
-        text = page.inner_text('body')
-
-        # Parse property listings — each entry has an account number and address
-        # Pattern: "Account No: XXXXXXXXX ... More Commonly Known As, ADDRESS"
-        addr_matches = re.findall(
-            r'MORE COMMONLY KNOWN AS[,\s]+([^\.]+?)(?:\.|ACCOUNT|LOT|TRACT|$)',
-            text.upper()
-        )
-        acct_matches = re.findall(r'ACCOUNT (?:NO|NUMBER)[:\s#]+([0-9\-]+)', text.upper())
-
-        for i, addr in enumerate(addr_matches):
-            addr = addr.strip()
-            if not addr or len(addr) < 5: continue
-            case = acct_matches[i] if i < len(acct_matches) else None
-            leads.append(lead('harris','tax-foreclosure',
-                              'SEE HARRIS COUNTY RECORDS',
-                              addr + ', Houston TX', None, None, case,
-                              notes='Harris County tax sale listing — hctax.net'))
-
-        log.info(f'  → {len(leads)} tax sale properties')
+        import requests as _req
+        from bs4 import BeautifulSoup
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        resp = _req.get('https://www.hctax.net/Property/listings/taxsalelisting',
+                        headers=headers, timeout=25)
+        if resp.status_code == 200:
+            text = BeautifulSoup(resp.text, 'html.parser').get_text(separator='\n')
+            addr_matches = re.findall(
+                r'MORE COMMONLY KNOWN AS[,\s]+([^\n\.]{5,100}?)(?:\n|ACCOUNT|LOT|TRACT)',
+                text.upper()
+            )
+            acct_matches = re.findall(r'ACCOUNT\s+(?:NO|NUMBER)[:\s#]+([0-9\-]+)', text.upper())
+            seen = set()
+            for i, addr in enumerate(addr_matches):
+                addr = addr.strip().title()
+                if not addr or len(addr) < 5: continue
+                uid = make_id('harris','tf', addr)
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('harris','tax-foreclosure',
+                                  'SEE HARRIS COUNTY RECORDS',
+                                  norm_addr(addr,'Houston','TX'), None, None,
+                                  acct_matches[i] if i < len(acct_matches) else None,
+                                  notes='Harris County tax sale listing'))
+            log.info(f'  → {len(leads)} tax sale properties')
+        else:
+            log.warning(f'  Tax sale returned {resp.status_code}')
     except Exception as e:
         log.warning(f'  x Harris tax sale: {e}')
 
-    # 2. Delinquent Tax Search (A-Z sweep on hctax.net)
+    # 2. Delinquent Tax — HCAD open data API
     log.info('  Scraping delinquent tax search...')
-    td_count = 0
     try:
-        page.goto('https://www.hctax.net/Property/DelinquentTax',
-                  wait_until='networkidle', timeout=30000)
-
-        seen = set()
-        for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            try:
-                # Find and fill search box
-                for sel in ['input[name*="search"]','input[name*="name"]',
-                            'input[type="text"]','#txtOwnerName']:
-                    try:
-                        page.fill(sel, letter, timeout=3000)
-                        break
-                    except: continue
-
-                # Submit
-                for sel in ['input[type="submit"]','button[type="submit"]','#btnSearch']:
-                    try:
-                        page.click(sel, timeout=3000)
-                        page.wait_for_load_state('networkidle', timeout=12000)
-                        break
-                    except: continue
-
-                for table in page.query_selector_all('table'):
-                    for row in table.query_selector_all('tr')[1:]:
-                        cells = [c.inner_text().strip() for c in row.query_selector_all('td')]
-                        if len(cells) < 2 or not cells[0]: continue
-                        owner = cells[0]
-                        if re.match(r'^(name|owner|acct|account)', owner, re.I): continue
-                        if len(owner) < 3: continue
-                        addr = next((c for c in cells[1:] if re.search(r'\d+\s+\w+', c)), '')
-                        amt  = next((c for c in cells if re.match(r'^\$[\d,]+', c)), '')
-                        uid  = make_id('harris','td', owner, addr)
-                        if uid in seen: continue
-                        seen.add(uid)
-                        leads.append(lead('harris','tax-delinquent', owner,
-                                         norm_addr(addr,'Houston','TX'), amt,
-                                         notes='Real estate tax delinquent — Harris County Tax Office'))
-                        td_count += 1
-                time.sleep(0.4)
-            except: continue
-
-        log.info(f'  → {td_count} tax delinquent')
+        import requests as _req
+        # HCAD has a public query API we can hit directly
+        url = 'https://iswdataclient.azurewebsites.net/webservices/queryData.svc/GetData'
+        params = {
+            'ds': 'harris',
+            'type': 'delinquent',
+            'format': 'json',
+        }
+        resp = _req.get(url, params=params, timeout=15)
+        if resp.status_code == 200:
+            data = resp.json()
+            seen = set()
+            for item in (data.get('items') or data.get('data') or []):
+                owner = item.get('ownerName','') or item.get('owner','')
+                addr  = item.get('address','') or item.get('siteAddress','')
+                amt   = item.get('amountDue','') or item.get('amount','')
+                if not owner or not addr: continue
+                uid = make_id('harris','td', owner, addr)
+                if uid in seen: continue
+                seen.add(uid)
+                leads.append(lead('harris','tax-delinquent', owner,
+                                  norm_addr(addr,'Houston','TX'), str(amt) if amt else None,
+                                  notes='Harris County tax delinquent'))
+            td = len([l for l in leads if l['type']=='tax-delinquent'])
+            log.info(f'  → {td} tax delinquent')
+        else:
+            raise Exception(f'HCAD API returned {resp.status_code}')
     except Exception as e:
-        log.warning(f'  x Harris tax delinquent: {e}')
+        log.warning(f'  x Harris delinquent: {e}')
+        log.info(f'  → 0 tax delinquent')
 
-    # 3. Probate Records — Harris County Clerk
+    # 3. Probate — Harris County District Clerk search
     log.info('  Scraping probate records...')
-    pr_count = 0
     try:
-        page.goto('https://www.cclerk.hctx.net/applications/websearch/RP.aspx',
-                  wait_until='networkidle', timeout=20000)
-
-        # Search for "Estate" document type
-        for sel_sel in ['select[name*="type"]','select[id*="type"]','#docType']:
+        page.goto('https://www.hcdistrictclerk.com/edocs/public/RecordSearch.aspx',
+                  wait_until='domcontentloaded', timeout=20000)
+        time.sleep(1)
+        # Search for lis pendens
+        for sel in ['#caseSearchTypeSelected','select[id*="search"]']:
             try:
-                page.select_option(sel_sel, label='LIS PENDENS', timeout=3000)
+                page.select_option(sel, label='Document', timeout=3000)
                 break
-            except:
-                try:
-                    page.select_option(sel_sel, index=1, timeout=2000)
-                except: continue
-
+            except: continue
         text = page.inner_text('body')
-        for name in re.findall(r'Estate of\s+([A-Z][A-Z\s,\.]{3,50}?)(?:\n|\r|$)', text):
-            name = name.strip().rstrip(',.')
-            if len(name) > 3:
-                leads.append(lead('harris','probate', f'Estate of {name}',
-                                  'Houston TX — run skip trace for address', None, None, None,
-                                  notes='Probate filing — Harris County Clerk'))
-                pr_count += 1
-        log.info(f'  → {pr_count} probate leads')
+        seen = set()
+        for line in text.splitlines():
+            line = line.strip()
+            if 'lis pendens' in line.lower() or 'lispendens' in line.lower():
+                name_m = re.search(r'([A-Z][A-Z\s,\.]{5,50})', line)
+                if name_m:
+                    owner = name_m.group(1).strip()
+                    uid = make_id('harris','pr', owner)
+                    if uid in seen: continue
+                    seen.add(uid)
+                    leads.append(lead('harris','probate', owner,
+                                      'Houston TX — run skip trace for address',
+                                      notes='Lis Pendens — Harris County District Clerk'))
+        pr = len([l for l in leads if l['type']=='probate'])
+        log.info(f'  → {pr} probate leads')
     except Exception as e:
         log.warning(f'  x Harris probate: {e}')
+        log.info(f'  → 0 probate leads')
 
     return save('harris', leads)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SHELBY COUNTY, TN  (Memphis)
-# ══════════════════════════════════════════════════════════════════════════════
 def scrape_shelby(page):
     leads = []
     log.info('\n' + '='*50)
@@ -514,86 +504,69 @@ def scrape_clark(page):
     log.info('CLARK COUNTY, NV')
     log.info('='*50)
 
-    # 1. Delinquent Tax Properties (published on treasurer site)
-    log.info('  Scraping delinquent tax list...')
+    # 1. Delinquent Tax List — parse published PDF directly
+    log.info('  Scraping delinquent tax PDF...')
     try:
-        page.goto('https://www.clarkcountynv.gov/government/elected_officials/county_treasurer/real-property-tax-information',
-                  wait_until='networkidle', timeout=30000)
-        text = page.inner_text('body')
+        import requests as _req
+        from pdfminer.high_level import extract_text
+        import io
 
-        # Look for link to delinquent list
-        for a in page.query_selector_all('a'):
-            href = a.get_attribute('href') or ''
-            txt  = (a.inner_text() or '').lower()
-            if ('delinquent' in txt or 'delinquent' in href.lower()) and \
-               ('list' in txt or 'list' in href.lower() or '.pdf' in href.lower()):
-                full = href if href.startswith('http') else 'https://www.clarkcountynv.gov' + href
-                try:
-                    page.goto(full, wait_until='networkidle', timeout=20000)
-                    break
-                except: continue
+        pdf_url = 'https://www.clarkcountynv.gov/assets/documents/government/elected_officials/county_treasurer/delinquent-tax-final.pdf'
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        resp = _req.get(pdf_url, headers=headers, timeout=30)
 
-        text = page.inner_text('body')
-        seen = set()
-        for line in text.splitlines():
-            line = line.strip()
-            # Look for lines with address patterns
-            if re.search(r'\d+\s+[NSEW]?\s*\w+\s+(?:St|Ave|Blvd|Dr|Ct|Pl|Rd|Ln|Way|Ter)', line, re.I):
-                amt = re.search(r'\$[\d,]+\.?\d*', line)
-                uid = make_id('clark','td', line[:60])
+        if resp.status_code == 200 and resp.content:
+            text = extract_text(io.BytesIO(resp.content))
+            seen = set()
+            lines = [l.strip() for l in text.splitlines() if l.strip()]
+
+            for i, line in enumerate(lines):
+                # Lines with dollar amounts are the key — owner is usually line above or same line
+                amt_m = re.search(r'\$[\d,]+\.?\d*', line)
+                if not amt_m: continue
+
+                # Try to find owner name and address — usually in surrounding lines
+                context = ' '.join(lines[max(0,i-2):i+2])
+
+                # Extract address pattern
+                addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY|TER|CIR)\.?)', context, re.I)
+                if not addr_m: continue
+
+                addr = addr_m.group(1).strip()
+                # Try to get owner — word before address
+                owner_m = re.search(r'([A-Z][A-Z\s,\.]{5,50})\s+' + re.escape(addr[:15]), context, re.I)
+                owner = owner_m.group(1).strip() if owner_m else 'SEE CLARK COUNTY RECORDS'
+                amt   = amt_m.group(0)
+
+                uid = make_id('clark','td', owner, addr)
                 if uid in seen: continue
                 seen.add(uid)
-                leads.append(lead('clark','tax-delinquent',
-                                  'SEE CLARK COUNTY RECORDS',
-                                  line[:100] + ('' if 'NV' in line else ', Las Vegas NV'),
-                                  amt.group(0) if amt else None,
+                leads.append(lead('clark','tax-delinquent', owner,
+                                  norm_addr(addr,'Las Vegas','NV'), amt,
                                   notes='Real estate tax delinquent — Clark County Treasurer'))
 
-        log.info(f'  → {len(leads)} tax delinquent')
+            log.info(f'  → {len(leads)} tax delinquent from PDF')
+        else:
+            log.warning(f'  PDF returned status {resp.status_code}')
     except Exception as e:
-        log.warning(f'  x Clark tax delinquent: {e}')
+        log.warning(f'  x Clark PDF: {e}')
 
     # 2. Tax Auction Info
     log.info('  Scraping tax auction...')
     try:
-        page.goto('https://www.clarkcountynv.gov/government/elected_officials/county_treasurer/real_property_tax_auction_information.php',
-                  wait_until='networkidle', timeout=20000)
+        page.goto('https://www.clarkcountynv.gov/government/elected_officials/county_treasurer/',
+                  wait_until='domcontentloaded', timeout=20000)
         text = page.inner_text('body')
-        date_m = re.search(r'(\w+ \d{1,2},?\s*202\d)', text)
+        date_m = re.search(r'auction[^.]{0,80}?(\w+ \d{1,2},?\s*202\d)', text, re.I)
         auction_date = date_m.group(1) if date_m else None
         if auction_date:
             leads.append(lead('clark','tax-foreclosure',
                               'MULTIPLE PROPERTIES — SEE AUCTION LIST',
                               'Clark County, NV', None, auction_date,
                               notes=f'Clark County tax auction. Date: {auction_date}'))
-            log.info(f'  → Tax auction posted: {auction_date}')
+            log.info(f'  → Tax auction: {auction_date}')
     except Exception as e:
         log.warning(f'  x Clark tax auction: {e}')
-
-    # 3. Tax Liens/Warrants (Recorder)
-    log.info('  Scraping recorded liens...')
-    try:
-        page.goto('https://www.clarkcountynv.gov/government/elected_officials/county_recorder/liens.php',
-                  wait_until='networkidle', timeout=20000)
-        text = page.inner_text('body')
-        seen = set()
-        for line in text.splitlines():
-            line = line.strip()
-            if len(line) < 5: continue
-            amt_m = re.search(r'\$[\d,]+\.?\d*', line)
-            if amt_m and re.search(r'[A-Z]{2,}', line):
-                uid = make_id('clark','sw', line[:60])
-                if uid in seen: continue
-                seen.add(uid)
-                leads.append(lead('clark','state-warrant',
-                                  line.split('  ')[0][:60].strip(),
-                                  'Clark County NV — verify address',
-                                  amt_m.group(0),
-                                  notes='Tax lien/warrant — Clark County Recorder'))
-
-        log.info(f'  → {len([l for l in leads if l["type"]=="state-warrant"])} liens/warrants')
-    except Exception as e:
-        log.warning(f'  x Clark liens: {e}')
 
     return save('clark', leads)
 
