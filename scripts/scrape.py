@@ -213,24 +213,31 @@ def scrape_sedgwick(page):
         rows = table.find_all('tr')
         log.info(f'    KDOR table rows: {len(rows)}')
         hdr_done = False
-        for i, row in enumerate(rows):
+        for row in rows:
             cells = [c.get_text(strip=True) for c in row.find_all(['td','th'])]
             if not cells or not cells[0]: continue
-            if i < 5:
-                log.info(f'    RAW row {i}: {cells}')
             if not hdr_done:
                 hdr_done = True
-                if any(h.lower() in ('name','taxpayer','county','amount') for h in cells):
+                if any(h.lower() in ('name','taxpayer','county','amount','name and address') for h in cells):
                     continue
-            name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
-            if not name or len(name) < 2: continue
-            if i < 8:
-                log.info(f'    county_col={repr(county_col)} filter={repr(county_filter)} match={county_filter in county_col.lower()}')
-            if county_col and county_col.strip() and county_filter not in county_col.lower(): continue
-            parts = re.split(r'\xa0{2,}|\s{3,}', name)
-            owner = parts[0].strip()
-            address = parts[1].strip() if len(parts) > 1 else addr
+            # Columns: [Name+Address, County, Tax Type, Amount, Case#]
+            if len(cells) < 4: continue
+            name_addr = cells[0]
+            county_col = cells[1]  # actual county name
+            amt        = cells[3] if len(cells) > 3 else ''
+            case_num   = cells[4] if len(cells) > 4 else ''
+
+            # Filter by county
+            if county_filter and county_filter not in county_col.lower():
+                continue
+
+            # Split name and address — separated by \xa0\xa0 or 3+ spaces
+            parts = re.split(r'\xa0{2,}|\s{3,}', name_addr)
+            owner   = parts[0].strip()
+            address = parts[1].strip() if len(parts) > 1 else ''
+            if not owner or len(owner) < 2: continue
             found.append((owner, address, amt, case_num))
+        log.info(f'    Matches for {county_filter}: {len(found)}')
         return found
 
     try:
@@ -730,13 +737,18 @@ def scrape_kdor_warrants(page, county_key, county_name, city, state='KS'):
             if not cells or not cells[0]: continue
             if not hdr_done:
                 hdr_done = True
-                if any(h.lower() in ('name','taxpayer','county','amount') for h in cells): continue
-            name, addr, county_col, amt, case_num = (cells+['','','','',''])[:5]
-            if not name or len(name) < 2: continue
+                if any(h.lower() in ('name','taxpayer','county','amount','name and address') for h in cells): continue
+            # Columns: [Name+Address, County, Tax Type, Amount, Case#]
+            if len(cells) < 4: continue
+            name_addr  = cells[0]
+            county_col = cells[1]
+            amt        = cells[3] if len(cells) > 3 else ''
+            case_num   = cells[4] if len(cells) > 4 else ''
             if county_col and county_col.strip() and county_name.lower() not in county_col.lower(): continue
-            parts = re.split(r'\xa0{2,}|\s{3,}', name)
-            owner = parts[0].strip()
-            address = parts[1].strip() if len(parts) > 1 else addr
+            parts = re.split(r'\xa0{2,}|\s{3,}', name_addr)
+            owner   = parts[0].strip()
+            address = parts[1].strip() if len(parts) > 1 else ''
+            if not owner or len(owner) < 2: continue
             found.append((owner, address, amt, case_num))
         return found
 
