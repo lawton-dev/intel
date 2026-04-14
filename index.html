@@ -1044,14 +1044,34 @@ async function openSMS(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l || !l.phone) return;
 
+  // Parse name into first / last
+  // County records are "LASTNAME FIRSTNAME M" or "FIRSTNAME LASTNAME"
+  // We stored them as-is from KDOR/county — split on spaces
+  const nameParts = (l.owner || '').replace(/^Estate of\s+/i, '').trim().split(/\s+/);
+  // First word = first name, last word = last name (handles middle initials)
+  const firstName = nameParts.length > 1
+    ? nameParts.slice(0, -1).join(' ')
+    : nameParts[0] || '';
+  const lastName  = nameParts[nameParts.length - 1] || '';
+
+  // Parse address down to just "123 N Main St" — strip city, state, zip
+  // Address format: "123 N MAIN ST, Wichita KS" or "123 N MAIN ST, Wichita, KS 67203"
+  const streetOnly = (l.address || '')
+    .split(',')[0]          // take everything before first comma
+    .replace(/\s+/g, ' ')   // normalize spaces
+    .trim();
+
   try {
     await fetch('/.netlify/functions/drip-webhook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name:        l.owner      || '',
+        first_name:  firstName,
+        last_name:   lastName,
         phone:       l.phone      || '',
         address:     l.address    || '',
+        street:      streetOnly,
         lead_type:   l.type       || '',
         amount:      l.amount     || '',
         case_number: l.caseNumber || '',
