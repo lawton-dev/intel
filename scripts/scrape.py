@@ -1012,19 +1012,23 @@ def main():
         # Fresh page per county — prevents navigation bleed between counties
         for county, fn in [
             ('sedgwick', scrape_sedgwick),
-            # ('harris',   scrape_harris),
-            # ('shelby',   scrape_shelby),
-            # ('clark',    scrape_clark),
-            # ('maricopa', scrape_maricopa),
-            # ('harvey',   scrape_harvey),
-            # ('butler',   scrape_butler),
-            # ('sumner',   scrape_sumner),
+            ('harris',   scrape_harris),
+            ('shelby',   scrape_shelby),
+            ('clark',    scrape_clark),
+            ('maricopa', scrape_maricopa),
+            ('harvey',   scrape_harvey),
+            ('butler',   scrape_butler),
+            ('sumner',   scrape_sumner),
         ]:
+            log.info(f'\n>>> Starting {county.upper()}...')
             page = new_page(browser)
             try:
                 results[county] = fn(page)
+                log.info(f'>>> {county.upper()} complete: {results[county]["totalLeads"]} leads')
             except Exception as e:
-                log.error(f'County {county} failed entirely: {e}')
+                import traceback
+                log.error(f'>>> {county.upper()} FAILED: {e}')
+                log.error(traceback.format_exc())
                 results[county] = {'totalLeads': 0, 'sources': {}}
             finally:
                 try: page.context.close()
