@@ -1081,6 +1081,27 @@ async function sendSMS() {
     if (data.success) {
       closeModal();
       toast('Text sent ✓', 'ok');
+
+      // Fire Zapier drip webhook
+      try {
+        await fetch('https://hooks.zapier.com/hooks/catch/8732778/u7n82ax/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:        activeLead?.owner  || '',
+            phone:       document.getElementById('smsPhone').value,
+            address:     activeLead?.address || '',
+            lead_type:   activeLead?.type    || '',
+            amount:      activeLead?.amount  || '',
+            case_number: activeLead?.caseNumber || '',
+            score:       activeLead?.score   || 0,
+            county:      activeLead?.county  || '',
+            source:      'INTEL',
+            texted_at:   new Date().toISOString(),
+          })
+        });
+      } catch { /* drip webhook failure is non-blocking */ }
+
     } else {
       toast(data.error || 'Send failed', 'err');
     }
