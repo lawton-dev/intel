@@ -384,10 +384,6 @@
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
     <button class="ftab" onclick="setFilter('new-today',this)">New Today</button>
-    <button class="ftab" onclick="setFilter('not-contacted',this)">Not Contacted</button>
-    <button class="ftab" onclick="setFilter('sfr',this)" title="Single family only">🏠 SFR</button>
-    <button class="ftab" onclick="setFilter('multi',this)" title="2-4 units">🏘 2-4 Units</button>
-    <button class="ftab" onclick="setFilter('apt',this)" title="Apartment complexes 5+ units">🏢 Apartment</button>
     <div class="sort-wrap">
       SORT
       <select class="sort-select" onchange="setSort(this.value)">
@@ -397,6 +393,12 @@
       </select>
     </div>
     <input class="fsearch" type="text" placeholder="Search name or address..." oninput="handleSearch(this.value)" />
+  </div>
+  <div class="filters" style="border-top:none;padding-top:6px;padding-bottom:10px;gap:8px;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;white-space:nowrap;">Traced Only ▸</span>
+    <button class="ftab" onclick="setFilter('sfr',this)" title="Single family only">🏠 SFR</button>
+    <button class="ftab" onclick="setFilter('multi',this)" title="2-4 units">🏘 2-4 Units</button>
+    <button class="ftab" onclick="setFilter('apt',this)" title="Apartment complexes 5+ units">🏢 Apartment</button>
   </div>
 
   <!-- LEAD TABLE -->
