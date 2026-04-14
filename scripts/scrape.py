@@ -996,13 +996,13 @@ def main():
         # Fresh page per county — prevents navigation bleed between counties
         for county, fn in [
             ('sedgwick', scrape_sedgwick),
-            ('harris',   scrape_harris),
-            ('shelby',   scrape_shelby),
-            ('clark',    scrape_clark),
-            ('maricopa', scrape_maricopa),
-            ('harvey',   scrape_harvey),
-            ('butler',   scrape_butler),
-            ('sumner',   scrape_sumner),
+            # ('harris',   scrape_harris),
+            # ('shelby',   scrape_shelby),
+            # ('clark',    scrape_clark),
+            # ('maricopa', scrape_maricopa),
+            # ('harvey',   scrape_harvey),
+            # ('butler',   scrape_butler),
+            # ('sumner',   scrape_sumner),
         ]:
             page = new_page(browser)
             try:
