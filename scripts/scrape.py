@@ -504,69 +504,82 @@ def scrape_clark(page):
     log.info('CLARK COUNTY, NV')
     log.info('='*50)
 
-    # 1. Delinquent Tax List — parse published PDF directly
-    log.info('  Scraping delinquent tax PDF...')
+    # 1. Delinquent Tax List — parse the treasurer's delinquent notice page
+    log.info('  Scraping delinquent tax list...')
     try:
         import requests as _req
-        from pdfminer.high_level import extract_text
-        import io
-
-        pdf_url = 'https://www.clarkcountynv.gov/assets/documents/government/elected_officials/county_treasurer/delinquent-tax-final.pdf'
+        from bs4 import BeautifulSoup
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        resp = _req.get(pdf_url, headers=headers, timeout=30)
 
-        if resp.status_code == 200 and resp.content:
-            text = extract_text(io.BytesIO(resp.content))
+        # The notice page has owner names, parcel numbers, amounts
+        resp = _req.get(
+            'https://www.clarkcountynv.gov/government/elected_officials/county_treasurer/notice-of-delinquent-taxes-nrs-361-565',
+            headers=headers, timeout=25
+        )
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            text = soup.get_text(separator='\n')
             seen = set()
             lines = [l.strip() for l in text.splitlines() if l.strip()]
 
             for i, line in enumerate(lines):
-                # Lines with dollar amounts are the key — owner is usually line above or same line
                 amt_m = re.search(r'\$[\d,]+\.?\d*', line)
                 if not amt_m: continue
+                # Owner name usually on same or adjacent line
+                # Look for name pattern (ALL CAPS words)
+                name_m = re.search(r'([A-Z][A-Z\s,\.&]{5,60})', line)
+                if not name_m and i > 0:
+                    name_m = re.search(r'([A-Z][A-Z\s,\.&]{5,60})', lines[i-1])
+                if not name_m: continue
 
-                # Try to find owner name and address — usually in surrounding lines
-                context = ' '.join(lines[max(0,i-2):i+2])
-
-                # Extract address pattern
-                addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY|TER|CIR)\.?)', context, re.I)
-                if not addr_m: continue
-
-                addr = addr_m.group(1).strip()
-                # Try to get owner — word before address
-                owner_m = re.search(r'([A-Z][A-Z\s,\.]{5,50})\s+' + re.escape(addr[:15]), context, re.I)
-                owner = owner_m.group(1).strip() if owner_m else 'SEE CLARK COUNTY RECORDS'
+                owner = name_m.group(1).strip().rstrip(',')
+                # Skip header-like lines
+                if any(w in owner for w in ('NOTICE','COUNTY','TREASURER','DELINQUENT','PARCEL','AMOUNT')): continue
                 amt   = amt_m.group(0)
-
-                uid = make_id('clark','td', owner, addr)
+                uid   = make_id('clark','td', owner, amt)
                 if uid in seen: continue
                 seen.add(uid)
                 leads.append(lead('clark','tax-delinquent', owner,
-                                  norm_addr(addr,'Las Vegas','NV'), amt,
-                                  notes='Real estate tax delinquent — Clark County Treasurer'))
+                                  'Clark County NV — skip trace for address',
+                                  amt, notes='Real estate tax delinquent — Clark County Treasurer'))
 
-            log.info(f'  → {len(leads)} tax delinquent from PDF')
+            log.info(f'  → {len(leads)} tax delinquent')
         else:
-            log.warning(f'  PDF returned status {resp.status_code}')
+            log.warning(f'  Delinquent page returned {resp.status_code}')
     except Exception as e:
-        log.warning(f'  x Clark PDF: {e}')
+        log.warning(f'  x Clark delinquent: {e}')
 
-    # 2. Tax Auction Info
-    log.info('  Scraping tax auction...')
+    # 2. Trustee Auction list — PDF with actual properties for sale
+    log.info('  Scraping trustee auction...')
     try:
-        page.goto('https://www.clarkcountynv.gov/government/elected_officials/county_treasurer/',
-                  wait_until='domcontentloaded', timeout=20000)
-        text = page.inner_text('body')
-        date_m = re.search(r'auction[^.]{0,80}?(\w+ \d{1,2},?\s*202\d)', text, re.I)
-        auction_date = date_m.group(1) if date_m else None
-        if auction_date:
-            leads.append(lead('clark','tax-foreclosure',
-                              'MULTIPLE PROPERTIES — SEE AUCTION LIST',
-                              'Clark County, NV', None, auction_date,
-                              notes=f'Clark County tax auction. Date: {auction_date}'))
-            log.info(f'  → Tax auction: {auction_date}')
+        import requests as _req
+        from pdfminer.high_level import extract_text
+        import io
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        # Try the auction parcel list PDF
+        auction_url = 'https://treasurer.co.clark.nv.us/pdf/Clark%20County%20Trustee%20Auction_May%208%202025_pcl%20list%20050824.pdf'
+        resp = _req.get(auction_url, headers=headers, timeout=25)
+        if resp.status_code == 200:
+            text = extract_text(io.BytesIO(resp.content))
+            seen_a = set()
+            for line in text.splitlines():
+                line = line.strip()
+                addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY|CIR)\.?)', line, re.I)
+                amt_m  = re.search(r'\$[\d,]+\.?\d*', line)
+                if addr_m:
+                    addr = addr_m.group(1).strip()
+                    uid  = make_id('clark','tf', addr)
+                    if uid in seen_a: continue
+                    seen_a.add(uid)
+                    leads.append(lead('clark','tax-foreclosure',
+                                      'SEE CLARK COUNTY RECORDS',
+                                      norm_addr(addr,'Las Vegas','NV'),
+                                      amt_m.group(0) if amt_m else None,
+                                      notes='Trustee auction — Clark County Treasurer'))
+            tf = len([l for l in leads if l['type']=='tax-foreclosure'])
+            log.info(f'  → {tf} auction properties')
     except Exception as e:
-        log.warning(f'  x Clark tax auction: {e}')
+        log.warning(f'  x Clark auction PDF: {e}')
 
     return save('clark', leads)
 
@@ -964,63 +977,84 @@ def scrape_tarrant(page):
     log.info('TARRANT COUNTY, TX')
     log.info('='*50)
 
-    # 1. Delinquent Tax Search — Tarrant County Tax Office
-    log.info('  Scraping tax delinquent...')
+    # 1. Constable 3 Monthly Tax Sale Listings — public HTML pages
+    log.info('  Scraping monthly tax sale listings...')
     try:
         import requests as _req
         from bs4 import BeautifulSoup
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        # Tarrant publishes a delinquent list via their tax office search
-        resp = _req.get('https://tax.tarrantcountytx.gov/Property/Search', headers=headers, timeout=20)
-        if resp.status_code != 200:
-            raise Exception(f'Status {resp.status_code}')
-        # Parse any visible delinquent data
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        text = soup.get_text(separator='\n')
-        seen = set()
+
+        # Get the listing index to find current month's URL
+        index_url = 'https://www.tarrantcountytx.gov/en/constables/constable-3/delinquent-tax-sales/monthly-tax-sales-listings.html'
+        resp = _req.get(index_url, headers=headers, timeout=20)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            # Find links to monthly listings
+            listing_urls = []
+            for a in soup.find_all('a', href=True):
+                href = a['href']
+                if 'monthly-tax-sales-listings' in href and href != index_url and '2026' in a.get_text() + href:
+                    full = href if href.startswith('http') else 'https://www.tarrantcountytx.gov' + href
+                    listing_urls.append(full)
+
+            # Also try the most recent known URL pattern
+            from datetime import datetime
+            months = ['january','february','march','april','may','june','july','august','september','october','november','december']
+            m = months[datetime.now().month - 1]
+            listing_urls.append(f'https://www.tarrantcountytx.gov/en/constables/constable-3/delinquent-tax-sales/monthly-tax-sales-listings/{m}-{datetime.now().day}--{datetime.now().year}.html')
+
+            seen = set()
+            for url in listing_urls[:3]:
+                try:
+                    r2 = _req.get(url, headers=headers, timeout=15)
+                    if r2.status_code != 200: continue
+                    text = BeautifulSoup(r2.text, 'html.parser').get_text(separator='\n')
+                    for line in text.splitlines():
+                        line = line.strip()
+                        # Look for "More commonly known as ADDRESS"
+                        addr_m = re.search(r'(?:KNOWN AS|ADDRESS)[,\s:]+([^,\n]{10,80}(?:FORT WORTH|ARLINGTON|EULESS|HURST|BEDFORD|KELLER|GRAPEVINE|TX)[^,\n]{0,30})', line, re.I)
+                        if not addr_m:
+                            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?\s*,?\s*(?:FORT WORTH|ARLINGTON|EULESS|TX))', line, re.I)
+                        if addr_m:
+                            addr = addr_m.group(1).strip()
+                            uid  = make_id('tarrant','tf', addr)
+                            if uid in seen: continue
+                            seen.add(uid)
+                            leads.append(lead('tarrant','tax-foreclosure',
+                                              'SEE TARRANT COUNTY RECORDS',
+                                              norm_addr(addr,'Fort Worth','TX'), None,
+                                              notes='Monthly tax sale — Tarrant County Constable 3'))
+                except: continue
+
+        log.info(f'  → {len(leads)} tax sale properties')
+    except Exception as e:
+        log.warning(f'  x Tarrant tax sale: {e}')
+        log.info(f'  → 0 tax sale properties')
+
+    # 2. Tax Deed Card search
+    log.info('  Scraping tax deed records...')
+    try:
+        page.goto('https://taxdeed.tarrantcounty.com/', wait_until='domcontentloaded', timeout=20000)
+        time.sleep(1)
+        text = page.inner_text('body')
+        seen_td = set()
         for line in text.splitlines():
             line = line.strip()
             addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
             amt_m  = re.search(r'\$[\d,]+\.?\d*', line)
             if addr_m and amt_m:
                 addr = addr_m.group(1).strip()
-                uid  = make_id('tarrant','td', addr)
-                if uid in seen: continue
-                seen.add(uid)
+                uid  = make_id('tarrant','td2', addr)
+                if uid in seen_td: continue
+                seen_td.add(uid)
                 leads.append(lead('tarrant','tax-delinquent',
                                   'SEE TARRANT COUNTY RECORDS',
                                   norm_addr(addr,'Fort Worth','TX'), amt_m.group(0),
-                                  notes='Real estate tax delinquent — Tarrant County'))
-        log.info(f'  → {len(leads)} tax delinquent')
+                                  notes='Tax deed — Tarrant County'))
+        td = len([l for l in leads if l['type']=='tax-delinquent'])
+        log.info(f'  → {td} tax deed records')
     except Exception as e:
-        log.warning(f'  x Tarrant tax delinquent: {e}')
-        log.info(f'  → 0 tax delinquent')
-
-    # 2. Sheriff Sale / Foreclosure listings
-    log.info('  Scraping sheriff sales...')
-    try:
-        page.goto('https://www.tarrantcounty.com/en/criminal-district-attorney/civil-division/sheriff-sale.html',
-                  wait_until='domcontentloaded', timeout=20000)
-        time.sleep(1)
-        text = page.inner_text('body')
-        seen = set()
-        for line in text.splitlines():
-            line = line.strip()
-            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
-            if addr_m:
-                addr = addr_m.group(1).strip()
-                uid  = make_id('tarrant','tf', addr)
-                if uid in seen: continue
-                seen.add(uid)
-                leads.append(lead('tarrant','tax-foreclosure',
-                                  'SEE TARRANT COUNTY RECORDS',
-                                  norm_addr(addr,'Fort Worth','TX'), None,
-                                  notes='Sheriff sale — Tarrant County'))
-        tf = len([l for l in leads if l['type']=='tax-foreclosure'])
-        log.info(f'  → {tf} sheriff sales')
-    except Exception as e:
-        log.warning(f'  x Tarrant sheriff sale: {e}')
-        log.info(f'  → 0 sheriff sales')
+        log.warning(f'  x Tarrant tax deed: {e}')
 
     return save('tarrant', leads)
 
@@ -1034,70 +1068,73 @@ def scrape_dallas(page):
     log.info('DALLAS COUNTY, TX')
     log.info('='*50)
 
-    # 1. Delinquent Tax — Dallas County Tax Office
-    log.info('  Scraping tax delinquent...')
+    # 1. Sheriff Sales page — lists upcoming foreclosure auctions
+    log.info('  Scraping sheriff sales...')
     try:
         import requests as _req
         from bs4 import BeautifulSoup
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        resp = _req.get('https://www.dallascounty.org/departments/tax/', headers=headers, timeout=20)
+        resp = _req.get('https://www.dallascounty.org/departments/tax/sheriff-sales.php',
+                        headers=headers, timeout=20)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            # Look for delinquent list links
+            # Find links to actual sale lists
             for a in soup.find_all('a', href=True):
                 href = a['href']
-                txt  = a.get_text().lower()
-                if 'delinquent' in txt or 'delinquent' in href.lower():
+                if '.pdf' in href.lower() or 'sale' in href.lower():
                     full = href if href.startswith('http') else 'https://www.dallascounty.org' + href
                     try:
-                        r2 = _req.get(full, headers=headers, timeout=20)
-                        if r2.status_code == 200:
-                            text2 = BeautifulSoup(r2.text, 'html.parser').get_text(separator='\n')
-                            seen = set()
-                            for line in text2.splitlines():
-                                line = line.strip()
-                                addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
-                                amt_m  = re.search(r'\$[\d,]+\.?\d*', line)
-                                if addr_m and amt_m:
-                                    addr = addr_m.group(1).strip()
-                                    uid  = make_id('dallas','td', addr)
-                                    if uid in seen: continue
-                                    seen.add(uid)
-                                    leads.append(lead('dallas','tax-delinquent',
-                                                      'SEE DALLAS COUNTY RECORDS',
-                                                      norm_addr(addr,'Dallas','TX'), amt_m.group(0),
-                                                      notes='Real estate tax delinquent — Dallas County'))
+                        r2 = _req.get(full, headers=headers, timeout=15)
+                        if r2.status_code != 200: continue
+                        if '.pdf' in full.lower():
+                            from pdfminer.high_level import extract_text
+                            import io
+                            text = extract_text(io.BytesIO(r2.content))
+                        else:
+                            text = BeautifulSoup(r2.text, 'html.parser').get_text(separator='\n')
+                        seen = set()
+                        for line in text.splitlines():
+                            line = line.strip()
+                            addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?\s*,?\s*(?:DALLAS|IRVING|GARLAND|MESQUITE|TX))', line, re.I)
+                            if addr_m:
+                                addr = addr_m.group(1).strip()
+                                uid  = make_id('dallas','tf', addr)
+                                if uid in seen: continue
+                                seen.add(uid)
+                                leads.append(lead('dallas','tax-foreclosure',
+                                                  'SEE DALLAS COUNTY RECORDS',
+                                                  norm_addr(addr,'Dallas','TX'), None,
+                                                  notes='Sheriff sale — Dallas County'))
                     except: continue
-        log.info(f'  → {len(leads)} tax delinquent')
+        log.info(f'  → {len(leads)} sheriff sale properties')
     except Exception as e:
-        log.warning(f'  x Dallas tax delinquent: {e}')
-        log.info(f'  → 0 tax delinquent')
+        log.warning(f'  x Dallas sheriff sales: {e}')
+        log.info(f'  → 0 sheriff sale properties')
 
-    # 2. Constable/Sheriff Sales — Dallas County
-    log.info('  Scraping constable sales...')
+    # 2. Public Works struck-off / tax foreclosed properties
+    log.info('  Scraping tax foreclosed properties...')
     try:
-        page.goto('https://www.dallascounty.org/departments/constable/foreclosure-sales.php',
+        page.goto('https://www.dallascounty.org/departments/pubworks/property-division.php',
                   wait_until='domcontentloaded', timeout=20000)
         time.sleep(1)
         text = page.inner_text('body')
-        seen = set()
+        seen_pw = set()
         for line in text.splitlines():
             line = line.strip()
             addr_m = re.search(r'(\d+\s+[NSEW]?\s*\w[\w\s]{3,40}(?:ST|AVE|BLVD|DR|CT|PL|RD|LN|WAY)\.?)', line, re.I)
             if addr_m and len(line) > 10:
                 addr = addr_m.group(1).strip()
-                uid  = make_id('dallas','tf', addr)
-                if uid in seen: continue
-                seen.add(uid)
+                uid  = make_id('dallas','pw', addr)
+                if uid in seen_pw: continue
+                seen_pw.add(uid)
                 leads.append(lead('dallas','tax-foreclosure',
                                   'SEE DALLAS COUNTY RECORDS',
                                   norm_addr(addr,'Dallas','TX'), None,
-                                  notes='Constable foreclosure sale — Dallas County'))
-        tf = len([l for l in leads if l['type']=='tax-foreclosure'])
-        log.info(f'  → {tf} constable sales')
+                                  notes='Tax foreclosed property — Dallas County Public Works'))
+        pw = len([l for l in leads if l['type']=='tax-foreclosure'])
+        log.info(f'  → {pw} total tax foreclosure leads')
     except Exception as e:
-        log.warning(f'  x Dallas constable sales: {e}')
-        log.info(f'  → 0 constable sales')
+        log.warning(f'  x Dallas public works: {e}')
 
     return save('dallas', leads)
 
