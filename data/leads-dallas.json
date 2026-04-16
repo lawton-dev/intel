@@ -1,12 +1,37 @@
 {
-  "lastUpdated": "2026-04-15T15:18:22.585420+00:00",
+  "lastUpdated": "2026-04-16T16:31:25.749339+00:00",
   "county": "dallas",
-  "totalLeads": 0,
+  "totalLeads": 2,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 0,
+    "tax_foreclosure": 2,
     "probate": 0,
     "state_warrant": 0
   },
-  "leads": []
+  "leads": [
+    {
+      "id": "808248a55cdf",
+      "county": "dallas",
+      "type": "tax-foreclosure",
+      "owner": "SEE DALLAS COUNTY RECORDS",
+      "address": "500 Elm St, Dallas TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Tax foreclosed property \u2014 Dallas County Public Works",
+      "scrapedAt": "2026-04-16T16:31:25.748868+00:00"
+    },
+    {
+      "id": "443ffcfe7931",
+      "county": "dallas",
+      "type": "tax-foreclosure",
+      "owner": "SEE DALLAS COUNTY RECORDS",
+      "address": "1024 Springbrook Dr, Dallas TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Tax foreclosed property \u2014 Dallas County Public Works",
+      "scrapedAt": "2026-04-16T16:31:25.748996+00:00"
+    }
+  ]
 }
