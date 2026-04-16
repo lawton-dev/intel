@@ -160,6 +160,7 @@
     .type-badge{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;font-weight:600;white-space:nowrap;}
     .type-badge.tax-delinquent{background:rgba(245,158,11,.1);color:var(--c-td);}
     .type-badge.tax-foreclosure{background:rgba(239,68,68,.1);color:var(--c-tf);}
+    .type-badge.pre-foreclosure{background:rgba(249,115,22,.12);color:#f97316;}
     .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
     .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
     .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
@@ -367,6 +368,7 @@
     <div class="stat"><div class="stat-lbl">Total Leads</div><div class="stat-val" id="sTotal">—</div></div>
     <div class="stat"><div class="stat-lbl">Tax Delinquent</div><div class="stat-val amber" id="sTD">—</div></div>
     <div class="stat"><div class="stat-lbl">Tax Foreclosure</div><div class="stat-val red" id="sTF">—</div></div>
+    <div class="stat"><div class="stat-lbl">Pre-Foreclosure</div><div class="stat-val" style="color:#f97316" id="sPF">—</div></div>
     <div class="stat"><div class="stat-lbl">Probate</div><div class="stat-val purple" id="sPR">—</div></div>
     <div class="stat"><div class="stat-lbl">State Warrant</div><div class="stat-val orange" id="sSW">—</div></div>
     <div class="stat"><div class="stat-lbl">Hot (Score 60+)</div><div class="stat-val" style="color:var(--red)" id="sHot">—</div></div>
@@ -377,6 +379,7 @@
     <button class="ftab active" onclick="setFilter('all',this)">All</button>
     <button class="ftab" onclick="setFilter('tax-delinquent',this)">Tax Delinquent</button>
     <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
+    <button class="ftab" onclick="setFilter('pre-foreclosure',this)">⚡ Pre-Foreclosure</button>
     <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
@@ -638,6 +641,9 @@ async function loadLeads() {
   const SCK_COUNTIES = ['sedgwick','harvey','butler','sumner'];
   const isSCK = activeCounty === 'sck';
 
+  // Counties that have BatchData pre-foreclosure data
+  const PREFC_COUNTIES = ['sedgwick','harris','clark'];
+
   function mapLead(l) {
     const pt = propTypes[l.id] || {};
     return {
@@ -652,17 +658,27 @@ async function loadLeads() {
     };
   }
 
+  async function loadPreforeclosure(countyKey) {
+    try {
+      const r = await fetch(`/data/leads-${countyKey}-preforeclosure.json?v=` + Date.now());
+      if (!r.ok) return [];
+      const d = await r.json();
+      return d.leads || [];
+    } catch { return []; }
+  }
+
   try {
     if (isSCK) {
-      // Load all four KS county files and merge
-      const files = await Promise.all(
-        SCK_COUNTIES.map(c =>
+      // Load all four KS county files + Sedgwick pre-foreclosure
+      const [files, pfLeads] = await Promise.all([
+        Promise.all(SCK_COUNTIES.map(c =>
           fetch(`/data/leads-${c}.json?v=` + Date.now())
             .then(r => r.ok ? r.json() : { leads: [] })
             .catch(() => ({ leads: [] }))
-        )
-      );
-      const merged = files.flatMap(d => d.leads || []);
+        )),
+        loadPreforeclosure('sedgwick')
+      ]);
+      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads];
       allLeads = merged.map(mapLead);
 
       // Show most recent update across all four
@@ -675,10 +691,14 @@ async function loadLeads() {
       }
     } else {
       const dataUrl = `/data/leads-${activeCounty}.json`;
-      const res = await fetch(dataUrl + '?v=' + Date.now());
+      const [res, pfLeads] = await Promise.all([
+        fetch(dataUrl + '?v=' + Date.now()),
+        PREFC_COUNTIES.includes(activeCounty) ? loadPreforeclosure(activeCounty) : Promise.resolve([])
+      ]);
       if (!res.ok) throw new Error('no data');
       const data = await res.json();
-      allLeads = (data.leads || []).map(mapLead);
+      const merged = [...(data.leads || []), ...pfLeads];
+      allLeads = merged.map(mapLead);
       if (data.lastUpdated) {
         const d = new Date(data.lastUpdated);
         document.getElementById('updatedAt').textContent =
@@ -715,6 +735,7 @@ function updateStats() {
   document.getElementById('sTotal').textContent = allLeads.length;
   document.getElementById('sTD').textContent    = t('tax-delinquent');
   document.getElementById('sTF').textContent    = t('tax-foreclosure');
+  document.getElementById('sPF').textContent    = t('pre-foreclosure');
   document.getElementById('sPR').textContent    = t('probate');
   document.getElementById('sSW').textContent    = t('state-warrant');
   document.getElementById('sHot').textContent   = allLeads.filter(l => l.score >= 60).length;
@@ -837,6 +858,7 @@ function getFiltered() {
 const TYPE_LABELS = {
   'tax-delinquent':  'TAX DELINQUENT',
   'tax-foreclosure': 'TAX FORECLOSURE',
+  'pre-foreclosure': 'PRE-FORECLOSURE',
   'probate':         'PROBATE',
   'state-warrant':   'STATE WARRANT',
   'lis-pendens':     'LIS PENDENS',

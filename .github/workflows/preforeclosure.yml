@@ -1,0 +1,53 @@
+name: INTEL Pre-Foreclosure Scraper
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'   # Monday 6:00 AM CDT
+    - cron: '0 11 * * 4'   # Thursday 6:00 AM CDT
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run pre-foreclosure scraper
+        run: python scripts/scrape_preforeclosure.py
+        env:
+          BATCHDATA_API_KEY: ${{ secrets.BATCHDATA_API_KEY }}
+
+      - name: Commit pre-foreclosure data
+        run: |
+          git config user.name  "INTEL Bot"
+          git config user.email "intel-bot@oneroofre.net"
+          git add data/leads-*-preforeclosure.json
+          git diff --cached --quiet && echo "No changes" || \
+          git commit -m "🤖 INTEL Pre-FC: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          echo "### Pre-Foreclosure Scrape Complete" >> $GITHUB_STEP_SUMMARY
+          for f in data/leads-*-preforeclosure.json; do
+            python3 -c "
+          import json
+          d = json.load(open('$f'))
+          name = '$f'.replace('data/leads-','').replace('-preforeclosure.json','').upper()
+          print(f'{name}: {d[\"totalLeads\"]} leads (of {d.get(\"totalFound\",\"?\")} found)')
+          " >> $GITHUB_STEP_SUMMARY
+          done
