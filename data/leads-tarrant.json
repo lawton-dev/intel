@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-16T16:31:18.138831+00:00",
+  "lastUpdated": "2026-04-16T17:35:12.609113+00:00",
   "county": "tarrant",
   "totalLeads": 1,
   "sources": {
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-16T16:31:16.574707+00:00"
+      "scrapedAt": "2026-04-16T17:35:11.155289+00:00"
     }
   ]
 }
