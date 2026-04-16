@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-16T17:35:19.357560+00:00",
+  "lastUpdated": "2026-04-16T18:30:33.731580+00:00",
   "county": "dallas",
   "totalLeads": 2,
   "sources": {
@@ -18,8 +18,8 @@
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
-      "notes": "Tax foreclosed property \u2014 Dallas County Public Works",
-      "scrapedAt": "2026-04-16T17:35:19.357063+00:00"
+      "notes": "Struck-off property \u2014 Dallas County Public Works",
+      "scrapedAt": "2026-04-16T18:30:33.730878+00:00"
     },
     {
       "id": "443ffcfe7931",
@@ -30,8 +30,8 @@
       "amount": null,
       "filingDate": null,
       "caseNumber": null,
-      "notes": "Tax foreclosed property \u2014 Dallas County Public Works",
-      "scrapedAt": "2026-04-16T17:35:19.357190+00:00"
+      "notes": "Struck-off property \u2014 Dallas County Public Works",
+      "scrapedAt": "2026-04-16T18:30:33.731106+00:00"
     }
   ]
 }

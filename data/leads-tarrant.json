@@ -1,14 +1,38 @@
 {
-  "lastUpdated": "2026-04-16T17:35:12.609113+00:00",
+  "lastUpdated": "2026-04-16T18:30:24.909747+00:00",
   "county": "tarrant",
-  "totalLeads": 1,
+  "totalLeads": 3,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 1,
+    "tax_foreclosure": 3,
     "probate": 0,
     "state_warrant": 0
   },
   "leads": [
+    {
+      "id": "5237dfffb9c5",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "3912 Knox St, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-04-16T18:30:24.909227+00:00"
+    },
+    {
+      "id": "08b1c35b95db",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "10200 Maria Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-04-16T18:30:24.909290+00:00"
+    },
     {
       "id": "6472125e9d25",
       "county": "tarrant",
