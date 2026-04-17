@@ -399,6 +399,8 @@
     <button class="ftab" onclick="setFilter('sfr',this)" title="Single family only">🏠 SFR</button>
     <button class="ftab" onclick="setFilter('multi',this)" title="2-4 units">🏘 2-4 Units</button>
     <button class="ftab" onclick="setFilter('apt',this)" title="Apartment complexes 5+ units">🏢 Apartment</button>
+    <span style="flex:1"></span>
+    <button class="ftab" id="expiredToggle" onclick="toggleExpired()" title="Show pre-foreclosure leads where auction was >30 days ago">☐ Include Expired Auctions</button>
   </div>
 
   <!-- LEAD TABLE -->
@@ -604,6 +606,7 @@ let activeCounty = 'sck';
 let sortBy     = 'score';
 let searchQ    = '';
 let activeLead = null;
+let showExpired = false; // hide pre-foreclosure leads with auctions >30 days past
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
@@ -769,6 +772,15 @@ function setFilter(f, el) {
 
 function handleSearch(q) { searchQ = q; render(); }
 function setSort(s)       { sortBy  = s; render(); }
+function toggleExpired() {
+  showExpired = !showExpired;
+  const btn = document.getElementById('expiredToggle');
+  if (btn) {
+    btn.textContent = showExpired ? '☑ Include Expired Auctions' : '☐ Include Expired Auctions';
+    btn.classList.toggle('active', showExpired);
+  }
+  render();
+}
 
 function getFiltered() {
   let leads = [...allLeads];
@@ -785,6 +797,20 @@ function getFiltered() {
     if (isNaN(filed)) return true;
     return filed <= threeYearsAgo; // only 3+ years old
   });
+
+  // Auto-exclude pre-foreclosure leads with auction dates >30 days past
+  // (auction likely went through, ownership may have changed)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  if (!showExpired) {
+    leads = leads.filter(l => {
+      if (l.type !== 'pre-foreclosure') return true;
+      if (!l.auctionDate) return true; // no auction date = keep
+      const auction = new Date(l.auctionDate);
+      if (isNaN(auction)) return true;
+      return auction >= thirtyDaysAgo; // hide if auction was >30 days ago
+    });
+  }
 
   if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
   else if (activeFilter === 'new-today') {
@@ -886,6 +912,22 @@ function row(l) {
   const date  = fmtDate(l.filingDate || l.scrapedAt);
   const hasPhone = !!l.phone;
 
+  // Check if auction date has passed (for pre-foreclosure leads)
+  let auctionBadge = '';
+  if (l.type === 'pre-foreclosure' && l.auctionDate) {
+    const auction = new Date(l.auctionDate);
+    const today = new Date();
+    if (!isNaN(auction) && auction < today) {
+      const daysAgo = Math.floor((today - auction) / (1000 * 60 * 60 * 24));
+      auctionBadge = `<span style="display:inline-block;font-size:8px;padding:2px 6px;margin-left:6px;border-radius:3px;background:rgba(239,68,68,0.15);color:#ef4444;font-weight:600;letter-spacing:1px;">⚠ AUCTION ${daysAgo}D AGO</span>`;
+    } else if (!isNaN(auction)) {
+      const daysUntil = Math.ceil((auction - today) / (1000 * 60 * 60 * 24));
+      if (daysUntil <= 14) {
+        auctionBadge = `<span style="display:inline-block;font-size:8px;padding:2px 6px;margin-left:6px;border-radius:3px;background:rgba(249,115,22,0.15);color:#f97316;font-weight:600;letter-spacing:1px;">🔥 AUCTION IN ${daysUntil}D</span>`;
+      }
+    }
+  }
+
   const dots = [
     { cls: 'td', active: l.type==='tax-delinquent'  || (l.stackedSignals||[]).includes('tax-delinquent')  },
     { cls: 'tf', active: l.type==='tax-foreclosure' || (l.stackedSignals||[]).includes('tax-foreclosure') },
@@ -900,7 +942,7 @@ function row(l) {
     </td>
     <td><span class="type-badge ${l.type}">${lbl}</span></td>
     <td>
-      <div class="owner-name">${l.owner||'Unknown'}</div>
+      <div class="owner-name">${l.owner||'Unknown'}${auctionBadge}</div>
       <div class="owner-addr">${l.address||'—'}</div>
       ${l.caseNumber ? `<div style="font-size:8px;color:var(--muted);margin-top:2px">Case: ${l.caseNumber}</div>` : ''}
     </td>
