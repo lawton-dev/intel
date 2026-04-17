@@ -50,8 +50,9 @@ def fetch_preforeclosures(query, skip=0):
         },
         timeout=30
     )
+    log.info(f'  BatchData HTTP {resp.status_code} — body length: {len(resp.text)} — first 200: {resp.text[:200]}')
     if not resp.ok:
-        log.error(f'  BatchData HTTP {resp.status_code}: {resp.text[:200]}')
+        log.error(f'  BatchData error: {resp.text[:500]}')
     resp.raise_for_status()
     return resp.json()
 
