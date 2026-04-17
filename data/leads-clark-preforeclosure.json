@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿{
     "lastUpdated":  "2026-04-17T18:51:46.1176839Z",
     "totalLeads":  0,
@@ -7,3 +8,12 @@
 
               ]
 }
+=======
+{
+  "lastUpdated": "2026-04-17T18:39:19.560321+00:00",
+  "totalLeads": 0,
+  "totalFound": 0,
+  "source": "BatchData",
+  "leads": []
+}
+>>>>>>> dd9c77a892e4effe82428ed75f8ee13f882c614a
