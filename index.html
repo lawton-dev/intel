@@ -161,6 +161,7 @@
     .type-badge.tax-delinquent{background:rgba(245,158,11,.1);color:var(--c-td);}
     .type-badge.tax-foreclosure{background:rgba(239,68,68,.1);color:var(--c-tf);}
     .type-badge.pre-foreclosure{background:rgba(249,115,22,.12);color:#f97316;}
+    .type-badge.stale-listing{background:rgba(59,130,246,.12);color:#3b82f6;}
     .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
     .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
     .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
@@ -282,10 +283,7 @@
     .export-wrap{display:flex;align-items:center;gap:8px;}
     .export-count{font-size:9px;color:var(--muted);}
 
-    /* ATTOM placeholder tab notice */
-    .attom-notice{padding:60px;text-align:center;color:var(--muted);}
-    .attom-notice h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--blue);margin-bottom:8px;letter-spacing:2px;}
-    .attom-notice p{font-size:10px;letter-spacing:1px;line-height:1.8;}
+    /* ATTOM placeholder removed — now using BatchData */
   </style>
 </head>
 <body>
@@ -332,6 +330,7 @@
         <button class="btn-export" onclick="exportCSV('traced')" title="Export skip traced leads only">⬇ TRACED ONLY</button>
         <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
       </div>
+      <button class="btn-refresh" onclick="openUploadModal()" title="Upload PropStream CSV exports">📤 UPLOAD</button>
       <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
       <div class="oneroof-logo">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet"><defs><g/><clipPath id="a1"><path d="M 87.808594 111.339844 L 375 111.339844 L 375 176.589844 L 87.808594 176.589844 Z M 87.808594 111.339844 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a1)"><path fill="#ffffff" d="M 348.988281 288.757812 L 348.988281 198.300781 L 353.585938 201.261719 L 369.019531 176.832031 L 267.847656 111.5625 L 267.527344 111.351562 L 262.320312 111.339844 L 225.707031 134.960938 L 225.707031 131.707031 L 186.4375 131.707031 L 186.4375 160.292969 L 160.800781 176.832031 L 176.242188 201.261719 L 180.832031 198.300781 L 180.832031 288.757812 L 87.8125 288.757812 L 87.8125 297.9375 L 189.8125 297.9375 L 189.925781 181.539062 L 179.011719 188.578125 L 173.351562 179.632812 L 195.53125 165.324219 L 195.53125 140.886719 L 216.621094 140.886719 L 216.621094 151.71875 L 264.253906 120.988281 L 265.546875 120.976562 L 356.46875 179.632812 L 350.816406 188.578125 L 339.90625 181.542969 L 339.753906 297.9375 L 442.011719 297.9375 L 442.011719 288.757812 L 348.988281 288.757812 " fill-opacity="1" fill-rule="nonzero"/></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(2.776946, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(59.37894, 227.838251)"><g><path d="M 46.4375 0 L 38.734375 0 L 13.953125 -33.359375 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 13.8125 -46.5 L 38.734375 -13.09375 L 38.734375 -46.5 L 46.4375 -46.5 Z M 46.4375 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(114.785129, 227.838251)"><g><path d="M 39.328125 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.90625 L 36.671875 -26.90625 L 36.671875 -19.859375 L 13.953125 -19.859375 L 13.953125 -7.046875 L 40.125 -7.046875 L 40.125 0 L 6.109375 0 L 6.109375 -46.5 L 39.328125 -46.5 Z M 39.328125 -39.46875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(161.156335, 227.838251)"><g><path d="M 35.609375 0 L 27.109375 -14.078125 C 26.660156 -14.035156 25.953125 -14.015625 24.984375 -14.015625 L 13.953125 -14.015625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 24.984375 -46.5 C 30.921875 -46.5 35.523438 -45.113281 38.796875 -42.34375 C 42.078125 -39.582031 43.71875 -35.675781 43.71875 -30.625 C 43.71875 -26.90625 42.882812 -23.757812 41.21875 -21.1875 C 39.5625 -18.625 37.179688 -16.742188 34.078125 -15.546875 L 44.515625 0 Z M 13.953125 -21.0625 L 24.984375 -21.0625 C 32.515625 -21.0625 36.28125 -24.179688 36.28125 -30.421875 C 36.28125 -36.453125 32.515625 -39.46875 24.984375 -39.46875 L 13.953125 -39.46875 Z M 13.953125 -21.0625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(211.978593, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(268.580587, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(325.182581, 227.838251)"><g><path d="M 37.265625 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.046875 L 35.078125 -26.046875 L 35.078125 -19.0625 L 13.953125 -19.0625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 37.34375 -46.5 Z M 37.265625 -39.46875 "/></g></g></g></svg>
@@ -359,9 +358,6 @@
     <button class="ctab" onclick="setCounty('dallas',this)">
       Dallas <span class="cnt" id="cnt-dallas">—</span>
     </button>
-    <button class="ctab" onclick="setCounty('attom',this)" style="margin-left:auto;border-left:1px solid var(--border);">
-      ATTOM Feed <span class="cnt" id="cnt-attom" style="background:rgba(59,130,246,.15);color:var(--blue);">PENDING</span>
-    </button>
   </div>
 
   <!-- STATS BAR -->
@@ -370,6 +366,7 @@
     <div class="stat"><div class="stat-lbl">Tax Delinquent</div><div class="stat-val amber" id="sTD">—</div></div>
     <div class="stat"><div class="stat-lbl">Tax Foreclosure</div><div class="stat-val red" id="sTF">—</div></div>
     <div class="stat"><div class="stat-lbl">Pre-Foreclosure</div><div class="stat-val" style="color:#f97316" id="sPF">—</div></div>
+    <div class="stat"><div class="stat-lbl">Stale Listing</div><div class="stat-val" style="color:#3b82f6" id="sSL">—</div></div>
     <div class="stat"><div class="stat-lbl">Probate</div><div class="stat-val purple" id="sPR">—</div></div>
     <div class="stat"><div class="stat-lbl">State Warrant</div><div class="stat-val orange" id="sSW">—</div></div>
     <div class="stat"><div class="stat-lbl">Hot (Score 60+)</div><div class="stat-val" style="color:var(--red)" id="sHot">—</div></div>
@@ -381,6 +378,7 @@
     <button class="ftab" onclick="setFilter('tax-delinquent',this)">Tax Delinquent</button>
     <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
     <button class="ftab" onclick="setFilter('pre-foreclosure',this)">⚡ Pre-Foreclosure</button>
+    <button class="ftab" onclick="setFilter('stale-listing',this)">🕐 Stale Listing</button>
     <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
@@ -425,15 +423,6 @@
       <div class="empty-title">No leads match</div>
       <div class="empty-sub">Adjust filters or refresh data</div>
     </div>
-  </div>
-
-  <!-- ATTOM PLACEHOLDER -->
-  <div id="attomPanel" class="attom-notice" style="display:none">
-    <h3>ATTOM FEED — PENDING</h3>
-    <p>Pre-Foreclosure endpoint subscription is being activated.<br>
-    Once confirmed, this tab will populate with:<br><br>
-    Lis Pendens · Mortgage Foreclosures · REOs · Notice of Sale<br><br>
-    Daily refresh · All 7 counties</p>
   </div>
 </div>
 
@@ -540,6 +529,26 @@
   </div>
 </div>
 
+<div class="overlay" id="uploadOverlay">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-title">📤 Upload PropStream CSV</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px">
+      Drop PropStream CSV exports below. Each row is auto-routed by the County column to the matching INTEL tab. Duplicates (matched by address+owner) are skipped. Texted/Pushed/Contacted state is preserved.
+    </div>
+    <div id="uploadDrop" style="border:2px dashed var(--border2);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s">
+      <div style="font-size:32px;margin-bottom:8px">📁</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text)">DROP CSV FILES HERE</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:6px">or click to browse</div>
+      <input type="file" id="uploadInput" accept=".csv" multiple style="display:none" />
+    </div>
+    <div id="uploadResult" style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px"></div>
+    <div class="mactions">
+      <button class="btn-cancel" onclick="closeUploadModal()">Close</button>
+      <button class="btn-cancel" onclick="clearStaleListings()" style="color:#ef4444;border-color:#ef4444" title="Clear all uploaded stale listings">🗑 CLEAR ALL</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -559,6 +568,7 @@ const WEIGHTS = {
   'tax-delinquent':  20,
   'tax-foreclosure': 35,
   'pre-foreclosure': 80,   // Pre-foreclosure = active bank action, highest urgency
+  'stale-listing':   45,   // Listed 90+ days, motivated but not distressed
   'probate':         25,
   'state-warrant':   20,
   'lis-pendens':     30,
@@ -588,11 +598,24 @@ function computeScore(lead) {
     return Math.min(Math.max(score, 80), 100);  // floor of 80 for pre-foreclosure
   }
 
+  // Stale listings: base 45 + DOM bonus + price reduction + vacant
+  if (lead.type === 'stale-listing') {
+    let score = 45;
+    const dom = parseInt(lead.daysOnMarket) || 0;
+    if (dom > 90) score += Math.min(Math.floor((dom - 90) / 30) * 5, 20);  // up to +20 for very stale
+    if (lead.priceReduced) score += 10;
+    if (lead.vacant) score += 10;
+    if (lead.absenteeOwner) score += 5;
+    if (lead.highEquity) score += 10;
+    return Math.min(score, 100);
+  }
+
   // Build signal array from available data
   const signals = [
     { type: 'tax-delinquent',  active: lead.type === 'tax-delinquent' },
     { type: 'tax-foreclosure', active: lead.type === 'tax-foreclosure' },
     { type: 'pre-foreclosure', active: lead.type === 'pre-foreclosure' },
+    { type: 'stale-listing',   active: lead.type === 'stale-listing' },
     { type: 'probate',         active: lead.type === 'probate' },
     { type: 'state-warrant',   active: lead.type === 'state-warrant' },
     { type: 'lis-pendens',     active: lead.type === 'lis-pendens' },
@@ -689,9 +712,16 @@ async function loadLeads() {
     } catch { return []; }
   }
 
+  function loadStaleListings(countyKey) {
+    try {
+      const all = JSON.parse(localStorage.getItem('intel_stale_listings') || '{}');
+      return all[countyKey] || [];
+    } catch { return []; }
+  }
+
   try {
     if (isSCK) {
-      // Load all four KS county files + Sedgwick pre-foreclosure
+      // Load all four KS county files + Sedgwick pre-foreclosure + stale listings
       const [files, pfLeads] = await Promise.all([
         Promise.all(SCK_COUNTIES.map(c =>
           fetch(`/data/leads-${c}.json?v=` + Date.now())
@@ -700,7 +730,9 @@ async function loadLeads() {
         )),
         loadPreforeclosure('sedgwick')
       ]);
-      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads];
+      // Stale listings: merge for all KS counties
+      const slLeads = SCK_COUNTIES.flatMap(c => loadStaleListings(c));
+      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...slLeads];
       allLeads = merged.map(mapLead);
 
       // Show most recent update across all four
@@ -719,7 +751,8 @@ async function loadLeads() {
       ]);
       if (!res.ok) throw new Error('no data');
       const data = await res.json();
-      const merged = [...(data.leads || []), ...pfLeads];
+      const slLeads = loadStaleListings(activeCounty);
+      const merged = [...(data.leads || []), ...pfLeads, ...slLeads];
       allLeads = merged.map(mapLead);
       if (data.lastUpdated) {
         const d = new Date(data.lastUpdated);
@@ -758,11 +791,12 @@ function updateStats() {
   document.getElementById('sTD').textContent    = t('tax-delinquent');
   document.getElementById('sTF').textContent    = t('tax-foreclosure');
   document.getElementById('sPF').textContent    = t('pre-foreclosure');
+  document.getElementById('sSL').textContent    = t('stale-listing');
   document.getElementById('sPR').textContent    = t('probate');
   document.getElementById('sSW').textContent    = t('state-warrant');
   document.getElementById('sHot').textContent   = allLeads.filter(l => l.score >= 60).length;
   const cntEl = document.getElementById(`cnt-${activeCounty}`);
-  if (cntEl && activeCounty !== 'attom') cntEl.textContent = allLeads.length;
+  if (cntEl) cntEl.textContent = allLeads.length;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -773,13 +807,7 @@ function setCounty(county, el) {
   activeCounty = county;
   document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-
-  const isAttom = county === 'attom';
-  document.getElementById('statsBar').style.display   = isAttom ? 'none' : '';
-  document.getElementById('leadWrap').style.display   = isAttom ? 'none' : '';
-  document.getElementById('attomPanel').style.display = isAttom ? 'block' : 'none';
-
-  if (!isAttom) loadLeads();
+  loadLeads();
 }
 
 function setFilter(f, el) {
@@ -799,6 +827,223 @@ function toggleExpired() {
     btn.classList.toggle('active', showExpired);
   }
   render();
+}
+
+// ═══════════════════════════════════════════════════════════
+// UPLOAD CSV — Stale Listings (PropStream)
+// ═══════════════════════════════════════════════════════════
+function openUploadModal() {
+  document.getElementById('uploadOverlay').classList.add('open');
+  document.getElementById('uploadResult').innerHTML = '';
+  setTimeout(setupUploadHandlers, 50);
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadOverlay').classList.remove('open');
+}
+
+function setupUploadHandlers() {
+  const drop  = document.getElementById('uploadDrop');
+  const input = document.getElementById('uploadInput');
+  if (!drop || !input || drop._wired) return;
+  drop._wired = true;
+
+  drop.addEventListener('click', () => input.click());
+  input.addEventListener('change', e => handleFiles(e.target.files));
+
+  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
+    e.preventDefault(); e.stopPropagation();
+    drop.style.borderColor = 'var(--orange)';
+    drop.style.background = 'rgba(255,107,53,0.04)';
+  }));
+  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
+    e.preventDefault(); e.stopPropagation();
+    drop.style.borderColor = 'var(--border2)';
+    drop.style.background = 'transparent';
+  }));
+  drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+}
+
+async function handleFiles(fileList) {
+  const files = Array.from(fileList).filter(f => /\.csv$/i.test(f.name));
+  if (!files.length) {
+    document.getElementById('uploadResult').innerHTML =
+      '<div style="color:#ef4444">No CSV files detected.</div>';
+    return;
+  }
+
+  let totalRows = 0, totalAdded = 0, totalSkipped = 0;
+  const byCountySummary = {};
+
+  for (const file of files) {
+    try {
+      const text = await file.text();
+      const rows = parseCSV(text);
+      totalRows += rows.length;
+      const result = ingestStaleListings(rows);
+      totalAdded   += result.added;
+      totalSkipped += result.skipped;
+      Object.entries(result.byCounty).forEach(([c, n]) => {
+        byCountySummary[c] = (byCountySummary[c] || 0) + n;
+      });
+    } catch (e) {
+      console.error(`Failed to parse ${file.name}:`, e);
+    }
+  }
+
+  document.getElementById('uploadResult').innerHTML = `
+    <div style="padding:10px 14px;border-radius:7px;background:rgba(71,255,138,0.06);border:1px solid rgba(71,255,138,0.25);color:#47ff8a">
+      ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
+    </div>
+    <div style="margin-top:8px;color:var(--muted);font-size:10px">
+      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates
+    </div>
+    <div style="margin-top:6px;color:var(--text);font-size:10px">
+      ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
+    </div>
+  `;
+
+  // Reload data
+  loadLeads();
+}
+
+function parseCSV(text) {
+  // PropStream CSVs are standard CSV — handle quoted commas via a real parser
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (!lines.length) return [];
+
+  function parseRow(line) {
+    const out = [];
+    let cur = '', inQuote = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') {
+        if (inQuote && line[i+1] === '"') { cur += '"'; i++; }
+        else inQuote = !inQuote;
+      } else if (c === ',' && !inQuote) {
+        out.push(cur); cur = '';
+      } else {
+        cur += c;
+      }
+    }
+    out.push(cur);
+    return out;
+  }
+
+  const headers = parseRow(lines[0]).map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const cells = parseRow(line);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (cells[i] || '').trim());
+    return obj;
+  });
+}
+
+function ingestStaleListings(rows) {
+  // Get existing
+  const all = JSON.parse(localStorage.getItem('intel_stale_listings') || '{}');
+
+  // Build dedupe sets per county (by lead ID = address+owner hash)
+  const existingIds = {};
+  Object.entries(all).forEach(([county, leads]) => {
+    existingIds[county] = new Set(leads.map(l => l.id));
+  });
+
+  const result = { added: 0, skipped: 0, byCounty: {} };
+  const now = new Date().toISOString();
+
+  for (const row of rows) {
+    // Map PropStream column names to INTEL fields
+    // PropStream column names vary slightly — try common variants
+    const address = row['Address']            || row['Property Address'] || row['Street Address'] || '';
+    const city    = row['City']               || '';
+    const state   = row['State']              || '';
+    const zip     = row['Zip']                || row['ZIP'] || row['Zip Code'] || '';
+    const county  = (row['County']            || '').trim().toLowerCase();
+    const owner   = row['Owner']              || row['Owner Name']        || row['Owner 1 Full Name'] || '';
+    const dom     = row['Days on Market']     || row['DOM']               || row['Days On Market']    || '';
+    const listPrc = row['Listing Price']      || row['List Price']        || row['MLS Price']         || '';
+    const estVal  = row['Estimated Value']    || row['Est. Value']        || row['Est Value']         || '';
+    const equity  = row['Estimated Equity']   || row['Est. Equity']       || row['Equity']            || '';
+    const phone   = row['Phone Number']       || row['Phone']             || row['Mobile']            || '';
+
+    if (!address || !county) continue;
+
+    // County normalization: "Sedgwick" → "sedgwick", strip "County"
+    const countyKey = county.replace(/\s+county$/i, '').trim();
+
+    // Skip counties we don't track
+    const KNOWN_COUNTIES = ['sedgwick','harvey','butler','sumner','harris','clark','maricopa','tarrant','dallas','shelby'];
+    if (!KNOWN_COUNTIES.includes(countyKey)) continue;
+
+    // Build stable ID
+    const id = stableId(`stale-${address}-${owner}`);
+
+    // Init county bucket
+    if (!all[countyKey]) all[countyKey] = [];
+    if (!existingIds[countyKey]) existingIds[countyKey] = new Set();
+
+    if (existingIds[countyKey].has(id)) {
+      result.skipped++;
+      continue;
+    }
+
+    // Build lead
+    const lead = {
+      id,
+      county:        countyKey,
+      type:          'stale-listing',
+      owner:         owner || 'Unknown Owner',
+      address:       `${address}, ${city} ${state}`,
+      amount:        listPrc ? `$${parseInt(String(listPrc).replace(/[^0-9]/g,''))||0}` : null,
+      filingDate:    null,
+      caseNumber:    null,
+      phone:         phone || null,
+      score:         50,  // computeScore will refine
+      scrapedAt:     now,
+      uploadedAt:    now,
+      propertyType:  row['Property Type'] || '',
+      bedrooms:      row['Bedrooms'] || row['Beds'] || null,
+      // Stale-listing specific fields
+      daysOnMarket:  parseInt(dom) || 0,
+      listingPrice:  listPrc,
+      estimatedValue: estVal,
+      estimatedEquity: equity,
+      vacant:        /yes|y|true|1/i.test(row['Vacant'] || ''),
+      priceReduced:  /yes|y|true|1/i.test(row['Price Reduced'] || row['Price Drop'] || ''),
+      absenteeOwner: /yes|y|true|1/i.test(row['Absentee'] || row['Owner Occupied']?.match(/no/i) ? 'yes' : ''),
+      highEquity:    parseFloat(String(equity).replace(/[^0-9.-]/g,'')) > 100000,
+      notes:         `90+ DOM · ${dom || '?'}d on market${listPrc ? ` · Listed ${listPrc}` : ''}`,
+      source:        'PropStream Upload',
+    };
+
+    all[countyKey].push(lead);
+    existingIds[countyKey].add(id);
+    result.added++;
+    result.byCounty[countyKey] = (result.byCounty[countyKey] || 0) + 1;
+  }
+
+  localStorage.setItem('intel_stale_listings', JSON.stringify(all));
+  return result;
+}
+
+function stableId(str) {
+  // Simple stable hash for dedupe
+  let h = 0;
+  const s = str.toLowerCase().replace(/\s+/g, ' ').trim();
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h) + s.charCodeAt(i);
+    h |= 0;
+  }
+  return 'sl' + Math.abs(h).toString(36);
+}
+
+function clearStaleListings() {
+  if (!confirm('Clear all uploaded stale listings? This cannot be undone.')) return;
+  localStorage.removeItem('intel_stale_listings');
+  document.getElementById('uploadResult').innerHTML =
+    '<div style="color:var(--muted)">All stale listings cleared.</div>';
+  loadLeads();
 }
 
 function getFiltered() {
@@ -904,6 +1149,7 @@ const TYPE_LABELS = {
   'tax-delinquent':  'TAX DELINQUENT',
   'tax-foreclosure': 'TAX FORECLOSURE',
   'pre-foreclosure': 'PRE-FORECLOSURE',
+  'stale-listing':   'STALE LISTING',
   'probate':         'PROBATE',
   'state-warrant':   'STATE WARRANT',
   'lis-pendens':     'LIS PENDENS',
