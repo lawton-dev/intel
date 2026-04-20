@@ -968,34 +968,84 @@ function ingestStaleListings(rows) {
   const result = { added: 0, skipped: 0, byCounty: {} };
   const now = new Date().toISOString();
 
+  // Helper to build owner name from PropStream's split columns
+  function buildOwnerName(row) {
+    const o1First = (row['Owner 1 First Name'] || '').trim();
+    const o1Last  = (row['Owner 1 Last Name']  || '').trim();
+    const o2First = (row['Owner 2 First Name'] || '').trim();
+    const o2Last  = (row['Owner 2 Last Name']  || '').trim();
+    const careOf  = (row['Mailing Care of Name'] || '').trim();
+
+    // Prefer Mailing Care of Name if it has both owners formatted (e.g. "Mark & Rebecca Frentzel")
+    if (careOf && careOf.includes('&')) return toTitle(careOf);
+
+    const o1 = [o1First, o1Last].filter(Boolean).join(' ');
+    const o2 = [o2First, o2Last].filter(Boolean).join(' ');
+
+    if (o1 && o2) {
+      // If same last name, combine: "Mark & Rebecca Frentzel"
+      if (o1Last && o1Last === o2Last) {
+        return toTitle(`${o1First} & ${o2First} ${o1Last}`);
+      }
+      return toTitle(`${o1} & ${o2}`);
+    }
+    if (o1) return toTitle(o1);
+    if (careOf) return toTitle(careOf);
+    return '';
+  }
+
+  function toTitle(s) {
+    return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).trim();
+  }
+
+  // Compute Days on Market from MLS Date
+  function computeDOM(mlsDate) {
+    if (!mlsDate) return 0;
+    try {
+      // Handle both "2017-11-13" and "2017-11-13 00:00:00.0" formats
+      const d = new Date(String(mlsDate).split(' ')[0]);
+      if (isNaN(d)) return 0;
+      const days = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
+      return days > 0 ? days : 0;
+    } catch { return 0; }
+  }
+
+  // Pick first non-empty phone from Phone 1-5
+  function pickPhone(row) {
+    for (let i = 1; i <= 5; i++) {
+      const p = (row[`Phone ${i}`] || '').trim();
+      const dnc = (row[`Phone ${i} DNC`] || '').trim();
+      if (p && !/yes|true|1/i.test(dnc)) return p;
+    }
+    return null;
+  }
+
   for (const row of rows) {
-    // Map PropStream column names to INTEL fields
-    // PropStream column names vary slightly — try common variants
-    const address = row['Address']            || row['Property Address'] || row['Street Address'] || '';
-    const city    = row['City']               || '';
-    const state   = row['State']              || '';
-    const zip     = row['Zip']                || row['ZIP'] || row['Zip Code'] || '';
-    const county  = (row['County']            || '').trim().toLowerCase();
-    const owner   = row['Owner']              || row['Owner Name']        || row['Owner 1 Full Name'] || '';
-    const dom     = row['Days on Market']     || row['DOM']               || row['Days On Market']    || '';
-    const listPrc = row['Listing Price']      || row['List Price']        || row['MLS Price']         || '';
-    const estVal  = row['Estimated Value']    || row['Est. Value']        || row['Est Value']         || '';
-    const equity  = row['Estimated Equity']   || row['Est. Equity']       || row['Equity']            || '';
-    const phone   = row['Phone Number']       || row['Phone']             || row['Mobile']            || '';
+    const address = (row['Address'] || '').trim();
+    const city    = (row['City']    || '').trim();
+    const state   = (row['State']   || '').trim();
+    const county  = (row['County']  || '').trim().toLowerCase();
 
     if (!address || !county) continue;
 
-    // County normalization: "Sedgwick" → "sedgwick", strip "County"
     const countyKey = county.replace(/\s+county$/i, '').trim();
 
     // Skip counties we don't track
     const KNOWN_COUNTIES = ['sedgwick','harvey','butler','sumner','harris','clark','maricopa','tarrant','dallas','shelby'];
     if (!KNOWN_COUNTIES.includes(countyKey)) continue;
 
-    // Build stable ID
-    const id = stableId(`stale-${address}-${owner}`);
+    const owner = buildOwnerName(row);
+    const dom   = computeDOM(row['MLS Date']);
+    const listPrc = row['MLS Amount'] || '';
+    const estVal  = row['Est. Value'] || '';
+    const equity  = row['Est. Equity'] || '';
+    const ltv     = row['Est. Loan-to-Value'] || '';
+    const phone   = pickPhone(row);
+    const ownerOcc = (row['Owner Occupied'] || '').trim().toLowerCase();
 
-    // Init county bucket
+    // Build stable ID from address (owner may be blank sometimes, so stable even then)
+    const id = stableId(`stale-${address}-${city}-${state}`);
+
     if (!all[countyKey]) all[countyKey] = [];
     if (!existingIds[countyKey]) existingIds[countyKey] = new Set();
 
@@ -1004,33 +1054,40 @@ function ingestStaleListings(rows) {
       continue;
     }
 
-    // Build lead
+    const equityNum = parseFloat(String(equity).replace(/[^0-9.-]/g,'')) || 0;
+    const valueNum  = parseFloat(String(estVal).replace(/[^0-9.-]/g,'')) || 0;
+
     const lead = {
       id,
       county:        countyKey,
       type:          'stale-listing',
       owner:         owner || 'Unknown Owner',
       address:       `${address}, ${city} ${state}`,
-      amount:        listPrc ? `$${parseInt(String(listPrc).replace(/[^0-9]/g,''))||0}` : null,
+      amount:        listPrc ? `$${Math.round(parseFloat(listPrc))||0}` : null,
       filingDate:    null,
       caseNumber:    null,
-      phone:         phone || null,
-      score:         50,  // computeScore will refine
+      phone:         phone,
+      score:         50, // computeScore will refine based on DOM/vacant/equity
       scrapedAt:     now,
       uploadedAt:    now,
       propertyType:  row['Property Type'] || '',
-      bedrooms:      row['Bedrooms'] || row['Beds'] || null,
+      bedrooms:      row['Bedrooms'] || null,
+      bathrooms:     row['Total Bathrooms'] || null,
+      sqft:          row['Building Sqft'] || null,
       // Stale-listing specific fields
-      daysOnMarket:  parseInt(dom) || 0,
-      listingPrice:  listPrc,
-      estimatedValue: estVal,
-      estimatedEquity: equity,
-      vacant:        /yes|y|true|1/i.test(row['Vacant'] || ''),
-      priceReduced:  /yes|y|true|1/i.test(row['Price Reduced'] || row['Price Drop'] || ''),
-      absenteeOwner: /yes|y|true|1/i.test(row['Absentee'] || row['Owner Occupied']?.match(/no/i) ? 'yes' : ''),
-      highEquity:    parseFloat(String(equity).replace(/[^0-9.-]/g,'')) > 100000,
-      notes:         `90+ DOM · ${dom || '?'}d on market${listPrc ? ` · Listed ${listPrc}` : ''}`,
-      source:        'PropStream Upload',
+      daysOnMarket:   dom,
+      listingPrice:   listPrc,
+      mlsStatus:      row['MLS Status'] || '',
+      mlsDate:        row['MLS Date'] || '',
+      estimatedValue: valueNum || estVal,
+      estimatedEquity: equityNum || equity,
+      loanToValue:    ltv,
+      vacant:         ownerOcc === 'no',  // Owner Occupied: No = treat as vacant signal
+      absenteeOwner:  ownerOcc === 'no',
+      highEquity:     equityNum > 100000,
+      priceReduced:   false, // PropStream doesn't export this directly
+      notes:          `${dom}d on market · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
+      source:         'PropStream',
     };
 
     all[countyKey].push(lead);
