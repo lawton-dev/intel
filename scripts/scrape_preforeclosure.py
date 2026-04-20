@@ -30,19 +30,32 @@ def make_id(*parts):
     s = '|'.join(str(p or '') for p in parts).lower()
     return hashlib.md5(s.encode()).hexdigest()[:16]
 
-def fetch_preforeclosures(query, skip=0):
-    """Fetch one page of pre-foreclosure results."""
+def fetch_preforeclosures(query, skip=0, min_recording_date=None):
+    """Fetch one page of pre-foreclosure results.
+
+    If min_recording_date is provided, only returns records with
+    foreclosure.recordingDate >= min_recording_date to avoid paying
+    for duplicates we already have.
+    """
+    search_criteria = {
+        'query': query,
+        'quickLists': ['preforeclosure']
+    }
+    if min_recording_date:
+        search_criteria['foreclosure'] = {
+            'recordingDate': { 'minDate': min_recording_date }
+        }
+
     payload = {
-        'searchCriteria': {
-            'query': query,
-            'quickLists': ['preforeclosure']
-        },
+        'searchCriteria': search_criteria,
         'options': {
             'take': PAGE_SIZE,
             'skip': skip
         }
     }
     log.info(f'  Calling BatchData API — key ends in: ...{API_KEY[-6:] if API_KEY else "NOT SET"}')
+    if min_recording_date:
+        log.info(f'  Filter: recordingDate >= {min_recording_date}')
     try:
         resp = requests.post(API_URL,
             json=payload,
@@ -106,6 +119,7 @@ def parse_property(prop, county_key, city, state):
         'address':     full_addr,
         'amount':      amount,
         'filingDate':  fc.get('filingDate', fc.get('recordingDate', '')),
+        'recordingDate': fc.get('recordingDate', fc.get('filingDate', '')),
         'caseNumber':  fc.get('caseNumber', ''),
         'phone':       None,
         'score':       min(int(intel.get('salePropensity', 50)), 100) if intel.get('salePropensity') else 50,
@@ -160,9 +174,23 @@ def scrape_county(county):
     skip = 0
     fetch_succeeded = False  # track if we got at least one successful page
 
+    # Find the most recent recordingDate across existing leads
+    # We ask BatchData to only return records newer than this to avoid paying for dupes
+    min_recording_date = None
+    if existing:
+        existing_dates = []
+        for lead in existing.values():
+            # Try recordingDate first, fall back to filingDate
+            rd = lead.get('recordingDate') or lead.get('filingDate')
+            if rd:
+                existing_dates.append(rd[:10])  # just YYYY-MM-DD
+        if existing_dates:
+            min_recording_date = max(existing_dates)
+            log.info(f'  Found {len(existing)} existing leads. Latest recordingDate: {min_recording_date}')
+
     while True:
         try:
-            data = fetch_preforeclosures(query, skip)
+            data = fetch_preforeclosures(query, skip, min_recording_date)
             props = data.get('results', {}).get('properties', [])
             meta  = data.get('meta', {}).get('results', {})
             total_found = meta.get('resultsFound', 0)
@@ -188,12 +216,15 @@ def scrape_county(county):
         log.info(f'  → {len(existing)} pre-foreclosure leads (preserved from last successful run)')
         return len(existing)
 
-    # Merge with existing (keep any manually traced phones)
-    merged = {}
+    # Merge new leads into existing (never wipe what we have, only add)
+    merged = dict(existing)  # start with everything we have
     for lid, lead in new_leads.items():
+        # If this lead already exists, preserve any manually traced phone
         if lid in existing and existing[lid].get('phone'):
-            lead['phone'] = existing[lid]['phone']  # preserve traced phones
+            lead['phone'] = existing[lid]['phone']
         merged[lid] = lead
+
+    log.info(f'  Merge: {len(existing)} existing + {len(new_leads)} fetched = {len(merged)} total')
 
     leads_list = sorted(merged.values(), key=lambda l: l.get('score', 0), reverse=True)
     save(key, leads_list, total_found)
