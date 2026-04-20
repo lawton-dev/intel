@@ -197,6 +197,7 @@
     .btn-sms{color:var(--dim);}
     .btn-sms:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
     .btn-sms:disabled{opacity:.3;cursor:not-allowed;}
+    .btn-sms.texted{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
     .btn-mon{color:var(--dim);}
     .btn-mon:hover{border-color:var(--green);color:var(--green);}
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
@@ -557,6 +558,7 @@ const CONFIG = {
 const WEIGHTS = {
   'tax-delinquent':  20,
   'tax-foreclosure': 35,
+  'pre-foreclosure': 80,   // Pre-foreclosure = active bank action, highest urgency
   'probate':         25,
   'state-warrant':   20,
   'lis-pendens':     30,
@@ -572,10 +574,25 @@ function scoreSignals(signals) {
 }
 
 function computeScore(lead) {
+  // For pre-foreclosure leads from BatchData, use their salePropensity directly
+  // since it's a predictive model based on dozens of factors
+  if (lead.type === 'pre-foreclosure') {
+    let score = lead.score || 80;  // BatchData propensity or default to 80
+    // Boost for imminent auction (within 14 days)
+    if (lead.auctionDate) {
+      const auction = new Date(lead.auctionDate);
+      const today = new Date();
+      const daysUntil = Math.ceil((auction - today) / (1000 * 60 * 60 * 24));
+      if (daysUntil >= 0 && daysUntil <= 14) score = Math.min(score + 10, 100);
+    }
+    return Math.min(Math.max(score, 80), 100);  // floor of 80 for pre-foreclosure
+  }
+
   // Build signal array from available data
   const signals = [
     { type: 'tax-delinquent',  active: lead.type === 'tax-delinquent' },
     { type: 'tax-foreclosure', active: lead.type === 'tax-foreclosure' },
+    { type: 'pre-foreclosure', active: lead.type === 'pre-foreclosure' },
     { type: 'probate',         active: lead.type === 'probate' },
     { type: 'state-warrant',   active: lead.type === 'state-warrant' },
     { type: 'lis-pendens',     active: lead.type === 'lis-pendens' },
@@ -609,6 +626,7 @@ let activeLead = null;
 let showExpired = false; // hide pre-foreclosure leads with auctions >30 days past
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
+let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
 let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
 
@@ -654,6 +672,7 @@ async function loadLeads() {
       score:        computeScore(l),
       contacted:    contacted.has(l.id),
       pushed:       pushed.has(l.id),
+      texted:       texted.has(l.id),
       phone:        phones[l.id] || l.phone || null,
       propertyType: l.propertyType || pt.type || null,
       bedrooms:     l.bedrooms || pt.bedrooms || null,
@@ -968,8 +987,8 @@ function row(l) {
           onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
           ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
         </button>
-        <button class="btn-sms" onclick="openSMS('${l.id}')" ${!hasPhone?'disabled':''}>
-          📱 TEXT
+        <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
+          ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
         <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
           ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
@@ -1143,6 +1162,16 @@ async function openSMS(id) {
         triggered_at: new Date().toISOString(),
       })
     });
+    // Mark as texted so button goes dark + prevents double-send
+    l.texted = true;
+    texted.add(id);
+    localStorage.setItem('intel_texted', JSON.stringify([...texted]));
+    const smsBtn = document.getElementById(`sms-${id}`);
+    if (smsBtn) {
+      smsBtn.classList.add('texted');
+      smsBtn.textContent = '✓ TEXTED';
+      smsBtn.disabled = true;
+    }
     toast('Sent ✓', 'ok');
   } catch {
     toast('Drip webhook failed', 'err');
