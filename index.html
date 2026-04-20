@@ -1395,11 +1395,19 @@ async function pushMonday(id) {
   btn.disabled    = true;
 
   try {
+    // Route to different Monday boards based on lead type
+    // Zapier can branch on list_id: "stale-listings" -> different board than "intel-main"
+    const listId = l.type === 'stale-listing' ? 'stale-listings' : 'intel-main';
+    const sourceLabel = l.type === 'stale-listing'
+      ? `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`
+      : `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
+
     await fetch(CONFIG.zapierWebhook, {
       method: 'POST',
       mode:   'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        list_id:     listId,
         name:        l.owner || 'Unknown',
         address:     l.address || '',
         lead_type:   TYPE_LABELS[l.type] || l.type,
@@ -1409,8 +1417,15 @@ async function pushMonday(id) {
         score:       l.score,
         phone:       l.phone || '',
         notes:       l.notes || '',
-        source:      'INTEL — Sedgwick County',
-        pushed_at:   new Date().toISOString(),
+        county:      l.county || '',
+        // Stale-listing specific fields (ignored by main board)
+        days_on_market:   l.daysOnMarket || '',
+        listing_price:    l.listingPrice || '',
+        estimated_value:  l.estimatedValue || '',
+        estimated_equity: l.estimatedEquity || '',
+        mls_status:       l.mlsStatus || '',
+        source:           sourceLabel,
+        pushed_at:        new Date().toISOString(),
       })
     });
     l.pushed = true;
