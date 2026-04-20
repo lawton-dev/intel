@@ -873,7 +873,7 @@ async function handleFiles(fileList) {
     return;
   }
 
-  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0;
+  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0, totalTooNew = 0;
   const byCountySummary = {};
 
   for (const file of files) {
@@ -891,6 +891,7 @@ async function handleFiles(fileList) {
       totalAdded     += result.added;
       totalSkipped   += result.skipped;
       totalStaleDate += (result.staleDate || 0);
+      totalTooNew    += (result.tooNew || 0);
       Object.entries(result.byCounty).forEach(([c, n]) => {
         byCountySummary[c] = (byCountySummary[c] || 0) + n;
       });
@@ -903,8 +904,9 @@ async function handleFiles(fileList) {
     <div style="padding:10px 14px;border-radius:7px;background:rgba(71,255,138,0.06);border:1px solid rgba(71,255,138,0.25);color:#47ff8a">
       ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
     </div>
-    <div style="margin-top:8px;color:var(--muted);font-size:10px">
-      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates · Filtered: ${totalStaleDate} (MLS date >100d old or missing)
+    <div style="margin-top:8px;color:var(--muted);font-size:10px;line-height:1.6">
+      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates<br>
+      Filtered: ${totalStaleDate} (>100d old or no MLS date) · ${totalTooNew} (&lt;90d on market)
     </div>
     <div style="margin-top:6px;color:var(--text);font-size:10px">
       ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
@@ -966,12 +968,13 @@ function ingestStaleListings(rows) {
     existingIds[county] = new Set(leads.map(l => l.id));
   });
 
-  const result = { added: 0, skipped: 0, byCounty: {}, staleDate: 0 };
+  const result = { added: 0, skipped: 0, byCounty: {}, staleDate: 0, tooNew: 0 };
   const now = new Date().toISOString();
 
   // Cutoff: only accept listings with MLS Date within the last 100 days
   // PropStream data has lots of stale/inactive listings from years ago
   const MAX_LISTING_AGE_DAYS = 100;
+  const MIN_DOM              = 90;  // must be listed at least 90 days (the "stale" threshold)
   const cutoffMs = Date.now() - (MAX_LISTING_AGE_DAYS * 24 * 60 * 60 * 1000);
 
   // Helper to build owner name from PropStream's split columns
@@ -1057,6 +1060,12 @@ function ingestStaleListings(rows) {
     } else {
       // No MLS date at all — skip, we can't validate recency
       result.staleDate++;
+      continue;
+    }
+
+    // Skip listings with fewer than 90 days on market (not "stale" yet)
+    if (dom < MIN_DOM) {
+      result.tooNew++;
       continue;
     }
     const estVal  = row['Est. Value'] || '';
