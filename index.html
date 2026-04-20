@@ -873,7 +873,7 @@ async function handleFiles(fileList) {
     return;
   }
 
-  let totalRows = 0, totalAdded = 0, totalSkipped = 0;
+  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0;
   const byCountySummary = {};
 
   for (const file of files) {
@@ -888,8 +888,9 @@ async function handleFiles(fileList) {
       }
       totalRows += rows.length;
       const result = ingestStaleListings(rows);
-      totalAdded   += result.added;
-      totalSkipped += result.skipped;
+      totalAdded     += result.added;
+      totalSkipped   += result.skipped;
+      totalStaleDate += (result.staleDate || 0);
       Object.entries(result.byCounty).forEach(([c, n]) => {
         byCountySummary[c] = (byCountySummary[c] || 0) + n;
       });
@@ -903,7 +904,7 @@ async function handleFiles(fileList) {
       ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
     </div>
     <div style="margin-top:8px;color:var(--muted);font-size:10px">
-      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates
+      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates · Filtered: ${totalStaleDate} (MLS date >100d old or missing)
     </div>
     <div style="margin-top:6px;color:var(--text);font-size:10px">
       ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
@@ -965,8 +966,13 @@ function ingestStaleListings(rows) {
     existingIds[county] = new Set(leads.map(l => l.id));
   });
 
-  const result = { added: 0, skipped: 0, byCounty: {} };
+  const result = { added: 0, skipped: 0, byCounty: {}, staleDate: 0 };
   const now = new Date().toISOString();
+
+  // Cutoff: only accept listings with MLS Date within the last 100 days
+  // PropStream data has lots of stale/inactive listings from years ago
+  const MAX_LISTING_AGE_DAYS = 100;
+  const cutoffMs = Date.now() - (MAX_LISTING_AGE_DAYS * 24 * 60 * 60 * 1000);
 
   // Helper to build owner name from PropStream's split columns
   function buildOwnerName(row) {
@@ -1037,6 +1043,22 @@ function ingestStaleListings(rows) {
     const owner = buildOwnerName(row);
     const dom   = computeDOM(row['MLS Date']);
     const listPrc = row['MLS Amount'] || '';
+
+    // Skip listings with MLS Date older than 100 days (stale/inactive)
+    const mlsRaw = row['MLS Date'];
+    if (mlsRaw) {
+      try {
+        const mlsMs = new Date(String(mlsRaw).split(' ')[0]).getTime();
+        if (!isNaN(mlsMs) && mlsMs < cutoffMs) {
+          result.staleDate++;
+          continue;
+        }
+      } catch {}
+    } else {
+      // No MLS date at all — skip, we can't validate recency
+      result.staleDate++;
+      continue;
+    }
     const estVal  = row['Est. Value'] || '';
     const equity  = row['Est. Equity'] || '';
     const ltv     = row['Est. Loan-to-Value'] || '';
