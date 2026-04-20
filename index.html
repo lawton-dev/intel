@@ -116,11 +116,11 @@
     .ctab.coming{opacity:.35;cursor:default;}
 
     /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border);}
-    .stat{padding:16px 24px;border-right:1px solid var(--border);}
+    .stats{display:grid;grid-template-columns:repeat(8,1fr);border-bottom:1px solid var(--border);}
+    .stat{padding:12px 16px;border-right:1px solid var(--border);}
     .stat:last-child{border-right:none;}
-    .stat-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-    .stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;}
+    .stat-lbl{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;white-space:nowrap;}
+    .stat-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1;}
     .stat-val.amber{color:var(--c-td);}
     .stat-val.red{color:var(--c-tf);}
     .stat-val.purple{color:var(--c-pr);}
@@ -285,6 +285,7 @@
 
     /* ATTOM placeholder removed — now using BatchData */
   </style>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -533,13 +534,13 @@
   <div class="modal" style="max-width:540px">
     <div class="modal-title">📤 Upload PropStream CSV</div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px">
-      Drop PropStream CSV exports below. Each row is auto-routed by the County column to the matching INTEL tab. Duplicates (matched by address+owner) are skipped. Texted/Pushed/Contacted state is preserved.
+      Drop PropStream CSV or XLSX exports below. Each row is auto-routed by the County column to the matching INTEL tab. Duplicates (matched by address+owner) are skipped. Texted/Pushed/Contacted state is preserved.
     </div>
     <div id="uploadDrop" style="border:2px dashed var(--border2);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s">
       <div style="font-size:32px;margin-bottom:8px">📁</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text)">DROP CSV FILES HERE</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text)">DROP CSV OR XLSX FILES HERE</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:6px">or click to browse</div>
-      <input type="file" id="uploadInput" accept=".csv" multiple style="display:none" />
+      <input type="file" id="uploadInput" accept=".csv,.xlsx,.xls" multiple style="display:none" />
     </div>
     <div id="uploadResult" style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px"></div>
     <div class="mactions">
@@ -865,10 +866,10 @@ function setupUploadHandlers() {
 }
 
 async function handleFiles(fileList) {
-  const files = Array.from(fileList).filter(f => /\.csv$/i.test(f.name));
+  const files = Array.from(fileList).filter(f => /\.(csv|xlsx|xls)$/i.test(f.name));
   if (!files.length) {
     document.getElementById('uploadResult').innerHTML =
-      '<div style="color:#ef4444">No CSV files detected.</div>';
+      '<div style="color:#ef4444">No CSV or XLSX files detected.</div>';
     return;
   }
 
@@ -877,8 +878,14 @@ async function handleFiles(fileList) {
 
   for (const file of files) {
     try {
-      const text = await file.text();
-      const rows = parseCSV(text);
+      const isXlsx = /\.(xlsx|xls)$/i.test(file.name);
+      let rows;
+      if (isXlsx) {
+        rows = await parseXLSX(file);
+      } else {
+        const text = await file.text();
+        rows = parseCSV(text);
+      }
       totalRows += rows.length;
       const result = ingestStaleListings(rows);
       totalAdded   += result.added;
@@ -905,6 +912,15 @@ async function handleFiles(fileList) {
 
   // Reload data
   loadLeads();
+}
+
+async function parseXLSX(file) {
+  const buffer = await file.arrayBuffer();
+  const workbook = XLSX.read(buffer, { type: 'array' });
+  const firstSheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[firstSheetName];
+  // Convert sheet to JSON with the first row as headers
+  return XLSX.utils.sheet_to_json(sheet, { defval: '', raw: false });
 }
 
 function parseCSV(text) {
