@@ -158,6 +158,7 @@ def scrape_county(county):
     new_leads = {}
     total_found = 0
     skip = 0
+    fetch_succeeded = False  # track if we got at least one successful page
 
     while True:
         try:
@@ -165,6 +166,7 @@ def scrape_county(county):
             props = data.get('results', {}).get('properties', [])
             meta  = data.get('meta', {}).get('results', {})
             total_found = meta.get('resultsFound', 0)
+            fetch_succeeded = True  # at least one page worked
 
             log.info(f'  Page skip={skip}: {len(props)} results (total found: {total_found})')
 
@@ -179,6 +181,12 @@ def scrape_county(county):
         except Exception as e:
             log.error(f'  Error fetching page skip={skip}: {e}')
             break
+
+    # If fetch completely failed, preserve existing data rather than wiping it
+    if not fetch_succeeded and existing:
+        log.warning(f'  ⚠ Fetch failed — preserving {len(existing)} existing leads for {key}')
+        log.info(f'  → {len(existing)} pre-foreclosure leads (preserved from last successful run)')
+        return len(existing)
 
     # Merge with existing (keep any manually traced phones)
     merged = {}
