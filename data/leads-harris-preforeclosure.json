@@ -1,19 +1,7 @@
-<<<<<<< HEAD
-﻿{
-    "lastUpdated":  "2026-04-17T18:51:45.5270327Z",
-    "totalLeads":  0,
-    "totalFound":  0,
-    "source":  "BatchData",
-    "leads":  [
-
-              ]
-}
-=======
 {
-  "lastUpdated": "2026-04-17T18:39:19.095679+00:00",
+  "lastUpdated": "2026-04-20T15:42:17.928080+00:00",
   "totalLeads": 0,
   "totalFound": 0,
   "source": "BatchData",
   "leads": []
 }
->>>>>>> dd9c77a892e4effe82428ed75f8ee13f882c614a
