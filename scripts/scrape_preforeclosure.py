@@ -15,7 +15,7 @@ log = logging.getLogger('preforeclosure')
 DATA_DIR  = Path(__file__).parent.parent / 'data'
 API_KEY   = os.environ.get('BATCHDATA_API_KEY', '')
 API_URL   = 'https://api.batchdata.com/api/v1/property/search'
-PAGE_SIZE = 100  # max per request
+PAGE_SIZE = 25  # lower to stay within balance; increase once balance grows
 
 COUNTIES = [
     {'query': 'Sedgwick County, KS', 'key': 'sedgwick', 'city': 'Wichita',    'state': 'KS'},
@@ -42,19 +42,25 @@ def fetch_preforeclosures(query, skip=0):
             'skip': skip
         }
     }
-    resp = requests.post(API_URL,
-        json=payload,
-        headers={
-            'Authorization': f'Bearer {API_KEY}',
-            'Content-Type': 'application/json'
-        },
-        timeout=30
-    )
-    log.info(f'  BatchData HTTP {resp.status_code} — body length: {len(resp.text)} — first 200: {resp.text[:200]}')
-    if not resp.ok:
-        log.error(f'  BatchData error: {resp.text[:500]}')
-    resp.raise_for_status()
-    return resp.json()
+    log.info(f'  Calling BatchData API — key ends in: ...{API_KEY[-6:] if API_KEY else "NOT SET"}')
+    try:
+        resp = requests.post(API_URL,
+            json=payload,
+            headers={
+                'Authorization': f'Bearer {API_KEY}',
+                'Content-Type': 'application/json'
+            },
+            timeout=30
+        )
+        log.info(f'  HTTP {resp.status_code} — body length: {len(resp.text)} — preview: {resp.text[:300]}')
+        resp.raise_for_status()
+        return resp.json()
+    except requests.exceptions.RequestException as e:
+        log.error(f'  Request failed: {type(e).__name__}: {e}')
+        raise
+    except Exception as e:
+        log.error(f'  Unexpected error: {type(e).__name__}: {e}')
+        raise
 
 def parse_property(prop, county_key, city, state):
     """Convert a BatchData property record to INTEL lead format."""
