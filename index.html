@@ -162,6 +162,7 @@
     .type-badge.tax-foreclosure{background:rgba(239,68,68,.1);color:var(--c-tf);}
     .type-badge.pre-foreclosure{background:rgba(249,115,22,.12);color:#f97316;}
     .type-badge.stale-listing{background:rgba(59,130,246,.12);color:#3b82f6;}
+    .type-badge.failed-listing{background:rgba(168,85,247,.12);color:#a855f7;}
     .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
     .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
     .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
@@ -380,6 +381,7 @@
     <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
     <button class="ftab" onclick="setFilter('pre-foreclosure',this)">⚡ Pre-Foreclosure</button>
     <button class="ftab" onclick="setFilter('stale-listing',this)">🕐 Stale Listing</button>
+    <button class="ftab" onclick="setFilter('failed-listing',this)">🚫 Failed Listing</button>
     <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
@@ -534,7 +536,7 @@
   <div class="modal" style="max-width:540px">
     <div class="modal-title">📤 Upload PropStream CSV</div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px">
-      Drop PropStream CSV or XLSX exports below. Each row is auto-routed by the County column to the matching INTEL tab. Duplicates (matched by address+owner) are skipped. Texted/Pushed/Contacted state is preserved.
+      Drop PropStream CSV or XLSX exports below. Rows are auto-classified: <span style="color:#3b82f6">stale listings</span> (active, 90-100 DOM) or <span style="color:#a855f7">failed listings</span> (expired/withdrawn within 14 days). Duplicates (matched by address) are skipped.
     </div>
     <div id="uploadDrop" style="border:2px dashed var(--border2);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s">
       <div style="font-size:32px;margin-bottom:8px">📁</div>
@@ -570,6 +572,7 @@ const WEIGHTS = {
   'tax-foreclosure': 35,
   'pre-foreclosure': 80,   // Pre-foreclosure = active bank action, highest urgency
   'stale-listing':   45,   // Listed 90+ days, motivated but not distressed
+  'failed-listing':  55,   // Tried and market rejected — often more motivated than stale
   'probate':         25,
   'state-warrant':   20,
   'lis-pendens':     30,
@@ -611,12 +614,29 @@ function computeScore(lead) {
     return Math.min(score, 100);
   }
 
+  // Failed listings: base 55 + recency bonus (fresher fail = warmer lead) + vacant + equity
+  if (lead.type === 'failed-listing') {
+    let score = 55;
+    // Recency bonus — fresher fails are hotter (they just gave up, still raw motivation)
+    const daysSinceFailed = parseInt(lead.daysSinceFailed) || 999;
+    if (daysSinceFailed <= 7)  score += 15;  // super fresh
+    else if (daysSinceFailed <= 14) score += 10;
+    else if (daysSinceFailed <= 30) score += 5;
+    if (lead.vacant) score += 10;
+    if (lead.absenteeOwner) score += 5;
+    if (lead.highEquity) score += 10;
+    // Withdrawn slightly hotter than expired (active decision vs. time running out)
+    if (lead.mlsStatus === 'WITHDRAWN') score += 5;
+    return Math.min(score, 100);
+  }
+
   // Build signal array from available data
   const signals = [
     { type: 'tax-delinquent',  active: lead.type === 'tax-delinquent' },
     { type: 'tax-foreclosure', active: lead.type === 'tax-foreclosure' },
     { type: 'pre-foreclosure', active: lead.type === 'pre-foreclosure' },
     { type: 'stale-listing',   active: lead.type === 'stale-listing' },
+    { type: 'failed-listing',  active: lead.type === 'failed-listing' },
     { type: 'probate',         active: lead.type === 'probate' },
     { type: 'state-warrant',   active: lead.type === 'state-warrant' },
     { type: 'lis-pendens',     active: lead.type === 'lis-pendens' },
@@ -720,6 +740,13 @@ async function loadLeads() {
     } catch { return []; }
   }
 
+  function loadFailedListings(countyKey) {
+    try {
+      const all = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
+      return all[countyKey] || [];
+    } catch { return []; }
+  }
+
   try {
     if (isSCK) {
       // Load all four KS county files + Sedgwick pre-foreclosure + stale listings
@@ -731,9 +758,10 @@ async function loadLeads() {
         )),
         loadPreforeclosure('sedgwick')
       ]);
-      // Stale listings: merge for all KS counties
+      // Stale + Failed listings: merge for all KS counties
       const slLeads = SCK_COUNTIES.flatMap(c => loadStaleListings(c));
-      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...slLeads];
+      const flLeads = SCK_COUNTIES.flatMap(c => loadFailedListings(c));
+      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...slLeads, ...flLeads];
       allLeads = merged.map(mapLead);
 
       // Show most recent update across all four
@@ -753,7 +781,8 @@ async function loadLeads() {
       if (!res.ok) throw new Error('no data');
       const data = await res.json();
       const slLeads = loadStaleListings(activeCounty);
-      const merged = [...(data.leads || []), ...pfLeads, ...slLeads];
+      const flLeads = loadFailedListings(activeCounty);
+      const merged = [...(data.leads || []), ...pfLeads, ...slLeads, ...flLeads];
       allLeads = merged.map(mapLead);
       if (data.lastUpdated) {
         const d = new Date(data.lastUpdated);
@@ -873,7 +902,8 @@ async function handleFiles(fileList) {
     return;
   }
 
-  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0, totalTooNew = 0;
+  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0, totalTooNew = 0, totalFailedOld = 0;
+  let totalStaleAdded = 0, totalFailedAdded = 0;
   const byCountySummary = {};
 
   for (const file of files) {
@@ -888,10 +918,13 @@ async function handleFiles(fileList) {
       }
       totalRows += rows.length;
       const result = ingestStaleListings(rows);
-      totalAdded     += result.added;
-      totalSkipped   += result.skipped;
-      totalStaleDate += (result.staleDate || 0);
-      totalTooNew    += (result.tooNew || 0);
+      totalAdded       += result.added;
+      totalSkipped     += result.skipped;
+      totalStaleDate   += (result.staleDate    || 0);
+      totalTooNew      += (result.tooNew       || 0);
+      totalFailedOld   += (result.failedTooOld || 0);
+      totalStaleAdded  += (result.staleAdded   || 0);
+      totalFailedAdded += (result.failedAdded  || 0);
       Object.entries(result.byCounty).forEach(([c, n]) => {
         byCountySummary[c] = (byCountySummary[c] || 0) + n;
       });
@@ -905,8 +938,8 @@ async function handleFiles(fileList) {
       ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
     </div>
     <div style="margin-top:8px;color:var(--muted);font-size:10px;line-height:1.6">
-      Added: ${totalAdded} new · Skipped: ${totalSkipped} duplicates<br>
-      Filtered: ${totalStaleDate} (>100d old or no MLS date) · ${totalTooNew} (&lt;90d on market)
+      <div><span style="color:#3b82f6">🕐 Stale:</span> +${totalStaleAdded} · <span style="color:#a855f7">🚫 Failed:</span> +${totalFailedAdded} · Skipped: ${totalSkipped} duplicates</div>
+      <div style="margin-top:4px">Filtered: ${totalStaleDate} (>100d old) · ${totalTooNew} (&lt;90d active) · ${totalFailedOld} (failed >14d ago)</div>
     </div>
     <div style="margin-top:6px;color:var(--text);font-size:10px">
       ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
@@ -959,25 +992,31 @@ function parseCSV(text) {
 }
 
 function ingestStaleListings(rows) {
-  // Get existing
-  const all = JSON.parse(localStorage.getItem('intel_stale_listings') || '{}');
+  // Two separate localStorage buckets
+  const staleAll  = JSON.parse(localStorage.getItem('intel_stale_listings')  || '{}');
+  const failedAll = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
 
-  // Build dedupe sets per county (by lead ID = address+owner hash)
-  const existingIds = {};
-  Object.entries(all).forEach(([county, leads]) => {
-    existingIds[county] = new Set(leads.map(l => l.id));
-  });
+  // Dedupe sets per county per type
+  const existingStaleIds  = {};
+  const existingFailedIds = {};
+  Object.entries(staleAll).forEach(([c, leads])  => { existingStaleIds[c]  = new Set(leads.map(l => l.id)); });
+  Object.entries(failedAll).forEach(([c, leads]) => { existingFailedIds[c] = new Set(leads.map(l => l.id)); });
 
-  const result = { added: 0, skipped: 0, byCounty: {}, staleDate: 0, tooNew: 0 };
+  const result = {
+    added: 0, skipped: 0, byCounty: {},
+    staleDate: 0, tooNew: 0, failedTooOld: 0,
+    staleAdded: 0, failedAdded: 0
+  };
   const now = new Date().toISOString();
 
-  // Cutoff: only accept listings with MLS Date within the last 100 days
-  // PropStream data has lots of stale/inactive listings from years ago
-  const MAX_LISTING_AGE_DAYS = 100;
-  const MIN_DOM              = 90;  // must be listed at least 90 days (the "stale" threshold)
-  const cutoffMs = Date.now() - (MAX_LISTING_AGE_DAYS * 24 * 60 * 60 * 1000);
+  // STALE LISTING RULES: active listings between 90-100 DOM (MLS Date = listing START)
+  // FAILED LISTING RULES: expired/withdrawn within last 14 days (MLS Date = status change)
+  const STALE_MAX_AGE_DAYS  = 100;
+  const STALE_MIN_DOM       = 90;
+  const FAILED_MAX_AGE_DAYS = 14;
+  const staleCutoffMs  = Date.now() - (STALE_MAX_AGE_DAYS  * 24 * 60 * 60 * 1000);
+  const failedCutoffMs = Date.now() - (FAILED_MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
 
-  // Helper to build owner name from PropStream's split columns
   function buildOwnerName(row) {
     const o1First = (row['Owner 1 First Name'] || '').trim();
     const o1Last  = (row['Owner 1 Last Name']  || '').trim();
@@ -985,17 +1024,13 @@ function ingestStaleListings(rows) {
     const o2Last  = (row['Owner 2 Last Name']  || '').trim();
     const careOf  = (row['Mailing Care of Name'] || '').trim();
 
-    // Prefer Mailing Care of Name if it has both owners formatted (e.g. "Mark & Rebecca Frentzel")
     if (careOf && careOf.includes('&')) return toTitle(careOf);
 
     const o1 = [o1First, o1Last].filter(Boolean).join(' ');
     const o2 = [o2First, o2Last].filter(Boolean).join(' ');
 
     if (o1 && o2) {
-      // If same last name, combine: "Mark & Rebecca Frentzel"
-      if (o1Last && o1Last === o2Last) {
-        return toTitle(`${o1First} & ${o2First} ${o1Last}`);
-      }
+      if (o1Last && o1Last === o2Last) return toTitle(`${o1First} & ${o2First} ${o1Last}`);
       return toTitle(`${o1} & ${o2}`);
     }
     if (o1) return toTitle(o1);
@@ -1007,11 +1042,9 @@ function ingestStaleListings(rows) {
     return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).trim();
   }
 
-  // Compute Days on Market from MLS Date
-  function computeDOM(mlsDate) {
+  function daysSince(mlsDate) {
     if (!mlsDate) return 0;
     try {
-      // Handle both "2017-11-13" and "2017-11-13 00:00:00.0" formats
       const d = new Date(String(mlsDate).split(' ')[0]);
       if (isNaN(d)) return 0;
       const days = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
@@ -1019,7 +1052,6 @@ function ingestStaleListings(rows) {
     } catch { return 0; }
   }
 
-  // Pick first non-empty phone from Phone 1-5
   function pickPhone(row) {
     for (let i = 1; i <= 5; i++) {
       const p = (row[`Phone ${i}`] || '').trim();
@@ -1038,46 +1070,69 @@ function ingestStaleListings(rows) {
     if (!address || !county) continue;
 
     const countyKey = county.replace(/\s+county$/i, '').trim();
-
-    // Skip counties we don't track
     const KNOWN_COUNTIES = ['sedgwick','harvey','butler','sumner','harris','clark','maricopa','tarrant','dallas','shelby'];
     if (!KNOWN_COUNTIES.includes(countyKey)) continue;
 
-    const owner = buildOwnerName(row);
-    const dom   = computeDOM(row['MLS Date']);
-    const listPrc = row['MLS Amount'] || '';
+    const mlsStatus = (row['MLS Status'] || '').trim().toUpperCase();
+    const mlsRaw    = row['MLS Date'];
+    const dom       = daysSince(mlsRaw);
 
-    // Skip listings with MLS Date older than 100 days (stale/inactive)
-    const mlsRaw = row['MLS Date'];
-    if (mlsRaw) {
-      try {
-        const mlsMs = new Date(String(mlsRaw).split(' ')[0]).getTime();
-        if (!isNaN(mlsMs) && mlsMs < cutoffMs) {
-          result.staleDate++;
-          continue;
-        }
-      } catch {}
-    } else {
-      // No MLS date at all — skip, we can't validate recency
+    // Determine if this is a FAILED or STALE listing based on MLS Status
+    const isFailed = ['EXPIRED','WITHDRAWN','CANCELLED','CANCELED'].includes(mlsStatus);
+    const isActive = ['ACTIVE','PENDING','CONTINGENT'].includes(mlsStatus) || !isFailed;
+
+    // Must have an MLS Date to process
+    if (!mlsRaw) {
       result.staleDate++;
       continue;
     }
 
-    // Skip listings with fewer than 90 days on market (not "stale" yet)
-    if (dom < MIN_DOM) {
-      result.tooNew++;
-      continue;
+    let mlsMs;
+    try {
+      mlsMs = new Date(String(mlsRaw).split(' ')[0]).getTime();
+      if (isNaN(mlsMs)) { result.staleDate++; continue; }
+    } catch { result.staleDate++; continue; }
+
+    // Apply filter rules based on type
+    let leadType, relevantDays;
+    if (isFailed) {
+      // Failed: only accept if it ended within the last 14 days
+      if (mlsMs < failedCutoffMs) {
+        result.failedTooOld++;
+        continue;
+      }
+      leadType = 'failed-listing';
+      relevantDays = dom; // dom for failed = days since status changed
+    } else {
+      // Stale (active): must be between 90-100 DOM
+      if (mlsMs < staleCutoffMs) {
+        result.staleDate++;
+        continue;
+      }
+      if (dom < STALE_MIN_DOM) {
+        result.tooNew++;
+        continue;
+      }
+      leadType = 'stale-listing';
+      relevantDays = dom;
     }
-    const estVal  = row['Est. Value'] || '';
-    const equity  = row['Est. Equity'] || '';
-    const ltv     = row['Est. Loan-to-Value'] || '';
-    const phone   = pickPhone(row);
+
+    const owner    = buildOwnerName(row);
+    const listPrc  = row['MLS Amount'] || '';
+    const estVal   = row['Est. Value'] || '';
+    const equity   = row['Est. Equity'] || '';
+    const ltv      = row['Est. Loan-to-Value'] || '';
+    const phone    = pickPhone(row);
     const ownerOcc = (row['Owner Occupied'] || '').trim().toLowerCase();
 
-    // Build stable ID from address (owner may be blank sometimes, so stable even then)
-    const id = stableId(`stale-${address}-${city}-${state}`);
+    // Pick correct bucket based on lead type
+    const bucket        = isFailed ? failedAll : staleAll;
+    const existingIds   = isFailed ? existingFailedIds : existingStaleIds;
+    const idPrefix      = isFailed ? 'failed' : 'stale';
 
-    if (!all[countyKey]) all[countyKey] = [];
+    const id = stableId(`${idPrefix}-${address}-${city}-${state}`);
+
+    if (!bucket[countyKey]) bucket[countyKey] = [];
     if (!existingIds[countyKey]) existingIds[countyKey] = new Set();
 
     if (existingIds[countyKey].has(id)) {
@@ -1088,46 +1143,60 @@ function ingestStaleListings(rows) {
     const equityNum = parseFloat(String(equity).replace(/[^0-9.-]/g,'')) || 0;
     const valueNum  = parseFloat(String(estVal).replace(/[^0-9.-]/g,'')) || 0;
 
-    const lead = {
+    const baseLead = {
       id,
-      county:        countyKey,
-      type:          'stale-listing',
-      owner:         owner || 'Unknown Owner',
-      address:       `${address}, ${city} ${state}`,
-      amount:        listPrc ? `$${Math.round(parseFloat(listPrc))||0}` : null,
-      filingDate:    null,
-      caseNumber:    null,
-      phone:         phone,
-      score:         50, // computeScore will refine based on DOM/vacant/equity
-      scrapedAt:     now,
-      uploadedAt:    now,
-      propertyType:  row['Property Type'] || '',
-      bedrooms:      row['Bedrooms'] || null,
-      bathrooms:     row['Total Bathrooms'] || null,
-      sqft:          row['Building Sqft'] || null,
-      // Stale-listing specific fields
-      daysOnMarket:   dom,
-      listingPrice:   listPrc,
-      mlsStatus:      row['MLS Status'] || '',
-      mlsDate:        row['MLS Date'] || '',
-      estimatedValue: valueNum || estVal,
+      county:          countyKey,
+      type:            leadType,
+      owner:           owner || 'Unknown Owner',
+      address:         `${address}, ${city} ${state}`,
+      amount:          listPrc ? `$${Math.round(parseFloat(listPrc))||0}` : null,
+      filingDate:      null,
+      caseNumber:      null,
+      phone:           phone,
+      score:           50,
+      scrapedAt:       now,
+      uploadedAt:      now,
+      propertyType:    row['Property Type'] || '',
+      bedrooms:        row['Bedrooms'] || null,
+      bathrooms:       row['Total Bathrooms'] || null,
+      sqft:            row['Building Sqft'] || null,
+      listingPrice:    listPrc,
+      mlsStatus:       mlsStatus,
+      mlsDate:         mlsRaw,
+      estimatedValue:  valueNum || estVal,
       estimatedEquity: equityNum || equity,
-      loanToValue:    ltv,
-      vacant:         ownerOcc === 'no',  // Owner Occupied: No = treat as vacant signal
-      absenteeOwner:  ownerOcc === 'no',
-      highEquity:     equityNum > 100000,
-      priceReduced:   false, // PropStream doesn't export this directly
-      notes:          `${dom}d on market · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
-      source:         'PropStream',
+      loanToValue:     ltv,
+      vacant:          ownerOcc === 'no',
+      absenteeOwner:   ownerOcc === 'no',
+      highEquity:      equityNum > 100000,
+      source:          'PropStream',
     };
 
-    all[countyKey].push(lead);
+    let lead;
+    if (isFailed) {
+      lead = {
+        ...baseLead,
+        daysSinceFailed: relevantDays,
+        notes: `${mlsStatus} ${relevantDays}d ago · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
+      };
+    } else {
+      lead = {
+        ...baseLead,
+        daysOnMarket: relevantDays,
+        priceReduced: false,
+        notes: `${relevantDays}d on market · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
+      };
+    }
+
+    bucket[countyKey].push(lead);
     existingIds[countyKey].add(id);
     result.added++;
+    if (isFailed) result.failedAdded++; else result.staleAdded++;
     result.byCounty[countyKey] = (result.byCounty[countyKey] || 0) + 1;
   }
 
-  localStorage.setItem('intel_stale_listings', JSON.stringify(all));
+  localStorage.setItem('intel_stale_listings',  JSON.stringify(staleAll));
+  localStorage.setItem('intel_failed_listings', JSON.stringify(failedAll));
   return result;
 }
 
@@ -1143,10 +1212,11 @@ function stableId(str) {
 }
 
 function clearStaleListings() {
-  if (!confirm('Clear all uploaded stale listings? This cannot be undone.')) return;
+  if (!confirm('Clear all uploaded stale + failed listings? This cannot be undone.')) return;
   localStorage.removeItem('intel_stale_listings');
+  localStorage.removeItem('intel_failed_listings');
   document.getElementById('uploadResult').innerHTML =
-    '<div style="color:var(--muted)">All stale listings cleared.</div>';
+    '<div style="color:var(--muted)">All uploaded listings cleared.</div>';
   loadLeads();
 }
 
@@ -1254,6 +1324,7 @@ const TYPE_LABELS = {
   'tax-foreclosure': 'TAX FORECLOSURE',
   'pre-foreclosure': 'PRE-FORECLOSURE',
   'stale-listing':   'STALE LISTING',
+  'failed-listing':  'FAILED LISTING',
   'probate':         'PROBATE',
   'state-warrant':   'STATE WARRANT',
   'lis-pendens':     'LIS PENDENS',
@@ -1428,10 +1499,17 @@ async function pushMonday(id) {
   try {
     // Route to different Monday boards based on lead type
     // Zapier can branch on list_id: "stale-listings" -> different board than "intel-main"
-    const listId = l.type === 'stale-listing' ? 'stale-listings' : 'intel-main';
-    const sourceLabel = l.type === 'stale-listing'
-      ? `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`
-      : `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
+    // Stale and Failed listings share the same Monday board per user preference
+    const isListing = l.type === 'stale-listing' || l.type === 'failed-listing';
+    const listId = isListing ? 'stale-listings' : 'intel-main';
+    let sourceLabel;
+    if (l.type === 'stale-listing') {
+      sourceLabel = `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'failed-listing') {
+      sourceLabel = `INTEL Failed Listings — ${(l.county || '').toUpperCase()}`;
+    } else {
+      sourceLabel = `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
+    }
 
     await fetch(CONFIG.zapierWebhook, {
       method: 'POST',

@@ -2,7 +2,7 @@ name: INTEL Daily Scraper
 
 on:
   schedule:
-    - cron: '0 11 * * 1-5'   # 6:00 AM CT weekdays
+    - cron: '17 9 * * 1-5'   # 4:17 AM CT weekdays (off-hour odd minute for reliability)
   workflow_dispatch:
 
 jobs:

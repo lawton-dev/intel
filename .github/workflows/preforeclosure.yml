@@ -2,8 +2,8 @@ name: INTEL Pre-Foreclosure Scraper
 
 on:
   schedule:
-    - cron: '0 11 * * 1'   # Monday 6:00 AM CDT
-    - cron: '0 11 * * 4'   # Thursday 6:00 AM CDT
+    - cron: '17 9 * * 1'   # Monday 4:17 AM CDT (off-hour odd minute for reliability)
+    - cron: '17 9 * * 4'   # Thursday 4:17 AM CDT
   workflow_dispatch:
 
 jobs:
