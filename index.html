@@ -1,1888 +1,1006 @@
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 13a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z' fill='none' stroke='%23f97316' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INTEL — OneRoof</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='%23f97316' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='10' cy='10' r='7'/><line x1='15.5' y1='15.5' x2='22' y2='22'/></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:       #0a0c0f;
-      --surface:  #111318;
-      --surface2: #181c23;
-      --border:   #2a2f3d;
-      --border2:  #353d50;
-      --accent:   #f97316;
-      --text:     #e8ecf4;
-      --muted:    #8b96b0;
-      --dim:      #b0b8cc;
-      --green:    #22c55e;
-      --red:      #ef4444;
-      --purple:   #a855f7;
-      --orange:   #f97316;
-      --blue:     #3b82f6;
-      --c-td:     #f97316;
-      --c-tf:     #ef4444;
-      --c-pr:     #a855f7;
-      --c-sw:     #f59e0b;
-      --c-lp:     #3b82f6;
-    }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneRoof | Call Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --panel: #1c2128; --border: #30363d;
+    --accent: #cc0000; --green: #3fb950; --yellow: #d29922; --red: #f85149;
+    --text: #e6edf3; --muted: #8b949e;
+    --mono: 'IBM Plex Mono', monospace; --head: 'Syne', sans-serif; --body: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); min-height: 100vh; font-size: 14px; }
 
-    /* GATE — matches DISPO exactly */
-    #gate{
-      position:fixed;inset:0;background:#080808;
-      display:flex;align-items:center;justify-content:center;
-      z-index:9999;font-family:'DM Sans',sans-serif;
-    }
-    .gate-inner{display:flex;flex-direction:column;align-items:center;text-align:center;width:320px;}
-    .gate-icon{
-      width:90px;height:90px;margin-bottom:28px;
-      background:rgba(249,115,22,0.12);border:1.5px solid rgba(249,115,22,0.3);
-      border-radius:50%;display:flex;align-items:center;justify-content:center;
-      box-shadow:0 0 32px rgba(249,115,22,0.15);
-    }
-    .gate-icon svg{width:44px;height:44px;}
-    .gate-title{
-      font-family:'Rajdhani',sans-serif;font-size:52px;font-weight:700;
-      color:#fff;letter-spacing:6px;line-height:1;margin-bottom:8px;
-    }
-    .gate-tagline{
-      font-family:'DM Sans',sans-serif;font-size:11px;
-      letter-spacing:3px;text-transform:uppercase;color:#f97316;margin-bottom:6px;
-    }
-    .gate-org{
-      font-family:'DM Sans',sans-serif;font-size:10px;
-      letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:40px;
-    }
-    .gate-input{
-      width:100%;background:#111;border:1px solid #222;
-      border-radius:6px;color:#e8ecf4;font-family:'JetBrains Mono',monospace;
-      font-size:16px;padding:13px 16px;outline:none;
-      text-align:center;letter-spacing:4px;margin-bottom:12px;transition:border-color .2s;
-    }
-    .gate-input:focus{border-color:#f97316;}
-    .gate-btn{
-      width:100%;padding:13px;background:#f97316;color:#fff;
-      border:none;border-radius:6px;font-family:'Rajdhani',sans-serif;
-      font-size:15px;font-weight:700;cursor:pointer;letter-spacing:2px;transition:background .15s;
-    }
-    .gate-btn:hover{background:#ea6c0a;}
-    .gate-err{font-size:12px;color:#f97316;margin-top:10px;min-height:16px;font-family:'JetBrains Mono',monospace;}
+  header {
+    padding: 14px 28px; border-bottom: 1px solid var(--border); background: var(--bg2);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .logo { font-family: var(--head); font-size: 18px; color: #fff; }
+  .logo span { color: var(--accent); }
+  .logo sub { color: var(--muted); font-weight: 300; font-size: 13px; font-family: var(--body); margin-left: 6px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); display: inline-block; }
+  .dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  #conn-status { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
-    /* APP */
-    #app{display:none;}
+  .app { display: flex; min-height: calc(100vh - 69px); }
 
-    /* HEADER — matches DISPO */
-    .hdr{
-      height:60px;border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 24px;position:sticky;top:0;background:var(--surface);z-index:100;
-    }
-    .hdr-left{display:flex;align-items:center;gap:14px;}
-    .logo-icon{
-      width:40px;height:40px;background:var(--orange);border-radius:50%;
-      display:flex;align-items:center;justify-content:center;flex-shrink:0;
-      box-shadow:0 0 16px rgba(249,115,22,0.3);
-    }
-    .logo-icon svg{width:22px;height:22px;}
-    .brand{display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1;}
-    .brand-title{
-      font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;
-      letter-spacing:3px;color:var(--text);
-    }
-    .brand-sep{color:var(--border2);font-size:18px;font-weight:300;line-height:1;}
-    .brand-sub{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--orange);}
-    .oneroof-logo{display:flex;align-items:center;opacity:0.85;}
-    .oneroof-logo svg{height:36px;width:auto;}
-    .pulse{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:2px;color:var(--muted);border:1px solid var(--border2);padding:3px 10px;border-radius:3px;}
-    .pulse-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-    .hdr-right{display:flex;align-items:center;gap:10px;}
-    .updated{font-size:9px;color:var(--muted);}
-    .btn-refresh{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 12px;cursor:pointer;transition:all .2s;}
-    .btn-refresh:hover{border-color:var(--accent);color:var(--accent);}
+  aside {
+    width: 260px; min-width: 260px; border-right: 1px solid var(--border);
+    background: var(--bg2); padding: 20px 16px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .sec-label { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .hint { font-size: 11px; color: var(--muted); line-height: 1.6; }
 
-    /* COUNTY TABS */
-    .county-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 28px;gap:0;overflow-x:auto;}
-    .ctab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:12px 20px;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
-    .ctab:hover{color:var(--text);}
-    .ctab.active{color:var(--accent);border-bottom-color:var(--accent);}
-    .ctab .cnt{background:var(--border2);color:var(--dim);font-size:8px;padding:2px 6px;border-radius:2px;}
-    .ctab.active .cnt{background:rgba(245,158,11,.15);color:var(--accent);}
-    .ctab.coming{opacity:.35;cursor:default;}
+  /* Drop zone */
+  .drop-zone {
+    border: 1.5px dashed var(--border); border-radius: 8px; padding: 20px 12px;
+    text-align: center; cursor: pointer; transition: all .2s; position: relative;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--accent); background: rgba(56,139,253,0.05); }
+  .drop-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-icon { font-size: 22px; margin-bottom: 6px; }
+  .drop-label { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .drop-label strong { color: var(--text); display: block; font-size: 13px; margin-bottom: 3px; }
 
-    /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(8,1fr);border-bottom:1px solid var(--border);}
-    .stat{padding:12px 16px;border-right:1px solid var(--border);}
-    .stat:last-child{border-right:none;}
-    .stat-lbl{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;white-space:nowrap;}
-    .stat-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1;}
-    .stat-val.amber{color:var(--c-td);}
-    .stat-val.red{color:var(--c-tf);}
-    .stat-val.purple{color:var(--c-pr);}
-    .stat-val.orange{color:var(--c-sw);}
-    .stat-val.blue{color:var(--c-lp);}
+  select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: var(--mono); font-size: 12px; padding: 8px 10px; outline: none;
+  }
+  select:focus { border-color: var(--accent); }
 
-    /* FILTERS */
-    .filters{padding:12px 28px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
-    .ftab{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.5px;padding:4px 12px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
-    .ftab:hover{border-color:var(--accent);color:var(--accent);}
-    .ftab.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
-    .fsearch{margin-left:auto;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 12px;outline:none;width:240px;transition:border-color .2s;}
-    .fsearch:focus{border-color:var(--accent);}
-    .fsearch::placeholder{color:var(--muted);}
-    .sort-wrap{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--muted);letter-spacing:1px;}
-    .sort-select{background:var(--surface);border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:8px;padding:4px 8px;outline:none;cursor:pointer;}
+  .filter-group { display: flex; flex-direction: column; gap: 6px; }
+  .fl { font-size: 12px; color: var(--muted); }
 
-    /* LEAD TABLE */
-    .lead-wrap{padding:20px 28px;}
-    .lead-table{width:100%;border-collapse:collapse;}
-    .lead-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;font-weight:400;border-bottom:1px solid var(--border);}
-    .lead-table th:first-child{padding-left:0;}
-    .lead-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
-    .lead-row:hover{background:var(--surface);}
-    .lead-row.contacted{opacity:.4;}
-    .lead-row td{padding:12px;vertical-align:middle;font-size:11px;}
-    .lead-row td:first-child{padding-left:0;}
+  .run-btn {
+    width: 100%; padding: 10px; background: var(--accent); color: #fff; border: none;
+    border-radius: 6px; font-family: var(--head); font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s;
+  }
+  .run-btn:hover { background: #58a6ff; }
+  .run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* Score badge */
-    .score-badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;border:2px solid;}
-    .score-hot{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.08);}
-    .score-warm{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.08);}
-    .score-cool{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,.08);}
-    .score-cold{border-color:var(--border2);color:var(--muted);background:transparent;}
+  textarea.ctx {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: var(--body); font-size: 12px; padding: 10px;
+    resize: vertical; min-height: 80px; outline: none;
+  }
+  textarea.ctx:focus { border-color: var(--accent); }
 
-    /* Type badge */
-    .type-badge{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;font-weight:600;white-space:nowrap;}
-    .type-badge.tax-delinquent{background:rgba(245,158,11,.1);color:var(--c-td);}
-    .type-badge.tax-foreclosure{background:rgba(239,68,68,.1);color:var(--c-tf);}
-    .type-badge.pre-foreclosure{background:rgba(249,115,22,.12);color:#f97316;}
-    .type-badge.stale-listing{background:rgba(59,130,246,.12);color:#3b82f6;}
-    .type-badge.failed-listing{background:rgba(168,85,247,.12);color:#a855f7;}
-    .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
-    .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
-    .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
+  main { flex: 1; padding: 24px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; }
 
-    /* Signal dots */
-    .signals{display:flex;gap:4px;align-items:center;}
-    .sig-dot{width:8px;height:8px;border-radius:50%;}
-    .sig-dot.td{background:var(--c-td);}
-    .sig-dot.tf{background:var(--c-tf);}
-    .sig-dot.pr{background:var(--c-pr);}
-    .sig-dot.sw{background:var(--c-sw);}
-    .sig-dot.lp{background:var(--c-lp);}
-    .sig-dot.off{background:var(--border2);}
+  .kpi-row { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; }
+  .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .kpi-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .kpi-val { font-family: var(--head); font-size: 26px; color: #fff; line-height: 1; }
+  .kpi-sub { font-size: 11px; margin-top: 5px; }
+  .rt { color: var(--red); } .yt { color: var(--yellow); } .gt { color: var(--green); }
 
-    /* Owner / address */
-    .owner-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:2px;}
-    .owner-addr{font-size:9px;color:var(--dim);line-height:1.5;}
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .panel-head { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .panel-title { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
+  .badge { background: var(--border); color: var(--muted); font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+  .panel-body { padding: 14px 16px; }
 
-    /* Amount */
-    .amount-val{color:var(--accent);font-weight:600;font-size:12px;}
-    .amount-nil{color:var(--muted);font-size:10px;}
+  .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .sbar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .sbar-name { font-size: 12px; color: var(--muted); width: 90px; flex-shrink: 0; }
+  .sbar-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .sbar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+  .sbar-val { font-family: var(--mono); font-size: 12px; color: var(--text); width: 28px; text-align: right; }
 
-    /* Phone cell */
-    .phone-val{color:var(--green);font-size:11px;}
-    .phone-nil{color:var(--muted);font-size:9px;letter-spacing:.5px;}
+  .table-wrap { overflow-x: auto; max-height: 280px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: var(--bg2); padding: 8px 10px; text-align: left; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; position: sticky; top: 0; z-index: 1; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid rgba(48,54,61,0.5); color: var(--text); vertical-align: top; max-width: 260px; }
+  tr:hover td { background: rgba(56,139,253,0.04); }
+  .chip { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 22px; border-radius: 4px; font-family: var(--mono); font-size: 12px; font-weight: 500; }
+  .chip-r { background: rgba(248,81,73,0.15); color: var(--red); }
+  .chip-y { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .chip-g { background: rgba(63,185,80,0.15); color: var(--green); }
+  .va-pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-family: var(--mono); background: rgba(56,139,253,0.12); color: #58a6ff; white-space: nowrap; }
+  td a { color: var(--accent); font-family: var(--mono); font-size: 11px; text-decoration: none; }
+  td a:hover { text-decoration: underline; }
 
-    /* Action buttons */
-    .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
-    .btn-st{color:var(--dim);}
-    .btn-st:hover{border-color:var(--accent);color:var(--accent);}
-    .btn-st.loading{color:var(--muted);cursor:wait;}
-    .btn-st.done{border-color:var(--green);color:var(--green);cursor:default;}
-    .btn-sms{color:var(--dim);}
-    .btn-sms:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
-    .btn-sms:disabled{opacity:.3;cursor:not-allowed;}
-    .btn-sms.texted{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
-    .btn-mon{color:var(--dim);}
-    .btn-mon:hover{border-color:var(--green);color:var(--green);}
-    .btn-mon.pushed{border-color:var(--green);color:var(--green);}
-    .btn-contacted{color:var(--dim);}
-    .btn-contacted.on{border-color:var(--green);color:var(--green);}
+  .load-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--green), var(--accent)); background-size: 200%; animation: shimmer 1.3s linear infinite; }
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+  .ins-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  .ins-sec { display: flex; flex-direction: column; gap: 6px; }
+  .ins-head { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); padding-bottom: 6px; border-bottom: 1px solid var(--border); margin-bottom: 2px; }
+  .bullet { display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; border-radius: 6px; font-size: 13px; line-height: 1.6; color: var(--text); border-left: 3px solid transparent; }
+  .bullet.high { background: rgba(248,81,73,0.08); border-left-color: var(--red); }
+  .bullet.med  { background: rgba(210,153,34,0.08); border-left-color: var(--yellow); }
+  .bullet.low  { background: rgba(63,185,80,0.08);  border-left-color: var(--green); }
+  .bdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .bdot.high { background: var(--red); } .bdot.med { background: var(--yellow); } .bdot.low { background: var(--green); }
 
-    /* EMPTY */
-    .empty-state{text-align:center;padding:80px 0;color:var(--muted);}
-    .empty-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:2px;}
-    .empty-sub{font-size:9px;letter-spacing:1px;}
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+  .empty strong { color: var(--text); display: block; font-size: 20px; font-family: var(--head); margin-bottom: 10px; }
+  .error-box { padding: 14px 16px; background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3); border-radius: 8px; color: #ffa198; font-size: 13px; line-height: 1.6; }
 
-    /* LEAD PANEL (slide-out) */
-    .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s;}
-    .panel-overlay.open{opacity:1;pointer-events:all;}
-    .lead-panel{position:fixed;top:0;right:0;bottom:0;width:440px;background:var(--surface);border-left:1px solid var(--border2);z-index:301;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
-    .lead-panel.open{transform:translateX(0);}
-    .panel-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1;}
-    .panel-close{background:transparent;border:1px solid var(--border2);color:var(--muted);font-size:14px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-    .panel-close:hover{border-color:var(--red);color:var(--red);}
-    .panel-score-wrap{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
-    .panel-score{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;border:2px solid;flex-shrink:0;}
-    .panel-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;line-height:1.3;}
-    .panel-addr{font-size:10px;color:var(--dim);margin-top:3px;line-height:1.6;}
-    .panel-body{padding:20px 24px;flex:1;}
-    .panel-section{margin-bottom:20px;}
-    .panel-section-title{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
-    .panel-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);}
-    .panel-row:last-child{border-bottom:none;}
-    .panel-key{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
-    .panel-val{font-size:11px;color:var(--text);text-align:right;}
-    .panel-val.money{color:var(--accent);font-weight:600;}
-    .panel-val.phone{color:var(--green);}
-    .panel-val.red{color:var(--red);}
-    .panel-signals{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-    .panel-sig{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;}
-    .panel-sig.active-td{background:rgba(245,158,11,.1);color:var(--c-td);}
-    .panel-sig.active-tf{background:rgba(239,68,68,.1);color:var(--c-tf);}
-    .panel-sig.active-pr{background:rgba(168,85,247,.1);color:var(--c-pr);}
-    .panel-sig.active-sw{background:rgba(249,115,22,.1);color:var(--c-sw);}
-    .panel-sig.active-lp{background:rgba(59,130,246,.1);color:var(--c-lp);}
-    .panel-sig.inactive{background:var(--border);color:var(--muted);}
-    .panel-actions{display:flex;flex-direction:column;gap:8px;}
-    .panel-btn{width:100%;background:transparent;border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:10px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-align:left;}
-    .panel-btn:hover{border-color:var(--accent);color:var(--accent);}
-    .panel-btn.green:hover{border-color:var(--green);color:var(--green);}
-    .panel-btn.blue:hover{border-color:var(--blue);color:var(--blue);}
-    .panel-btn.red-btn:hover{border-color:var(--red);color:var(--red);}
-    .panel-btn.done{border-color:var(--green);color:var(--green);}
-    .panel-btn.pushed{border-color:var(--green);color:var(--green);}
-    .panel-btn:disabled{opacity:.3;cursor:not-allowed;}
-    .panel-link{display:block;width:100%;background:transparent;border:1px solid var(--border2);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:10px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-decoration:none;box-sizing:border-box;}
-    .panel-link:hover{border-color:var(--blue);color:var(--blue);}
-    .panel-notes{font-size:10px;color:var(--dim);line-height:1.7;background:var(--bg);padding:10px 12px;margin-top:4px;}
-
-    /* SMS MODAL */
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:500;}
-    .overlay.open{display:flex;}
-    .modal{background:var(--surface);border:1px solid var(--border2);width:480px;padding:32px;animation:up .2s ease;}
-    @keyframes up{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .modal-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
-    .mfield{margin-bottom:12px;}
-    .mlbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;display:block;}
-    .minput,.mta{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:9px 12px;outline:none;transition:border-color .2s;}
-    .mta{resize:vertical;min-height:100px;line-height:1.6;}
-    .minput:focus,.mta:focus{border-color:var(--accent);}
-    .chars{font-size:8px;color:var(--muted);text-align:right;margin-top:3px;}
-    .mactions{display:flex;gap:8px;margin-top:20px;}
-    .btn-cancel{flex:1;background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:10px;cursor:pointer;}
-    .btn-send{flex:2;background:var(--accent);border:none;color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:10px;letter-spacing:4px;text-transform:uppercase;padding:10px;cursor:pointer;transition:opacity .2s;}
-    .btn-send:hover{opacity:.85;}
-
-    /* TOAST */
-    .toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);padding:10px 16px;font-size:10px;letter-spacing:.5px;transform:translateY(12px);opacity:0;transition:all .25s;z-index:999;}
-    .toast.show{transform:translateY(0);opacity:1;}
-    .toast.ok{border-color:var(--green);color:var(--green);}
-    .toast.err{border-color:var(--red);color:var(--red);}
-
-    /* EXPORT */
-    .btn-export{background:transparent;border:1px solid var(--green);color:var(--green);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
-    .btn-export:hover{background:rgba(34,197,94,.1);}
-    .btn-export:disabled{opacity:.3;cursor:not-allowed;}
-    .export-wrap{display:flex;align-items:center;gap:8px;}
-    .export-count{font-size:9px;color:var(--muted);}
-
-    /* ATTOM placeholder removed — now using BatchData */
-  </style>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
 </head>
 <body>
-
-<!-- GATE -->
+<style id="gate-style">
+#gate {
+  position: fixed; inset: 0; background: #080808;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'DM Sans', sans-serif;
+}
+.gate-inner {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; width: 320px;
+}
+.gate-icon {
+  width: 90px; height: 90px; margin-bottom: 28px;
+  background: rgba(204,0,0,0.12); border: 1.5px solid rgba(204,0,0,0.3);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.gate-title {
+  font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800;
+  color: #fff; letter-spacing: -1px; line-height: 1; margin-bottom: 8px;
+}
+.gate-tagline {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase; color: #cc0000;
+  margin-bottom: 6px;
+}
+.gate-org {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: #444;
+  margin-bottom: 40px;
+}
+.gate-input {
+  width: 100%; background: #111; border: 1px solid #222;
+  border-radius: 6px; color: #e6edf3; font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px; padding: 13px 16px; outline: none;
+  text-align: center; letter-spacing: 4px; margin-bottom: 12px;
+  transition: border-color .2s;
+}
+.gate-input:focus { border-color: #cc0000; }
+.gate-btn {
+  width: 100%; padding: 13px; background: #cc0000; color: #fff;
+  border: none; border-radius: 6px; font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  letter-spacing: 1px; transition: background .15s;
+}
+.gate-btn:hover { background: #ff4433; }
+.gate-error { font-size: 12px; color: #cc0000; margin-top: 10px; min-height: 16px; font-family: 'IBM Plex Mono', monospace; }
+</style>
 <div id="gate">
   <div class="gate-inner">
     <div class="gate-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="10" cy="10" r="7"/>
-        <line x1="15.5" y1="15.5" x2="22" y2="22"/>
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#cc0000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
       </svg>
     </div>
-    <div class="gate-title">INTEL</div>
-    <div class="gate-tagline">Predictive Property Intelligence</div>
+    <div class="gate-title">DIAL</div>
+    <div class="gate-tagline">AI Call Analyzer</div>
     <div class="gate-org">OneRoof Real Estate | 2026</div>
-    <input class="gate-input" type="password" id="gPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')unlock()">
-    <button class="gate-btn" onclick="unlock()">UNLOCK</button>
-    <div class="gate-err" id="gErr">Incorrect password. Try again.</div>
+    <input class="gate-input" type="password" id="gate-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="gate-btn" onclick="checkPw()">UNLOCK</button>
+    <div class="gate-error" id="gate-err"></div>
   </div>
 </div>
+<script>
+if(sessionStorage.getItem('or_auth')==='1'){document.addEventListener('DOMContentLoaded',()=>{const g=document.getElementById('gate');if(g)g.style.display='none';});}
+function checkPw(){
+  crypto.subtle.digest('SHA-256',new TextEncoder().encode(document.getElementById('gate-pw').value)).then(buf=>{
+    const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex==='3b3ea96b15de3335803e0702edb903e1a0f1bb95bbe5cdd70edd0ccd0a7dcb43'){document.getElementById('gate').style.display='none';sessionStorage.setItem('or_auth','1');}
+    else{document.getElementById('gate-err').textContent='Incorrect password. Try again.';document.getElementById('gate-pw').value='';}
+  });
+}
+</script>
 
-<!-- APP -->
-<div id="app">
-  <header class="hdr">
-    <div class="hdr-left">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="10" cy="10" r="7"/>
-        <line x1="15.5" y1="15.5" x2="22" y2="22"/>
-      </svg>
-      </div>
-      <div class="brand">
-        <span class="brand-title">INTEL</span>
-        <span class="brand-sep">|</span>
-        <span class="brand-sub">Predictive Property Intelligence</span>
-      </div>
-      <div class="pulse"><div class="pulse-dot"></div>LIVE</div>
+
+<header style="padding:14px 40px;border-bottom:1px solid #1a1a1a;background:#080808;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;height:64px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="width:34px;height:34px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
     </div>
-    <div class="hdr-right">
-      <span class="updated" id="updatedAt">—</span>
-      <div class="export-wrap">
-        <span class="export-count" id="exportCount"></span>
-        <button class="btn-export" onclick="exportCSV('traced')" title="Export skip traced leads only">⬇ TRACED ONLY</button>
-        <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
-      </div>
-      <button class="btn-refresh" onclick="openUploadModal()" title="Upload PropStream CSV exports">📤 UPLOAD</button>
-      <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
-      <div class="oneroof-logo">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet"><defs><g/><clipPath id="a1"><path d="M 87.808594 111.339844 L 375 111.339844 L 375 176.589844 L 87.808594 176.589844 Z M 87.808594 111.339844 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a1)"><path fill="#ffffff" d="M 348.988281 288.757812 L 348.988281 198.300781 L 353.585938 201.261719 L 369.019531 176.832031 L 267.847656 111.5625 L 267.527344 111.351562 L 262.320312 111.339844 L 225.707031 134.960938 L 225.707031 131.707031 L 186.4375 131.707031 L 186.4375 160.292969 L 160.800781 176.832031 L 176.242188 201.261719 L 180.832031 198.300781 L 180.832031 288.757812 L 87.8125 288.757812 L 87.8125 297.9375 L 189.8125 297.9375 L 189.925781 181.539062 L 179.011719 188.578125 L 173.351562 179.632812 L 195.53125 165.324219 L 195.53125 140.886719 L 216.621094 140.886719 L 216.621094 151.71875 L 264.253906 120.988281 L 265.546875 120.976562 L 356.46875 179.632812 L 350.816406 188.578125 L 339.90625 181.542969 L 339.753906 297.9375 L 442.011719 297.9375 L 442.011719 288.757812 L 348.988281 288.757812 " fill-opacity="1" fill-rule="nonzero"/></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(2.776946, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(59.37894, 227.838251)"><g><path d="M 46.4375 0 L 38.734375 0 L 13.953125 -33.359375 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 13.8125 -46.5 L 38.734375 -13.09375 L 38.734375 -46.5 L 46.4375 -46.5 Z M 46.4375 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(114.785129, 227.838251)"><g><path d="M 39.328125 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.90625 L 36.671875 -26.90625 L 36.671875 -19.859375 L 13.953125 -19.859375 L 13.953125 -7.046875 L 40.125 -7.046875 L 40.125 0 L 6.109375 0 L 6.109375 -46.5 L 39.328125 -46.5 Z M 39.328125 -39.46875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(161.156335, 227.838251)"><g><path d="M 35.609375 0 L 27.109375 -14.078125 C 26.660156 -14.035156 25.953125 -14.015625 24.984375 -14.015625 L 13.953125 -14.015625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 24.984375 -46.5 C 30.921875 -46.5 35.523438 -45.113281 38.796875 -42.34375 C 42.078125 -39.582031 43.71875 -35.675781 43.71875 -30.625 C 43.71875 -26.90625 42.882812 -23.757812 41.21875 -21.1875 C 39.5625 -18.625 37.179688 -16.742188 34.078125 -15.546875 L 44.515625 0 Z M 13.953125 -21.0625 L 24.984375 -21.0625 C 32.515625 -21.0625 36.28125 -24.179688 36.28125 -30.421875 C 36.28125 -36.453125 32.515625 -39.46875 24.984375 -39.46875 L 13.953125 -39.46875 Z M 13.953125 -21.0625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(211.978593, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(268.580587, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(325.182581, 227.838251)"><g><path d="M 37.265625 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.046875 L 35.078125 -26.046875 L 35.078125 -19.0625 L 13.953125 -19.0625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 37.34375 -46.5 Z M 37.265625 -39.46875 "/></g></g></g></svg>
-      </div>
-    </div>
-  </header>
-
-  <!-- COUNTY TABS -->
-  <div class="county-tabs">
-    <button class="ctab active" onclick="setCounty('sck',this)">
-      SCK <span class="cnt" id="cnt-sck">0</span>
-    </button>
-    <button class="ctab" onclick="setCounty('harris',this)">
-      Harris <span class="cnt" id="cnt-harris">—</span>
-    </button>
-    <button class="ctab" onclick="setCounty('clark',this)">
-      Clark <span class="cnt" id="cnt-clark">—</span>
-    </button>
-    <button class="ctab" onclick="setCounty('maricopa',this)">
-      Maricopa <span class="cnt" id="cnt-maricopa">—</span>
-    </button>
-    <button class="ctab" onclick="setCounty('tarrant',this)">
-      Tarrant <span class="cnt" id="cnt-tarrant">—</span>
-    </button>
-    <button class="ctab" onclick="setCounty('dallas',this)">
-      Dallas <span class="cnt" id="cnt-dallas">—</span>
-    </button>
-  </div>
-
-  <!-- STATS BAR -->
-  <div class="stats" id="statsBar">
-    <div class="stat"><div class="stat-lbl">Total Leads</div><div class="stat-val" id="sTotal">—</div></div>
-    <div class="stat"><div class="stat-lbl">Tax Delinquent</div><div class="stat-val amber" id="sTD">—</div></div>
-    <div class="stat"><div class="stat-lbl">Tax Foreclosure</div><div class="stat-val red" id="sTF">—</div></div>
-    <div class="stat"><div class="stat-lbl">Pre-Foreclosure</div><div class="stat-val" style="color:#f97316" id="sPF">—</div></div>
-    <div class="stat"><div class="stat-lbl">Stale Listing</div><div class="stat-val" style="color:#3b82f6" id="sSL">—</div></div>
-    <div class="stat"><div class="stat-lbl">Probate</div><div class="stat-val purple" id="sPR">—</div></div>
-    <div class="stat"><div class="stat-lbl">State Warrant</div><div class="stat-val orange" id="sSW">—</div></div>
-    <div class="stat"><div class="stat-lbl">Hot (Score 60+)</div><div class="stat-val" style="color:var(--red)" id="sHot">—</div></div>
-  </div>
-
-  <!-- FILTERS -->
-  <div class="filters">
-    <button class="ftab active" onclick="setFilter('all',this)">All</button>
-    <button class="ftab" onclick="setFilter('tax-delinquent',this)">Tax Delinquent</button>
-    <button class="ftab" onclick="setFilter('tax-foreclosure',this)">Tax Foreclosure</button>
-    <button class="ftab" onclick="setFilter('pre-foreclosure',this)">⚡ Pre-Foreclosure</button>
-    <button class="ftab" onclick="setFilter('stale-listing',this)">🕐 Stale Listing</button>
-    <button class="ftab" onclick="setFilter('failed-listing',this)">🚫 Failed Listing</button>
-    <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
-    <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
-    <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
-    <button class="ftab" onclick="setFilter('new-today',this)">New Today</button>
-    <div class="sort-wrap">
-      SORT
-      <select class="sort-select" onchange="setSort(this.value)">
-        <option value="score">Score ↓</option>
-        <option value="date">Date ↓</option>
-        <option value="amount">Amount ↓</option>
-      </select>
-    </div>
-    <input class="fsearch" type="text" placeholder="Search name or address..." oninput="handleSearch(this.value)" />
-  </div>
-  <div class="filters" style="border-top:none;padding-top:6px;padding-bottom:10px;gap:8px;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;white-space:nowrap;">Traced Only ▸</span>
-    <button class="ftab" onclick="setFilter('sfr',this)" title="Single family only">🏠 SFR</button>
-    <button class="ftab" onclick="setFilter('multi',this)" title="2-4 units">🏘 2-4 Units</button>
-    <button class="ftab" onclick="setFilter('apt',this)" title="Apartment complexes 5+ units">🏢 Apartment</button>
-    <span style="flex:1"></span>
-    <button class="ftab" id="expiredToggle" onclick="toggleExpired()" title="Show pre-foreclosure leads where auction was >30 days ago">☐ Include Expired Auctions</button>
-  </div>
-
-  <!-- LEAD TABLE -->
-  <div class="lead-wrap" id="leadWrap">
-    <table class="lead-table">
-      <thead>
-        <tr>
-          <th style="width:50px">SCORE</th>
-          <th style="width:100px">TYPE</th>
-          <th>OWNER / ADDRESS</th>
-          <th style="width:80px">SIGNALS</th>
-          <th style="width:110px">AMT OWED</th>
-          <th style="width:90px">DATE</th>
-          <th style="width:130px">PHONE</th>
-          <th style="width:260px">ACTIONS</th>
-        </tr>
-      </thead>
-      <tbody id="leadBody"></tbody>
-    </table>
-    <div id="emptyState" class="empty-state" style="display:none">
-      <div class="empty-title">No leads match</div>
-      <div class="empty-sub">Adjust filters or refresh data</div>
+    <div>
+      <div style="font-family:var(--head);font-size:18px;color:#fff;line-height:1;letter-spacing:-0.5px;font-weight:800;">Dial <span style="color:var(--accent);">·</span> AI Call Analyzer</div>
     </div>
   </div>
-</div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span class="dot" id="dot"></span>
+    <span id="conn-status" style="font-family:var(--mono);font-size:11px;color:var(--muted);">No file loaded</span>
+  </div>
+  <img src="data:image/png;base64,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" style="height:44px;opacity:0.9;" alt="OneRoof">
+</header>
 
-<!-- LEAD DETAIL PANEL -->
-<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
-<div class="lead-panel" id="leadPanel">
-  <div class="panel-hdr">
-    <div style="flex:1;min-width:0;">
-      <div class="panel-score-wrap">
-        <div class="panel-score score-cold" id="panelScore">—</div>
-        <div>
-          <div class="panel-title" id="panelOwner">—</div>
-          <div id="panelBadge"></div>
+<div class="app">
+  <aside>
+    <!-- DATA SOURCE TAB -->
+    <div>
+      <div class="sec-label">Data Source</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <button id="tab-live" onclick="setDataTab('live')" style="padding:8px 6px;border-radius:6px;font-size:11px;font-family:var(--mono);cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;transition:all .15s;">📞 Live Calls</button>
+        <button id="tab-training" onclick="setDataTab('training')" style="padding:8px 6px;border-radius:6px;font-size:11px;font-family:var(--mono);cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--muted);transition:all .15s;">🏋 Training</button>
+      </div>
+      <div id="tab-badge" style="margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Live Calls — JustCall Export</div>
+    </div>
+
+    <!-- MODE TOGGLE -->
+    <div>
+      <div class="sec-label">Mode</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <button id="mode-batch" onclick="setMode('batch')" style="padding:8px 6px;border-radius:6px;font-size:11px;font-family:var(--mono);cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;transition:all .15s;">📊 Batch CSV</button>
+        <button id="mode-single" onclick="setMode('single')" style="padding:8px 6px;border-radius:6px;font-size:11px;font-family:var(--mono);cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--muted);transition:all .15s;">🎙 Single Call</button>
+      </div>
+    </div>
+
+    <!-- BATCH MODE -->
+    <div id="batch-mode">
+    <div>
+      <div class="sec-label">Load call data</div>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="csv-input" accept=".csv" onchange="handleFile(this.files[0])">
+        <div class="drop-icon">📂</div>
+        <div class="drop-label">
+          <strong>Drop CSV here</strong>
+          or click to browse<br>
+          <span id="csv-hint" style="font-size:10px;margin-top:4px;display:block;">Export from Weekly Review tab → File → Download → CSV</span>
         </div>
       </div>
-      <div class="panel-addr" id="panelAddr">—</div>
-    </div>
-    <button class="panel-close" onclick="closePanel()">✕</button>
-  </div>
-  <div class="panel-body">
-
-    <!-- SIGNALS -->
-    <div class="panel-section">
-      <div class="panel-section-title">Distress Signals</div>
-      <div class="panel-signals" id="panelSignals"></div>
+      <p class="hint" style="margin-top:8px;" id="file-name"></p>
     </div>
 
-    <!-- KEY DETAILS -->
-    <div class="panel-section">
-      <div class="panel-section-title">Record Details</div>
-      <div class="panel-row">
-        <span class="panel-key">Amount Owed</span>
-        <span class="panel-val money" id="panelAmount">—</span>
-      </div>
-      <div class="panel-row">
-        <span class="panel-key">Filing Date</span>
-        <span class="panel-val" id="panelDate">—</span>
-      </div>
-      <div class="panel-row">
-        <span class="panel-key">Case Number</span>
-        <span class="panel-val" id="panelCase">—</span>
-      </div>
-      <div class="panel-row">
-        <span class="panel-key">Source</span>
-        <span class="panel-val" id="panelSource">—</span>
-      </div>
-      <div class="panel-row">
-        <span class="panel-key">Phone</span>
-        <span class="panel-val phone" id="panelPhone">NOT TRACED</span>
-      </div>
-      <div class="panel-row" id="panelPropTypeRow" style="display:none">
-        <span class="panel-key">Property Type</span>
-        <span class="panel-val" id="panelPropType">—</span>
+    <div>
+      <div class="sec-label">Filter</div>
+      <div class="filter-group">
+        <span class="fl">Agent</span>
+        <select id="va-filter" onchange="applyFilters()">
+          <option value="all">All Agents</option>
+        </select>
+        <span class="fl" style="margin-top:6px;">Score threshold</span>
+        <select id="score-filter" onchange="applyFilters()">
+          <option value="all">All scores</option>
+          <option value="flagged">Flagged only (under 6)</option>
+          <option value="passing">Passing only (6+)</option>
+        </select>
       </div>
     </div>
 
-    <!-- NOTES -->
-    <div class="panel-section" id="panelNotesWrap" style="display:none">
-      <div class="panel-section-title">Notes</div>
-      <div class="panel-notes" id="panelNotes"></div>
+    <div>
+      <div class="sec-label">AI Analysis</div>
+      <button class="run-btn" onclick="runAnalysis()" id="analyze-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 5-10 5V3z" fill="currentColor"/></svg>
+        Run coaching analysis
+      </button>
+      <button class="run-btn" onclick="runTraining()" id="training-btn" disabled style="margin-top:8px;background:var(--panel);border:1px solid var(--border);color:var(--accent)">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Generate training prompts
+      </button>
     </div>
 
-    <!-- ACTIONS -->
-    <div class="panel-section">
-      <div class="panel-section-title">Actions</div>
-      <div class="panel-actions">
-        <button class="panel-btn" id="panelBtnST" onclick="panelSkipTrace()">⚡ Skip Trace — Find Phone Number</button>
-        <button class="panel-btn blue" id="panelBtnSMS" onclick="panelSendSMS()" disabled>📱 Send Text Message</button>
-        <button class="panel-btn green" id="panelBtnMon" onclick="panelPushMonday()">📋 Push to Monday.com</button>
-        <button class="panel-btn red-btn" id="panelBtnContacted" onclick="panelToggleContacted()">○ Mark as Contacted</button>
-        <a class="panel-link" id="panelApprLink" href="#" target="_blank" rel="noopener">
-          🏠 View on Sedgwick County Appraiser
-        </a>
-        <a class="panel-link" id="panelGoogleLink" href="#" target="_blank" rel="noopener">
-          📍 View Address on Google Maps
-        </a>
+    <div>
+      <div class="sec-label">Context for AI</div>
+      <textarea class="ctx" id="extra-ctx" placeholder="Any context about this batch, agents, or situation…"></textarea>
+      <p class="hint" style="margin-top:6px;">Helps Dial give more targeted coaching.</p>
+    </div>
+    </div><!-- end batch-mode -->
+
+    <!-- SINGLE CALL MODE -->
+    <div id="single-mode" style="display:none;">
+      <div>
+        <div class="sec-label">Agent Name</div>
+        <input id="single-rep" type="text" placeholder="Full name" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--body);font-size:12px;padding:8px 10px;outline:none;margin-bottom:12px;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+        <div class="sec-label">Call Type</div>
+        <select id="single-type" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;padding:8px 10px;outline:none;margin-bottom:12px;">
+          <option value="va_cold">VA Cold Call</option>
+          <option value="acq">Acquisition Call</option>
+          <option value="followup">Follow-Up Call</option>
+          <option value="other">Other Sales Call</option>
+        </select>
       </div>
+
+      <div>
+        <div class="sec-label">Upload Recording</div>
+        <div class="drop-zone" id="audio-drop-zone">
+          <input type="file" id="audio-input" accept=".mp3,.m4a,.wav,.ogg,.webm,.mp4" onchange="handleAudioFile(this.files[0])">
+          <div class="drop-icon">🎙</div>
+          <div class="drop-label">
+            <strong>Drop audio file here</strong>
+            MP3, M4A, WAV, MP4<br>
+            <span style="font-size:10px;margin-top:4px;display:block;" id="audio-file-name">No file loaded</span>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:11px;color:var(--muted);margin:8px 0;">— or paste transcript —</div>
+        <div class="sec-label">Transcript / Notes</div>
+        <textarea id="single-transcript" placeholder="Paste the call transcript or notes here…" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--body);font-size:12px;padding:10px;resize:vertical;min-height:100px;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="sec-label">Context (optional)</div>
+        <textarea id="single-ctx" placeholder="Any context about this call, rep, or situation…" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--body);font-size:12px;padding:10px;resize:vertical;min-height:60px;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      </div>
+
+      <button class="run-btn" onclick="runSingleAnalysis()" id="single-analyze-btn" style="margin-top:12px;">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 5-10 5V3z" fill="currentColor"/></svg>
+        Analyze this call
+      </button>
+      <p class="hint" style="margin-top:8px;" id="single-status"></p>
     </div>
 
-  </div>
+  </aside>
+
+  <main id="main">
+    <div class="empty">
+      <strong>Drop in your weekly CSV</strong>
+      Export your Live Scores tab as a CSV (File → Download → CSV),<br>
+      then drop it in the sidebar — or click to browse.<br><br>
+      Dial will read every scored call and give you<br>
+      sharp, actionable coaching bullets in seconds.
+    </div>
+  </main>
 </div>
-
-<!-- SMS MODAL -->
-<div class="overlay" id="smsOverlay">
-  <div class="modal">
-    <div class="modal-title">📱 Send Text</div>
-    <div class="mfield">
-      <label class="mlbl">To</label>
-      <input class="minput" id="smsName" readonly />
-    </div>
-    <div class="mfield">
-      <label class="mlbl">Phone</label>
-      <input class="minput" id="smsPhone" placeholder="(316) 555-0000" />
-    </div>
-    <div class="mfield">
-      <label class="mlbl">Message</label>
-      <textarea class="mta" id="smsMsg" oninput="countChars()"></textarea>
-      <div class="chars"><span id="charCount">0</span>/160</div>
-    </div>
-    <div class="mactions">
-      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn-send" onclick="sendSMS()">SEND TEXT</button>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="uploadOverlay">
-  <div class="modal" style="max-width:540px">
-    <div class="modal-title">📤 Upload PropStream CSV</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px">
-      Drop PropStream CSV or XLSX exports below. Rows are auto-classified: <span style="color:#3b82f6">stale listings</span> (active, 90-100 DOM) or <span style="color:#a855f7">failed listings</span> (expired/withdrawn within 14 days). Duplicates (matched by address) are skipped.
-    </div>
-    <div id="uploadDrop" style="border:2px dashed var(--border2);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s">
-      <div style="font-size:32px;margin-bottom:8px">📁</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text)">DROP CSV OR XLSX FILES HERE</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:6px">or click to browse</div>
-      <input type="file" id="uploadInput" accept=".csv,.xlsx,.xls" multiple style="display:none" />
-    </div>
-    <div id="uploadResult" style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px"></div>
-    <div class="mactions">
-      <button class="btn-cancel" onclick="closeUploadModal()">Close</button>
-      <button class="btn-cancel" onclick="clearStaleListings()" style="color:#ef4444;border-color:#ef4444" title="Clear all uploaded stale listings">🗑 CLEAR ALL</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════════════════════
-const CONFIG = {
-  password:      'OneRoof2025',
-  zapierWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
-  dataUrl:       '/data/leads.json',
-};
+const ANTHROPIC_API_KEY = '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';
+let allRows = [];
+let filteredRows = [];
+let liveRows = [];
+let trainingRows = [];
+let currentDataTab = 'live';
+let currentAudioFile = null;
 
-// ═══════════════════════════════════════════════════════════
-// SCORING ENGINE
-// ═══════════════════════════════════════════════════════════
-const WEIGHTS = {
-  'tax-delinquent':  20,
-  'tax-foreclosure': 35,
-  'pre-foreclosure': 80,   // Pre-foreclosure = active bank action, highest urgency
-  'stale-listing':   45,   // Listed 90+ days, motivated but not distressed
-  'failed-listing':  55,   // Tried and market rejected — often more motivated than stale
-  'probate':         25,
-  'state-warrant':   20,
-  'lis-pendens':     30,
-};
+// ── MODE SWITCHING ─────────────────────────────────────
+function setMode(mode) {
+  const batchMode = document.getElementById('batch-mode');
+  const singleMode = document.getElementById('single-mode');
+  const batchBtn = document.getElementById('mode-batch');
+  const singleBtn = document.getElementById('mode-single');
+  const main = document.getElementById('main');
 
-function scoreSignals(signals) {
-  let score = 0;
-  const active = signals.filter(s => s.active);
-  active.forEach(s => { score += WEIGHTS[s.type] || 0; });
-  if (active.length >= 2) score += 15; // stacking bonus
-  if (active.length >= 3) score += 10;
-  return Math.min(score, 100);
-}
-
-function computeScore(lead) {
-  // For pre-foreclosure leads from BatchData, use their salePropensity directly
-  // since it's a predictive model based on dozens of factors
-  if (lead.type === 'pre-foreclosure') {
-    let score = lead.score || 80;  // BatchData propensity or default to 80
-    // Boost for imminent auction (within 14 days)
-    if (lead.auctionDate) {
-      const auction = new Date(lead.auctionDate);
-      const today = new Date();
-      const daysUntil = Math.ceil((auction - today) / (1000 * 60 * 60 * 24));
-      if (daysUntil >= 0 && daysUntil <= 14) score = Math.min(score + 10, 100);
+  if (mode === 'batch') {
+    batchMode.style.display = '';
+    singleMode.style.display = 'none';
+    batchBtn.style.background = 'var(--accent)';
+    batchBtn.style.borderColor = 'var(--accent)';
+    batchBtn.style.color = '#fff';
+    singleBtn.style.background = 'var(--panel)';
+    singleBtn.style.borderColor = 'var(--border)';
+    singleBtn.style.color = 'var(--muted)';
+    if (!allRows.length) {
+      main.innerHTML = '<div class="empty"><strong>Drop in your weekly CSV</strong>Export your Live Scores tab as a CSV (File → Download → CSV),<br>then drop it in the sidebar — or click to browse.<br><br>Dial will read every scored call and give you<br>sharp, actionable coaching bullets in seconds.</div>';
     }
-    return Math.min(Math.max(score, 80), 100);  // floor of 80 for pre-foreclosure
-  }
-
-  // Stale listings: base 45 + DOM bonus + price reduction + vacant
-  if (lead.type === 'stale-listing') {
-    let score = 45;
-    const dom = parseInt(lead.daysOnMarket) || 0;
-    if (dom > 90) score += Math.min(Math.floor((dom - 90) / 30) * 5, 20);  // up to +20 for very stale
-    if (lead.priceReduced) score += 10;
-    if (lead.vacant) score += 10;
-    if (lead.absenteeOwner) score += 5;
-    if (lead.highEquity) score += 10;
-    return Math.min(score, 100);
-  }
-
-  // Failed listings: base 55 + recency bonus (fresher fail = warmer lead) + vacant + equity
-  if (lead.type === 'failed-listing') {
-    let score = 55;
-    // Recency bonus — fresher fails are hotter (they just gave up, still raw motivation)
-    const daysSinceFailed = parseInt(lead.daysSinceFailed) || 999;
-    if (daysSinceFailed <= 7)  score += 15;  // super fresh
-    else if (daysSinceFailed <= 14) score += 10;
-    else if (daysSinceFailed <= 30) score += 5;
-    if (lead.vacant) score += 10;
-    if (lead.absenteeOwner) score += 5;
-    if (lead.highEquity) score += 10;
-    // Withdrawn slightly hotter than expired (active decision vs. time running out)
-    if (lead.mlsStatus === 'WITHDRAWN') score += 5;
-    return Math.min(score, 100);
-  }
-
-  // Build signal array from available data
-  const signals = [
-    { type: 'tax-delinquent',  active: lead.type === 'tax-delinquent' },
-    { type: 'tax-foreclosure', active: lead.type === 'tax-foreclosure' },
-    { type: 'pre-foreclosure', active: lead.type === 'pre-foreclosure' },
-    { type: 'stale-listing',   active: lead.type === 'stale-listing' },
-    { type: 'failed-listing',  active: lead.type === 'failed-listing' },
-    { type: 'probate',         active: lead.type === 'probate' },
-    { type: 'state-warrant',   active: lead.type === 'state-warrant' },
-    { type: 'lis-pendens',     active: lead.type === 'lis-pendens' },
-  ];
-  // If lead has stackedSignals from ATTOM, use those too
-  if (lead.stackedSignals) {
-    lead.stackedSignals.forEach(s => {
-      const existing = signals.find(x => x.type === s);
-      if (existing) existing.active = true;
-    });
-  }
-  return scoreSignals(signals);
-}
-
-function scoreClass(s) {
-  if (s >= 60) return 'score-hot';
-  if (s >= 40) return 'score-warm';
-  if (s >= 20) return 'score-cool';
-  return 'score-cold';
-}
-
-// ═══════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════
-let allLeads   = [];
-let activeFilter = 'all';
-let activeCounty = 'sck';
-let sortBy     = 'score';
-let searchQ    = '';
-let activeLead = null;
-let showExpired = false; // hide pre-foreclosure leads with auctions >30 days past
-let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
-let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
-let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
-let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
-let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
-
-// ═══════════════════════════════════════════════════════════
-// AUTH
-// ═══════════════════════════════════════════════════════════
-function unlock() {
-  if (document.getElementById('gPwd').value === CONFIG.password) {
-    localStorage.setItem('intel_auth', btoa(CONFIG.password));
-    boot();
   } else {
-    const err = document.getElementById('gErr');
-    err.style.display = 'block';
-    document.getElementById('gPwd').value = '';
+    batchMode.style.display = 'none';
+    singleMode.style.display = '';
+    singleBtn.style.background = 'var(--accent)';
+    singleBtn.style.borderColor = 'var(--accent)';
+    singleBtn.style.color = '#fff';
+    batchBtn.style.background = 'var(--panel)';
+    batchBtn.style.borderColor = 'var(--border)';
+    batchBtn.style.color = 'var(--muted)';
+    main.innerHTML = '<div class="empty"><strong>Analyze any sales call</strong>Upload an MP3/audio file or paste a transcript.<br>Dial will score it and give you specific coaching feedback.<br><br>Works for any sales call — VA, ACQ, follow-ups, and more.</div>';
   }
 }
-document.getElementById('gPwd').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
-if (localStorage.getItem('intel_auth') === btoa(CONFIG.password)) boot();
 
-function boot() {
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('app').style.display  = 'block';
-  loadLeads();
-}
+// ── AUDIO FILE HANDLING ────────────────────────────────
+const adz = document.getElementById('audio-drop-zone');
+adz.addEventListener('dragover', e => { e.preventDefault(); adz.classList.add('dragover'); });
+adz.addEventListener('dragleave', () => adz.classList.remove('dragover'));
+adz.addEventListener('drop', e => { e.preventDefault(); adz.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleAudioFile(e.dataTransfer.files[0]); });
 
-// ═══════════════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════════════
-async function loadLeads() {
-  setLoading(true);
-
-  // SCK = Sedgwick + Harvey + Butler + Sumner merged
-  const SCK_COUNTIES = ['sedgwick','harvey','butler','sumner'];
-  const isSCK = activeCounty === 'sck';
-
-  // Counties that have BatchData pre-foreclosure data
-  const PREFC_COUNTIES = ['sedgwick','harris','clark'];
-
-  function mapLead(l) {
-    const pt = propTypes[l.id] || {};
-    return {
-      ...l,
-      score:        computeScore(l),
-      contacted:    contacted.has(l.id),
-      pushed:       pushed.has(l.id),
-      texted:       texted.has(l.id),
-      phone:        phones[l.id] || l.phone || null,
-      propertyType: l.propertyType || pt.type || null,
-      bedrooms:     l.bedrooms || pt.bedrooms || null,
-      units:        l.units || pt.units || null,
-    };
+function handleAudioFile(file) {
+  if (!file) return;
+  const allowed = ['audio/mpeg','audio/mp4','audio/wav','audio/ogg','audio/webm','video/mp4','audio/x-m4a'];
+  if (!allowed.includes(file.type) && !file.name.match(/\.(mp3|m4a|wav|ogg|webm|mp4)$/i)) {
+    document.getElementById('audio-file-name').textContent = '⚠ Unsupported file type';
+    return;
   }
-
-  async function loadPreforeclosure(countyKey) {
-    try {
-      const r = await fetch(`/data/leads-${countyKey}-preforeclosure.json?v=` + Date.now());
-      if (!r.ok) return [];
-      const d = await r.json();
-      return d.leads || [];
-    } catch { return []; }
-  }
-
-  function loadStaleListings(countyKey) {
-    try {
-      const all = JSON.parse(localStorage.getItem('intel_stale_listings') || '{}');
-      return all[countyKey] || [];
-    } catch { return []; }
-  }
-
-  function loadFailedListings(countyKey) {
-    try {
-      const all = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
-      return all[countyKey] || [];
-    } catch { return []; }
-  }
-
-  try {
-    if (isSCK) {
-      // Load all four KS county files + Sedgwick pre-foreclosure + stale listings
-      const [files, pfLeads] = await Promise.all([
-        Promise.all(SCK_COUNTIES.map(c =>
-          fetch(`/data/leads-${c}.json?v=` + Date.now())
-            .then(r => r.ok ? r.json() : { leads: [] })
-            .catch(() => ({ leads: [] }))
-        )),
-        loadPreforeclosure('sedgwick')
-      ]);
-      // Stale + Failed listings: merge for all KS counties
-      const slLeads = SCK_COUNTIES.flatMap(c => loadStaleListings(c));
-      const flLeads = SCK_COUNTIES.flatMap(c => loadFailedListings(c));
-      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...slLeads, ...flLeads];
-      allLeads = merged.map(mapLead);
-
-      // Show most recent update across all four
-      const dates = files.map(d => d.lastUpdated).filter(Boolean).sort();
-      if (dates.length) {
-        const d = new Date(dates[dates.length - 1]);
-        document.getElementById('updatedAt').textContent =
-          'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
-          ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      }
-    } else {
-      const dataUrl = `/data/leads-${activeCounty}.json`;
-      const [res, pfLeads] = await Promise.all([
-        fetch(dataUrl + '?v=' + Date.now()),
-        PREFC_COUNTIES.includes(activeCounty) ? loadPreforeclosure(activeCounty) : Promise.resolve([])
-      ]);
-      if (!res.ok) throw new Error('no data');
-      const data = await res.json();
-      const slLeads = loadStaleListings(activeCounty);
-      const flLeads = loadFailedListings(activeCounty);
-      const merged = [...(data.leads || []), ...pfLeads, ...slLeads, ...flLeads];
-      allLeads = merged.map(mapLead);
-      if (data.lastUpdated) {
-        const d = new Date(data.lastUpdated);
-        document.getElementById('updatedAt').textContent =
-          'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
-          ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      }
-    }
-
-    // Update tab count
-    const cntEl = document.getElementById(`cnt-${activeCounty}`);
-    if (cntEl) cntEl.textContent = allLeads.length;
-
-  } catch {
-    allLeads = isSCK ? sampleLeads().map(mapLead) : [];
-    document.getElementById('updatedAt').textContent =
-      isSCK ? 'Sample data — scraper pending' : 'No data yet — run scraper';
-  }
-
-  updateStats();
-  render();
-  setLoading(false);
+  currentAudioFile = file;
+  document.getElementById('audio-file-name').textContent = '✓ ' + file.name + ' (' + (file.size / 1024 / 1024).toFixed(1) + ' MB)';
+  document.getElementById('single-transcript').value = '';
+  document.getElementById('single-transcript').placeholder = 'Audio file loaded — transcript will be auto-generated on analysis';
 }
 
-function setLoading(on) {
-  if (on) document.getElementById('leadBody').innerHTML =
-    '<tr><td colspan="8" style="text-align:center;padding:60px;color:var(--muted);font-size:10px;letter-spacing:3px;">SCANNING COUNTY RECORDS...</td></tr>';
-}
+// ── SINGLE CALL ANALYSIS ───────────────────────────────
+async function runSingleAnalysis() {
+  const btn = document.getElementById('single-analyze-btn');
+  const status = document.getElementById('single-status');
+  const main = document.getElementById('main');
+  const rep = document.getElementById('single-rep').value.trim() || 'Unknown Rep';
+  const callType = document.getElementById('single-type').value;
+  const transcript = document.getElementById('single-transcript').value.trim();
+  const ctx = document.getElementById('single-ctx').value.trim();
 
-// ═══════════════════════════════════════════════════════════
-// STATS
-// ═══════════════════════════════════════════════════════════
-function updateStats() {
-  const t = type => allLeads.filter(l => l.type === type).length;
-  document.getElementById('sTotal').textContent = allLeads.length;
-  document.getElementById('sTD').textContent    = t('tax-delinquent');
-  document.getElementById('sTF').textContent    = t('tax-foreclosure');
-  document.getElementById('sPF').textContent    = t('pre-foreclosure');
-  document.getElementById('sSL').textContent    = t('stale-listing');
-  document.getElementById('sPR').textContent    = t('probate');
-  document.getElementById('sSW').textContent    = t('state-warrant');
-  document.getElementById('sHot').textContent   = allLeads.filter(l => l.score >= 60).length;
-  const cntEl = document.getElementById(`cnt-${activeCounty}`);
-  if (cntEl) cntEl.textContent = allLeads.length;
-}
-
-// ═══════════════════════════════════════════════════════════
-// COUNTY / FILTER / SORT
-// ═══════════════════════════════════════════════════════════
-function setCounty(county, el) {
-  if (el.classList.contains('coming')) return;
-  activeCounty = county;
-  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  loadLeads();
-}
-
-function setFilter(f, el) {
-  activeFilter = f;
-  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  render();
-}
-
-function handleSearch(q) { searchQ = q; render(); }
-function setSort(s)       { sortBy  = s; render(); }
-function toggleExpired() {
-  showExpired = !showExpired;
-  const btn = document.getElementById('expiredToggle');
-  if (btn) {
-    btn.textContent = showExpired ? '☑ Include Expired Auctions' : '☐ Include Expired Auctions';
-    btn.classList.toggle('active', showExpired);
-  }
-  render();
-}
-
-// ═══════════════════════════════════════════════════════════
-// UPLOAD CSV — Stale Listings (PropStream)
-// ═══════════════════════════════════════════════════════════
-function openUploadModal() {
-  document.getElementById('uploadOverlay').classList.add('open');
-  document.getElementById('uploadResult').innerHTML = '';
-  setTimeout(setupUploadHandlers, 50);
-}
-
-function closeUploadModal() {
-  document.getElementById('uploadOverlay').classList.remove('open');
-}
-
-function setupUploadHandlers() {
-  const drop  = document.getElementById('uploadDrop');
-  const input = document.getElementById('uploadInput');
-  if (!drop || !input || drop._wired) return;
-  drop._wired = true;
-
-  drop.addEventListener('click', () => input.click());
-  input.addEventListener('change', e => handleFiles(e.target.files));
-
-  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
-    e.preventDefault(); e.stopPropagation();
-    drop.style.borderColor = 'var(--orange)';
-    drop.style.background = 'rgba(255,107,53,0.04)';
-  }));
-  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
-    e.preventDefault(); e.stopPropagation();
-    drop.style.borderColor = 'var(--border2)';
-    drop.style.background = 'transparent';
-  }));
-  drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
-}
-
-async function handleFiles(fileList) {
-  const files = Array.from(fileList).filter(f => /\.(csv|xlsx|xls)$/i.test(f.name));
-  if (!files.length) {
-    document.getElementById('uploadResult').innerHTML =
-      '<div style="color:#ef4444">No CSV or XLSX files detected.</div>';
+  if (!currentAudioFile && !transcript) {
+    status.textContent = '⚠ Please upload an audio file or paste a transcript.';
     return;
   }
 
-  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0, totalTooNew = 0, totalFailedOld = 0;
-  let totalStaleAdded = 0, totalFailedAdded = 0;
-  const byCountySummary = {};
+  btn.disabled = true;
+  status.textContent = '';
+  main.innerHTML = '<div class="panel"><div class="load-bar"></div><div style="padding:24px;color:var(--muted);font-size:13px;font-family:var(--mono)">Analyzing call for ' + rep + '…</div></div>';
 
-  for (const file of files) {
+  let callText = transcript;
+
+  // If audio file, convert to base64 and send to Claude
+  if (currentAudioFile && !transcript) {
     try {
-      const isXlsx = /\.(xlsx|xls)$/i.test(file.name);
-      let rows;
-      if (isXlsx) {
-        rows = await parseXLSX(file);
-      } else {
-        const text = await file.text();
-        rows = parseCSV(text);
-      }
-      totalRows += rows.length;
-      const result = ingestStaleListings(rows);
-      totalAdded       += result.added;
-      totalSkipped     += result.skipped;
-      totalStaleDate   += (result.staleDate    || 0);
-      totalTooNew      += (result.tooNew       || 0);
-      totalFailedOld   += (result.failedTooOld || 0);
-      totalStaleAdded  += (result.staleAdded   || 0);
-      totalFailedAdded += (result.failedAdded  || 0);
-      Object.entries(result.byCounty).forEach(([c, n]) => {
-        byCountySummary[c] = (byCountySummary[c] || 0) + n;
+      status.textContent = '⏳ Reading audio file…';
+      callText = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          // We can't do speech-to-text directly — tell Claude what we have
+          resolve('[Audio file uploaded: ' + currentAudioFile.name + ' — ' + (currentAudioFile.size/1024/1024).toFixed(1) + 'MB. Please analyze based on any transcript provided, or note that audio transcription is not available in this tool and ask the user to paste a transcript.]');
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(currentAudioFile);
       });
-    } catch (e) {
-      console.error(`Failed to parse ${file.name}:`, e);
+      status.textContent = '';
+    } catch(e) {
+      status.textContent = '⚠ Could not read audio file.';
+      btn.disabled = false;
+      return;
     }
   }
 
-  document.getElementById('uploadResult').innerHTML = `
-    <div style="padding:10px 14px;border-radius:7px;background:rgba(71,255,138,0.06);border:1px solid rgba(71,255,138,0.25);color:#47ff8a">
-      ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
-    </div>
-    <div style="margin-top:8px;color:var(--muted);font-size:10px;line-height:1.6">
-      <div><span style="color:#3b82f6">🕐 Stale:</span> +${totalStaleAdded} · <span style="color:#a855f7">🚫 Failed:</span> +${totalFailedAdded} · Skipped: ${totalSkipped} duplicates</div>
-      <div style="margin-top:4px">Filtered: ${totalStaleDate} (>100d old) · ${totalTooNew} (&lt;90d active) · ${totalFailedOld} (failed >14d ago)</div>
-    </div>
-    <div style="margin-top:6px;color:var(--text);font-size:10px">
-      ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
-    </div>
-  `;
+  const callTypeLabels = { va_cold: 'VA Cold Call', acq: 'Acquisition Call', followup: 'Follow-Up Call', other: 'Sales Call' };
+  const callTypeLabel = callTypeLabels[callType] || 'Sales Call';
 
-  // Reload data
-  loadLeads();
+  const scoringCriteria = callType === 'acq' ? `
+Score on these dimensions (1-10 each):
+- Rapport Building: Did they build trust and connection with the seller?
+- Needs Discovery: Did they uncover motivation, timeline, condition, price expectations?
+- Objection Handling: Did they handle pushback effectively using the convenience vs. price reframe?
+- Closing: Did they move toward next steps (offer, appointment, follow-up)?
+- Overall: Average of the above` : `
+Score on these dimensions (1-10 each):
+- Script Adherence: Did they follow the OneRoof cold call framework?
+- Objection Handling: Did they handle seller objections effectively?
+- Tone & Energy: Were they warm, confident, and conversational?
+- Overall: Average of the above`;
+
+  const prompt = `You are an expert sales coach for OneRoof Real Estate, a real estate wholesaling company. Analyze this ${callTypeLabel} by ${rep}.
+${ctx ? 'Context: ' + ctx : ''}
+${scoringCriteria}
+
+Call content:
+${callText}
+
+Return ONLY valid JSON (no markdown, no code fences):
+{
+  "rep": "${rep}",
+  "call_type": "${callTypeLabel}",
+  "scores": {
+    "overall": 0,
+    "dimension1_name": "Score label",
+    "dimension1": 0,
+    "dimension2_name": "Score label",
+    "dimension2": 0,
+    "dimension3_name": "Score label",
+    "dimension3": 0,
+    "dimension4_name": "Score label",
+    "dimension4": 0
+  },
+  "summary": "2-3 sentence summary of what happened on this call",
+  "highlights": ["What went well — be specific", "Another strength"],
+  "flags": ["Critical issue — be specific with timestamps or quotes if available", "Another issue"],
+  "coaching": "Your top 1-2 specific coaching points for this rep. What exactly should they say or do differently? Give word-for-word scripts where possible.",
+  "verdict": "passing" or "needs_work" or "critical"
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1500, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const raw = data.content.map(b => b.text||'').join('').replace(/```json|```/g,'').trim();
+    const p = JSON.parse(raw);
+
+    const verdictColor = p.verdict === 'passing' ? 'var(--green)' : p.verdict === 'critical' ? 'var(--red)' : 'var(--yellow)';
+    const verdictLabel = p.verdict === 'passing' ? '✓ PASSING' : p.verdict === 'critical' ? '⚠ CRITICAL' : '△ NEEDS WORK';
+    const overallColor = scoreColor(p.scores.overall);
+
+    const dims = ['dimension1','dimension2','dimension3','dimension4'].filter(d => p.scores[d] !== undefined);
+
+    main.innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">🎙 Single Call Analysis — ${p.rep}</span>
+        <span class="badge" style="background:${verdictColor}20;color:${verdictColor};border:1px solid ${verdictColor}40">${verdictLabel}</span>
+      </div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:repeat(${dims.length+1},1fr);gap:12px;margin-bottom:20px">
+          <div class="kpi" style="border-color:${overallColor}40">
+            <div class="kpi-label">Overall</div>
+            <div class="kpi-val" style="color:${overallColor}">${p.scores.overall}</div>
+            <div class="kpi-sub" style="color:var(--muted)">${p.call_type}</div>
+          </div>
+          ${dims.map(d => `
+          <div class="kpi">
+            <div class="kpi-label">${p.scores[d+'_name']||d}</div>
+            <div class="kpi-val" style="color:${scoreColor(p.scores[d])}">${p.scores[d]}</div>
+            <div class="kpi-sub" style="color:var(--muted)">/ 10</div>
+          </div>`).join('')}
+        </div>
+
+        <div style="margin-bottom:16px">
+          <div class="ins-head" style="margin-bottom:8px">Summary</div>
+          <div style="font-size:13px;line-height:1.7;color:var(--text);background:var(--bg2);padding:12px 16px;border-radius:6px">${p.summary||''}</div>
+        </div>
+
+        ${p.highlights && p.highlights.length ? `
+        <div style="margin-bottom:16px">
+          <div class="ins-head" style="color:var(--green);margin-bottom:8px">✓ What went well</div>
+          ${p.highlights.map(h => `<div class="bullet low"><div class="bdot low"></div><span>${h}</span></div>`).join('')}
+        </div>` : ''}
+
+        ${p.flags && p.flags.length ? `
+        <div style="margin-bottom:16px">
+          <div class="ins-head" style="color:var(--red);margin-bottom:8px">⚠ Issues flagged</div>
+          ${p.flags.map(f => `<div class="bullet high"><div class="bdot high"></div><span>${f}</span></div>`).join('')}
+        </div>` : ''}
+
+        ${p.coaching ? `
+        <div>
+          <div class="ins-head" style="color:var(--accent);margin-bottom:8px">🎯 Coaching notes</div>
+          <div style="font-size:13px;line-height:1.7;color:var(--text);background:rgba(56,139,253,0.06);border:1px solid rgba(56,139,253,0.2);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 6px 6px 0">${p.coaching}</div>
+        </div>` : ''}
+      </div>
+    </div>`;
+
+    status.textContent = '✓ Analysis complete';
+  } catch(e) {
+    main.innerHTML = `<div class="error-box">Analysis failed: ${e.message}</div>`;
+    status.textContent = '⚠ Error';
+  } finally {
+    btn.disabled = false;
+  }
 }
 
-async function parseXLSX(file) {
-  const buffer = await file.arrayBuffer();
-  const workbook = XLSX.read(buffer, { type: 'array' });
-  const firstSheetName = workbook.SheetNames[0];
-  const sheet = workbook.Sheets[firstSheetName];
-  // Convert sheet to JSON with the first row as headers
-  return XLSX.utils.sheet_to_json(sheet, { defval: '', raw: false });
+// Column mapping — matches Live Scores tab export
+// A=DATE, B=VA NAME, C=DURATION, D=CALL LINK, E=TRANSCRIPT,
+// F=SCRIPT, G=OBJECTIONS, H=TONE, I=OVERALL, J=SUMMARY, K=HIGHLIGHTS, L=FLAGS, M=COACHING
+const COL = { date:0, va:1, duration:2, link:3, transcript:4, script:5, objections:6, tone:7, overall:8, summary:9, highlights:10, flags:11, coaching:12 };
+
+// Drag-over styling
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+
+function setDataTab(tab) {
+  currentDataTab = tab;
+  const isLive = tab === 'live';
+  const isTraining = tab === 'training';
+
+  // Button styles
+  document.getElementById('tab-live').style.background = isLive ? 'var(--accent)' : 'var(--panel)';
+  document.getElementById('tab-live').style.borderColor = isLive ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('tab-live').style.color = isLive ? '#fff' : 'var(--muted)';
+  document.getElementById('tab-training').style.background = isTraining ? 'var(--accent)' : 'var(--panel)';
+  document.getElementById('tab-training').style.borderColor = isTraining ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('tab-training').style.color = isTraining ? '#fff' : 'var(--muted)';
+
+  // Badge + hint
+  document.getElementById('tab-badge').textContent = isLive ? 'Live Calls — JustCall Export' : 'Training Calls — REPS Export';
+  document.getElementById('csv-hint').textContent = isLive
+    ? 'Export from Weekly Review (Live) tab → File → Download → CSV'
+    : 'Export from Weekly Review (Training) tab → File → Download → CSV';
+
+  // Switch active dataset
+  allRows = isLive ? liveRows : trainingRows;
+  filteredRows = [];
+  if (allRows.length) {
+    populateVAFilter();
+    applyFilters();
+    document.getElementById('dot').className = 'dot live';
+    document.getElementById('conn-status').textContent = allRows.length + ' calls loaded';
+    document.getElementById('analyze-btn').disabled = false;
+    document.getElementById('training-btn').disabled = false;
+  } else {
+    document.getElementById('dot').className = 'dot';
+    document.getElementById('conn-status').textContent = 'No file loaded';
+    document.getElementById('file-name').textContent = '';
+    document.getElementById('analyze-btn').disabled = true;
+    document.getElementById('training-btn').disabled = true;
+    const main = document.getElementById('main');
+    if (main) main.innerHTML = '';
+  }
 }
 
-function parseCSV(text) {
-  // PropStream CSVs are standard CSV — handle quoted commas via a real parser
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  if (!lines.length) return [];
+function handleFile(file) {
+  if (!file || !file.name.endsWith('.csv')) {
+    document.getElementById('file-name').textContent = 'Please upload a .csv file';
+    return;
+  }
+  document.getElementById('file-name').textContent = '⏳ Reading ' + file.name + '…';
+  const reader = new FileReader();
+  reader.onload = e => parseCSV(e.target.result, file.name);
+  reader.readAsText(file);
+}
 
-  function parseRow(line) {
-    const out = [];
-    let cur = '', inQuote = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') {
-        if (inQuote && line[i+1] === '"') { cur += '"'; i++; }
-        else inQuote = !inQuote;
-      } else if (c === ',' && !inQuote) {
-        out.push(cur); cur = '';
-      } else {
-        cur += c;
-      }
+function parseCSV(text, filename) {
+  const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+  // Find the header row — look for a line containing "VA NAME" or "DATE"
+  let headerIdx = -1;
+  for (let i = 0; i < Math.min(lines.length, 15); i++) {
+    const upper = lines[i].toUpperCase();
+    if (upper.includes('VA NAME') || (upper.includes('DATE') && upper.includes('SCRIPT'))) {
+      headerIdx = i;
+      break;
     }
-    out.push(cur);
-    return out;
+  }
+  if (headerIdx === -1) {
+    showError('Could not find column headers. Export the Weekly Review tab → File → Download → CSV.');
+    return;
   }
 
-  const headers = parseRow(lines[0]).map(h => h.trim());
-  return lines.slice(1).map(line => {
-    const cells = parseRow(line);
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = (cells[i] || '').trim());
-    return obj;
-  });
-}
+  // Parse header to build column index map
+  const headers = parseCSVLine(lines[headerIdx]).map(h => h.trim().toUpperCase());
 
-function ingestStaleListings(rows) {
-  // Two separate localStorage buckets
-  const staleAll  = JSON.parse(localStorage.getItem('intel_stale_listings')  || '{}');
-  const failedAll = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
-
-  // Dedupe sets per county per type
-  const existingStaleIds  = {};
-  const existingFailedIds = {};
-  Object.entries(staleAll).forEach(([c, leads])  => { existingStaleIds[c]  = new Set(leads.map(l => l.id)); });
-  Object.entries(failedAll).forEach(([c, leads]) => { existingFailedIds[c] = new Set(leads.map(l => l.id)); });
-
-  const result = {
-    added: 0, skipped: 0, byCounty: {},
-    staleDate: 0, tooNew: 0, failedTooOld: 0,
-    staleAdded: 0, failedAdded: 0
+  // Build flexible column map by header name
+  const colMap = {};
+  const colNames = {
+    date:       ['DATE'],
+    va:         ['VA NAME', 'VA'],
+    duration:   ['DURATION'],
+    link:       ['CALL LINK', 'LINK', 'CALL_LINK'],
+    transcript: ['TRANSCRIPT'],
+    script:     ['SCRIPT (1-10)', 'SCRIPT'],
+    objections: ['OBJECTIONS (1-10)', 'OBJECTIONS'],
+    tone:       ['TONE (1-10)', 'TONE'],
+    overall:    ['OVERALL'],
+    summary:    ['SUMMARY'],
+    highlights: ['HIGHLIGHTS'],
+    flags:      ['FLAGS'],
+    coaching:   ['COACHING', 'COACHING NOTES', 'NOTES']
   };
-  const now = new Date().toISOString();
-
-  // STALE LISTING RULES: active listings between 90-100 DOM (MLS Date = listing START)
-  // FAILED LISTING RULES: expired/withdrawn within last 14 days (MLS Date = status change)
-  const STALE_MAX_AGE_DAYS  = 100;
-  const STALE_MIN_DOM       = 90;
-  const FAILED_MAX_AGE_DAYS = 14;
-  const staleCutoffMs  = Date.now() - (STALE_MAX_AGE_DAYS  * 24 * 60 * 60 * 1000);
-  const failedCutoffMs = Date.now() - (FAILED_MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
-
-  function buildOwnerName(row) {
-    const o1First = (row['Owner 1 First Name'] || '').trim();
-    const o1Last  = (row['Owner 1 Last Name']  || '').trim();
-    const o2First = (row['Owner 2 First Name'] || '').trim();
-    const o2Last  = (row['Owner 2 Last Name']  || '').trim();
-    const careOf  = (row['Mailing Care of Name'] || '').trim();
-
-    if (careOf && careOf.includes('&')) return toTitle(careOf);
-
-    const o1 = [o1First, o1Last].filter(Boolean).join(' ');
-    const o2 = [o2First, o2Last].filter(Boolean).join(' ');
-
-    if (o1 && o2) {
-      if (o1Last && o1Last === o2Last) return toTitle(`${o1First} & ${o2First} ${o1Last}`);
-      return toTitle(`${o1} & ${o2}`);
+  for (const [key, names] of Object.entries(colNames)) {
+    for (const name of names) {
+      const idx = headers.indexOf(name);
+      if (idx !== -1) { colMap[key] = idx; break; }
     }
-    if (o1) return toTitle(o1);
-    if (careOf) return toTitle(careOf);
-    return '';
   }
 
-  function toTitle(s) {
-    return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).trim();
+  if (colMap.va === undefined || colMap.overall === undefined) {
+    showError('Could not find required columns. Export the Weekly Review (Live or Training) tab as CSV.');
+    return;
   }
 
-  function daysSince(mlsDate) {
-    if (!mlsDate) return 0;
-    try {
-      const d = new Date(String(mlsDate).split(' ')[0]);
-      if (isNaN(d)) return 0;
-      const days = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
-      return days > 0 ? days : 0;
-    } catch { return 0; }
+  // Parse data rows
+  const dataRows = [];
+  for (let i = headerIdx + 1; i < lines.length; i++) {
+    const cells = parseCSVLine(lines[i]);
+    const va = cells[colMap.va]?.trim();
+    const date = cells[colMap.date]?.trim();
+    if (!va || va === '' || va.toUpperCase() === 'VA NAME') continue;
+    // Skip summary/header rows (non-data)
+    if (va.toUpperCase().includes('ONEROOF') || va.toUpperCase().includes('WEEK')) continue;
+    const overall = parseFloat(cells[colMap.overall]);
+    if (isNaN(overall) && !date) continue;
+
+    // Map to standard COL indices for downstream code
+    const row = new Array(13).fill('');
+    for (const [key, srcIdx] of Object.entries(colMap)) {
+      row[COL[key]] = cells[srcIdx] || '';
+    }
+    dataRows.push(row);
   }
 
-  function pickPhone(row) {
-    for (let i = 1; i <= 5; i++) {
-      const p = (row[`Phone ${i}`] || '').trim();
-      const dnc = (row[`Phone ${i} DNC`] || '').trim();
-      if (p && !/yes|true|1/i.test(dnc)) return p;
-    }
-    return null;
+  if (!dataRows.length) {
+    showError('No data rows found. Make sure you exported the Live Scores tab with actual call data.');
+    return;
   }
 
-  for (const row of rows) {
-    const address = (row['Address'] || '').trim();
-    const city    = (row['City']    || '').trim();
-    const state   = (row['State']   || '').trim();
-    const county  = (row['County']  || '').trim().toLowerCase();
+  // Save to the correct tab dataset
+  if (currentDataTab === 'live') liveRows = dataRows;
+  else trainingRows = dataRows;
+  allRows = dataRows;
+  document.getElementById('file-name').textContent = '✓ ' + filename + ' — ' + allRows.length + ' calls';
+  document.getElementById('dot').className = 'dot live';
+  document.getElementById('conn-status').textContent = allRows.length + ' calls loaded (' + (currentDataTab === 'live' ? 'Live' : 'Training') + ')';
+  document.getElementById('analyze-btn').disabled = false;
+  document.getElementById('training-btn').disabled = false;
+  populateVAFilter();
+  applyFilters();
+}
 
-    if (!address || !county) continue;
-
-    const countyKey = county.replace(/\s+county$/i, '').trim();
-    const KNOWN_COUNTIES = ['sedgwick','harvey','butler','sumner','harris','clark','maricopa','tarrant','dallas','shelby'];
-    if (!KNOWN_COUNTIES.includes(countyKey)) continue;
-
-    const mlsStatus = (row['MLS Status'] || '').trim().toUpperCase();
-    const mlsRaw    = row['MLS Date'];
-    const dom       = daysSince(mlsRaw);
-
-    // Determine if this is a FAILED or STALE listing based on MLS Status
-    const isFailed = ['EXPIRED','WITHDRAWN','CANCELLED','CANCELED'].includes(mlsStatus);
-    const isActive = ['ACTIVE','PENDING','CONTINGENT'].includes(mlsStatus) || !isFailed;
-
-    // Must have an MLS Date to process
-    if (!mlsRaw) {
-      result.staleDate++;
-      continue;
-    }
-
-    let mlsMs;
-    try {
-      mlsMs = new Date(String(mlsRaw).split(' ')[0]).getTime();
-      if (isNaN(mlsMs)) { result.staleDate++; continue; }
-    } catch { result.staleDate++; continue; }
-
-    // Apply filter rules based on type
-    let leadType, relevantDays;
-    if (isFailed) {
-      // Failed: only accept if it ended within the last 14 days
-      if (mlsMs < failedCutoffMs) {
-        result.failedTooOld++;
-        continue;
-      }
-      leadType = 'failed-listing';
-      relevantDays = dom; // dom for failed = days since status changed
-    } else {
-      // Stale (active): must be between 90-100 DOM
-      if (mlsMs < staleCutoffMs) {
-        result.staleDate++;
-        continue;
-      }
-      if (dom < STALE_MIN_DOM) {
-        result.tooNew++;
-        continue;
-      }
-      leadType = 'stale-listing';
-      relevantDays = dom;
-    }
-
-    const owner    = buildOwnerName(row);
-    const listPrc  = row['MLS Amount'] || '';
-    const estVal   = row['Est. Value'] || '';
-    const equity   = row['Est. Equity'] || '';
-    const ltv      = row['Est. Loan-to-Value'] || '';
-    const phone    = pickPhone(row);
-    const ownerOcc = (row['Owner Occupied'] || '').trim().toLowerCase();
-
-    // Pick correct bucket based on lead type
-    const bucket        = isFailed ? failedAll : staleAll;
-    const existingIds   = isFailed ? existingFailedIds : existingStaleIds;
-    const idPrefix      = isFailed ? 'failed' : 'stale';
-
-    const id = stableId(`${idPrefix}-${address}-${city}-${state}`);
-
-    if (!bucket[countyKey]) bucket[countyKey] = [];
-    if (!existingIds[countyKey]) existingIds[countyKey] = new Set();
-
-    if (existingIds[countyKey].has(id)) {
-      result.skipped++;
-      continue;
-    }
-
-    const equityNum = parseFloat(String(equity).replace(/[^0-9.-]/g,'')) || 0;
-    const valueNum  = parseFloat(String(estVal).replace(/[^0-9.-]/g,'')) || 0;
-
-    const baseLead = {
-      id,
-      county:          countyKey,
-      type:            leadType,
-      owner:           owner || 'Unknown Owner',
-      address:         `${address}, ${city} ${state}`,
-      amount:          listPrc ? `$${Math.round(parseFloat(listPrc))||0}` : null,
-      filingDate:      null,
-      caseNumber:      null,
-      phone:           phone,
-      score:           50,
-      scrapedAt:       now,
-      uploadedAt:      now,
-      propertyType:    row['Property Type'] || '',
-      bedrooms:        row['Bedrooms'] || null,
-      bathrooms:       row['Total Bathrooms'] || null,
-      sqft:            row['Building Sqft'] || null,
-      listingPrice:    listPrc,
-      mlsStatus:       mlsStatus,
-      mlsDate:         mlsRaw,
-      estimatedValue:  valueNum || estVal,
-      estimatedEquity: equityNum || equity,
-      loanToValue:     ltv,
-      vacant:          ownerOcc === 'no',
-      absenteeOwner:   ownerOcc === 'no',
-      highEquity:      equityNum > 100000,
-      source:          'PropStream',
-    };
-
-    let lead;
-    if (isFailed) {
-      lead = {
-        ...baseLead,
-        daysSinceFailed: relevantDays,
-        notes: `${mlsStatus} ${relevantDays}d ago · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
-      };
-    } else {
-      lead = {
-        ...baseLead,
-        daysOnMarket: relevantDays,
-        priceReduced: false,
-        notes: `${relevantDays}d on market · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
-      };
-    }
-
-    bucket[countyKey].push(lead);
-    existingIds[countyKey].add(id);
-    result.added++;
-    if (isFailed) result.failedAdded++; else result.staleAdded++;
-    result.byCounty[countyKey] = (result.byCounty[countyKey] || 0) + 1;
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '', inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      result.push(cur); cur = '';
+    } else cur += ch;
   }
-
-  localStorage.setItem('intel_stale_listings',  JSON.stringify(staleAll));
-  localStorage.setItem('intel_failed_listings', JSON.stringify(failedAll));
+  result.push(cur);
   return result;
 }
 
-function stableId(str) {
-  // Simple stable hash for dedupe
-  let h = 0;
-  const s = str.toLowerCase().replace(/\s+/g, ' ').trim();
-  for (let i = 0; i < s.length; i++) {
-    h = ((h << 5) - h) + s.charCodeAt(i);
-    h |= 0;
-  }
-  return 'sl' + Math.abs(h).toString(36);
+function populateVAFilter() {
+  const vas = [...new Set(allRows.map(r => r[COL.va]).filter(Boolean))].sort();
+  const sel = document.getElementById('va-filter');
+  sel.innerHTML = '<option value="all">All Agents</option>' + vas.map(v => `<option value="${v}">${v}</option>`).join('');
 }
 
-function clearStaleListings() {
-  if (!confirm('Clear all uploaded stale + failed listings? This cannot be undone.')) return;
-  localStorage.removeItem('intel_stale_listings');
-  localStorage.removeItem('intel_failed_listings');
-  document.getElementById('uploadResult').innerHTML =
-    '<div style="color:var(--muted)">All uploaded listings cleared.</div>';
-  loadLeads();
-}
-
-function getFiltered() {
-  let leads = [...allLeads];
-
-  // Tax-delinquent: only show 3+ years delinquent
-  // Filter out leads where filingDate is within the last 3 years
-  const threeYearsAgo = new Date();
-  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
-
-  leads = leads.filter(l => {
-    if (l.type !== 'tax-delinquent') return true;
-    if (!l.filingDate) return true; // no date = keep (can't tell)
-    const filed = new Date(l.filingDate);
-    if (isNaN(filed)) return true;
-    return filed <= threeYearsAgo; // only 3+ years old
+function applyFilters() {
+  const va = document.getElementById('va-filter')?.value || 'all';
+  const score = document.getElementById('score-filter').value;
+  filteredRows = allRows.filter(r => {
+    if (va !== 'all' && r[COL.va] !== va) return false;
+    const s = parseFloat(r[COL.overall]);
+    if (score === 'flagged' && s >= 6) return false;
+    if (score === 'passing' && s < 6) return false;
+    return true;
   });
-
-  // Auto-exclude pre-foreclosure leads with auction dates >30 days past
-  // (auction likely went through, ownership may have changed)
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  if (!showExpired) {
-    leads = leads.filter(l => {
-      if (l.type !== 'pre-foreclosure') return true;
-      if (!l.auctionDate) return true; // no auction date = keep
-      const auction = new Date(l.auctionDate);
-      if (isNaN(auction)) return true;
-      return auction >= thirtyDaysAgo; // hide if auction was >30 days ago
-    });
-  }
-
-  if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
-  else if (activeFilter === 'new-today') {
-    const today = new Date().toDateString();
-    leads = leads.filter(l => new Date(l.scrapedAt).toDateString() === today);
-  }
-  else if (activeFilter === 'not-contacted') leads = leads.filter(l => !l.contacted);
-  else if (activeFilter === 'sfr') {
-    // Single family: only show traced leads with SFR type, untraced leads pass through
-    leads = leads.filter(l => {
-      if (!l.propertyType) return true; // untraced — keep
-      const t = l.propertyType.toLowerCase();
-      return t.includes('single') || t.includes('sfr') || t.includes('residential') ||
-             t.includes('001') || t.includes('100') || t === 'r';
-    });
-  }
-  else if (activeFilter === 'multi') {
-    // 2-4 units
-    leads = leads.filter(l => {
-      if (!l.propertyType) return true;
-      const t = l.propertyType.toLowerCase();
-      const u = parseInt(l.units) || 0;
-      return (u >= 2 && u <= 4) ||
-             t.includes('duplex') || t.includes('triplex') || t.includes('quadplex') ||
-             t.includes('2-4') || t.includes('multi') && u <= 4;
-    });
-  }
-  else if (activeFilter === 'apt') {
-    // Apartment / 5+ units
-    leads = leads.filter(l => {
-      if (!l.propertyType) return true;
-      const t = l.propertyType.toLowerCase();
-      const u = parseInt(l.units) || 0;
-      return (u >= 5) ||
-             t.includes('apartment') || t.includes('multi') && u >= 5 ||
-             t.includes('400') || t.includes('apartment');
-    });
-  }
-  else if (activeFilter !== 'all') leads = leads.filter(l => l.type === activeFilter);
-
-  if (searchQ) {
-    const q = searchQ.toLowerCase();
-    leads = leads.filter(l =>
-      (l.owner||'').toLowerCase().includes(q) ||
-      (l.address||'').toLowerCase().includes(q) ||
-      (l.caseNumber||'').toLowerCase().includes(q)
-    );
-  }
-
-  leads.sort((a,b) => {
-    if (sortBy === 'score') {
-      const scoreDiff = b.score - a.score;
-      if (scoreDiff !== 0) return scoreDiff;
-      // Tiebreak by amount owed (highest first)
-      const aAmt = parseFloat((a.amount||'0').replace(/[^0-9.]/g,'')) || 0;
-      const bAmt = parseFloat((b.amount||'0').replace(/[^0-9.]/g,'')) || 0;
-      return bAmt - aAmt;
-    }
-    if (sortBy === 'amount') return (parseFloat((b.amount||'0').replace(/[^0-9.]/g,''))||0) -
-                                    (parseFloat((a.amount||'0').replace(/[^0-9.]/g,''))||0);
-    if (sortBy === 'date')   return new Date(b.scrapedAt) - new Date(a.scrapedAt);
-    return 0;
-  });
-
-  return leads;
+  renderDashboard();
 }
 
-// ═══════════════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════════════
-const TYPE_LABELS = {
-  'tax-delinquent':  'TAX DELINQUENT',
-  'tax-foreclosure': 'TAX FORECLOSURE',
-  'pre-foreclosure': 'PRE-FORECLOSURE',
-  'stale-listing':   'STALE LISTING',
-  'failed-listing':  'FAILED LISTING',
-  'probate':         'PROBATE',
-  'state-warrant':   'STATE WARRANT',
-  'lis-pendens':     'LIS PENDENS',
-};
-
-function render() {
-  const leads = getFiltered();
-  const body  = document.getElementById('leadBody');
-  const empty = document.getElementById('emptyState');
-
-  if (!leads.length) {
-    body.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-  body.innerHTML = leads.map(row).join('');
-  updateExportCount();
+function avg(rows, col) {
+  const vals = rows.map(r => parseFloat(r[col])).filter(v => !isNaN(v));
+  return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
 }
-
-function row(l) {
-  const sc    = l.score;
-  const scCls = scoreClass(sc);
-  const lbl   = TYPE_LABELS[l.type] || l.type.toUpperCase();
-  const date  = fmtDate(l.filingDate || l.scrapedAt);
-  const hasPhone = !!l.phone;
-
-  // Check if auction date has passed (for pre-foreclosure leads)
-  let auctionBadge = '';
-  if (l.type === 'pre-foreclosure' && l.auctionDate) {
-    const auction = new Date(l.auctionDate);
-    const today = new Date();
-    if (!isNaN(auction) && auction < today) {
-      const daysAgo = Math.floor((today - auction) / (1000 * 60 * 60 * 24));
-      auctionBadge = `<span style="display:inline-block;font-size:8px;padding:2px 6px;margin-left:6px;border-radius:3px;background:rgba(239,68,68,0.15);color:#ef4444;font-weight:600;letter-spacing:1px;">⚠ AUCTION ${daysAgo}D AGO</span>`;
-    } else if (!isNaN(auction)) {
-      const daysUntil = Math.ceil((auction - today) / (1000 * 60 * 60 * 24));
-      if (daysUntil <= 14) {
-        auctionBadge = `<span style="display:inline-block;font-size:8px;padding:2px 6px;margin-left:6px;border-radius:3px;background:rgba(249,115,22,0.15);color:#f97316;font-weight:600;letter-spacing:1px;">🔥 AUCTION IN ${daysUntil}D</span>`;
-      }
-    }
-  }
-
-  const dots = [
-    { cls: 'td', active: l.type==='tax-delinquent'  || (l.stackedSignals||[]).includes('tax-delinquent')  },
-    { cls: 'tf', active: l.type==='tax-foreclosure' || (l.stackedSignals||[]).includes('tax-foreclosure') },
-    { cls: 'pr', active: l.type==='probate'         || (l.stackedSignals||[]).includes('probate')         },
-    { cls: 'sw', active: l.type==='state-warrant'   || (l.stackedSignals||[]).includes('state-warrant')   },
-    { cls: 'lp', active: l.type==='lis-pendens'     || (l.stackedSignals||[]).includes('lis-pendens')     },
-  ];
-
-  return `<tr class="lead-row${l.contacted?' contacted':''}" id="lr-${l.id}" onclick="openPanel('${l.id}')" style="cursor:pointer;">
-    <td>
-      <div class="score-badge ${scCls}">${sc}</div>
-    </td>
-    <td><span class="type-badge ${l.type}">${lbl}</span></td>
-    <td>
-      <div class="owner-name">${l.owner||'Unknown'}${auctionBadge}</div>
-      <div class="owner-addr">${l.address||'—'}</div>
-      ${l.caseNumber ? `<div style="font-size:8px;color:var(--muted);margin-top:2px">Case: ${l.caseNumber}</div>` : ''}
-    </td>
-    <td>
-      <div class="signals">
-        ${dots.map(d=>`<div class="sig-dot ${d.cls}${d.active?'':' off'}" title="${d.cls.toUpperCase()}"></div>`).join('')}
-      </div>
-    </td>
-    <td>
-      ${l.amount
-        ? `<span class="amount-val">${l.amount}</span>`
-        : `<span class="amount-nil">—</span>`}
-    </td>
-    <td style="font-size:9px;color:var(--dim)">${date}</td>
-    <td>
-      ${hasPhone
-        ? `<span class="phone-val">${l.phone}</span>`
-        : `<span class="phone-nil">NOT TRACED</span>`}
-    </td>
-    <td onclick="event.stopPropagation()">
-      <div class="actions">
-        <button class="btn-st${l.phone?' done':''}" id="st-${l.id}"
-          onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
-          ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
-        </button>
-        <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
-          ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
-        </button>
-        <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
-          ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
-        </button>
-        <button class="btn-contacted${l.contacted?' on':''}" onclick="toggleContacted('${l.id}')">
-          ${l.contacted ? '✓' : '○'}
-        </button>
-      </div>
-    </td>
-  </tr>`;
+function scoreColor(s) {
+  if (s < 3) return 'var(--red)'; if (s < 5) return 'var(--yellow)'; if (s < 7) return '#58a6ff'; return 'var(--green)';
 }
+function chipClass(s) { return s < 3 ? 'chip-r' : s < 6 ? 'chip-y' : 'chip-g'; }
 
-function fmtDate(d) {
-  if (!d) return '—';
-  try { return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
-  catch { return d; }
-}
+function renderDashboard() {
+  const rows = filteredRows;
+  if (!rows.length) { document.getElementById('main').innerHTML = '<div class="error-box">No calls match the current filters.</div>'; return; }
 
-// ═══════════════════════════════════════════════════════════
-// SKIP TRACE
-// ═══════════════════════════════════════════════════════════
-async function skipTrace(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
+  const total = rows.length;
+  const flagged = rows.filter(r => parseFloat(r[COL.overall]) < 6).length;
+  const passing = total - flagged;
+  const teamAvg = avg(rows, COL.overall);
+  const vas = [...new Set(rows.map(r => r[COL.va]))];
+  const overalls = rows.map(r => parseFloat(r[COL.overall])).filter(v => !isNaN(v));
+  const best = overalls.length ? Math.max(...overalls) : 0;
+  const worst = overalls.length ? Math.min(...overalls) : 0;
 
-  const btn = document.getElementById(`st-${l.id}`);
-  btn.textContent = 'TRACING...';
-  btn.classList.add('loading');
-  btn.disabled = true;
+  const kpiHtml = `<div class="kpi-row">
+    <div class="kpi"><div class="kpi-label">Total calls</div><div class="kpi-val">${total}</div><div class="kpi-sub" style="color:var(--muted)">${vas.length} VA${vas.length>1?'s':''}</div></div>
+    <div class="kpi"><div class="kpi-label">Team avg score</div><div class="kpi-val" style="color:${scoreColor(teamAvg)}">${teamAvg.toFixed(1)}</div><div class="kpi-sub yt">Target: 6.0+</div></div>
+    <div class="kpi"><div class="kpi-label">Flagged (under 6)</div><div class="kpi-val rt">${flagged}</div><div class="kpi-sub rt">${Math.round(flagged/total*100)}% of calls</div></div>
+    <div class="kpi"><div class="kpi-label">Passing (6+)</div><div class="kpi-val gt">${passing}</div><div class="kpi-sub gt">${Math.round(passing/total*100)}% pass rate</div></div>
+    <div class="kpi"><div class="kpi-label">Best / Worst</div><div class="kpi-val gt">${best.toFixed(1)}</div><div class="kpi-sub rt">Worst: ${worst.toFixed(1)}</div></div>
+  </div>`;
 
-  try {
-    const res = await fetch('/.netlify/functions/skip-trace', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        owner:   l.owner,
-        address: l.address,
-      })
-    });
-
-    const data = await res.json();
-
-    if (data.phone) {
-      l.phone = data.phone;
-      phones[l.id] = data.phone;
-      // Store property type if returned
-      if (data.propertyType) {
-        l.propertyType = data.propertyType;
-        l.bedrooms     = data.bedrooms || null;
-        l.units        = data.units || null;
-        const propTypes = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
-        propTypes[l.id] = { type: data.propertyType, bedrooms: data.bedrooms, units: data.units };
-        localStorage.setItem('intel_propTypes', JSON.stringify(propTypes));
-      }
-      localStorage.setItem('intel_phones', JSON.stringify(phones));
-      btn.textContent = '✓ TRACED';
-      btn.classList.remove('loading');
-      btn.classList.add('done');
-      // Update row phone cell + enable SMS button
-      render();
-      toast('Skip trace complete — phone number found ✓', 'ok');
-    } else {
-      btn.textContent = '⚡ SKIP TRACE';
-      btn.classList.remove('loading');
-      btn.disabled = false;
-      toast('No phone found — try manual lookup', 'err');
-    }
-  } catch(e) {
-    btn.textContent = '⚡ SKIP TRACE';
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    toast('Skip trace failed — check BatchData config', 'err');
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// MONDAY PUSH
-// ═══════════════════════════════════════════════════════════
-async function pushMonday(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-
-  const btn = document.getElementById(`mon-${l.id}`);
-  btn.textContent = 'PUSHING...';
-  btn.disabled    = true;
-
-  try {
-    // Route to different Monday boards based on lead type
-    // Zapier can branch on list_id: "stale-listings" -> different board than "intel-main"
-    // Stale and Failed listings share the same Monday board per user preference
-    const isListing = l.type === 'stale-listing' || l.type === 'failed-listing';
-    const listId = isListing ? 'stale-listings' : 'intel-main';
-    let sourceLabel;
-    if (l.type === 'stale-listing') {
-      sourceLabel = `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`;
-    } else if (l.type === 'failed-listing') {
-      sourceLabel = `INTEL Failed Listings — ${(l.county || '').toUpperCase()}`;
-    } else {
-      sourceLabel = `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
-    }
-
-    await fetch(CONFIG.zapierWebhook, {
-      method: 'POST',
-      mode:   'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        list_id:     listId,
-        name:        l.owner || 'Unknown',
-        address:     l.address || '',
-        lead_type:   TYPE_LABELS[l.type] || l.type,
-        amount:      l.amount || '',
-        case_number: l.caseNumber || '',
-        filing_date: l.filingDate || '',
-        score:       l.score,
-        phone:       l.phone || '',
-        notes:       l.notes || '',
-        county:      l.county || '',
-        // Stale-listing specific fields (ignored by main board)
-        days_on_market:   l.daysOnMarket || '',
-        listing_price:    l.listingPrice || '',
-        estimated_value:  l.estimatedValue || '',
-        estimated_equity: l.estimatedEquity || '',
-        mls_status:       l.mlsStatus || '',
-        source:           sourceLabel,
-        pushed_at:        new Date().toISOString(),
-      })
-    });
-    l.pushed = true;
-    pushed.add(id);
-    localStorage.setItem('intel_pushed', JSON.stringify([...pushed]));
-    btn.textContent = '✓ SENT';
-    btn.classList.add('pushed');
-    toast('Pushed to Monday ✓', 'ok');
-  } catch {
-    btn.textContent = '📋 MONDAY';
-    btn.disabled    = false;
-    toast('Push failed', 'err');
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// CONTACTED
-// ═══════════════════════════════════════════════════════════
-function toggleContacted(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-  l.contacted = !l.contacted;
-  if (l.contacted) contacted.add(id); else contacted.delete(id);
-  localStorage.setItem('intel_contacted', JSON.stringify([...contacted]));
-  render();
-}
-
-// ═══════════════════════════════════════════════════════════
-// SMS — fires drip webhook directly, no modal
-// ═══════════════════════════════════════════════════════════
-async function openSMS(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l || !l.phone) return;
-
-  // Title case helper — "PATRICK Y GAYNOR" → "Patrick Y Gaynor"
-  const toTitle = s => s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-
-  // Parse name into first / last
-  const nameParts = (l.owner || '').replace(/^Estate of\s+/i, '').trim().split(/\s+/);
-  const firstName = toTitle(nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : nameParts[0] || '');
-  const lastName  = toTitle(nameParts[nameParts.length - 1] || '');
-
-  // Parse address down to just "1628 N Porter Ave" — strip city, state, zip
-  const streetRaw  = (l.address || '').split(',')[0].replace(/\s+/g, ' ').trim();
-  // Title case but keep direction abbreviations (N, S, E, W, NE, NW, SE, SW) uppercase
-  const streetOnly = streetRaw.toLowerCase()
-    .replace(/\b\w/g, c => c.toUpperCase())
-    .replace(/\b(N|S|E|W|Ne|Nw|Se|Sw|Ave|St|Rd|Dr|Blvd|Ln|Ct|Pl|Way|Ter)\b/g,
-      m => m.length <= 2 ? m.toUpperCase() : m);
-
-  try {
-    await fetch('/.netlify/functions/drip-webhook', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:        l.owner      || '',
-        first_name:  firstName,
-        last_name:   lastName,
-        phone:       l.phone      || '',
-        address:     l.address    || '',
-        street:      streetOnly,
-        lead_type:   l.type       || '',
-        amount:      l.amount     || '',
-        case_number: l.caseNumber || '',
-        score:       l.score      || 0,
-        county:      l.county     || '',
-        source:      'INTEL',
-        triggered_at: new Date().toISOString(),
-      })
-    });
-    // Mark as texted so button goes dark + prevents double-send
-    l.texted = true;
-    texted.add(id);
-    localStorage.setItem('intel_texted', JSON.stringify([...texted]));
-    const smsBtn = document.getElementById(`sms-${id}`);
-    if (smsBtn) {
-      smsBtn.classList.add('texted');
-      smsBtn.textContent = '✓ TEXTED';
-      smsBtn.disabled = true;
-    }
-    toast('Sent ✓', 'ok');
-  } catch {
-    toast('Drip webhook failed', 'err');
-  }
-}
-
-function closeModal() {
-  document.getElementById('smsOverlay').classList.remove('open');
-  activeLead = null;
-}
-
-function countChars() {
-  const n = document.getElementById('smsMsg').value.length;
-  const el = document.getElementById('charCount');
-  if (!el) return;
-  el.textContent = n;
-  el.style.color = n > 160 ? 'var(--red)' : n > 140 ? 'var(--accent)' : '';
-}
-
-async function sendSMS() {
-  // Legacy — no longer used
-}
-
-async function sendSMS() {
-  const phone = document.getElementById('smsPhone').value.replace(/\D/g,'');
-  const msg   = document.getElementById('smsMsg').value.trim();
-  if (phone.length < 10) { toast('Enter a valid phone number', 'err'); return; }
-  if (!msg)              { toast('Message is empty', 'err'); return; }
-
-  try {
-    const res = await fetch('/.netlify/functions/send-sms', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone, message: msg, leadId: activeLead?.id })
-    });
-    const data = await res.json();
-    if (data.success) {
-      closeModal();
-      toast('Text sent ✓', 'ok');
-    } else {
-      toast(data.error || 'Send failed', 'err');
-    }
-  } catch {
-    toast('SMS failed — check SlickText config', 'err');
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════════════════
-function toast(msg, type='ok') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className   = `toast show ${type}`;
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 3200);
-}
-
-// ═══════════════════════════════════════════════════════════
-// LEAD DETAIL PANEL
-// ═══════════════════════════════════════════════════════════
-let panelLeadId = null;
-
-const SIGNAL_DEFS = [
-  { type:'tax-delinquent',  cls:'td', label:'Tax Delinquent' },
-  { type:'tax-foreclosure', cls:'tf', label:'Tax Foreclosure' },
-  { type:'probate',         cls:'pr', label:'Probate / Estate' },
-  { type:'state-warrant',   cls:'sw', label:'State Warrant' },
-  { type:'lis-pendens',     cls:'lp', label:'Lis Pendens' },
-];
-
-function openPanel(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-  panelLeadId = id;
-
-  const sc    = l.score;
-  const scCls = scoreClass(sc);
-  const lbl   = TYPE_LABELS[l.type] || l.type;
-
-  // Score
-  const scoreEl = document.getElementById('panelScore');
-  scoreEl.textContent = sc;
-  scoreEl.className   = `panel-score ${scCls}`;
-
-  // Header
-  document.getElementById('panelOwner').textContent = l.owner || 'Unknown';
-  document.getElementById('panelAddr').textContent  = l.address || '—';
-  document.getElementById('panelBadge').innerHTML   =
-    `<span class="type-badge ${l.type}" style="margin-top:4px;display:inline-block">${lbl}</span>`;
-
-  // Details
-  document.getElementById('panelAmount').textContent = l.amount || '—';
-  document.getElementById('panelAmount').className   = l.amount ? 'panel-val money' : 'panel-val';
-  document.getElementById('panelDate').textContent   = fmtDate(l.filingDate || l.scrapedAt);
-  document.getElementById('panelCase').textContent   = l.caseNumber || '—';
-  document.getElementById('panelSource').textContent = 'INTEL — Sedgwick County';
-
-  const phoneEl = document.getElementById('panelPhone');
-  if (l.phone) {
-    phoneEl.textContent = l.phone;
-    phoneEl.className   = 'panel-val phone';
-  } else {
-    phoneEl.textContent = 'NOT TRACED';
-    phoneEl.className   = 'panel-val';
-  }
-
-  // Signals
-  const stacked = l.stackedSignals || [];
-  document.getElementById('panelSignals').innerHTML = SIGNAL_DEFS.map(s => {
-    const active = l.type === s.type || stacked.includes(s.type);
-    return `<span class="panel-sig ${active ? 'active-'+s.cls : 'inactive'}">${s.label}</span>`;
+  const vaBarsHtml = vas.map(v => {
+    const vr = rows.filter(r => r[COL.va] === v);
+    const dims = [{l:'Script',c:COL.script},{l:'Objections',c:COL.objections},{l:'Tone',c:COL.tone},{l:'Overall',c:COL.overall}];
+    return `<div>
+      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px">${v} <span style="color:var(--muted);font-size:11px">(${vr.length} calls)</span></div>
+      ${dims.map(d => { const a = avg(vr,d.c); return `<div class="sbar"><span class="sbar-name">${d.l}</span><div class="sbar-track"><div class="sbar-fill" style="width:${(a/10*100).toFixed(0)}%;background:${scoreColor(a)}"></div></div><span class="sbar-val">${a.toFixed(1)}</span></div>`; }).join('')}
+    </div>`;
   }).join('');
 
-  // Notes
-  const notesWrap = document.getElementById('panelNotesWrap');
-  if (l.notes) {
-    notesWrap.style.display = 'block';
-    document.getElementById('panelNotes').textContent = l.notes;
-  } else {
-    notesWrap.style.display = 'none';
+  const tableRows = [...rows].sort((a,b) => new Date(b[COL.date]) - new Date(a[COL.date])).slice(0,50);
+  const tableHtml = tableRows.map(r => {
+    const o = parseFloat(r[COL.overall])||0, s = parseFloat(r[COL.script])||0, obj = parseFloat(r[COL.objections])||0, t = parseFloat(r[COL.tone])||0;
+    const sum = (r[COL.summary]||'').substring(0,90) + ((r[COL.summary]||'').length>90?'…':'');
+    const lnk = r[COL.link]||'';
+    return `<tr>
+      <td style="white-space:nowrap;font-family:var(--mono);font-size:11px">${r[COL.date]||''}</td>
+      <td><span class="va-pill">${r[COL.va]||''}</span></td>
+      <td><span class="chip ${chipClass(o)}">${o.toFixed(1)}</span></td>
+      <td><span class="chip ${chipClass(s)}">${s||'—'}</span></td>
+      <td><span class="chip ${chipClass(obj)}">${obj||'—'}</span></td>
+      <td><span class="chip ${chipClass(t)}">${t||'—'}</span></td>
+      <td style="font-size:11px;color:var(--muted);line-height:1.4">${sum}</td>
+      <td>${lnk?`<a href="${lnk}" target="_blank">▶ Play</a>`:'—'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('main').innerHTML = `
+    ${kpiHtml}
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Score breakdown by VA</span><span class="badge">${filteredRows.length} calls</span></div>
+      <div class="panel-body"><div class="score-grid">${vaBarsHtml}</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Call log</span><span class="badge">Most recent 50</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Date</th><th>VA</th><th>Overall</th><th>Script</th><th>Objections</th><th>Tone</th><th>Summary</th><th>Recording</th></tr></thead>
+        <tbody>${tableHtml}</tbody>
+      </table></div>
+    </div>
+    <div class="panel" id="insights-panel">
+      <div class="panel-head"><span class="panel-title">AI coaching analysis</span><span class="badge" id="ins-badge">Click "Run coaching analysis" →</span></div>
+      <div id="ins-content"><div class="empty" style="padding:30px 20px">Hit the button in the sidebar to generate coaching bullets from this data.</div></div>
+    </div>
+    <div class="panel" id="training-panel">
+      <div class="panel-head"><span class="panel-title">Training prompts</span><span class="badge" id="training-badge">Click "Generate training prompts" →</span></div>
+      <div id="training-content"><div class="empty" style="padding:30px 20px">Roleplay scripts and drills built from this week's weaknesses.</div></div>
+    </div>
+    `;
+}
+
+async function runAnalysis() {
+  if (!filteredRows.length) return;
+  const btn = document.getElementById('analyze-btn');
+  btn.disabled = true;
+  const ic = document.getElementById('ins-content');
+  const ib = document.getElementById('ins-badge');
+  if (!ic) { btn.disabled = false; return; }
+  ib.textContent = 'Analyzing…';
+  ic.innerHTML = '<div class="load-bar"></div><div style="padding:16px;color:var(--muted);font-size:13px;font-family:var(--mono)">Dial is reading ' + filteredRows.length + ' call records…</div>';
+
+  const ctx = document.getElementById('extra-ctx').value.trim();
+  const sample = filteredRows.slice(0,60).map(r => ({
+    va: r[COL.va], date: r[COL.date],
+    scores: { overall: parseFloat(r[COL.overall])||0, script: parseFloat(r[COL.script])||0, objections: parseFloat(r[COL.objections])||0, tone: parseFloat(r[COL.tone])||0 },
+    summary: (r[COL.summary]||'').substring(0,100).replace(/"/g,"'"),
+    flags: (r[COL.flags]||'').replace(/"/g,"'"), coaching: (r[COL.coaching]||'').replace(/"/g,"'")
+  }));
+
+  const prompt = `You are an expert sales coach for OneRoof Real Estate, a real estate wholesaling company. VAs cold call distressed sellers. Scoring: Script Adherence (1-10), Objection Handling (1-10), Tone (1-10), Overall (1-10). Passing is 6+. This dataset has ${filteredRows.length} calls.
+${ctx ? `\nManager context: ${ctx}\n` : ''}
+Call data (up to 60 of ${filteredRows.length} calls):
+${JSON.stringify(sample, null, 0)}
+
+Return ONLY valid JSON (no markdown, no code fences, no preamble). Keep each bullet under 25 words. Max 3 bullets per section:
+{"sections":[{"heading":"Immediate coaching priorities","bullets":[{"priority":"high","text":"..."},{"priority":"high","text":"..."},{"priority":"med","text":"..."}]},{"heading":"Individual VA feedback","bullets":[{"priority":"high","text":"..."},{"priority":"med","text":"..."}]},{"heading":"Training drill for this week","bullets":[{"priority":"med","text":"..."},{"priority":"med","text":"..."}]},{"heading":"What's working — reinforce this","bullets":[{"priority":"low","text":"..."},{"priority":"low","text":"..."}]}]}
+
+Rules: Be hyper-specific. Name VAs. Reference exact scores. Write like a real sales manager. If company name mispronunciations appear (OneBroof, Windroof, Monroe, OneRue, One Group), lead with that.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {
+        'Content-Type':'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const raw = data.content.map(b => b.text||'').join('');
+    const parsed = safeParseJSON(raw);
+    ic.innerHTML = '<div class="ins-body">' + parsed.sections.map(sec =>
+      `<div class="ins-sec"><div class="ins-head">${sec.heading}</div>${sec.bullets.map(b =>
+        `<div class="bullet ${b.priority}"><div class="bdot ${b.priority}"></div><span>${b.text}</span></div>`).join('')}</div>`
+    ).join('') + '</div>';
+    ib.textContent = 'Updated ' + new Date().toLocaleTimeString();
+  } catch(e) {
+    ic.innerHTML = `<div class="error-box" style="margin:16px">Analysis failed: ${e.message}</div>`;
+    ib.textContent = 'Error';
+  } finally { btn.disabled = false; }
+}
+
+async function runTraining() {
+  if (!filteredRows.length) return;
+  const btn = document.getElementById('training-btn');
+  btn.disabled = true;
+  const tc = document.getElementById('training-content');
+  const tb = document.getElementById('training-badge');
+  if (!tc) { btn.disabled = false; return; }
+  tb.textContent = 'Generating…';
+  tc.innerHTML = '<div class="load-bar"></div><div style="padding:16px;color:var(--muted);font-size:13px;font-family:var(--mono)">Building training drills from this week&#39;s data…</div>';
+
+  const ctx = document.getElementById('extra-ctx').value.trim();
+  const sample = filteredRows.slice(0,60).map(r => ({
+    va: r[COL.va], scores: { overall: parseFloat(r[COL.overall])||0, script: parseFloat(r[COL.script])||0, objections: parseFloat(r[COL.objections])||0, tone: parseFloat(r[COL.tone])||0 },
+    coaching: (r[COL.coaching]||'').replace(/"/g,"'"), flags: (r[COL.flags]||'').replace(/"/g,"'")
+  }));
+
+  const prompt = `You are a real estate wholesaling sales trainer for OneRoof Real Estate. VAs cold call distressed sellers. This week's data shows ${filteredRows.length} calls with a team avg score of ${(filteredRows.reduce((s,r)=>s+(parseFloat(r[COL.overall])||0),0)/filteredRows.length).toFixed(1)}/10.
+${ctx ? 'Context: '+ctx : ''}
+Call data: ${JSON.stringify(sample, null, 0)}
+
+Generate practical, specific training content the team can use TODAY. Return ONLY valid JSON:
+{
+  "drills": [
+    {
+      "title": "Drill name (e.g. Company Name Cold Open)",
+      "weakness": "What the data shows is broken",
+      "script": "The exact word-for-word script the VA should say",
+      "roleplay": "Step-by-step roleplay exercise: how to run it, what objections to throw, how to score it",
+      "goal": "What passing looks like"
+    }
+  ],
+  "quickfires": [
+    {"prompt": "Objection the manager throws", "ideal_response": "What the VA should say back"}
+  ]
+}
+Generate 3 drills targeting the biggest weaknesses in the data, and 5 quickfire objection responses. Be hyper-specific to what the data shows — e.g. if company name is being mispronounced, the first drill must fix that with exact pronunciation and script. Name exact patterns from the coaching notes.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {
+        'Content-Type':'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const raw = data.content.map(b => b.text||'').join('');
+    const parsed = safeParseJSON(raw);
+
+    let html = '<div class="ins-body">';
+
+    if (parsed.drills) {
+      html += '<div class="ins-sec"><div class="ins-head">Roleplay drills</div>';
+      parsed.drills.forEach((d, i) => {
+        html += `<div style="background:rgba(56,139,253,0.06);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:6px">DRILL ${i+1}</div>
+          <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px">${d.title}</div>
+          <div style="font-size:12px;color:var(--red);margin-bottom:8px">⚠ Weakness: ${d.weakness}</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Script to use:</div>
+          <div style="background:var(--bg2);border-radius:6px;padding:10px;font-size:13px;color:var(--text);line-height:1.6;margin-bottom:8px;font-style:italic">"${d.script}"</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">How to run the roleplay:</div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:8px">${d.roleplay}</div>
+          <div style="font-size:12px;color:var(--green)">✓ Passing looks like: ${d.goal}</div>
+        </div>`;
+      });
+      html += '</div>';
+    }
+
+    if (parsed.quickfires) {
+      html += '<div class="ins-sec" style="margin-top:8px"><div class="ins-head">Quickfire objection practice</div>';
+      html += '<div style="font-size:12px;color:var(--muted);margin-bottom:10px">Manager throws these one by one — VA responds without pausing</div>';
+      parsed.quickfires.forEach((q, i) => {
+        html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div style="background:rgba(248,81,73,0.08);border-left:3px solid var(--red);padding:10px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.5">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-family:var(--mono)">MANAGER SAYS:</div>
+            "${q.prompt}"
+          </div>
+          <div style="background:rgba(63,185,80,0.08);border-left:3px solid var(--green);padding:10px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.5">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-family:var(--mono)">VA SHOULD SAY:</div>
+            "${q.ideal_response}"
+          </div>
+        </div>`;
+      });
+      html += '</div>';
+    }
+
+    html += '</div>';
+    tc.innerHTML = html;
+    tb.textContent = 'Updated ' + new Date().toLocaleTimeString();
+  } catch(e) {
+    tc.innerHTML = `<div class="error-box" style="margin:16px">Training generation failed: ${e.message}</div>`;
+    tb.textContent = 'Error';
+  } finally { btn.disabled = false; }
+}
+
+function safeParseJSON(raw) {
+  // Strip markdown fences
+  raw = raw.replace(/```json|```/g, '').trim();
+  // Try direct parse first
+  try { return JSON.parse(raw); } catch(e) {}
+  // Find the outermost JSON object/array and try again
+  const start = raw.search(/[{[]/);
+  const end = Math.max(raw.lastIndexOf('}'), raw.lastIndexOf(']'));
+  if (start !== -1 && end !== -1) {
+    try { return JSON.parse(raw.slice(start, end + 1)); } catch(e) {}
   }
-
-  // Action buttons
-  const stBtn = document.getElementById('panelBtnST');
-  if (l.phone) {
-    stBtn.textContent = '✓ Already Skip Traced';
-    stBtn.classList.add('done');
-    stBtn.disabled = true;
-  } else {
-    stBtn.textContent = '⚡ Skip Trace — Find Phone Number';
-    stBtn.classList.remove('done');
-    stBtn.disabled = false;
-  }
-
-  const smsBtn = document.getElementById('panelBtnSMS');
-  smsBtn.disabled = !l.phone;
-
-  const monBtn = document.getElementById('panelBtnMon');
-  if (l.pushed) {
-    monBtn.textContent = '✓ Already Pushed to Monday';
-    monBtn.classList.add('pushed');
-  } else {
-    monBtn.textContent = '📋 Push to Monday.com';
-    monBtn.classList.remove('pushed');
-  }
-
-  const contactBtn = document.getElementById('panelBtnContacted');
-  contactBtn.textContent = l.contacted ? '✓ Mark as Not Contacted' : '○ Mark as Contacted';
-  contactBtn.classList.toggle('done', l.contacted);
-
-  // External links
-  const addrEncoded = encodeURIComponent((l.address || '').replace(', Wichita KS','') + ' Wichita KS');
-  document.getElementById('panelApprLink').href =
-    `https://ssc.sedgwickcounty.org/propertytax/default.aspx?search=${addrEncoded}`;
-  document.getElementById('panelGoogleLink').href =
-    `https://www.google.com/maps/search/${encodeURIComponent(l.address || 'Wichita KS')}`;
-
-  // Open
-  document.getElementById('panelOverlay').classList.add('open');
-  document.getElementById('leadPanel').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  throw new Error('Could not parse AI response as JSON');
 }
 
-function closePanel() {
-  document.getElementById('panelOverlay').classList.remove('open');
-  document.getElementById('leadPanel').classList.remove('open');
-  document.body.style.overflow = '';
-  panelLeadId = null;
-}
+function showError(msg) { document.getElementById('main').innerHTML = `<div class="error-box">${msg}</div>`; }
 
-// Panel action wrappers
-async function panelSkipTrace() {
-  if (!panelLeadId) return;
-  closePanel();
-  await skipTrace(panelLeadId);
-  // Reopen with fresh data
-  openPanel(panelLeadId);
-}
-
-function panelSendSMS() {
-  if (!panelLeadId) return;
-  closePanel();
-  openSMS(panelLeadId);
-}
-
-async function panelPushMonday() {
-  if (!panelLeadId) return;
-  await pushMonday(panelLeadId);
-  openPanel(panelLeadId); // refresh panel state
-}
-
-function panelToggleContacted() {
-  if (!panelLeadId) return;
-  toggleContacted(panelLeadId);
-  openPanel(panelLeadId); // refresh panel state
-}
-
-// Close panel on Escape key
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-// ═══════════════════════════════════════════════════════════
-// EXPORT CSV
-// ═══════════════════════════════════════════════════════════
-function exportCSV(mode) {
-  const leads = mode === 'traced'
-    ? getFiltered().filter(l => l.phone)
-    : getFiltered();
-
-  if (!leads.length) {
-    toast(mode === 'traced' ? 'No skip traced leads to export' : 'No leads to export', 'err');
-    return;
-  }
-
-  const headers = ['Owner','Address','Phone','Type','Score','Amount Owed','Case Number','Filing Date','Notes','Source'];
-
-  const rows = leads.map(l => [
-    csvCell(l.owner),
-    csvCell(l.address),
-    csvCell(l.phone || ''),
-    csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
-    l.score,
-    csvCell(l.amount || ''),
-    csvCell(l.caseNumber || ''),
-    csvCell(l.filingDate || ''),
-    csvCell(l.notes || ''),
-    csvCell('INTEL — Sedgwick County'),
-  ]);
-
-  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  const date = new Date().toISOString().slice(0,10);
-  a.href     = url;
-  a.download = `intel-sedgwick-${mode}-${date}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-
-  toast(`Exported ${leads.length} leads ✓`, 'ok');
-}
-
-function csvCell(val) {
-  const s = String(val || '').replace(/"/g, '""');
-  return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s}"` : s;
-}
-
-// update export count whenever filter changes
-function updateExportCount() {
-  const traced = getFiltered().filter(l => l.phone).length;
-  const el = document.getElementById('exportCount');
-  if (el) el.textContent = traced > 0 ? `${traced} traced` : '';
-}
-
-// ═══════════════════════════════════════════════════════════
-function sampleLeads() {
-  const n = new Date().toISOString();
-  return [
-    { id:'s1', type:'tax-delinquent',  owner:'JOHNSON ROBERT E',              address:'2314 N Hydraulic Ave, Wichita KS 67219', amount:'$6,842.14', filingDate:'2022-01-01', scrapedAt:n, notes:'Real estate delinquent 3+ yrs' },
-    { id:'s2', type:'probate',          owner:'Estate of MARTHA L WILLIAMS',   address:'1847 S Grove St, Wichita KS 67211',      amount:null,        filingDate:n,            scrapedAt:n, caseNumber:'2026-PR-000412', notes:'Probate hearing scheduled', stackedSignals:['tax-delinquent'] },
-    { id:'s3', type:'tax-foreclosure', owner:'PATEL VIKRAM S',                 address:'934 W 13th St N, Wichita KS 67203',      amount:'$11,204.00', filingDate:'2025-12-15', scrapedAt:n, notes:'Tax foreclosure auction' },
-    { id:'s4', type:'state-warrant',   owner:'ANDERSON CAROL J',               address:'3201 E Lincoln St, Wichita KS 67218',    amount:'$3,155.22', filingDate:'2025-11-20', scrapedAt:n, caseNumber:'KS-W-2025-84421' },
-    { id:'s5', type:'tax-delinquent',  owner:'TAYLOR JAMES D',                 address:'501 S Seneca St, Wichita KS 67213',      amount:'$4,219.66', filingDate:'2022-01-01', scrapedAt:n, stackedSignals:['state-warrant'] },
-    { id:'s6', type:'probate',          owner:'Estate of DOROTHY M CLARK',     address:'738 N Clifton Ave, Wichita KS 67208',    amount:null,        filingDate:n,            scrapedAt:n, caseNumber:'2026-PR-000398' },
-    { id:'s7', type:'tax-delinquent',  owner:'WASHINGTON LINDA K',             address:'1120 N Mosley St, Wichita KS 67214',     amount:'$8,901.33', filingDate:'2021-01-01', scrapedAt:n, notes:'4+ yrs delinquent', stackedSignals:['probate'] },
-    { id:'s8', type:'state-warrant',   owner:'GARCIA MIGUEL A',                address:'2809 W 21st St N, Wichita KS 67204',     amount:'$5,488.00', filingDate:'2025-09-10', scrapedAt:n, caseNumber:'KS-W-2025-71093' },
-  ];
-}
 </script>
 </body>
 </html>
