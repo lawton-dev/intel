@@ -16,23 +16,47 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
-  const { owner, address } = body;
+  const { owner, address, county } = body;
   if (!owner && !address) {
     return { statusCode: 400, body: JSON.stringify({ error: 'owner or address required' }) };
   }
 
   // ── Parse address ──────────────────────────────────────────
-  const addrParts = (address || '').split(',');
-  const street    = (addrParts[0] || '').trim();
-  const cityState = (addrParts[1] || '').trim();
+  // Handles formats like:
+  //   "123 Main St, Houston TX 77002"
+  //   "123 Main St, Las Vegas NV"
+  //   "123 Main St, Wichita, KS 67202"  (extra comma)
+  //   "123 main st, las vegas nv 89121" (lowercase)
+  const fullAddr = String(address || '').trim();
+  const parts    = fullAddr.split(',').map(s => s.trim()).filter(Boolean);
 
-  // Extract city, state, zip — strip zip+4
-  const csMatch = cityState.match(/^(.*?)\s+([A-Z]{2})\s*(\d{5})?\d*/);
-  const city    = csMatch ? csMatch[1].trim() : 'Wichita';
-  const state   = csMatch ? csMatch[2] : 'KS';
-  let   zip     = csMatch?.[3] || '';
+  const street = parts[0] || '';
+
+  // Everything after the street is city/state/zip — may be one or two comma-separated chunks
+  const tail = parts.slice(1).join(' ').toUpperCase().trim();
+
+  // Match: CITY (any words) STATE (2 letters) optional ZIP (5 digits)
+  const csMatch = tail.match(/^(.+?)\s+([A-Z]{2})(?:\s+(\d{5}))?/);
+
+  let city  = csMatch ? csMatch[1].trim() : '';
+  let state = csMatch ? csMatch[2] : '';
+  let zip   = csMatch?.[3] || '';
+
+  // Fallbacks if regex failed — try to infer from county
+  if (!state) {
+    // County → state mapping for known markets
+    const COUNTY_STATE = {
+      sedgwick: 'KS', harvey: 'KS', butler: 'KS', sumner: 'KS',
+      harris: 'TX', tarrant: 'TX', dallas: 'TX',
+      clark: 'NV', maricopa: 'AZ', shelby: 'TN',
+    };
+    state = COUNTY_STATE[(county || '').toLowerCase()] || 'KS';
+  }
+  if (!city) {
+    city = parts[parts.length - 1]?.split(/\s+/)[0] || 'Unknown';
+  }
   if (!zip) {
-    const zm = (address || '').match(/(\d{5})\d*/);
+    const zm = fullAddr.match(/\b(\d{5})\b/);
     if (zm) zip = zm[1];
   }
 
@@ -50,11 +74,26 @@ exports.handler = async (event) => {
   const lastName2  = nameParts[0] || '';
   const firstName2 = nameParts.slice(1).join(' ') || '';
 
-  // ── Extract phones from confirmed response structure ────────
-  function extractPhones(data) {
+  // ── Extract phones + property type from confirmed response structure ────
+  function extractData(data) {
     const phones = [];
+    let propertyType = null;
+    let bedrooms = null;
+    let units = null;
+
     const records = data?.result?.data || [];
     records.forEach(rec => {
+      // Property characteristics
+      const prop = rec?.property || {};
+      const chars = prop?.characteristics || prop?.building || {};
+      propertyType = propertyType ||
+        prop?.landUse || prop?.propertyType || prop?.useCode ||
+        chars?.useCode || chars?.landUse || chars?.propertyType ||
+        prop?.summary?.propClass || null;
+      bedrooms = bedrooms || chars?.bedrooms || chars?.bedsCount || null;
+      units    = units    || chars?.unitsCount || chars?.unitCount || prop?.units || null;
+
+      // Phones
       (rec?.persons || []).forEach(person => {
         (person?.phones || []).forEach(ph => {
           const num = ph.number || ph.phone || ph.phoneNumber;
@@ -73,7 +112,7 @@ exports.handler = async (event) => {
       });
     });
 
-    // Sort: by rank (BatchData already ranks them), prefer mobile + reachable
+    // Sort: by rank, prefer mobile + reachable
     phones.sort((a,b) => {
       if (a.reachable && !b.reachable) return -1;
       if (b.reachable && !a.reachable) return 1;
@@ -82,7 +121,7 @@ exports.handler = async (event) => {
       return a.rank - b.rank;
     });
 
-    return phones;
+    return { phones, propertyType, bedrooms, units };
   }
 
   async function doTrace(firstName, lastName) {
@@ -105,20 +144,20 @@ exports.handler = async (event) => {
   try {
     // Attempt 1: FIRST LAST order
     const data1   = await doTrace(firstName1, lastName1);
-    const phones1 = extractPhones(data1);
-    if (phones1.length > 0) {
-      return success(phones1, 'first-last');
+    const res1    = extractData(data1);
+    if (res1.phones.length > 0) {
+      return success(res1, 'first-last');
     }
 
     // Attempt 2: LAST FIRST order (county record format)
     const data2   = await doTrace(firstName2, lastName2);
-    const phones2 = extractPhones(data2);
-    if (phones2.length > 0) {
-      return success(phones2, 'last-first');
+    const res2    = extractData(data2);
+    if (res2.phones.length > 0) {
+      return success(res2, 'last-first');
     }
 
     // Attempt 3: Address only — get current owner's phone regardless of name
-    const res3 = await fetch('https://api.batchdata.com/api/v3/property/skip-trace', {
+    const res3raw = await fetch('https://api.batchdata.com/api/v3/property/skip-trace', {
       method: 'POST',
       headers: {
         'Content-Type':  'application/json',
@@ -128,10 +167,10 @@ exports.handler = async (event) => {
         requests: [{ propertyAddress: { street, city, state, zip } }]
       }),
     });
-    const data3   = await res3.json();
-    const phones3 = extractPhones(data3);
-    if (phones3.length > 0) {
-      return success(phones3, 'address-only');
+    const data3 = await res3raw.json();
+    const res3  = extractData(data3);
+    if (res3.phones.length > 0) {
+      return success(res3, 'address-only');
     }
 
     return {
@@ -148,13 +187,16 @@ exports.handler = async (event) => {
   }
 };
 
-function success(phones, method) {
+function success({ phones, propertyType, bedrooms, units }, method) {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      success:   true,
-      phone:     phones[0].number,
-      allPhones: phones,
+      success:      true,
+      phone:        phones[0].number,
+      allPhones:    phones,
+      propertyType: propertyType || null,
+      bedrooms:     bedrooms || null,
+      units:        units || null,
       method,
     })
   };
