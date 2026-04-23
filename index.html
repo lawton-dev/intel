@@ -1790,9 +1790,9 @@ function openPanel(id) {
   contactBtn.classList.toggle('done', l.contacted);
 
   // External links
-  const addrEncoded = encodeURIComponent((l.address || '').replace(', Wichita KS','') + ' Wichita KS');
+  const apprEncoded = encodeURIComponent((l.address || '').replace(', Wichita KS','') + ' Wichita KS');
   document.getElementById('panelApprLink').href =
-    `https://ssc.sedgwickcounty.org/propertytax/default.aspx?search=${addrEncoded}`;
+    `https://ssc.sedgwickcounty.org/propertytax/default.aspx?search=${apprEncoded}`;
   document.getElementById('panelGoogleLink').href =
     `https://www.google.com/maps/search/${encodeURIComponent(l.address || 'Wichita KS')}`;
 
