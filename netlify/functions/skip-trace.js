@@ -175,7 +175,17 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: false, phone: null, message: 'No phone found' })
+      body: JSON.stringify({
+        success: false,
+        phone: null,
+        message: 'No phone found',
+        _debug: {
+          version: 'v2-county-aware',
+          parsed: { street, city, state, zip },
+          attempts: ['first-last', 'last-first', 'address-only'],
+          responseSnippet: JSON.stringify(data3).substring(0, 300),
+        }
+      })
     };
 
   } catch (err) {
