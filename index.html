@@ -345,6 +345,7 @@
         <button class="btn-export" onclick="exportCSV('traced')" title="Export skip traced leads only">⬇ TRACED ONLY</button>
         <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
       </div>
+      <button class="btn-refresh" id="btnEnrich" onclick="enrichVisibleValues()" title="Enrich visible leads with BatchData property values">🔍 ENRICH VALUES</button>
       <button class="btn-refresh" onclick="openUploadModal()" title="Upload PropStream CSV exports">📤 UPLOAD</button>
       <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
       <div class="oneroof-logo">
@@ -428,7 +429,7 @@
           <th>OWNER / ADDRESS</th>
           <th style="width:80px">SIGNALS</th>
           <th style="width:110px" id="amtHeader">AMT OWED</th>
-          <th style="width:130px">EST VALUE / LIST</th>
+          <th style="width:130px">EST VALUE</th>
           <th style="width:90px">DATE</th>
           <th style="width:130px">PHONE</th>
           <th style="width:260px">ACTIONS</th>
@@ -688,6 +689,7 @@ let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '
 let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
 let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
+let values     = JSON.parse(localStorage.getItem('intel_values') || '{}');
 
 // ═══════════════════════════════════════════════════════════
 // AUTH
@@ -726,16 +728,22 @@ async function loadLeads() {
 
   function mapLead(l) {
     const pt = propTypes[l.id] || {};
+    const v  = values[l.id] || {};
     return {
       ...l,
-      score:        computeScore(l),
-      contacted:    contacted.has(l.id),
-      pushed:       pushed.has(l.id),
-      texted:       texted.has(l.id),
-      phone:        phones[l.id] || l.phone || null,
-      propertyType: l.propertyType || pt.type || null,
-      bedrooms:     l.bedrooms || pt.bedrooms || null,
-      units:        l.units || pt.units || null,
+      score:           computeScore(l),
+      contacted:       contacted.has(l.id),
+      pushed:          pushed.has(l.id),
+      texted:          texted.has(l.id),
+      phone:           phones[l.id] || l.phone || null,
+      propertyType:    l.propertyType || pt.type || null,
+      bedrooms:        l.bedrooms || pt.bedrooms || null,
+      units:           l.units || pt.units || null,
+      // Enriched property values (BatchData) — overlay onto whatever the source already has
+      estimatedValue:  v.estimatedValue  || l.estimatedValue  || null,
+      estimatedEquity: v.estimatedEquity || l.estimatedEquity || null,
+      mortgageBalance: v.mortgageBalance || l.mortgageBalance || null,
+      enrichedAt:      v.enrichedAt || null,
     };
   }
 
@@ -1552,6 +1560,20 @@ async function skipTrace(id) {
         propTypes[l.id] = { type: data.propertyType, bedrooms: data.bedrooms, units: data.units };
         localStorage.setItem('intel_propTypes', JSON.stringify(propTypes));
       }
+      // Capture value/equity data if BatchData returned it (free piggyback on the trace)
+      if (data.estimatedValue || data.estimatedEquity || data.mortgageBalance) {
+        const vEntry = {
+          estimatedValue:  data.estimatedValue  || null,
+          estimatedEquity: data.estimatedEquity || null,
+          mortgageBalance: data.mortgageBalance || null,
+          enrichedAt:      Date.now(),
+        };
+        values[l.id]            = vEntry;
+        l.estimatedValue        = vEntry.estimatedValue;
+        l.estimatedEquity       = vEntry.estimatedEquity;
+        l.mortgageBalance       = vEntry.mortgageBalance;
+        localStorage.setItem('intel_values', JSON.stringify(values));
+      }
       localStorage.setItem('intel_phones', JSON.stringify(phones));
       btn.textContent = '✓ TRACED';
       btn.classList.remove('loading');
@@ -1571,6 +1593,102 @@ async function skipTrace(id) {
     btn.disabled = false;
     toast('Skip trace failed — check BatchData config', 'err');
   }
+}
+
+// ═══════════════════════════════════════════════════════════
+// BATCHDATA PROPERTY VALUE ENRICHMENT
+// ═══════════════════════════════════════════════════════════
+
+// Single-lead enrichment — calls /.netlify/functions/enrich-property
+async function enrichOne(lead) {
+  try {
+    const res = await fetch('/.netlify/functions/enrich-property', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        address: lead.address,
+        county:  lead.county,
+      })
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data.estimatedValue && !data.estimatedEquity) return null;
+
+    const entry = {
+      estimatedValue:  data.estimatedValue  || null,
+      estimatedEquity: data.estimatedEquity || null,
+      mortgageBalance: data.mortgageBalance || null,
+      enrichedAt:      Date.now(),
+    };
+    values[lead.id]         = entry;
+    lead.estimatedValue     = entry.estimatedValue;
+    lead.estimatedEquity    = entry.estimatedEquity;
+    lead.mortgageBalance    = entry.mortgageBalance;
+    return entry;
+  } catch {
+    return null;
+  }
+}
+
+// Bulk enrichment for all currently-visible leads missing value data
+async function enrichVisibleValues() {
+  const visible = getFiltered();
+  // Only enrich leads that don't already have value data and aren't PropStream-sourced
+  // (PropStream listings already come with estimatedValue baked in)
+  const targets = visible.filter(l => {
+    const hasValue = toNum(l.estimatedValue) > 0;
+    return !hasValue && l.address;
+  });
+
+  if (!targets.length) {
+    toast('All visible leads already have value data ✓', 'ok');
+    return;
+  }
+
+  // Cost confirmation for larger batches (BatchData property lookups cost money)
+  const COST_PER_LOOKUP = 0.05; // approx — adjust to your actual contract
+  const estCost = (targets.length * COST_PER_LOOKUP).toFixed(2);
+  if (targets.length > 25) {
+    if (!confirm(`Enrich ${targets.length} leads with BatchData property values?\n\nEstimated cost: ~$${estCost}\n\nThis will populate the EST VALUE column and equity badges for these leads.`)) {
+      return;
+    }
+  }
+
+  const btn = document.getElementById('btnEnrich');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = `⏳ ENRICHING 0/${targets.length}...`;
+  }
+
+  let success = 0;
+  let failed  = 0;
+
+  // Process serially with small concurrency to avoid hammering the API
+  const CONCURRENCY = 4;
+  let cursor = 0;
+
+  async function worker() {
+    while (cursor < targets.length) {
+      const idx = cursor++;
+      const lead = targets[idx];
+      const result = await enrichOne(lead);
+      if (result) success++; else failed++;
+      if (btn) btn.textContent = `⏳ ENRICHING ${success + failed}/${targets.length}...`;
+    }
+  }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+  // Persist all updates at once
+  localStorage.setItem('intel_values', JSON.stringify(values));
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = '🔍 ENRICH VALUES';
+  }
+
+  render();
+  toast(`Enrichment complete — ${success} found, ${failed} missed`, success ? 'ok' : 'err');
 }
 
 // ═══════════════════════════════════════════════════════════
