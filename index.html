@@ -202,7 +202,7 @@
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-en{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -216,6 +216,10 @@
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
     .btn-contacted{color:var(--dim);}
     .btn-contacted.on{border-color:var(--green);color:var(--green);}
+    .btn-en{color:var(--dim);}
+    .btn-en:hover:not(:disabled){border-color:var(--c-td);color:var(--c-td);}
+    .btn-en.loading{color:var(--muted);cursor:wait;}
+    .btn-en.done{border-color:var(--green);color:var(--green);opacity:.5;cursor:default;}
 
     /* EMPTY */
     .empty-state{text-align:center;padding:80px 0;color:var(--muted);}
@@ -432,7 +436,7 @@
           <th style="width:130px">EST VALUE</th>
           <th style="width:90px">DATE</th>
           <th style="width:130px">PHONE</th>
-          <th style="width:260px">ACTIONS</th>
+          <th style="width:320px">ACTIONS</th>
         </tr>
       </thead>
       <tbody id="leadBody"></tbody>
@@ -1450,6 +1454,11 @@ function row(l) {
           onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
           ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
         </button>
+        <button class="btn-en${toNum(l.estimatedValue)>0?' done':''}" id="en-${l.id}"
+          onclick="enrichLead('${l.id}')" ${toNum(l.estimatedValue)>0?'disabled':''}
+          title="${toNum(l.estimatedValue)>0?'Already enriched':'Pull property value from BatchData'}">
+          ${toNum(l.estimatedValue)>0 ? '✓ VALUED' : '💰 VALUE'}
+        </button>
         <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
           ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
@@ -1627,6 +1636,32 @@ async function enrichOne(lead) {
     return entry;
   } catch {
     return null;
+  }
+}
+
+// Per-lead enrichment — wired to the row-level "💰 VALUE" button
+async function enrichLead(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+
+  const btn = document.getElementById(`en-${l.id}`);
+  if (!btn) return;
+
+  btn.textContent = 'ENRICHING...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const result = await enrichOne(l);
+
+  if (result && result.estimatedValue) {
+    localStorage.setItem('intel_values', JSON.stringify(values));
+    render();
+    toast(`Enriched — value $${Math.round(result.estimatedValue).toLocaleString()}`, 'ok');
+  } else {
+    btn.textContent = '💰 VALUE';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    toast('No value data found for this address', 'err');
   }
 }
 
