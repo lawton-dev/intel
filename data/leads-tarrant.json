@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-04-23T12:31:53.993450+00:00",
+  "lastUpdated": "2026-04-27T15:46:44.811070+00:00",
   "county": "tarrant",
-  "totalLeads": 3,
+  "totalLeads": 2,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 3,
+    "tax_foreclosure": 2,
     "probate": 0,
     "state_warrant": 0
   },
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-23T12:31:53.992879+00:00"
+      "scrapedAt": "2026-04-27T15:46:44.810628+00:00"
     },
     {
       "id": "08b1c35b95db",
@@ -31,19 +31,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-23T12:31:53.992942+00:00"
-    },
-    {
-      "id": "6472125e9d25",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "611 Jamboree Way, Euless, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-16T17:35:11.155289+00:00"
+      "scrapedAt": "2026-04-27T15:46:44.810687+00:00"
     }
   ]
 }
