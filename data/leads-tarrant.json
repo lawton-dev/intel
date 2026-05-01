@@ -1,14 +1,74 @@
 {
-  "lastUpdated": "2026-04-29T11:24:36.346458+00:00",
+  "lastUpdated": "2026-05-01T11:02:54.290694+00:00",
   "county": "tarrant",
-  "totalLeads": 2,
+  "totalLeads": 7,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 2,
+    "tax_foreclosure": 7,
     "probate": 0,
     "state_warrant": 0
   },
   "leads": [
+    {
+      "id": "83ca12d73559",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "1094 Rosecrush Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-05-01T11:02:54.289865+00:00"
+    },
+    {
+      "id": "adb3caa1d9fb",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "615 Jamboree Way, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-05-01T11:02:54.290050+00:00"
+    },
+    {
+      "id": "0af2eb3c4909",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "617 Jamboree Way, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-05-01T11:02:54.290101+00:00"
+    },
+    {
+      "id": "a3c897215a86",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "8354 Of The Plat Record, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-05-01T11:02:54.290153+00:00"
+    },
+    {
+      "id": "ef7f4f14045f",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "3008 Hideaway Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-05-01T11:02:54.290265+00:00"
+    },
     {
       "id": "5237dfffb9c5",
       "county": "tarrant",
