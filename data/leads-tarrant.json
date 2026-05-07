@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-05-05T11:14:56.922858+00:00",
+  "lastUpdated": "2026-05-07T11:40:22.983465+00:00",
   "county": "tarrant",
-  "totalLeads": 7,
+  "totalLeads": 5,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 7,
+    "tax_foreclosure": 5,
     "probate": 0,
     "state_warrant": 0
   },
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-05T11:14:56.922017+00:00"
+      "scrapedAt": "2026-05-07T11:40:22.982654+00:00"
     },
     {
       "id": "adb3caa1d9fb",
@@ -31,7 +31,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-05T11:14:56.922198+00:00"
+      "scrapedAt": "2026-05-07T11:40:22.982827+00:00"
     },
     {
       "id": "0af2eb3c4909",
@@ -43,7 +43,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-05T11:14:56.922253+00:00"
+      "scrapedAt": "2026-05-07T11:40:22.982873+00:00"
     },
     {
       "id": "a3c897215a86",
@@ -55,7 +55,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-05T11:14:56.922283+00:00"
+      "scrapedAt": "2026-05-07T11:40:22.982901+00:00"
     },
     {
       "id": "ef7f4f14045f",
@@ -67,31 +67,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-05T11:14:56.922392+00:00"
-    },
-    {
-      "id": "5237dfffb9c5",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "3912 Knox St, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-29T11:24:36.345881+00:00"
-    },
-    {
-      "id": "08b1c35b95db",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "10200 Maria Dr, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-04-29T11:24:36.345945+00:00"
+      "scrapedAt": "2026-05-07T11:40:22.983002+00:00"
     }
   ]
 }
