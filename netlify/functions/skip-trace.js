@@ -2,6 +2,13 @@
 // Confirmed response path: result.data[0].persons[0].phones[].number
 // Name format from county records: "PATRICK Y GAYNOR" → first=PATRICK, last=GAYNOR
 
+const US_STATES = new Set([
+  'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
+  'KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
+  'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
+  'VA','WA','WV','WI','WY','DC'
+]);
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
@@ -24,9 +31,10 @@ exports.handler = async (event) => {
   // ── Parse address ──────────────────────────────────────────
   // Handles formats like:
   //   "123 Main St, Houston TX 77002"
-  //   "123 Main St, Las Vegas NV"
-  //   "123 Main St, Wichita, KS 67202"  (extra comma)
-  //   "123 main st, las vegas nv 89121" (lowercase)
+  //   "123 Main St, North Las Vegas NV"        ← multi-word city
+  //   "123 Main St, Wichita, KS 67202"         ← extra comma
+  //   "123 main st, las vegas nv 89121"        ← lowercase
+  //   "123 Main St, Las Vegas NV 89121-1234"   ← ZIP+4
   const fullAddr = String(address || '').trim();
   const parts    = fullAddr.split(',').map(s => s.trim()).filter(Boolean);
 
@@ -35,12 +43,23 @@ exports.handler = async (event) => {
   // Everything after the street is city/state/zip — may be one or two comma-separated chunks
   const tail = parts.slice(1).join(' ').toUpperCase().trim();
 
-  // Match: CITY (any words) STATE (2 letters) optional ZIP (5 digits)
-  const csMatch = tail.match(/^(.+?)\s+([A-Z]{2})(?:\s+(\d{5}))?/);
+  // Match: CITY (any words, including "NORTH LAS VEGAS") + STATE (2 letters) + optional ZIP
+  // The $ anchor is CRITICAL — without it, non-greedy .+? lets "NORTH LAS VEGAS NV"
+  // match as city=NORTH, state=LA (first 2 chars of "LAS"). The $ forces the state code
+  // to actually be the last token in the string.
+  const csMatch = tail.match(/^(.+?)\s+([A-Z]{2})(?:\s+(\d{5}(?:-\d{4})?))?$/);
 
   let city  = csMatch ? csMatch[1].trim() : '';
   let state = csMatch ? csMatch[2] : '';
   let zip   = csMatch?.[3] || '';
+
+  // Belt-and-suspenders: if the captured "state" isn't a real US state code,
+  // throw it out and fall through to the county-based fallback below.
+  if (state && !US_STATES.has(state)) {
+    city = '';
+    state = '';
+    zip = '';
+  }
 
   // Fallbacks if regex failed — try to infer from county
   if (!state) {
@@ -53,7 +72,12 @@ exports.handler = async (event) => {
     state = COUNTY_STATE[(county || '').toLowerCase()] || 'KS';
   }
   if (!city) {
-    city = parts[parts.length - 1]?.split(/\s+/)[0] || 'Unknown';
+    // Take the whole last comma-segment minus any trailing state/zip we couldn't parse
+    const lastSeg = parts[parts.length - 1] || '';
+    city = lastSeg
+      .toUpperCase()
+      .replace(/\s+[A-Z]{2}(\s+\d{5}(-\d{4})?)?$/, '')
+      .trim() || 'Unknown';
   }
   if (!zip) {
     const zm = fullAddr.match(/\b(\d{5})\b/);
@@ -180,7 +204,7 @@ exports.handler = async (event) => {
         phone: null,
         message: 'No phone found',
         _debug: {
-          version: 'v2-county-aware',
+          version: 'v3-anchored-regex',
           parsed: { street, city, state, zip },
           attempts: ['first-last', 'last-first', 'address-only'],
           responseSnippet: JSON.stringify(data3).substring(0, 300),
