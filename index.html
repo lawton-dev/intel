@@ -679,6 +679,13 @@ function scoreClass(s) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// PHOTO ANALYSIS HELPERS
+// ═══════════════════════════════════════════════════════════
+function buildZillowUrl(l) {
+  return l.zillowUrl || `https://www.zillow.com/homes/${encodeURIComponent(l.address || '')}_rb/`;
+}
+
+// ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
 let allLeads   = [];
@@ -1425,6 +1432,7 @@ function row(l) {
       <div class="owner-name">${l.owner||'Unknown'}${auctionBadge}</div>
       <div class="owner-addr">${l.address||'—'}</div>
       ${l.caseNumber ? `<div style="font-size:8px;color:var(--muted);margin-top:2px">Case: ${l.caseNumber}</div>` : ''}
+      ${(l.type === 'stale-listing' || l.type === 'failed-listing') && window.renderPhotoBadge ? `<div style="margin-top:4px">${window.renderPhotoBadge(buildZillowUrl(l))}</div>` : ''}
     </td>
     <td>
       <div class="signals">
@@ -2033,6 +2041,9 @@ function openPanel(id) {
   document.getElementById('panelGoogleLink').href =
     `https://www.google.com/maps/search/${encodeURIComponent(l.address || 'Wichita KS')}`;
 
+  // Photo analysis section (only for stale/failed listings)
+  renderPhotoAnalysisSection(l);
+
   // Open
   document.getElementById('panelOverlay').classList.add('open');
   document.getElementById('leadPanel').classList.add('open');
@@ -2044,6 +2055,44 @@ function closePanel() {
   document.getElementById('leadPanel').classList.remove('open');
   document.body.style.overflow = '';
   panelLeadId = null;
+}
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO ANALYSIS PANEL SECTION
+// ═══════════════════════════════════════════════════════════
+function renderPhotoAnalysisSection(l) {
+  // Remove any prior section first
+  const existing = document.getElementById('panelPhotoSection');
+  if (existing) existing.remove();
+
+  // Only show for stale/failed listings — those are the only types with reliable Zillow URLs
+  if (l.type !== 'stale-listing' && l.type !== 'failed-listing') return;
+
+  const zillowUrl = buildZillowUrl(l);
+  const safeUrl = zillowUrl.replace(/'/g, "\\'");
+  const section = document.createElement('div');
+  section.className = 'panel-section';
+  section.id        = 'panelPhotoSection';
+  section.innerHTML = `
+    <div class="panel-section-title">Photo Analysis</div>
+    <button class="panel-btn"
+      id="analyze-btn-${l.id}"
+      onclick="window.analyzePhotos('${l.id}', '${safeUrl}')">
+      📷 ANALYZE LISTING PHOTOS
+    </button>
+    <div id="photo-result-${l.id}"></div>
+  `;
+
+  // Insert right after the Distress Signals section (first .panel-section in body)
+  const firstSection = document.querySelector('.panel-body .panel-section');
+  if (firstSection) firstSection.insertAdjacentElement('afterend', section);
+
+  // If we have a cached result, auto-render it (does NOT trigger a fresh API call)
+  setTimeout(() => {
+    if (window.renderCachedPhotoResult) {
+      window.renderCachedPhotoResult(l.id, zillowUrl);
+    }
+  }, 0);
 }
 
 // Panel action wrappers
@@ -2144,5 +2193,6 @@ function sampleLeads() {
   ];
 }
 </script>
+<script src="intel-photo-analysis.js"></script>
 </body>
 </html>
