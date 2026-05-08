@@ -740,7 +740,11 @@ async function geocodeAddress(address) {
 
   try {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&countrycodes=us&limit=1`;
-    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    // Use AbortController instead of AbortSignal.timeout for broader compat
+    const controller = new AbortController();
+    const timeoutId  = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!res.ok) return null;
     const data = await res.json();
     if (!Array.isArray(data) || !data.length) return null;
@@ -751,7 +755,8 @@ async function geocodeAddress(address) {
     intelGeocodeCache[address] = coords;
     localStorage.setItem('intel_geocode_cache', JSON.stringify(intelGeocodeCache));
     return coords;
-  } catch {
+  } catch (err) {
+    console.warn('Geocode failed for', address, err);
     return null;
   }
 }
