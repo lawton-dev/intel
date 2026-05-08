@@ -4,8 +4,8 @@
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const CLAUDE_MODEL      = 'claude-sonnet-4-6';
-const MAX_PHOTOS        = 6;
-const MAX_PHOTO_BYTES   = 1024 * 1024; // 1 MB per photo cap (safety)
+const MAX_PHOTOS        = 10;            // bumped from 6 → 10 to ensure interior coverage
+const MAX_PHOTO_BYTES   = 1024 * 1024;   // 1 MB per photo cap (safety)
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -85,7 +85,7 @@ exports.handler = async (event) => {
         photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:         'v4-deduped-photos',
+          version:         'v5-10-photos',
           model:           CLAUDE_MODEL,
           unique_photos:   photos.length,
           downloaded_ok:   downloaded.length,
@@ -104,24 +104,17 @@ exports.handler = async (event) => {
 
 // ─── Photo extraction with hash-based dedupe ──────────────────────────────
 //
-// Zillow stores each photo at multiple URLs:
-//   https://photos.zillowstatic.com/fp/<HASH>-p_d.jpg       ← preview
-//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_768.jpg ← 768px JPG
-//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_768.webp← 768px WebP
-//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_1536.jpg← 1536px
-//
-// All four are the same photo. Without dedupe, we send Claude 6 URLs but
-// they're really only 2-3 unique photos. Dedupe by hash, prefer 768px JPG.
-//
-// Strict regex: ONLY match clean URLs at boundaries to avoid grabbing
-// substrings out of __NEXT_DATA__ JSON blobs.
+// Zillow stores each photo at multiple URLs (preview, 768px JPG, 768px WebP,
+// 1536px, etc.) — all sharing the same photo hash. Dedupe by hash, prefer
+// 768px JPG. Strict regex anchored at start AND end avoids matching JSON
+// substrings that contain CDN URLs.
 function extractPhotos(html) {
   try {
     const match = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
     if (!match) return [];
 
     const data        = JSON.parse(match[1]);
-    const byHash      = new Map();  // hash → URL (preferring 768px JPG)
+    const byHash      = new Map();  // hash → { url, score }
     const seen        = new WeakSet();
 
     function consider(url) {
@@ -130,8 +123,8 @@ function extractPhotos(html) {
       const m = url.match(/^https:\/\/photos\.zillowstatic\.com\/fp\/([a-f0-9]+)-[a-z_0-9]+\.(jpg|jpeg|png|webp)$/i);
       if (!m) return;
 
-      const hash = m[1];
-      const ext  = m[2].toLowerCase();
+      const hash  = m[1];
+      const ext   = m[2].toLowerCase();
       const isJpg = ext === 'jpg' || ext === 'jpeg';
       const is768 = /-cc_ft_768\./.test(url);
 
@@ -139,7 +132,7 @@ function extractPhotos(html) {
       const score = (is768 ? 2 : 0) + (isJpg ? 1 : 0);
       const existing = byHash.get(hash);
       if (!existing || score > existing.score) {
-        // Force 768px if we have a different size — gives consistent payload size
+        // Force 768px JPG if we have a different size — gives consistent payload
         const normalized = url.replace(/-cc_ft_\d+\./, '-cc_ft_768.').replace(/\.webp$/i, '.jpg');
         byHash.set(hash, { url: normalized, score });
       }
@@ -169,7 +162,6 @@ function extractPhotos(html) {
       }
     } catch { /* ignore */ }
 
-    // Return URLs only (not the score wrapper)
     return Array.from(byHash.values()).map(v => v.url);
   } catch (err) {
     console.error('Photo extraction error:', err);
@@ -227,7 +219,9 @@ async function analyzeWithClaude(photos, apiKey) {
       type: 'text',
       text: `You are analyzing photos of a residential property for a real estate wholesale investor. The investor is looking for properties that NEED renovation work — homes that have already been flipped or extensively remodeled have NO opportunity for value-add and should be SKIPPED.
 
-Look at all photos provided and assess the overall renovation status. Pay close attention to:
+You are receiving up to 10 photos from this listing. Zillow often orders exterior shots first, so don't assume the listing is exterior-only just because the early photos are exteriors — review ALL photos before judging interior coverage. Focus your verdict primarily on interior rooms (kitchen, bathrooms, living areas) when they are visible.
+
+Pay close attention to:
 - Kitchen: cabinets (modern shaker/painted vs dated wood), countertops (granite/quartz vs laminate/tile), appliances (stainless vs older), backsplash, hardware
 - Bathrooms: vanities, tile work, fixtures, glass shower enclosures vs old tub/tile combos, dated colors (pink/blue/almond)
 - Flooring: LVP/hardwood/modern tile vs original carpet, old vinyl, dated patterns
@@ -235,7 +229,7 @@ Look at all photos provided and assess the overall renovation status. Pay close 
 - Fixtures and hardware: modern lighting vs brass/dated, ceiling fans
 - Overall: staging quality, "Instagram-ready" feel = recent flip indicator
 
-ALSO assess what photo coverage you have. Some Zillow listings (especially expired/withdrawn ones) only have exterior photos because the seller pulled interior shots when delisting. Note this honestly — exterior-only photos can't tell us about kitchen/bath condition.
+ALSO assess what photo coverage you have. Some Zillow listings (especially expired/withdrawn ones) only have exterior photos because the seller pulled interior shots when delisting. Be honest about coverage but don't conflate "first few photos are exterior" with "no interior photos available."
 
 Respond with ONLY a JSON object (no other text, no markdown fences):
 {
@@ -257,9 +251,9 @@ Status definitions:
 - "dated" = CHASE. Original or dated finishes throughout. Strong value-add opportunity for an investor doing a flip or BRRRR.
 
 Interior photos definitions:
-- "full" = good coverage of kitchen + bathrooms + living spaces
+- "full" = good coverage of kitchen + bathrooms + living spaces across the photos provided
 - "limited" = some interior shots but key rooms (kitchen or bathrooms) are missing
-- "none" = exterior shots only, no interior visible
+- "none" = exterior shots only, no interior visible across ALL photos provided
 
 Confidence calibration: when interior_photos is "none" or "limited", your confidence should be lower (typically 40-60%) since you're inferring condition from incomplete information. Full interior coverage with clear verdict warrants 80-95% confidence.`,
     },
@@ -311,7 +305,7 @@ Confidence calibration: when interior_photos is "none" or "limited", your confid
     parsed.confidence = parsed.confidence || 50;
   }
   if (!['full', 'limited', 'none'].includes(parsed.interior_photos)) {
-    parsed.interior_photos = 'limited';  // safe default
+    parsed.interior_photos = 'limited';
   }
 
   return parsed;
