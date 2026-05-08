@@ -4,7 +4,7 @@
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const CLAUDE_MODEL      = 'claude-sonnet-4-6';
-const MAX_PHOTOS        = 10;            // bumped from 6 → 10 to ensure interior coverage
+const MAX_PHOTOS        = 25;            // bumped to give Claude full coverage of typical listings
 const MAX_PHOTO_BYTES   = 1024 * 1024;   // 1 MB per photo cap (safety)
 
 exports.handler = async (event) => {
@@ -85,7 +85,7 @@ exports.handler = async (event) => {
         photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:         'v5-10-photos',
+          version:         'v6-25-photos',
           model:           CLAUDE_MODEL,
           unique_photos:   photos.length,
           downloaded_ok:   downloaded.length,
@@ -119,7 +119,6 @@ function extractPhotos(html) {
 
     function consider(url) {
       // Strict validation: must be a clean photo URL, not a JSON fragment.
-      // Pattern: https://photos.zillowstatic.com/fp/<HASH>-<SUFFIX>.<EXT>
       const m = url.match(/^https:\/\/photos\.zillowstatic\.com\/fp\/([a-f0-9]+)-[a-z_0-9]+\.(jpg|jpeg|png|webp)$/i);
       if (!m) return;
 
@@ -128,11 +127,9 @@ function extractPhotos(html) {
       const isJpg = ext === 'jpg' || ext === 'jpeg';
       const is768 = /-cc_ft_768\./.test(url);
 
-      // Prefer 768px JPG. Score each candidate, keep the highest.
       const score = (is768 ? 2 : 0) + (isJpg ? 1 : 0);
       const existing = byHash.get(hash);
       if (!existing || score > existing.score) {
-        // Force 768px JPG if we have a different size — gives consistent payload
         const normalized = url.replace(/-cc_ft_\d+\./, '-cc_ft_768.').replace(/\.webp$/i, '.jpg');
         byHash.set(hash, { url: normalized, score });
       }
@@ -219,7 +216,7 @@ async function analyzeWithClaude(photos, apiKey) {
       type: 'text',
       text: `You are analyzing photos of a residential property for a real estate wholesale investor. The investor is looking for properties that NEED renovation work — homes that have already been flipped or extensively remodeled have NO opportunity for value-add and should be SKIPPED.
 
-You are receiving up to 10 photos from this listing. Zillow often orders exterior shots first, so don't assume the listing is exterior-only just because the early photos are exteriors — review ALL photos before judging interior coverage. Focus your verdict primarily on interior rooms (kitchen, bathrooms, living areas) when they are visible.
+You are receiving up to 25 photos from this listing — typically a comprehensive set covering exterior, kitchen, bathrooms, living spaces, and bedrooms. Zillow often orders exterior shots first, so don't assume the listing is exterior-only just because the early photos are exteriors — review ALL photos before judging interior coverage. Focus your verdict primarily on interior rooms (kitchen, bathrooms, living areas) when they are visible, since that's where renovation work matters most.
 
 Pay close attention to:
 - Kitchen: cabinets (modern shaker/painted vs dated wood), countertops (granite/quartz vs laminate/tile), appliances (stainless vs older), backsplash, hardware
@@ -230,6 +227,8 @@ Pay close attention to:
 - Overall: staging quality, "Instagram-ready" feel = recent flip indicator
 
 ALSO assess what photo coverage you have. Some Zillow listings (especially expired/withdrawn ones) only have exterior photos because the seller pulled interior shots when delisting. Be honest about coverage but don't conflate "first few photos are exterior" with "no interior photos available."
+
+With a larger photo set, you can also note INCONSISTENCIES — e.g., kitchen looks renovated but bathrooms look untouched, or one bathroom is updated and another is original. These mixed signals are critical for the investor since they reveal exactly where value-add opportunity remains.
 
 Respond with ONLY a JSON object (no other text, no markdown fences):
 {
