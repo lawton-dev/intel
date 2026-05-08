@@ -724,6 +724,49 @@ window.refreshScoresAndRender = function () {
   render();
 };
 
+// ═══════════════════════════════════════════════════════════
+// GEOCODING — for Street View deep links
+// ═══════════════════════════════════════════════════════════
+// Google's Maps URL spec requires lat/lng coordinates for Street View
+// (the `viewpoint` parameter doesn't accept addresses). We geocode via
+// OpenStreetMap's Nominatim service — free, no API key, US coverage is
+// excellent, and addresses don't move so cached results never expire.
+
+let intelGeocodeCache = JSON.parse(localStorage.getItem('intel_geocode_cache') || '{}');
+
+async function geocodeAddress(address) {
+  if (!address) return null;
+  if (intelGeocodeCache[address]) return intelGeocodeCache[address];
+
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&countrycodes=us&limit=1`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) return null;
+
+    const coords = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    if (!isFinite(coords.lat) || !isFinite(coords.lng)) return null;
+
+    intelGeocodeCache[address] = coords;
+    localStorage.setItem('intel_geocode_cache', JSON.stringify(intelGeocodeCache));
+    return coords;
+  } catch {
+    return null;
+  }
+}
+
+// Upgrade the Street View link's href once geocoding returns coordinates.
+// Falls through silently if geocoding fails — the fallback URL set in the
+// panel HTML still works (just less reliably).
+async function upgradeStreetviewLink(address) {
+  const coords = await geocodeAddress(address);
+  if (!coords) return;
+  const linkEl = document.getElementById('panelStreetviewLink');
+  if (!linkEl) return;  // user closed the panel before geocode finished
+  linkEl.href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${coords.lat},${coords.lng}`;
+}
+
 // Render the per-row photo analysis button. Three states:
 //   1. Not analyzed yet → "📷 PHOTOS" (clickable, dim)
 //   2. Analysis in progress → "ANALYZING..." (loading)
@@ -2082,13 +2125,22 @@ function openPanel(id) {
     <a class="panel-link" href="https://www.google.com/maps/place/${addrEncoded}" target="_blank" rel="noopener" title="Open in Google Maps">
       🗺️ MAPS
     </a>
-    <a class="panel-link" href="https://maps.google.com/?layer=c&q=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
+    <a class="panel-link" id="panelStreetviewLink" href="https://maps.google.com/?layer=c&q=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
       📸 STREETVIEW
     </a>
     <a class="panel-link" href="https://www.redfin.com/stingray/do/location-autocomplete?location=${addrEncoded}&v=2" target="_blank" rel="noopener" title="Search on Redfin">
       🔴 REDFIN
     </a>
   ` : '';
+
+  // Kick off async geocoding so the Street View link can use proper lat/lng
+  // coords (Google's URL spec requires coordinates for street view, not
+  // addresses). If geocoding succeeds before user clicks, the link upgrades
+  // to a precise viewpoint URL. If user clicks before geocode completes or
+  // geocoding fails, the fallback URL above still opens — just less reliable.
+  if (l.address) {
+    upgradeStreetviewLink(l.address);
+  }
 
   // Details — labels and values flex by lead type
   // Stale listing → "List Price" + "List Date" (uses mlsDate)
