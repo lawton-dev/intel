@@ -1,10 +1,11 @@
 // ── INTEL · Zillow Photo Analysis ──────────────────────────────────────────
 // Pipeline: ScraperAPI fetches Zillow → extract photos from __NEXT_DATA__
-// → Claude vision scores them as renovated/partial/dated → cache + return
+// → download each photo → base64 encode → Claude vision scores them
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const CLAUDE_MODEL      = 'claude-sonnet-4-6';
 const MAX_PHOTOS        = 6;
+const MAX_PHOTO_BYTES   = 1024 * 1024; // 1 MB per photo cap (safety)
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -32,8 +33,6 @@ exports.handler = async (event) => {
 
   try {
     // ── Step 1: Fetch Zillow listing via ScraperAPI ──
-    // premium=true uses residential IPs (datacenter IPs are blocked by Imperva)
-    // render=true executes JS so __NEXT_DATA__ is fully populated
     const scraperUrl =
       `https://api.scraperapi.com/?api_key=${SCRAPERAPI_KEY}` +
       `&url=${encodeURIComponent(zillowUrl)}` +
@@ -58,24 +57,38 @@ exports.handler = async (event) => {
       };
     }
 
-    // ── Step 3: Pick top N photos. Zillow orders best/most-representative first ──
-    const photosToAnalyze = photos.slice(0, MAX_PHOTOS);
+    // ── Step 3: Pick top N photos and download them as base64 ──
+    const photosToFetch = photos.slice(0, MAX_PHOTOS);
+    const downloaded = await downloadPhotos(photosToFetch);
 
-    // ── Step 4: Claude vision scoring ──
-    const analysis = await analyzeWithClaude(photosToAnalyze, ANTHROPIC_KEY);
+    if (downloaded.length === 0) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          success: false,
+          error:   'photo_download_failed',
+          message: 'Could not download any photos from Zillow CDN',
+          _debug:  { photos_attempted: photosToFetch.length },
+        }),
+      };
+    }
+
+    // ── Step 4: Claude vision scoring with base64 images ──
+    const analysis = await analyzeWithClaude(downloaded, ANTHROPIC_KEY);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         success:         true,
         ...analysis,
-        photos_analyzed: photosToAnalyze.length,
-        photo_urls:      photosToAnalyze,
+        photos_analyzed: downloaded.length,
+        photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:      'v1-scraperapi-claude-vision',
-          model:        CLAUDE_MODEL,
-          total_photos: photos.length,
+          version:        'v2-base64-images',
+          model:          CLAUDE_MODEL,
+          total_photos:   photos.length,
+          downloaded_ok:  downloaded.length,
         },
       }),
     };
@@ -90,9 +103,6 @@ exports.handler = async (event) => {
 };
 
 // ─── Photo extraction ──────────────────────────────────────────────────────
-// Walks the entire __NEXT_DATA__ tree looking for Zillow CDN photo URLs.
-// Belt-and-suspenders approach — Zillow changes their JSON shape often,
-// so we don't rely on a specific path.
 function extractPhotos(html) {
   try {
     const match = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
@@ -110,11 +120,11 @@ function extractPhotos(html) {
 
       for (const [, val] of Object.entries(obj)) {
         if (typeof val === 'string') {
-          // Zillow CDN photo URL pattern
           if (/photos\.zillowstatic\.com.*\.(jpg|jpeg|png|webp)/i.test(val)) {
-            // Force highest available resolution (uncropped, 1536px wide)
-            const hiRes = val.replace(/-cc_ft_\d+/, '-cc_ft_1536');
-            found.add(hiRes);
+            // Use medium resolution (768px) to keep base64 payload reasonable
+            // High-res 1536px images can exceed Anthropic's 5MB-per-image limit at base64
+            const sized = val.replace(/-cc_ft_\d+/, '-cc_ft_768');
+            found.add(sized);
           }
         } else if (typeof val === 'object') {
           walk(val);
@@ -124,7 +134,6 @@ function extractPhotos(html) {
 
     walk(data);
 
-    // gdpClientCache is sometimes a stringified JSON nested inside __NEXT_DATA__
     try {
       const cacheStr = data?.props?.pageProps?.componentProps?.gdpClientCache;
       if (cacheStr && typeof cacheStr === 'string') {
@@ -139,8 +148,53 @@ function extractPhotos(html) {
   }
 }
 
+// ─── Download photos and convert to base64 ────────────────────────────────
+async function downloadPhotos(urls) {
+  const results = await Promise.all(urls.map(async (url) => {
+    try {
+      const res = await fetch(url, {
+        // Pretend to be a real browser — Zillow's CDN tends to 403 unknown UAs
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept':     'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'Referer':    'https://www.zillow.com/',
+        },
+        signal: AbortSignal.timeout(15000),
+      });
+
+      if (!res.ok) {
+        console.warn(`Photo download failed: ${res.status} ${url}`);
+        return null;
+      }
+
+      const buffer = Buffer.from(await res.arrayBuffer());
+
+      if (buffer.length > MAX_PHOTO_BYTES) {
+        console.warn(`Photo too large (${buffer.length} bytes), skipping: ${url}`);
+        return null;
+      }
+
+      // Detect media type from URL extension (Zillow CDN doesn't always set Content-Type correctly)
+      const ext = url.toLowerCase().match(/\.(jpe?g|png|webp|gif)/);
+      const extToMime = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif' };
+      const mediaType = extToMime[ext?.[1]] || 'image/jpeg';
+
+      return {
+        media_type: mediaType,
+        data:       buffer.toString('base64'),
+        url,
+      };
+    } catch (err) {
+      console.warn(`Photo download error for ${url}:`, err.message);
+      return null;
+    }
+  }));
+
+  return results.filter(Boolean);
+}
+
 // ─── Claude vision analysis ────────────────────────────────────────────────
-async function analyzeWithClaude(photoUrls, apiKey) {
+async function analyzeWithClaude(photos, apiKey) {
   const content = [
     {
       type: 'text',
@@ -174,10 +228,14 @@ Status definitions:
     },
   ];
 
-  for (const url of photoUrls) {
+  for (const photo of photos) {
     content.push({
-      type:   'image',
-      source: { type: 'url', url },
+      type: 'image',
+      source: {
+        type:       'base64',
+        media_type: photo.media_type,
+        data:       photo.data,
+      },
     });
   }
 
@@ -203,7 +261,6 @@ Status definitions:
   const data         = await res.json();
   const responseText = data.content?.[0]?.text || '';
 
-  // Strip any markdown fences just in case, then extract the JSON object
   const cleaned   = responseText.replace(/```json|```/g, '').trim();
   const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
@@ -212,7 +269,6 @@ Status definitions:
 
   const parsed = JSON.parse(jsonMatch[0]);
 
-  // Sanity check: status must be one of our three values
   if (!['renovated', 'partial', 'dated'].includes(parsed.status)) {
     parsed.status     = 'partial';
     parsed.confidence = parsed.confidence || 50;
