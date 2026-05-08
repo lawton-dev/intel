@@ -44,7 +44,7 @@ exports.handler = async (event) => {
     }
     const html = await scraperRes.text();
 
-    // ── Step 2: Extract photo URLs ──
+    // ── Step 2: Extract photo URLs (deduped by hash) ──
     const photos = extractPhotos(html);
     if (photos.length === 0) {
       return {
@@ -57,7 +57,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // ── Step 3: Pick top N photos and download them as base64 ──
+    // ── Step 3: Pick top N unique photos and download them as base64 ──
     const photosToFetch = photos.slice(0, MAX_PHOTOS);
     const downloaded = await downloadPhotos(photosToFetch);
 
@@ -85,10 +85,10 @@ exports.handler = async (event) => {
         photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:        'v3-interior-flag',
-          model:          CLAUDE_MODEL,
-          total_photos:   photos.length,
-          downloaded_ok:  downloaded.length,
+          version:         'v4-deduped-photos',
+          model:           CLAUDE_MODEL,
+          unique_photos:   photos.length,
+          downloaded_ok:   downloaded.length,
         },
       }),
     };
@@ -102,15 +102,48 @@ exports.handler = async (event) => {
   }
 };
 
-// ─── Photo extraction ──────────────────────────────────────────────────────
+// ─── Photo extraction with hash-based dedupe ──────────────────────────────
+//
+// Zillow stores each photo at multiple URLs:
+//   https://photos.zillowstatic.com/fp/<HASH>-p_d.jpg       ← preview
+//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_768.jpg ← 768px JPG
+//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_768.webp← 768px WebP
+//   https://photos.zillowstatic.com/fp/<HASH>-cc_ft_1536.jpg← 1536px
+//
+// All four are the same photo. Without dedupe, we send Claude 6 URLs but
+// they're really only 2-3 unique photos. Dedupe by hash, prefer 768px JPG.
+//
+// Strict regex: ONLY match clean URLs at boundaries to avoid grabbing
+// substrings out of __NEXT_DATA__ JSON blobs.
 function extractPhotos(html) {
   try {
     const match = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
     if (!match) return [];
 
-    const data  = JSON.parse(match[1]);
-    const found = new Set();
-    const seen  = new WeakSet();
+    const data        = JSON.parse(match[1]);
+    const byHash      = new Map();  // hash → URL (preferring 768px JPG)
+    const seen        = new WeakSet();
+
+    function consider(url) {
+      // Strict validation: must be a clean photo URL, not a JSON fragment.
+      // Pattern: https://photos.zillowstatic.com/fp/<HASH>-<SUFFIX>.<EXT>
+      const m = url.match(/^https:\/\/photos\.zillowstatic\.com\/fp\/([a-f0-9]+)-[a-z_0-9]+\.(jpg|jpeg|png|webp)$/i);
+      if (!m) return;
+
+      const hash = m[1];
+      const ext  = m[2].toLowerCase();
+      const isJpg = ext === 'jpg' || ext === 'jpeg';
+      const is768 = /-cc_ft_768\./.test(url);
+
+      // Prefer 768px JPG. Score each candidate, keep the highest.
+      const score = (is768 ? 2 : 0) + (isJpg ? 1 : 0);
+      const existing = byHash.get(hash);
+      if (!existing || score > existing.score) {
+        // Force 768px if we have a different size — gives consistent payload size
+        const normalized = url.replace(/-cc_ft_\d+\./, '-cc_ft_768.').replace(/\.webp$/i, '.jpg');
+        byHash.set(hash, { url: normalized, score });
+      }
+    }
 
     function walk(obj) {
       if (!obj || typeof obj !== 'object' || seen.has(obj)) return;
@@ -120,11 +153,7 @@ function extractPhotos(html) {
 
       for (const [, val] of Object.entries(obj)) {
         if (typeof val === 'string') {
-          if (/photos\.zillowstatic\.com.*\.(jpg|jpeg|png|webp)/i.test(val)) {
-            // 768px keeps base64 payload reasonable while staying recognizable
-            const sized = val.replace(/-cc_ft_\d+/, '-cc_ft_768');
-            found.add(sized);
-          }
+          consider(val);
         } else if (typeof val === 'object') {
           walk(val);
         }
@@ -140,7 +169,8 @@ function extractPhotos(html) {
       }
     } catch { /* ignore */ }
 
-    return Array.from(found);
+    // Return URLs only (not the score wrapper)
+    return Array.from(byHash.values()).map(v => v.url);
   } catch (err) {
     console.error('Photo extraction error:', err);
     return [];

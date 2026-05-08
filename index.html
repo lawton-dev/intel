@@ -221,6 +221,17 @@
     .btn-en.loading{color:var(--muted);cursor:wait;}
     .btn-en.done{border-color:var(--green);color:var(--green);opacity:.5;cursor:default;}
 
+    /* Photo analysis button — three verdict states match the panel result card */
+    .btn-photo{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;color:var(--dim);}
+    .btn-photo:hover:not(:disabled){border-color:#a855f7;color:#a855f7;}
+    .btn-photo.loading{color:var(--muted);cursor:wait;}
+    .btn-photo.verdict-renovated{border-color:rgba(239,68,68,0.5);color:#ef4444;background:rgba(239,68,68,0.06);}
+    .btn-photo.verdict-renovated:hover{background:rgba(239,68,68,0.12);}
+    .btn-photo.verdict-partial{border-color:rgba(245,158,11,0.5);color:#f59e0b;background:rgba(245,158,11,0.06);}
+    .btn-photo.verdict-partial:hover{background:rgba(245,158,11,0.12);}
+    .btn-photo.verdict-dated{border-color:rgba(34,197,94,0.5);color:#22c55e;background:rgba(34,197,94,0.06);}
+    .btn-photo.verdict-dated:hover{background:rgba(34,197,94,0.12);}
+
     /* EMPTY */
     .empty-state{text-align:center;padding:80px 0;color:var(--muted);}
     .empty-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:2px;}
@@ -712,6 +723,83 @@ window.refreshScoresAndRender = function () {
   allLeads.forEach(l => { l.score = computeScore(l); });
   render();
 };
+
+// Render the per-row photo analysis button. Three states:
+//   1. Not analyzed yet → "📷 PHOTOS" (clickable, dim)
+//   2. Analysis in progress → "ANALYZING..." (loading)
+//   3. Analyzed → verdict label colored by status (clickable to re-analyze)
+function renderPhotoButton(l) {
+  const analysis = window.getPhotoAnalysis ? window.getPhotoAnalysis(buildZillowUrl(l)) : null;
+  if (analysis && analysis.success) {
+    // Color and label based on verdict
+    const statusMap = {
+      renovated: { cls: 'verdict-renovated', label: '⛔ RENOVATED', title: 'SKIP — already flipped' },
+      partial:   { cls: 'verdict-partial',   label: '⚠ PARTIAL',    title: 'MAYBE — some areas updated' },
+      dated:     { cls: 'verdict-dated',     label: '✓ DATED',      title: 'CHASE — value-add opportunity' },
+    };
+    const s = statusMap[analysis.status] || statusMap.partial;
+    const interiorTip = analysis.interior_photos === 'none'
+      ? ' · exterior photos only'
+      : analysis.interior_photos === 'limited' ? ' · limited interior photos' : '';
+    return `<button class="btn-photo ${s.cls}" id="ph-${l.id}"
+      onclick="rowAnalyzePhotos('${l.id}')"
+      title="${s.title} (${analysis.confidence}% confident)${interiorTip} · click to re-analyze">
+      ${s.label}
+    </button>`;
+  }
+  // Not yet analyzed
+  return `<button class="btn-photo" id="ph-${l.id}"
+    onclick="rowAnalyzePhotos('${l.id}')"
+    title="Analyze listing photos to detect renovation status">
+    📷 PHOTOS
+  </button>`;
+}
+
+// Trigger photo analysis from the row button.
+async function rowAnalyzePhotos(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  const btn = document.getElementById(`ph-${l.id}`);
+  if (!btn) return;
+
+  btn.disabled    = true;
+  btn.textContent = '⏳ ANALYZING...';
+  btn.className   = 'btn-photo loading';
+
+  try {
+    // Delegate to the module — it handles caching + saves to localStorage.
+    // We don't pass a panel-result element ID since we're not in the panel context;
+    // the module's resultEl/btnEl lookups will silently fail (which is fine — we
+    // handle the row button state ourselves below).
+    const zillowUrl = buildZillowUrl(l);
+    const res = await fetch('/.netlify/functions/analyze-photos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ zillowUrl }),
+    });
+    const data = await res.json();
+
+    if (!data.success) {
+      throw new Error(data.error || data.message || 'Analysis failed');
+    }
+
+    // Save to module's cache via direct localStorage write (same key the module uses)
+    const CACHE_KEY = 'intel_photo_analysis_v1';
+    const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+    cache[zillowUrl] = { ...data, cached_at: new Date().toISOString() };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+
+    // Recompute scores (factors in new photo verdict) and re-render the table
+    if (window.refreshScoresAndRender) window.refreshScoresAndRender();
+
+    toast(`Photo analysis: ${data.status.toUpperCase()} (${data.confidence}%)`, 'ok');
+  } catch (err) {
+    btn.disabled    = false;
+    btn.textContent = '📷 PHOTOS';
+    btn.className   = 'btn-photo';
+    toast(`Photo analysis failed: ${err.message}`, 'err');
+  }
+}
 
 // ═══════════════════════════════════════════════════════════
 // STATE
@@ -1460,7 +1548,6 @@ function row(l) {
       <div class="owner-name">${l.owner||'Unknown'}${auctionBadge}</div>
       <div class="owner-addr">${l.address||'—'}</div>
       ${l.caseNumber ? `<div style="font-size:8px;color:var(--muted);margin-top:2px">Case: ${l.caseNumber}</div>` : ''}
-      ${(l.type === 'stale-listing' || l.type === 'failed-listing') && window.renderPhotoBadge ? `<div style="margin-top:4px">${window.renderPhotoBadge(buildZillowUrl(l))}</div>` : ''}
     </td>
     <td>
       <div class="signals">
@@ -1495,6 +1582,7 @@ function row(l) {
           title="${toNum(l.estimatedValue)>0?'Already enriched':'Pull property value from BatchData'}">
           ${toNum(l.estimatedValue)>0 ? '✓ VALUED' : '💰 VALUE'}
         </button>
+        ${(l.type === 'stale-listing' || l.type === 'failed-listing') ? renderPhotoButton(l) : ''}
         <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
           ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
