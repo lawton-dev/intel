@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-07T11:18:51.540130+00:00",
+  "lastUpdated": "2026-05-08T13:44:14.368600+00:00",
   "totalLeads": 32,
   "totalFound": 0,
   "source": "BatchData",
@@ -282,7 +282,7 @@
       "caseNumber": "SG-2025-CV-001938",
       "phone": null,
       "score": 91,
-      "scrapedAt": "2026-05-07T11:18:51.539968+00:00",
+      "scrapedAt": "2026-05-08T13:44:14.368508+00:00",
       "propertyType": "",
       "bedrooms": null,
       "estimatedValue": 106000,
