@@ -3,11 +3,12 @@
 //   window.analyzePhotos(propertyId, zillowUrl)    — fetch + score (or use cache)
 //   window.renderCachedPhotoResult(id, zillowUrl)  — render cache only, no API call
 //   window.renderPhotoBadge(zillowUrl)             — small inline pill HTML
+//   window.getPhotoAnalysis(zillowUrl)             — returns cached analysis object or null
 //   window.clearPhotoCache(zillowUrl?)             — clear one or all
 
 (function () {
   const CACHE_KEY      = 'intel_photo_analysis_v1';
-  const CACHE_TTL_DAYS = 30;  // listing photos rarely change within a month
+  const CACHE_TTL_DAYS = 30;
 
   // ─── Cache helpers ───────────────────────────────────────────────────────
   function getCache() {
@@ -70,24 +71,33 @@
 
   // ─── Public API ──────────────────────────────────────────────────────────
 
+  // Cached analysis getter — used by INTEL's computeScore() to factor photo
+  // verdict into the opportunity score.
+  window.getPhotoAnalysis = function (zillowUrl) {
+    if (!zillowUrl) return null;
+    return getCached(zillowUrl);
+  };
+
   // Small inline pill for table rows. Returns '' if not yet analyzed.
   window.renderPhotoBadge = function (zillowUrl) {
     if (!zillowUrl) return '';
     const cached = getCached(zillowUrl);
     if (!cached || !cached.success) return '';
     const s = STATUS_STYLES[cached.status] || STATUS_STYLES.partial;
+    const interiorWarning = (cached.interior_photos === 'none' || cached.interior_photos === 'limited')
+      ? `<span style="color:#8b96b0;margin-left:4px;font-size:8px;">📷-</span>`
+      : '';
     return `<span style="
       display:inline-flex;align-items:center;gap:4px;
       background:${s.bg};color:${s.fg};border:1px solid ${s.border};
       padding:2px 6px;border-radius:2px;font-size:8px;font-weight:600;
       letter-spacing:1px;font-family:'JetBrains Mono',monospace;
-    " title="${s.label} — ${s.verb} (${cached.confidence}% confident)">
-      ${s.emoji} ${s.label}
+    " title="${s.label} — ${s.verb} (${cached.confidence}% confident)${cached.interior_photos === 'none' ? ' · exterior photos only' : cached.interior_photos === 'limited' ? ' · limited interior photos' : ''}">
+      ${s.emoji} ${s.label}${interiorWarning}
     </span>`;
   };
 
   // Cache-only render. Returns true if a cached result was rendered, false otherwise.
-  // Use this on panel-open to show prior analysis without firing an API call.
   window.renderCachedPhotoResult = function (propertyId, zillowUrl) {
     if (!zillowUrl) return false;
     const cached = getCached(zillowUrl);
@@ -109,7 +119,6 @@
     const resultEl = document.querySelector(`#photo-result-${propertyId}`);
     const btnEl    = document.querySelector(`#analyze-btn-${propertyId}`);
 
-    // Loading state
     if (btnEl) {
       btnEl.disabled = true;
       btnEl.textContent = '⏳ ANALYZING...';
@@ -137,6 +146,16 @@
       saveCached(zillowUrl, data);
       renderResult(resultEl, data, false);
 
+      // Trigger table re-render so the row badge AND the opportunity score
+      // both update without requiring a page refresh. refreshScoresAndRender()
+      // recomputes computeScore() for all leads (factoring in the new photo
+      // verdict) before re-rendering the table.
+      if (typeof window.refreshScoresAndRender === 'function') {
+        window.refreshScoresAndRender();
+      } else if (typeof window.render === 'function') {
+        window.render();
+      }
+
     } catch (err) {
       if (resultEl) {
         resultEl.innerHTML = `
@@ -153,7 +172,6 @@
     }
   };
 
-  // Clear cache — pass a URL to clear one entry, or no args to clear all
   window.clearPhotoCache = function (zillowUrl) {
     if (zillowUrl) {
       const cache = getCache();
@@ -176,6 +194,24 @@
          </span>`
       : '';
 
+    // Interior-coverage warning chip
+    let interiorChip = '';
+    if (result.interior_photos === 'none') {
+      interiorChip = `<div style="
+        background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);
+        color:#f59e0b;padding:6px 10px;border-radius:3px;
+        font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;
+        margin-bottom:10px;
+      ">⚠ EXTERIOR PHOTOS ONLY — INTERIOR CONDITION NOT VERIFIED</div>`;
+    } else if (result.interior_photos === 'limited') {
+      interiorChip = `<div style="
+        background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);
+        color:#d97706;padding:6px 10px;border-radius:3px;
+        font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;
+        margin-bottom:10px;
+      ">⚠ LIMITED INTERIOR PHOTOS — KEY ROOMS MAY NOT BE VISIBLE</div>`;
+    }
+
     el.innerHTML = `
       <div style="
         background:${s.bg};border:1px solid ${s.border};border-radius:4px;
@@ -193,6 +229,8 @@
           </span>
           ${cachedNote}
         </div>
+
+        ${interiorChip}
 
         <div style="
           color:#e8ecf4;font-size:11px;line-height:1.6;

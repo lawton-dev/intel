@@ -85,7 +85,7 @@ exports.handler = async (event) => {
         photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:        'v2-base64-images',
+          version:        'v3-interior-flag',
           model:          CLAUDE_MODEL,
           total_photos:   photos.length,
           downloaded_ok:  downloaded.length,
@@ -121,8 +121,7 @@ function extractPhotos(html) {
       for (const [, val] of Object.entries(obj)) {
         if (typeof val === 'string') {
           if (/photos\.zillowstatic\.com.*\.(jpg|jpeg|png|webp)/i.test(val)) {
-            // Use medium resolution (768px) to keep base64 payload reasonable
-            // High-res 1536px images can exceed Anthropic's 5MB-per-image limit at base64
+            // 768px keeps base64 payload reasonable while staying recognizable
             const sized = val.replace(/-cc_ft_\d+/, '-cc_ft_768');
             found.add(sized);
           }
@@ -153,7 +152,6 @@ async function downloadPhotos(urls) {
   const results = await Promise.all(urls.map(async (url) => {
     try {
       const res = await fetch(url, {
-        // Pretend to be a real browser — Zillow's CDN tends to 403 unknown UAs
         headers: {
           'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
           'Accept':     'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
@@ -174,7 +172,6 @@ async function downloadPhotos(urls) {
         return null;
       }
 
-      // Detect media type from URL extension (Zillow CDN doesn't always set Content-Type correctly)
       const ext = url.toLowerCase().match(/\.(jpe?g|png|webp|gif)/);
       const extToMime = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif' };
       const mediaType = extToMime[ext?.[1]] || 'image/jpeg';
@@ -208,15 +205,18 @@ Look at all photos provided and assess the overall renovation status. Pay close 
 - Fixtures and hardware: modern lighting vs brass/dated, ceiling fans
 - Overall: staging quality, "Instagram-ready" feel = recent flip indicator
 
+ALSO assess what photo coverage you have. Some Zillow listings (especially expired/withdrawn ones) only have exterior photos because the seller pulled interior shots when delisting. Note this honestly — exterior-only photos can't tell us about kitchen/bath condition.
+
 Respond with ONLY a JSON object (no other text, no markdown fences):
 {
   "status": "renovated" | "partial" | "dated",
   "confidence": 0-100,
+  "interior_photos": "full" | "limited" | "none",
   "reasoning": "2-3 sentence explanation citing specific observations from the photos",
   "key_findings": {
-    "kitchen": "brief description of what you see",
-    "bathrooms": "brief description",
-    "flooring": "brief description",
+    "kitchen": "brief description of what you see, or 'not visible' if no interior kitchen photos",
+    "bathrooms": "brief description, or 'not visible'",
+    "flooring": "brief description, or 'not visible'",
     "overall": "brief description"
   }
 }
@@ -224,7 +224,14 @@ Respond with ONLY a JSON object (no other text, no markdown fences):
 Status definitions:
 - "renovated" = SKIP. Modern kitchen + modern bathrooms + updated flooring throughout. Recent flip or major remodel. No meaningful value-add for an investor.
 - "partial" = MAYBE. Some areas updated but not all (e.g., kitchen redone but bathrooms still dated, or fresh paint over original everything). Could still have meat on the bone.
-- "dated" = CHASE. Original or dated finishes throughout. Strong value-add opportunity for an investor doing a flip or BRRRR.`,
+- "dated" = CHASE. Original or dated finishes throughout. Strong value-add opportunity for an investor doing a flip or BRRRR.
+
+Interior photos definitions:
+- "full" = good coverage of kitchen + bathrooms + living spaces
+- "limited" = some interior shots but key rooms (kitchen or bathrooms) are missing
+- "none" = exterior shots only, no interior visible
+
+Confidence calibration: when interior_photos is "none" or "limited", your confidence should be lower (typically 40-60%) since you're inferring condition from incomplete information. Full interior coverage with clear verdict warrants 80-95% confidence.`,
     },
   ];
 
@@ -272,6 +279,9 @@ Status definitions:
   if (!['renovated', 'partial', 'dated'].includes(parsed.status)) {
     parsed.status     = 'partial';
     parsed.confidence = parsed.confidence || 50;
+  }
+  if (!['full', 'limited', 'none'].includes(parsed.interior_photos)) {
+    parsed.interior_photos = 'limited';  // safe default
   }
 
   return parsed;

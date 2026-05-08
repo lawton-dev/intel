@@ -631,7 +631,7 @@ function computeScore(lead) {
     if (lead.vacant) score += 10;
     if (lead.absenteeOwner) score += 5;
     if (lead.highEquity) score += 10;
-    return Math.min(score, 100);
+    return applyPhotoModifier(score, lead);
   }
 
   // Failed listings: base 55 + recency bonus (fresher fail = warmer lead) + vacant + equity
@@ -647,7 +647,7 @@ function computeScore(lead) {
     if (lead.highEquity) score += 10;
     // Withdrawn slightly hotter than expired (active decision vs. time running out)
     if (lead.mlsStatus === 'WITHDRAWN') score += 5;
-    return Math.min(score, 100);
+    return applyPhotoModifier(score, lead);
   }
 
   // Build signal array from available data
@@ -684,6 +684,34 @@ function scoreClass(s) {
 function buildZillowUrl(l) {
   return l.zillowUrl || `https://www.zillow.com/homes/${encodeURIComponent(l.address || '')}_rb/`;
 }
+
+// Modify a stale/failed listing's base score using the photo verdict.
+// DATED gives a confidence-weighted boost (up to +15), RENOVATED applies a
+// confidence-weighted penalty (up to -35), PARTIAL is neutral. Only fires
+// when there's a cached analysis — otherwise returns the score unchanged.
+function applyPhotoModifier(baseScore, lead) {
+  if (!window.getPhotoAnalysis) return Math.min(baseScore, 100);
+  const analysis = window.getPhotoAnalysis(buildZillowUrl(lead));
+  if (!analysis || !analysis.success) return Math.min(baseScore, 100);
+
+  const conf = (analysis.confidence || 50) / 100;  // 0-1
+  let mod = 0;
+  if      (analysis.status === 'dated')     mod = +15 * conf;
+  else if (analysis.status === 'renovated') mod = -35 * conf;
+  // partial = 0
+
+  const finalScore = Math.round(baseScore + mod);
+  return Math.max(0, Math.min(finalScore, 100));
+}
+
+// Recompute scores for all loaded leads and re-render the table.
+// Called by the photo-analysis module after a successful analysis so the
+// score badge AND row pill both reflect the new verdict immediately.
+window.refreshScoresAndRender = function () {
+  if (!Array.isArray(allLeads)) return;
+  allLeads.forEach(l => { l.score = computeScore(l); });
+  render();
+};
 
 // ═══════════════════════════════════════════════════════════
 // STATE
