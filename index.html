@@ -488,14 +488,14 @@
     <div class="panel-section">
       <div class="panel-section-title">Record Details</div>
       <div class="panel-row">
-        <span class="panel-key">Amount Owed</span>
+        <span class="panel-key" id="panelAmountLabel">Amount Owed</span>
         <span class="panel-val money" id="panelAmount">—</span>
       </div>
       <div class="panel-row">
-        <span class="panel-key">Filing Date</span>
+        <span class="panel-key" id="panelDateLabel">Filing Date</span>
         <span class="panel-val" id="panelDate">—</span>
       </div>
-      <div class="panel-row">
+      <div class="panel-row" id="panelCaseRow">
         <span class="panel-key">Case Number</span>
         <span class="panel-val" id="panelCase">—</span>
       </div>
@@ -2082,7 +2082,7 @@ function openPanel(id) {
     <a class="panel-link" href="https://www.google.com/maps/place/${addrEncoded}" target="_blank" rel="noopener" title="Open in Google Maps">
       🗺️ MAPS
     </a>
-    <a class="panel-link" href="https://www.google.com/maps/@?api=1&map_action=pano&query=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
+    <a class="panel-link" href="https://maps.google.com/?layer=c&q=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
       📸 STREETVIEW
     </a>
     <a class="panel-link" href="https://www.redfin.com/stingray/do/location-autocomplete?location=${addrEncoded}&v=2" target="_blank" rel="noopener" title="Search on Redfin">
@@ -2090,12 +2090,47 @@ function openPanel(id) {
     </a>
   ` : '';
 
-  // Details
+  // Details — labels and values flex by lead type
+  // Stale listing → "List Price" + "List Date" (uses mlsDate)
+  // Failed listing → "List Price" + "Expiration Date" (uses mlsDate)
+  // Other types → "Amount Owed" + "Filing Date" (uses filingDate)
+  const isStale  = l.type === 'stale-listing';
+  const isFailed = l.type === 'failed-listing';
+
+  document.getElementById('panelAmountLabel').textContent = (isStale || isFailed) ? 'List Price' : 'Amount Owed';
   document.getElementById('panelAmount').textContent = l.amount || '—';
   document.getElementById('panelAmount').className   = l.amount ? 'panel-val money' : 'panel-val';
-  document.getElementById('panelDate').textContent   = fmtDate(l.filingDate || l.scrapedAt);
-  document.getElementById('panelCase').textContent   = l.caseNumber || '—';
-  document.getElementById('panelSource').textContent = 'INTEL — Sedgwick County';
+
+  let dateLabel, dateValue;
+  if (isStale) {
+    dateLabel = 'List Date';
+    dateValue = l.mlsDate || l.scrapedAt;
+  } else if (isFailed) {
+    dateLabel = 'Expiration Date';
+    dateValue = l.mlsDate || l.scrapedAt;
+  } else {
+    dateLabel = 'Filing Date';
+    dateValue = l.filingDate || l.scrapedAt;
+  }
+  document.getElementById('panelDateLabel').textContent = dateLabel;
+  document.getElementById('panelDate').textContent      = fmtDate(dateValue);
+
+  // Hide the Case Number row entirely when there isn't one (stale/failed listings)
+  const caseRow = document.getElementById('panelCaseRow');
+  if (l.caseNumber) {
+    caseRow.style.display = '';
+    document.getElementById('panelCase').textContent = l.caseNumber;
+  } else {
+    caseRow.style.display = 'none';
+  }
+
+  // Source — dynamic by lead type and county
+  const countyName = (l.county || 'unknown').replace(/\b\w/g, c => c.toUpperCase());
+  let sourceLabel;
+  if (isStale)         sourceLabel = `INTEL — Stale Listings · ${countyName} County`;
+  else if (isFailed)   sourceLabel = `INTEL — Failed Listings · ${countyName} County`;
+  else                 sourceLabel = `INTEL — ${countyName} County`;
+  document.getElementById('panelSource').textContent = sourceLabel;
 
   const phoneEl = document.getElementById('panelPhone');
   if (l.phone) {
@@ -2254,20 +2289,31 @@ function exportCSV(mode) {
     return;
   }
 
-  const headers = ['Owner','Address','Phone','Type','Score','Amount Owed','Case Number','Filing Date','Notes','Source'];
+  const headers = ['Owner','Address','Phone','Type','Score','Amount','Case Number','Date','Notes','Source'];
 
-  const rows = leads.map(l => [
-    csvCell(l.owner),
-    csvCell(l.address),
-    csvCell(l.phone || ''),
-    csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
-    l.score,
-    csvCell(l.amount || ''),
-    csvCell(l.caseNumber || ''),
-    csvCell(l.filingDate || ''),
-    csvCell(l.notes || ''),
-    csvCell('INTEL — Sedgwick County'),
-  ]);
+  const rows = leads.map(l => {
+    const isStale  = l.type === 'stale-listing';
+    const isFailed = l.type === 'failed-listing';
+    const dateVal  = (isStale || isFailed) ? (l.mlsDate || '') : (l.filingDate || '');
+    const countyName = (l.county || 'unknown').replace(/\b\w/g, c => c.toUpperCase());
+    let sourceLabel;
+    if      (isStale)  sourceLabel = `INTEL — Stale Listings · ${countyName} County`;
+    else if (isFailed) sourceLabel = `INTEL — Failed Listings · ${countyName} County`;
+    else               sourceLabel = `INTEL — ${countyName} County`;
+
+    return [
+      csvCell(l.owner),
+      csvCell(l.address),
+      csvCell(l.phone || ''),
+      csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
+      l.score,
+      csvCell(l.amount || ''),
+      csvCell(l.caseNumber || ''),
+      csvCell(dateVal),
+      csvCell(l.notes || ''),
+      csvCell(sourceLabel),
+    ];
+  });
 
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
