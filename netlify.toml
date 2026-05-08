@@ -21,3 +21,6 @@
   from = "/api/*"
   to   = "/.netlify/functions/:splat"
   status = 200
+
+[functions."analyze-photos"]
+  timeout = 26
