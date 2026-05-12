@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-05-11T12:25:46.698838+00:00",
+  "lastUpdated": "2026-05-12T11:29:41.425430+00:00",
   "county": "harris",
-  "totalLeads": 68,
+  "totalLeads": 28,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 68,
+    "tax_foreclosure": 28,
     "probate": 0,
     "state_warrant": 0
   },
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.183377+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.201459+00:00"
     },
     {
       "id": "f64c35b168c9",
@@ -31,7 +31,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.274352+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.298712+00:00"
     },
     {
       "id": "99579ba23ad2",
@@ -43,7 +43,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.417917+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.399443+00:00"
     },
     {
       "id": "769fa1111347",
@@ -55,7 +55,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.508114+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.495140+00:00"
     },
     {
       "id": "fe3e02ebf128",
@@ -67,7 +67,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.603126+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.589180+00:00"
     },
     {
       "id": "7266a22eec0e",
@@ -79,7 +79,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.821152+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.678508+00:00"
     },
     {
       "id": "d1b22871942c",
@@ -91,7 +91,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:42.908887+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.771578+00:00"
     },
     {
       "id": "89d66b82d4fa",
@@ -103,7 +103,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.038186+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.864331+00:00"
     },
     {
       "id": "abf156c66f18",
@@ -115,7 +115,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.144857+00:00"
+      "scrapedAt": "2026-05-12T11:29:37.958736+00:00"
     },
     {
       "id": "eeb5a7059bc0",
@@ -127,7 +127,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.275665+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.056777+00:00"
     },
     {
       "id": "994430de2ae6",
@@ -139,7 +139,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.374972+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.143505+00:00"
     },
     {
       "id": "60060b003c64",
@@ -151,7 +151,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.465191+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.234469+00:00"
     },
     {
       "id": "037227bb880d",
@@ -163,7 +163,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.553402+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.323881+00:00"
     },
     {
       "id": "495c319e7ace",
@@ -175,7 +175,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.644969+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.405997+00:00"
     },
     {
       "id": "fd0e14ae5365",
@@ -187,7 +187,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.729683+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.498159+00:00"
     },
     {
       "id": "09a6187438cb",
@@ -199,7 +199,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.819742+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.585887+00:00"
     },
     {
       "id": "fe627116dfd2",
@@ -211,7 +211,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:43.912106+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.672589+00:00"
     },
     {
       "id": "6c6c1d486535",
@@ -223,7 +223,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.006282+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.761009+00:00"
     },
     {
       "id": "59de0e6d3d4e",
@@ -235,7 +235,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.095976+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.852864+00:00"
     },
     {
       "id": "f26196a70bc9",
@@ -247,7 +247,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.179433+00:00"
+      "scrapedAt": "2026-05-12T11:29:38.943719+00:00"
     },
     {
       "id": "f328f78ee068",
@@ -259,7 +259,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.268823+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.034749+00:00"
     },
     {
       "id": "3d8d41cc58d4",
@@ -271,7 +271,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.361430+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.126955+00:00"
     },
     {
       "id": "a8387ba02d32",
@@ -283,7 +283,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.459836+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.220770+00:00"
     },
     {
       "id": "6030aa5fb7c4",
@@ -295,7 +295,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.552470+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.312259+00:00"
     },
     {
       "id": "09e4bef07f00",
@@ -307,7 +307,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.649315+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.407651+00:00"
     },
     {
       "id": "174ae9c5ff9c",
@@ -319,7 +319,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.739851+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.505560+00:00"
     },
     {
       "id": "be338568c446",
@@ -331,7 +331,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.829786+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.596950+00:00"
     },
     {
       "id": "8f20cb71eff9",
@@ -343,487 +343,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-11T12:25:44.921280+00:00"
-    },
-    {
-      "id": "3c8002fb75a7",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "4007 Emperor Valley Lane, Baytown, Texas, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": "071-068-000-0091",
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.322354+00:00"
-    },
-    {
-      "id": "361ef5d2eba2",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "8138 Record Street, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.404336+00:00"
-    },
-    {
-      "id": "c3361af3bb36",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "13047 Sweetgum Shores, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.484926+00:00"
-    },
-    {
-      "id": "74d79e974d74",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "24731 Russet Bluff Trail, Huffman, Texas, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.558978+00:00"
-    },
-    {
-      "id": "d0d56818ee09",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "4739 Woodford Street, Baytown, Texas, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.636872+00:00"
-    },
-    {
-      "id": "cdad93ec59fa",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "14606 Julie Meadows Lane, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.724635+00:00"
-    },
-    {
-      "id": "b935fc8b03b3",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "15338 Majestic Knight Drive, Humble, Tx 77346 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.804384+00:00"
-    },
-    {
-      "id": "9f82415639f3",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19702 Hollington Dr, Tomball, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.895932+00:00"
-    },
-    {
-      "id": "e870e5eb72ef",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "6414 Hawthorne Creek Dr, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:15.985614+00:00"
-    },
-    {
-      "id": "08d58983dc6c",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "3507 Woodbriar Drive, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.072471+00:00"
-    },
-    {
-      "id": "fa745b70b7af",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "6819 Huntbrook Dr, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.149490+00:00"
-    },
-    {
-      "id": "fda1b32edd97",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "3819 Liles Lane, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.226611+00:00"
-    },
-    {
-      "id": "58536629ab93",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19807 Lions Gate Court, Humble, Tx 77338 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.307714+00:00"
-    },
-    {
-      "id": "18341cf6e446",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "18010 Hillock Glen Lane, Cypress, Tx 77429 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.387909+00:00"
-    },
-    {
-      "id": "9796d94f9460",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "7231 Pine Bower Court, Humble, Tx 77346 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.466380+00:00"
-    },
-    {
-      "id": "67250e4857ab",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19022 Kimber Creek Lane, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.545719+00:00"
-    },
-    {
-      "id": "d6bdc9d990da",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "18007 June Oak Street, Cypress, Tx 77429 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.623608+00:00"
-    },
-    {
-      "id": "8a0a45b9aa16",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "20106 Forest Drive, Spring, Tx 77388 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.705139+00:00"
-    },
-    {
-      "id": "93d30729dfc8",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "24814 Auburn Terrace Drive, Spring, Tx 77389 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.782536+00:00"
-    },
-    {
-      "id": "1b306320b05e",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "18322 Arbormont Dr, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.859611+00:00"
-    },
-    {
-      "id": "2cb0af5fbf42",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "8406 Old Maple Lane, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:16.938578+00:00"
-    },
-    {
-      "id": "c3e5e64716ac",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "1718 Adobe Stone Dr, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.020186+00:00"
-    },
-    {
-      "id": "d71bdeca39ff",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "4847 Canyon Shore Dr, Humble, Tx 77396 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.099243+00:00"
-    },
-    {
-      "id": "24ae83875092",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19807 Indian Cherry Forest Ln, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.177301+00:00"
-    },
-    {
-      "id": "3a543959c16c",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "4802 Mint Trails, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.263104+00:00"
-    },
-    {
-      "id": "214c9cb5f387",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "16318 N Cross Dr, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.340355+00:00"
-    },
-    {
-      "id": "f7d4f782ee82",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "4527 Matagorda Lakes Drive, Humble, Tx 77396 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.417263+00:00"
-    },
-    {
-      "id": "93dbde982a5a",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "15651 Roscobie Park Dr, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.498117+00:00"
-    },
-    {
-      "id": "dc78ab757e82",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12126 Virline Lane, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.578609+00:00"
-    },
-    {
-      "id": "9c4cb58fe3f8",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12923 Ilderton Drive, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.661389+00:00"
-    },
-    {
-      "id": "2add967283d5",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "25711 Mill Pond Lane, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.743023+00:00"
-    },
-    {
-      "id": "229ae54cc5a7",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "21110 N Yellow Bud Ct, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.819208+00:00"
-    },
-    {
-      "id": "05c725749ff9",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "323 Remington Heights Dr, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.894147+00:00"
-    },
-    {
-      "id": "b365341f3502",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "20122 Bitterroot Ranch Drive, Katy, Tx 77449 (\"Property\");, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:17.977147+00:00"
-    },
-    {
-      "id": "1d6058e6015b",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "5011 Kintyre Drive, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.058055+00:00"
-    },
-    {
-      "id": "1a89082115ef",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "21310 Blue Tuna Drive, Cypress, Tx 77433 (\"Property\");, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.135070+00:00"
-    },
-    {
-      "id": "c00910ac67cd",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "31519 Casa Linda Drive, Hockley, Tx 77447;, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.215071+00:00"
-    },
-    {
-      "id": "435cfefe2326",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12851 Memorial Drive, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.291054+00:00"
-    },
-    {
-      "id": "62f6a8adf9cd",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "2651 Skyview Knoll Court, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.371462+00:00"
-    },
-    {
-      "id": "5ee5bec8282c",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "16584 Buccaneer Lane, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-05-05T10:58:18.482134+00:00"
+      "scrapedAt": "2026-05-12T11:29:39.685076+00:00"
     }
   ]
 }
