@@ -163,6 +163,8 @@
     .type-badge.pre-foreclosure{background:rgba(249,115,22,.12);color:#f97316;}
     .type-badge.stale-listing{background:rgba(59,130,246,.12);color:#3b82f6;}
     .type-badge.failed-listing{background:rgba(168,85,247,.12);color:#a855f7;}
+    .type-badge.new-listing{background:rgba(34,211,238,.12);color:#22d3ee;}
+    .type-badge.price-drop{background:rgba(236,72,153,.14);color:#ec4899;}
     .type-badge.probate{background:rgba(168,85,247,.1);color:var(--c-pr);}
     .type-badge.state-warrant{background:rgba(249,115,22,.1);color:var(--c-sw);}
     .type-badge.lis-pendens{background:rgba(59,130,246,.1);color:var(--c-lp);}
@@ -185,24 +187,13 @@
     .amount-val{color:var(--accent);font-weight:600;font-size:12px;}
     .amount-nil{color:var(--muted);font-size:10px;}
 
-    /* Est Value / List Price cell */
-    .val-num{color:var(--text);font-weight:600;font-size:12px;}
-    .val-tag{color:var(--muted);font-size:7px;letter-spacing:1.5px;margin-left:4px;font-weight:500;}
-    .val-nil{color:var(--muted);font-size:10px;}
-    .eq-badge{display:inline-block;font-size:7px;letter-spacing:1px;font-weight:600;padding:2px 6px;border-radius:2px;margin-top:4px;text-transform:uppercase;white-space:nowrap;}
-    .eq-badge.high{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);}
-    .eq-badge.med{background:rgba(245,158,11,.1);color:var(--c-td);border:1px solid rgba(245,158,11,.25);}
-    .eq-badge.low{background:rgba(239,68,68,.1);color:var(--c-tf);border:1px solid rgba(239,68,68,.25);}
-    .eq-badge.underwater{background:rgba(239,68,68,.18);color:#fca5a5;border:1px solid rgba(239,68,68,.5);font-weight:700;}
-    .lead-row.underwater{opacity:.55;}
-
     /* Phone cell */
     .phone-val{color:var(--green);font-size:11px;}
     .phone-nil{color:var(--muted);font-size:9px;letter-spacing:.5px;}
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-en{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-mon,.btn-contacted{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -216,21 +207,6 @@
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
     .btn-contacted{color:var(--dim);}
     .btn-contacted.on{border-color:var(--green);color:var(--green);}
-    .btn-en{color:var(--dim);}
-    .btn-en:hover:not(:disabled){border-color:var(--c-td);color:var(--c-td);}
-    .btn-en.loading{color:var(--muted);cursor:wait;}
-    .btn-en.done{border-color:var(--green);color:var(--green);opacity:.5;cursor:default;}
-
-    /* Photo analysis button — three verdict states match the panel result card */
-    .btn-photo{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;color:var(--dim);}
-    .btn-photo:hover:not(:disabled){border-color:#a855f7;color:#a855f7;}
-    .btn-photo.loading{color:var(--muted);cursor:wait;}
-    .btn-photo.verdict-renovated{border-color:rgba(239,68,68,0.5);color:#ef4444;background:rgba(239,68,68,0.06);}
-    .btn-photo.verdict-renovated:hover{background:rgba(239,68,68,0.12);}
-    .btn-photo.verdict-partial{border-color:rgba(245,158,11,0.5);color:#f59e0b;background:rgba(245,158,11,0.06);}
-    .btn-photo.verdict-partial:hover{background:rgba(245,158,11,0.12);}
-    .btn-photo.verdict-dated{border-color:rgba(34,197,94,0.5);color:#22c55e;background:rgba(34,197,94,0.06);}
-    .btn-photo.verdict-dated:hover{background:rgba(34,197,94,0.12);}
 
     /* EMPTY */
     .empty-state{text-align:center;padding:80px 0;color:var(--muted);}
@@ -314,7 +290,6 @@
 
     /* ATTOM placeholder removed — now using BatchData */
   </style>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -360,8 +335,6 @@
         <button class="btn-export" onclick="exportCSV('traced')" title="Export skip traced leads only">⬇ TRACED ONLY</button>
         <button class="btn-export" onclick="exportCSV('all')">⬇ EXPORT ALL</button>
       </div>
-      <button class="btn-refresh" id="btnEnrich" onclick="enrichVisibleValues()" title="Enrich visible leads with BatchData property values">🔍 ENRICH VALUES</button>
-      <button class="btn-refresh" onclick="openUploadModal()" title="Upload PropStream CSV exports">📤 UPLOAD</button>
       <button class="btn-refresh" onclick="loadLeads()">↻ REFRESH</button>
       <div class="oneroof-logo">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet"><defs><g/><clipPath id="a1"><path d="M 87.808594 111.339844 L 375 111.339844 L 375 176.589844 L 87.808594 176.589844 Z M 87.808594 111.339844 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a1)"><path fill="#ffffff" d="M 348.988281 288.757812 L 348.988281 198.300781 L 353.585938 201.261719 L 369.019531 176.832031 L 267.847656 111.5625 L 267.527344 111.351562 L 262.320312 111.339844 L 225.707031 134.960938 L 225.707031 131.707031 L 186.4375 131.707031 L 186.4375 160.292969 L 160.800781 176.832031 L 176.242188 201.261719 L 180.832031 198.300781 L 180.832031 288.757812 L 87.8125 288.757812 L 87.8125 297.9375 L 189.8125 297.9375 L 189.925781 181.539062 L 179.011719 188.578125 L 173.351562 179.632812 L 195.53125 165.324219 L 195.53125 140.886719 L 216.621094 140.886719 L 216.621094 151.71875 L 264.253906 120.988281 L 265.546875 120.976562 L 356.46875 179.632812 L 350.816406 188.578125 L 339.90625 181.542969 L 339.753906 297.9375 L 442.011719 297.9375 L 442.011719 288.757812 L 348.988281 288.757812 " fill-opacity="1" fill-rule="nonzero"/></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(2.776946, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(59.37894, 227.838251)"><g><path d="M 46.4375 0 L 38.734375 0 L 13.953125 -33.359375 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 13.8125 -46.5 L 38.734375 -13.09375 L 38.734375 -46.5 L 46.4375 -46.5 Z M 46.4375 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(114.785129, 227.838251)"><g><path d="M 39.328125 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.90625 L 36.671875 -26.90625 L 36.671875 -19.859375 L 13.953125 -19.859375 L 13.953125 -7.046875 L 40.125 -7.046875 L 40.125 0 L 6.109375 0 L 6.109375 -46.5 L 39.328125 -46.5 Z M 39.328125 -39.46875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(161.156335, 227.838251)"><g><path d="M 35.609375 0 L 27.109375 -14.078125 C 26.660156 -14.035156 25.953125 -14.015625 24.984375 -14.015625 L 13.953125 -14.015625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 24.984375 -46.5 C 30.921875 -46.5 35.523438 -45.113281 38.796875 -42.34375 C 42.078125 -39.582031 43.71875 -35.675781 43.71875 -30.625 C 43.71875 -26.90625 42.882812 -23.757812 41.21875 -21.1875 C 39.5625 -18.625 37.179688 -16.742188 34.078125 -15.546875 L 44.515625 0 Z M 13.953125 -21.0625 L 24.984375 -21.0625 C 32.515625 -21.0625 36.28125 -24.179688 36.28125 -30.421875 C 36.28125 -36.453125 32.515625 -39.46875 24.984375 -39.46875 L 13.953125 -39.46875 Z M 13.953125 -21.0625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(211.978593, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(268.580587, 227.838251)"><g><path d="M 9.359375 -39.953125 C 14.097656 -44.453125 19.945312 -46.703125 26.90625 -46.703125 C 33.863281 -46.703125 39.710938 -44.453125 44.453125 -39.953125 C 49.191406 -35.460938 51.5625 -29.894531 51.5625 -23.25 C 51.5625 -16.601562 49.191406 -11.007812 44.453125 -6.46875 C 39.710938 -1.9375 33.863281 0.328125 26.90625 0.328125 C 19.945312 0.328125 14.097656 -1.9375 9.359375 -6.46875 C 4.628906 -11.007812 2.265625 -16.601562 2.265625 -23.25 C 2.265625 -29.894531 4.628906 -35.460938 9.359375 -39.953125 Z M 26.96875 -39.65625 C 22.363281 -39.65625 18.421875 -38.070312 15.140625 -34.90625 C 11.867188 -31.738281 10.234375 -27.851562 10.234375 -23.25 C 10.234375 -18.644531 11.878906 -14.734375 15.171875 -11.515625 C 18.472656 -8.304688 22.40625 -6.703125 26.96875 -6.703125 C 31.53125 -6.703125 35.425781 -8.304688 38.65625 -11.515625 C 41.894531 -14.734375 43.515625 -18.644531 43.515625 -23.25 C 43.515625 -27.851562 41.894531 -31.738281 38.65625 -34.90625 C 35.425781 -38.070312 31.53125 -39.65625 26.96875 -39.65625 Z M 26.96875 -39.65625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(325.182581, 227.838251)"><g><path d="M 37.265625 -39.46875 L 13.953125 -39.46875 L 13.953125 -26.046875 L 35.078125 -26.046875 L 35.078125 -19.0625 L 13.953125 -19.0625 L 13.953125 0 L 6.109375 0 L 6.109375 -46.5 L 37.34375 -46.5 Z M 37.265625 -39.46875 "/></g></g></g></svg>
@@ -411,6 +384,8 @@
     <button class="ftab" onclick="setFilter('pre-foreclosure',this)">⚡ Pre-Foreclosure</button>
     <button class="ftab" onclick="setFilter('stale-listing',this)">🕐 Stale Listing</button>
     <button class="ftab" onclick="setFilter('failed-listing',this)">🚫 Failed Listing</button>
+    <button class="ftab" onclick="setFilter('new-listing',this)">✨ New Listing</button>
+    <button class="ftab" onclick="setFilter('price-drop',this)">💰 Price Drop</button>
     <button class="ftab" onclick="setFilter('probate',this)">Probate</button>
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
@@ -433,6 +408,38 @@
     <span style="flex:1"></span>
     <button class="ftab" id="expiredToggle" onclick="toggleExpired()" title="Show pre-foreclosure leads where auction was >30 days ago">☐ Include Expired Auctions</button>
   </div>
+  <div class="filters" style="border-top:none;padding-top:0;padding-bottom:10px;gap:10px;align-items:center;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;white-space:nowrap;">Refine ▸</span>
+    <label style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">
+      Price
+      <input id="fMinPrice" type="number" placeholder="Min" oninput="setPriceFilter()" style="width:80px;padding:5px 8px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;" />
+      <span style="color:var(--dim)">–</span>
+      <input id="fMaxPrice" type="number" placeholder="Max" oninput="setPriceFilter()" style="width:80px;padding:5px 8px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;" />
+    </label>
+    <label style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">
+      Beds
+      <select id="fMinBeds" onchange="setBedBath()" style="padding:5px 8px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;">
+        <option value="0">Any</option>
+        <option value="1">1+</option>
+        <option value="2">2+</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+        <option value="5">5+</option>
+      </select>
+    </label>
+    <label style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">
+      Baths
+      <select id="fMinBaths" onchange="setBedBath()" style="padding:5px 8px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;">
+        <option value="0">Any</option>
+        <option value="1">1+</option>
+        <option value="1.5">1.5+</option>
+        <option value="2">2+</option>
+        <option value="2.5">2.5+</option>
+        <option value="3">3+</option>
+      </select>
+    </label>
+    <button class="ftab" onclick="clearRefineFilters()" style="font-size:8px;padding:5px 10px;" title="Reset price/beds/baths filters">✕ CLEAR</button>
+  </div>
 
   <!-- LEAD TABLE -->
   <div class="lead-wrap" id="leadWrap">
@@ -443,11 +450,10 @@
           <th style="width:100px">TYPE</th>
           <th>OWNER / ADDRESS</th>
           <th style="width:80px">SIGNALS</th>
-          <th style="width:110px" id="amtHeader">AMT OWED</th>
-          <th style="width:130px">EST VALUE</th>
+          <th style="width:110px">AMT OWED</th>
           <th style="width:90px">DATE</th>
           <th style="width:130px">PHONE</th>
-          <th style="width:320px">ACTIONS</th>
+          <th style="width:260px">ACTIONS</th>
         </tr>
       </thead>
       <tbody id="leadBody"></tbody>
@@ -488,14 +494,14 @@
     <div class="panel-section">
       <div class="panel-section-title">Record Details</div>
       <div class="panel-row">
-        <span class="panel-key" id="panelAmountLabel">Amount Owed</span>
+        <span class="panel-key">Amount Owed</span>
         <span class="panel-val money" id="panelAmount">—</span>
       </div>
       <div class="panel-row">
-        <span class="panel-key" id="panelDateLabel">Filing Date</span>
+        <span class="panel-key">Filing Date</span>
         <span class="panel-val" id="panelDate">—</span>
       </div>
-      <div class="panel-row" id="panelCaseRow">
+      <div class="panel-row">
         <span class="panel-key">Case Number</span>
         <span class="panel-val" id="panelCase">—</span>
       </div>
@@ -563,26 +569,6 @@
   </div>
 </div>
 
-<div class="overlay" id="uploadOverlay">
-  <div class="modal" style="max-width:540px">
-    <div class="modal-title">📤 Upload PropStream CSV</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:14px">
-      Drop PropStream CSV or XLSX exports below. Rows are auto-classified: <span style="color:#3b82f6">stale listings</span> (active, 90-100 DOM) or <span style="color:#a855f7">failed listings</span> (expired/withdrawn within 14 days). Duplicates (matched by address) are skipped.
-    </div>
-    <div id="uploadDrop" style="border:2px dashed var(--border2);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s">
-      <div style="font-size:32px;margin-bottom:8px">📁</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text)">DROP CSV OR XLSX FILES HERE</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:6px">or click to browse</div>
-      <input type="file" id="uploadInput" accept=".csv,.xlsx,.xls" multiple style="display:none" />
-    </div>
-    <div id="uploadResult" style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px"></div>
-    <div class="mactions">
-      <button class="btn-cancel" onclick="closeUploadModal()">Close</button>
-      <button class="btn-cancel" onclick="clearStaleListings()" style="color:#ef4444;border-color:#ef4444" title="Clear all uploaded stale listings">🗑 CLEAR ALL</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -642,7 +628,7 @@ function computeScore(lead) {
     if (lead.vacant) score += 10;
     if (lead.absenteeOwner) score += 5;
     if (lead.highEquity) score += 10;
-    return applyPhotoModifier(score, lead);
+    return Math.min(score, 100);
   }
 
   // Failed listings: base 55 + recency bonus (fresher fail = warmer lead) + vacant + equity
@@ -658,7 +644,30 @@ function computeScore(lead) {
     if (lead.highEquity) score += 10;
     // Withdrawn slightly hotter than expired (active decision vs. time running out)
     if (lead.mlsStatus === 'WITHDRAWN') score += 5;
-    return applyPhotoModifier(score, lead);
+    return Math.min(score, 100);
+  }
+
+  // New listings: base 35 — colder because seller still expects retail price
+  if (lead.type === 'new-listing') {
+    let score = 35;
+    const dom = parseInt(lead.daysOnMarket) || 0;
+    if (dom <= 3) score += 5;  // very fresh, but still rejection-likely
+    return Math.min(score, 100);
+  }
+
+  // Price drops: base 65 — seller just admitted market is rejecting them
+  if (lead.type === 'price-drop') {
+    let score = 65;
+    const pct = parseFloat(lead.priceDropPct) || 0;
+    if (pct >= 10) score += 15;       // big drop = panic motivation
+    else if (pct >= 5) score += 10;
+    else if (pct >= 2) score += 5;
+    const dropDays = lead.priceDropDate
+      ? Math.floor((Date.now() - new Date(lead.priceDropDate).getTime()) / 86400000)
+      : 999;
+    if (dropDays <= 7) score += 10;   // fresh drop = act fast
+    else if (dropDays <= 14) score += 5;
+    return Math.min(score, 100);
   }
 
   // Build signal array from available data
@@ -690,166 +699,6 @@ function scoreClass(s) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// PHOTO ANALYSIS HELPERS
-// ═══════════════════════════════════════════════════════════
-function buildZillowUrl(l) {
-  return l.zillowUrl || `https://www.zillow.com/homes/${encodeURIComponent(l.address || '')}_rb/`;
-}
-
-// Modify a stale/failed listing's base score using the photo verdict.
-// DATED gives a confidence-weighted boost (up to +15), RENOVATED applies a
-// confidence-weighted penalty (up to -35), PARTIAL is neutral. Only fires
-// when there's a cached analysis — otherwise returns the score unchanged.
-function applyPhotoModifier(baseScore, lead) {
-  if (!window.getPhotoAnalysis) return Math.min(baseScore, 100);
-  const analysis = window.getPhotoAnalysis(buildZillowUrl(lead));
-  if (!analysis || !analysis.success) return Math.min(baseScore, 100);
-
-  const conf = (analysis.confidence || 50) / 100;  // 0-1
-  let mod = 0;
-  if      (analysis.status === 'dated')     mod = +15 * conf;
-  else if (analysis.status === 'renovated') mod = -35 * conf;
-  // partial = 0
-
-  const finalScore = Math.round(baseScore + mod);
-  return Math.max(0, Math.min(finalScore, 100));
-}
-
-// Recompute scores for all loaded leads and re-render the table.
-// Called by the photo-analysis module after a successful analysis so the
-// score badge AND row pill both reflect the new verdict immediately.
-window.refreshScoresAndRender = function () {
-  if (!Array.isArray(allLeads)) return;
-  allLeads.forEach(l => { l.score = computeScore(l); });
-  render();
-};
-
-// ═══════════════════════════════════════════════════════════
-// GEOCODING — for Street View deep links
-// ═══════════════════════════════════════════════════════════
-// Google's Maps URL spec requires lat/lng coordinates for Street View
-// (the `viewpoint` parameter doesn't accept addresses). We geocode via
-// OpenStreetMap's Nominatim service — free, no API key, US coverage is
-// excellent, and addresses don't move so cached results never expire.
-
-let intelGeocodeCache = JSON.parse(localStorage.getItem('intel_geocode_cache') || '{}');
-
-async function geocodeAddress(address) {
-  if (!address) return null;
-  if (intelGeocodeCache[address]) return intelGeocodeCache[address];
-
-  try {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&countrycodes=us&limit=1`;
-    // Use AbortController instead of AbortSignal.timeout for broader compat
-    const controller = new AbortController();
-    const timeoutId  = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (!Array.isArray(data) || !data.length) return null;
-
-    const coords = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
-    if (!isFinite(coords.lat) || !isFinite(coords.lng)) return null;
-
-    intelGeocodeCache[address] = coords;
-    localStorage.setItem('intel_geocode_cache', JSON.stringify(intelGeocodeCache));
-    return coords;
-  } catch (err) {
-    console.warn('Geocode failed for', address, err);
-    return null;
-  }
-}
-
-// Upgrade the Street View link's href once geocoding returns coordinates.
-// Falls through silently if geocoding fails — the fallback URL set in the
-// panel HTML still works (just less reliably).
-async function upgradeStreetviewLink(address) {
-  const coords = await geocodeAddress(address);
-  if (!coords) return;
-  const linkEl = document.getElementById('panelStreetviewLink');
-  if (!linkEl) return;  // user closed the panel before geocode finished
-  linkEl.href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${coords.lat},${coords.lng}`;
-}
-
-// Render the per-row photo analysis button. Three states:
-//   1. Not analyzed yet → "📷 PHOTOS" (clickable, dim)
-//   2. Analysis in progress → "ANALYZING..." (loading)
-//   3. Analyzed → verdict label colored by status (clickable to re-analyze)
-function renderPhotoButton(l) {
-  const analysis = window.getPhotoAnalysis ? window.getPhotoAnalysis(buildZillowUrl(l)) : null;
-  if (analysis && analysis.success) {
-    // Color and label based on verdict
-    const statusMap = {
-      renovated: { cls: 'verdict-renovated', label: '⛔ RENOVATED', title: 'SKIP — already flipped' },
-      partial:   { cls: 'verdict-partial',   label: '⚠ PARTIAL',    title: 'MAYBE — some areas updated' },
-      dated:     { cls: 'verdict-dated',     label: '✓ DATED',      title: 'CHASE — value-add opportunity' },
-    };
-    const s = statusMap[analysis.status] || statusMap.partial;
-    const interiorTip = analysis.interior_photos === 'none'
-      ? ' · exterior photos only'
-      : analysis.interior_photos === 'limited' ? ' · limited interior photos' : '';
-    return `<button class="btn-photo ${s.cls}" id="ph-${l.id}"
-      onclick="rowAnalyzePhotos('${l.id}')"
-      title="${s.title} (${analysis.confidence}% confident)${interiorTip} · click to re-analyze">
-      ${s.label}
-    </button>`;
-  }
-  // Not yet analyzed
-  return `<button class="btn-photo" id="ph-${l.id}"
-    onclick="rowAnalyzePhotos('${l.id}')"
-    title="Analyze listing photos to detect renovation status">
-    📷 PHOTOS
-  </button>`;
-}
-
-// Trigger photo analysis from the row button.
-async function rowAnalyzePhotos(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-  const btn = document.getElementById(`ph-${l.id}`);
-  if (!btn) return;
-
-  btn.disabled    = true;
-  btn.textContent = '⏳ ANALYZING...';
-  btn.className   = 'btn-photo loading';
-
-  try {
-    // Delegate to the module — it handles caching + saves to localStorage.
-    // We don't pass a panel-result element ID since we're not in the panel context;
-    // the module's resultEl/btnEl lookups will silently fail (which is fine — we
-    // handle the row button state ourselves below).
-    const zillowUrl = buildZillowUrl(l);
-    const res = await fetch('/.netlify/functions/analyze-photos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ zillowUrl }),
-    });
-    const data = await res.json();
-
-    if (!data.success) {
-      throw new Error(data.error || data.message || 'Analysis failed');
-    }
-
-    // Save to module's cache via direct localStorage write (same key the module uses)
-    const CACHE_KEY = 'intel_photo_analysis_v1';
-    const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
-    cache[zillowUrl] = { ...data, cached_at: new Date().toISOString() };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-
-    // Recompute scores (factors in new photo verdict) and re-render the table
-    if (window.refreshScoresAndRender) window.refreshScoresAndRender();
-
-    toast(`Photo analysis: ${data.status.toUpperCase()} (${data.confidence}%)`, 'ok');
-  } catch (err) {
-    btn.disabled    = false;
-    btn.textContent = '📷 PHOTOS';
-    btn.className   = 'btn-photo';
-    toast(`Photo analysis failed: ${err.message}`, 'err');
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
 let allLeads   = [];
@@ -859,12 +708,15 @@ let sortBy     = 'score';
 let searchQ    = '';
 let activeLead = null;
 let showExpired = false; // hide pre-foreclosure leads with auctions >30 days past
+let minPrice    = 0;
+let maxPrice    = 0;  // 0 = no cap
+let minBeds     = 0;
+let minBaths    = 0;
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
 let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
 let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
-let values     = JSON.parse(localStorage.getItem('intel_values') || '{}');
 
 // ═══════════════════════════════════════════════════════════
 // AUTH
@@ -894,6 +746,13 @@ function boot() {
 async function loadLeads() {
   setLoading(true);
 
+  // One-time cleanup: stale + failed listings moved from localStorage → RentCast JSON
+  // If old uploaded data still in localStorage, remove it so RentCast becomes source of truth
+  if (localStorage.getItem('intel_stale_listings') || localStorage.getItem('intel_failed_listings')) {
+    localStorage.removeItem('intel_stale_listings');
+    localStorage.removeItem('intel_failed_listings');
+  }
+
   // SCK = Sedgwick + Harvey + Butler + Sumner merged
   const SCK_COUNTIES = ['sedgwick','harvey','butler','sumner'];
   const isSCK = activeCounty === 'sck';
@@ -903,22 +762,16 @@ async function loadLeads() {
 
   function mapLead(l) {
     const pt = propTypes[l.id] || {};
-    const v  = values[l.id] || {};
     return {
       ...l,
-      score:           computeScore(l),
-      contacted:       contacted.has(l.id),
-      pushed:          pushed.has(l.id),
-      texted:          texted.has(l.id),
-      phone:           phones[l.id] || l.phone || null,
-      propertyType:    l.propertyType || pt.type || null,
-      bedrooms:        l.bedrooms || pt.bedrooms || null,
-      units:           l.units || pt.units || null,
-      // Enriched property values (BatchData) — overlay onto whatever the source already has
-      estimatedValue:  v.estimatedValue  || l.estimatedValue  || null,
-      estimatedEquity: v.estimatedEquity || l.estimatedEquity || null,
-      mortgageBalance: v.mortgageBalance || l.mortgageBalance || null,
-      enrichedAt:      v.enrichedAt || null,
+      score:        computeScore(l),
+      contacted:    contacted.has(l.id),
+      pushed:       pushed.has(l.id),
+      texted:       texted.has(l.id),
+      phone:        phones[l.id] || l.phone || null,
+      propertyType: l.propertyType || pt.type || null,
+      bedrooms:     l.bedrooms || pt.bedrooms || null,
+      units:        l.units || pt.units || null,
     };
   }
 
@@ -931,35 +784,31 @@ async function loadLeads() {
     } catch { return []; }
   }
 
-  function loadStaleListings(countyKey) {
+  async function loadListingsFile(marketKey, leadType) {
     try {
-      const all = JSON.parse(localStorage.getItem('intel_stale_listings') || '{}');
-      return all[countyKey] || [];
-    } catch { return []; }
-  }
-
-  function loadFailedListings(countyKey) {
-    try {
-      const all = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
-      return all[countyKey] || [];
+      const r = await fetch(`/data/leads-${marketKey}-${leadType}.json?v=` + Date.now());
+      if (!r.ok) return [];
+      const d = await r.json();
+      return d.leads || [];
     } catch { return []; }
   }
 
   try {
     if (isSCK) {
-      // Load all four KS county files + Sedgwick pre-foreclosure + stale listings
-      const [files, pfLeads] = await Promise.all([
+      // Load all four KS county files + Sedgwick pre-foreclosure + RentCast listings
+      const [files, pfLeads, newL, dropL, staleL, failedL] = await Promise.all([
         Promise.all(SCK_COUNTIES.map(c =>
           fetch(`/data/leads-${c}.json?v=` + Date.now())
             .then(r => r.ok ? r.json() : { leads: [] })
             .catch(() => ({ leads: [] }))
         )),
-        loadPreforeclosure('sedgwick')
+        loadPreforeclosure('sedgwick'),
+        loadListingsFile('wichita', 'new-listing'),
+        loadListingsFile('wichita', 'price-drop'),
+        loadListingsFile('wichita', 'stale-listing'),
+        loadListingsFile('wichita', 'failed-listing'),
       ]);
-      // Stale + Failed listings: merge for all KS counties
-      const slLeads = SCK_COUNTIES.flatMap(c => loadStaleListings(c));
-      const flLeads = SCK_COUNTIES.flatMap(c => loadFailedListings(c));
-      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...slLeads, ...flLeads];
+      const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...newL, ...dropL, ...staleL, ...failedL];
       allLeads = merged.map(mapLead);
 
       // Show most recent update across all four
@@ -978,9 +827,7 @@ async function loadLeads() {
       ]);
       if (!res.ok) throw new Error('no data');
       const data = await res.json();
-      const slLeads = loadStaleListings(activeCounty);
-      const flLeads = loadFailedListings(activeCounty);
-      const merged = [...(data.leads || []), ...pfLeads, ...slLeads, ...flLeads];
+      const merged = [...(data.leads || []), ...pfLeads];
       allLeads = merged.map(mapLead);
       if (data.lastUpdated) {
         const d = new Date(data.lastUpdated);
@@ -1007,7 +854,7 @@ async function loadLeads() {
 
 function setLoading(on) {
   if (on) document.getElementById('leadBody').innerHTML =
-    '<tr><td colspan="9" style="text-align:center;padding:60px;color:var(--muted);font-size:10px;letter-spacing:3px;">SCANNING COUNTY RECORDS...</td></tr>';
+    '<tr><td colspan="8" style="text-align:center;padding:60px;color:var(--muted);font-size:10px;letter-spacing:3px;">SCANNING COUNTY RECORDS...</td></tr>';
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1057,366 +904,25 @@ function toggleExpired() {
   render();
 }
 
-// ═══════════════════════════════════════════════════════════
-// UPLOAD CSV — Stale Listings (PropStream)
-// ═══════════════════════════════════════════════════════════
-function openUploadModal() {
-  document.getElementById('uploadOverlay').classList.add('open');
-  document.getElementById('uploadResult').innerHTML = '';
-  setTimeout(setupUploadHandlers, 50);
+function setPriceFilter() {
+  minPrice = parseFloat(document.getElementById('fMinPrice').value) || 0;
+  maxPrice = parseFloat(document.getElementById('fMaxPrice').value) || 0;
+  render();
+}
+function setBedBath() {
+  minBeds  = parseFloat(document.getElementById('fMinBeds').value)  || 0;
+  minBaths = parseFloat(document.getElementById('fMinBaths').value) || 0;
+  render();
+}
+function clearRefineFilters() {
+  document.getElementById('fMinPrice').value = '';
+  document.getElementById('fMaxPrice').value = '';
+  document.getElementById('fMinBeds').value  = '0';
+  document.getElementById('fMinBaths').value = '0';
+  minPrice = maxPrice = minBeds = minBaths = 0;
+  render();
 }
 
-function closeUploadModal() {
-  document.getElementById('uploadOverlay').classList.remove('open');
-}
-
-function setupUploadHandlers() {
-  const drop  = document.getElementById('uploadDrop');
-  const input = document.getElementById('uploadInput');
-  if (!drop || !input || drop._wired) return;
-  drop._wired = true;
-
-  drop.addEventListener('click', () => input.click());
-  input.addEventListener('change', e => handleFiles(e.target.files));
-
-  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
-    e.preventDefault(); e.stopPropagation();
-    drop.style.borderColor = 'var(--orange)';
-    drop.style.background = 'rgba(255,107,53,0.04)';
-  }));
-  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
-    e.preventDefault(); e.stopPropagation();
-    drop.style.borderColor = 'var(--border2)';
-    drop.style.background = 'transparent';
-  }));
-  drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
-}
-
-async function handleFiles(fileList) {
-  const files = Array.from(fileList).filter(f => /\.(csv|xlsx|xls)$/i.test(f.name));
-  if (!files.length) {
-    document.getElementById('uploadResult').innerHTML =
-      '<div style="color:#ef4444">No CSV or XLSX files detected.</div>';
-    return;
-  }
-
-  let totalRows = 0, totalAdded = 0, totalSkipped = 0, totalStaleDate = 0, totalTooNew = 0, totalFailedOld = 0;
-  let totalStaleAdded = 0, totalFailedAdded = 0;
-  const byCountySummary = {};
-
-  for (const file of files) {
-    try {
-      const isXlsx = /\.(xlsx|xls)$/i.test(file.name);
-      let rows;
-      if (isXlsx) {
-        rows = await parseXLSX(file);
-      } else {
-        const text = await file.text();
-        rows = parseCSV(text);
-      }
-      totalRows += rows.length;
-      const result = ingestStaleListings(rows);
-      totalAdded       += result.added;
-      totalSkipped     += result.skipped;
-      totalStaleDate   += (result.staleDate    || 0);
-      totalTooNew      += (result.tooNew       || 0);
-      totalFailedOld   += (result.failedTooOld || 0);
-      totalStaleAdded  += (result.staleAdded   || 0);
-      totalFailedAdded += (result.failedAdded  || 0);
-      Object.entries(result.byCounty).forEach(([c, n]) => {
-        byCountySummary[c] = (byCountySummary[c] || 0) + n;
-      });
-    } catch (e) {
-      console.error(`Failed to parse ${file.name}:`, e);
-    }
-  }
-
-  document.getElementById('uploadResult').innerHTML = `
-    <div style="padding:10px 14px;border-radius:7px;background:rgba(71,255,138,0.06);border:1px solid rgba(71,255,138,0.25);color:#47ff8a">
-      ✓ Processed ${files.length} file${files.length>1?'s':''} · ${totalRows} rows
-    </div>
-    <div style="margin-top:8px;color:var(--muted);font-size:10px;line-height:1.6">
-      <div><span style="color:#3b82f6">🕐 Stale:</span> +${totalStaleAdded} · <span style="color:#a855f7">🚫 Failed:</span> +${totalFailedAdded} · Skipped: ${totalSkipped} duplicates</div>
-      <div style="margin-top:4px">Filtered: ${totalStaleDate} (>100d old) · ${totalTooNew} (&lt;90d active) · ${totalFailedOld} (failed >14d ago)</div>
-    </div>
-    <div style="margin-top:6px;color:var(--text);font-size:10px">
-      ${Object.entries(byCountySummary).map(([c,n]) => `<div>${c.toUpperCase()}: +${n}</div>`).join('')}
-    </div>
-  `;
-
-  // Reload data
-  loadLeads();
-}
-
-async function parseXLSX(file) {
-  const buffer = await file.arrayBuffer();
-  const workbook = XLSX.read(buffer, { type: 'array' });
-  const firstSheetName = workbook.SheetNames[0];
-  const sheet = workbook.Sheets[firstSheetName];
-  // Convert sheet to JSON with the first row as headers
-  return XLSX.utils.sheet_to_json(sheet, { defval: '', raw: false });
-}
-
-function parseCSV(text) {
-  // PropStream CSVs are standard CSV — handle quoted commas via a real parser
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  if (!lines.length) return [];
-
-  function parseRow(line) {
-    const out = [];
-    let cur = '', inQuote = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') {
-        if (inQuote && line[i+1] === '"') { cur += '"'; i++; }
-        else inQuote = !inQuote;
-      } else if (c === ',' && !inQuote) {
-        out.push(cur); cur = '';
-      } else {
-        cur += c;
-      }
-    }
-    out.push(cur);
-    return out;
-  }
-
-  const headers = parseRow(lines[0]).map(h => h.trim());
-  return lines.slice(1).map(line => {
-    const cells = parseRow(line);
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = (cells[i] || '').trim());
-    return obj;
-  });
-}
-
-function ingestStaleListings(rows) {
-  // Two separate localStorage buckets
-  const staleAll  = JSON.parse(localStorage.getItem('intel_stale_listings')  || '{}');
-  const failedAll = JSON.parse(localStorage.getItem('intel_failed_listings') || '{}');
-
-  // Dedupe sets per county per type
-  const existingStaleIds  = {};
-  const existingFailedIds = {};
-  Object.entries(staleAll).forEach(([c, leads])  => { existingStaleIds[c]  = new Set(leads.map(l => l.id)); });
-  Object.entries(failedAll).forEach(([c, leads]) => { existingFailedIds[c] = new Set(leads.map(l => l.id)); });
-
-  const result = {
-    added: 0, skipped: 0, byCounty: {},
-    staleDate: 0, tooNew: 0, failedTooOld: 0,
-    staleAdded: 0, failedAdded: 0
-  };
-  const now = new Date().toISOString();
-
-  // STALE LISTING RULES: active listings between 90-100 DOM (MLS Date = listing START)
-  // FAILED LISTING RULES: expired/withdrawn within last 14 days (MLS Date = status change)
-  const STALE_MAX_AGE_DAYS  = 100;
-  const STALE_MIN_DOM       = 90;
-  const FAILED_MAX_AGE_DAYS = 14;
-  const staleCutoffMs  = Date.now() - (STALE_MAX_AGE_DAYS  * 24 * 60 * 60 * 1000);
-  const failedCutoffMs = Date.now() - (FAILED_MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
-
-  function buildOwnerName(row) {
-    const o1First = (row['Owner 1 First Name'] || '').trim();
-    const o1Last  = (row['Owner 1 Last Name']  || '').trim();
-    const o2First = (row['Owner 2 First Name'] || '').trim();
-    const o2Last  = (row['Owner 2 Last Name']  || '').trim();
-    const careOf  = (row['Mailing Care of Name'] || '').trim();
-
-    if (careOf && careOf.includes('&')) return toTitle(careOf);
-
-    const o1 = [o1First, o1Last].filter(Boolean).join(' ');
-    const o2 = [o2First, o2Last].filter(Boolean).join(' ');
-
-    if (o1 && o2) {
-      if (o1Last && o1Last === o2Last) return toTitle(`${o1First} & ${o2First} ${o1Last}`);
-      return toTitle(`${o1} & ${o2}`);
-    }
-    if (o1) return toTitle(o1);
-    if (careOf) return toTitle(careOf);
-    return '';
-  }
-
-  function toTitle(s) {
-    return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).trim();
-  }
-
-  function daysSince(mlsDate) {
-    if (!mlsDate) return 0;
-    try {
-      const d = new Date(String(mlsDate).split(' ')[0]);
-      if (isNaN(d)) return 0;
-      const days = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
-      return days > 0 ? days : 0;
-    } catch { return 0; }
-  }
-
-  function pickPhone(row) {
-    for (let i = 1; i <= 5; i++) {
-      const p = (row[`Phone ${i}`] || '').trim();
-      const dnc = (row[`Phone ${i} DNC`] || '').trim();
-      if (p && !/yes|true|1/i.test(dnc)) return p;
-    }
-    return null;
-  }
-
-  for (const row of rows) {
-    const address = (row['Address'] || '').trim();
-    const city    = (row['City']    || '').trim();
-    const state   = (row['State']   || '').trim();
-    const county  = (row['County']  || '').trim().toLowerCase();
-
-    if (!address || !county) continue;
-
-    const countyKey = county.replace(/\s+county$/i, '').trim();
-    const KNOWN_COUNTIES = ['sedgwick','harvey','butler','sumner','harris','clark','maricopa','tarrant','dallas','shelby'];
-    if (!KNOWN_COUNTIES.includes(countyKey)) continue;
-
-    const mlsStatus = (row['MLS Status'] || '').trim().toUpperCase();
-    const mlsRaw    = row['MLS Date'];
-    const dom       = daysSince(mlsRaw);
-
-    // Determine if this is a FAILED or STALE listing based on MLS Status
-    const isFailed = ['EXPIRED','WITHDRAWN','CANCELLED','CANCELED'].includes(mlsStatus);
-    const isActive = ['ACTIVE','PENDING','CONTINGENT'].includes(mlsStatus) || !isFailed;
-
-    // Must have an MLS Date to process
-    if (!mlsRaw) {
-      result.staleDate++;
-      continue;
-    }
-
-    let mlsMs;
-    try {
-      mlsMs = new Date(String(mlsRaw).split(' ')[0]).getTime();
-      if (isNaN(mlsMs)) { result.staleDate++; continue; }
-    } catch { result.staleDate++; continue; }
-
-    // Apply filter rules based on type
-    let leadType, relevantDays;
-    if (isFailed) {
-      // Failed: only accept if it ended within the last 14 days
-      if (mlsMs < failedCutoffMs) {
-        result.failedTooOld++;
-        continue;
-      }
-      leadType = 'failed-listing';
-      relevantDays = dom; // dom for failed = days since status changed
-    } else {
-      // Stale (active): must be between 90-100 DOM
-      if (mlsMs < staleCutoffMs) {
-        result.staleDate++;
-        continue;
-      }
-      if (dom < STALE_MIN_DOM) {
-        result.tooNew++;
-        continue;
-      }
-      leadType = 'stale-listing';
-      relevantDays = dom;
-    }
-
-    const owner    = buildOwnerName(row);
-    const listPrc  = row['MLS Amount'] || '';
-    const estVal   = row['Est. Value'] || '';
-    const equity   = row['Est. Equity'] || '';
-    const ltv      = row['Est. Loan-to-Value'] || '';
-    const phone    = pickPhone(row);
-    const ownerOcc = (row['Owner Occupied'] || '').trim().toLowerCase();
-
-    // Pick correct bucket based on lead type
-    const bucket        = isFailed ? failedAll : staleAll;
-    const existingIds   = isFailed ? existingFailedIds : existingStaleIds;
-    const idPrefix      = isFailed ? 'failed' : 'stale';
-
-    const id = stableId(`${idPrefix}-${address}-${city}-${state}`);
-
-    if (!bucket[countyKey]) bucket[countyKey] = [];
-    if (!existingIds[countyKey]) existingIds[countyKey] = new Set();
-
-    if (existingIds[countyKey].has(id)) {
-      result.skipped++;
-      continue;
-    }
-
-    const equityNum = parseFloat(String(equity).replace(/[^0-9.-]/g,'')) || 0;
-    const valueNum  = parseFloat(String(estVal).replace(/[^0-9.-]/g,'')) || 0;
-
-    const baseLead = {
-      id,
-      county:          countyKey,
-      type:            leadType,
-      owner:           owner || 'Unknown Owner',
-      address:         `${address}, ${city} ${state}`,
-      amount:          listPrc ? `$${Math.round(parseFloat(listPrc))||0}` : null,
-      filingDate:      null,
-      caseNumber:      null,
-      phone:           phone,
-      score:           50,
-      scrapedAt:       now,
-      uploadedAt:      now,
-      propertyType:    row['Property Type'] || '',
-      bedrooms:        row['Bedrooms'] || null,
-      bathrooms:       row['Total Bathrooms'] || null,
-      sqft:            row['Building Sqft'] || null,
-      listingPrice:    listPrc,
-      mlsStatus:       mlsStatus,
-      mlsDate:         mlsRaw,
-      estimatedValue:  valueNum || estVal,
-      estimatedEquity: equityNum || equity,
-      loanToValue:     ltv,
-      vacant:          ownerOcc === 'no',
-      absenteeOwner:   ownerOcc === 'no',
-      highEquity:      equityNum > 100000,
-      source:          'PropStream',
-    };
-
-    let lead;
-    if (isFailed) {
-      lead = {
-        ...baseLead,
-        daysSinceFailed: relevantDays,
-        notes: `${mlsStatus} ${relevantDays}d ago · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
-      };
-    } else {
-      lead = {
-        ...baseLead,
-        daysOnMarket: relevantDays,
-        priceReduced: false,
-        notes: `${relevantDays}d on market · Listed $${listPrc || '?'}${equityNum ? ` · ${Math.round(equityNum/1000)}k equity` : ''}`,
-      };
-    }
-
-    bucket[countyKey].push(lead);
-    existingIds[countyKey].add(id);
-    result.added++;
-    if (isFailed) result.failedAdded++; else result.staleAdded++;
-    result.byCounty[countyKey] = (result.byCounty[countyKey] || 0) + 1;
-  }
-
-  localStorage.setItem('intel_stale_listings',  JSON.stringify(staleAll));
-  localStorage.setItem('intel_failed_listings', JSON.stringify(failedAll));
-  return result;
-}
-
-function stableId(str) {
-  // Simple stable hash for dedupe
-  let h = 0;
-  const s = str.toLowerCase().replace(/\s+/g, ' ').trim();
-  for (let i = 0; i < s.length; i++) {
-    h = ((h << 5) - h) + s.charCodeAt(i);
-    h |= 0;
-  }
-  return 'sl' + Math.abs(h).toString(36);
-}
-
-function clearStaleListings() {
-  if (!confirm('Clear all uploaded stale + failed listings? This cannot be undone.')) return;
-  localStorage.removeItem('intel_stale_listings');
-  localStorage.removeItem('intel_failed_listings');
-  document.getElementById('uploadResult').innerHTML =
-    '<div style="color:var(--muted)">All uploaded listings cleared.</div>';
-  loadLeads();
-}
 
 function getFiltered() {
   let leads = [...allLeads];
@@ -1445,6 +951,32 @@ function getFiltered() {
       const auction = new Date(l.auctionDate);
       if (isNaN(auction)) return true;
       return auction >= thirtyDaysAgo; // hide if auction was >30 days ago
+    });
+  }
+
+  // Refine filters — price/beds/baths
+  // Only apply to leads that HAVE this data (don't filter out tax-delinquent etc. for missing prices)
+  if (minPrice > 0 || maxPrice > 0) {
+    leads = leads.filter(l => {
+      const p = parseFloat(l.listingPrice) || parseFloat(String(l.amount || '').replace(/[^0-9.]/g,'')) || 0;
+      if (p === 0) return true; // no price data, keep
+      if (minPrice > 0 && p < minPrice) return false;
+      if (maxPrice > 0 && p > maxPrice) return false;
+      return true;
+    });
+  }
+  if (minBeds > 0) {
+    leads = leads.filter(l => {
+      const b = parseFloat(l.bedrooms) || 0;
+      if (b === 0) return true; // no bed data, keep
+      return b >= minBeds;
+    });
+  }
+  if (minBaths > 0) {
+    leads = leads.filter(l => {
+      const b = parseFloat(l.bathrooms) || 0;
+      if (b === 0) return true; // no bath data, keep
+      return b >= minBaths;
     });
   }
 
@@ -1523,6 +1055,8 @@ const TYPE_LABELS = {
   'pre-foreclosure': 'PRE-FORECLOSURE',
   'stale-listing':   'STALE LISTING',
   'failed-listing':  'FAILED LISTING',
+  'new-listing':     'NEW LISTING',
+  'price-drop':      'PRICE DROP',
   'probate':         'PROBATE',
   'state-warrant':   'STATE WARRANT',
   'lis-pendens':     'LIS PENDENS',
@@ -1532,15 +1066,6 @@ function render() {
   const leads = getFiltered();
   const body  = document.getElementById('leadBody');
   const empty = document.getElementById('emptyState');
-
-  // Switch column header to "LIST PRICE" on listing-type filters,
-  // since for those leads the dollar amount is the MLS list price, not debt
-  const amtHdr = document.getElementById('amtHeader');
-  if (amtHdr) {
-    amtHdr.textContent = (activeFilter === 'stale-listing' || activeFilter === 'failed-listing')
-      ? 'LIST PRICE'
-      : 'AMT OWED';
-  }
 
   if (!leads.length) {
     body.innerHTML = '';
@@ -1583,11 +1108,7 @@ function row(l) {
     { cls: 'lp', active: l.type==='lis-pendens'     || (l.stackedSignals||[]).includes('lis-pendens')     },
   ];
 
-  const valDisp = getValueDisplay(l);
-  const eqBadge = getEquityBadge(l);
-  const underwaterClass = eqBadge && eqBadge.cls === 'underwater' ? ' underwater' : '';
-
-  return `<tr class="lead-row${l.contacted?' contacted':''}${underwaterClass}" id="lr-${l.id}" onclick="openPanel('${l.id}')" style="cursor:pointer;">
+  return `<tr class="lead-row${l.contacted?' contacted':''}" id="lr-${l.id}" onclick="openPanel('${l.id}')" style="cursor:pointer;">
     <td>
       <div class="score-badge ${scCls}">${sc}</div>
     </td>
@@ -1607,12 +1128,6 @@ function row(l) {
         ? `<span class="amount-val">${l.amount}</span>`
         : `<span class="amount-nil">—</span>`}
     </td>
-    <td>
-      ${valDisp
-        ? `<div><span class="val-num">${valDisp.display}</span><span class="val-tag">${valDisp.tag}</span></div>
-           ${eqBadge ? `<div><span class="eq-badge ${eqBadge.cls}">${eqBadge.label}</span></div>` : ''}`
-        : `<span class="val-nil">—</span>`}
-    </td>
     <td style="font-size:9px;color:var(--dim)">${date}</td>
     <td>
       ${hasPhone
@@ -1625,12 +1140,6 @@ function row(l) {
           onclick="skipTrace('${l.id}')" ${l.phone?'disabled':''}>
           ${l.phone ? '✓ TRACED' : '⚡ SKIP TRACE'}
         </button>
-        <button class="btn-en${toNum(l.estimatedValue)>0?' done':''}" id="en-${l.id}"
-          onclick="enrichLead('${l.id}')" ${toNum(l.estimatedValue)>0?'disabled':''}
-          title="${toNum(l.estimatedValue)>0?'Already enriched':'Pull property value from BatchData'}">
-          ${toNum(l.estimatedValue)>0 ? '✓ VALUED' : '💰 VALUE'}
-        </button>
-        ${(l.type === 'stale-listing' || l.type === 'failed-listing') ? renderPhotoButton(l) : ''}
         <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
           ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
@@ -1649,59 +1158,6 @@ function fmtDate(d) {
   if (!d) return '—';
   try { return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
   catch { return d; }
-}
-
-// ═══════════════════════════════════════════════════════════
-// VALUE / EQUITY HELPERS
-// ═══════════════════════════════════════════════════════════
-function toNum(v) {
-  if (v == null || v === '') return 0;
-  if (typeof v === 'number') return isFinite(v) ? v : 0;
-  const n = parseFloat(String(v).replace(/[^0-9.-]/g,''));
-  return isFinite(n) ? n : 0;
-}
-
-function fmtMoney(v) {
-  const n = toNum(v);
-  if (!n) return null;
-  return '$' + Math.round(n).toLocaleString();
-}
-
-// Returns { display, tag } for the EST VALUE / LIST PRICE column
-function getValueDisplay(l) {
-  const estNum  = toNum(l.estimatedValue);
-  const listNum = toNum(l.listingPrice);
-  if (estNum)  return { display: '$' + Math.round(estNum).toLocaleString(),  tag: 'EST' };
-  if (listNum) return { display: '$' + Math.round(listNum).toLocaleString(), tag: 'LIST' };
-  return null;
-}
-
-// Returns { cls, label, pct } or null
-function getEquityBadge(l) {
-  const valueNum = toNum(l.estimatedValue);
-  if (!valueNum || valueNum <= 0) return null;
-
-  let equityPct = null;
-
-  // For PropStream-sourced listings, prefer the explicit equity field
-  // (l.amount = list price for these, NOT debt — don't subtract it)
-  if (l.type === 'stale-listing' || l.type === 'failed-listing') {
-    const equityNum = toNum(l.estimatedEquity);
-    if (equityNum) equityPct = (equityNum / valueNum) * 100;
-  } else {
-    // For tax foreclosure / lis pendens / probate / etc.,
-    // l.amount is the actual debt — compute remaining equity
-    const debtNum = toNum(l.amount);
-    if (debtNum) equityPct = ((valueNum - debtNum) / valueNum) * 100;
-  }
-
-  if (equityPct == null || isNaN(equityPct)) return null;
-
-  const pct = Math.round(equityPct);
-  if (equityPct <= 0)   return { cls: 'underwater', label: 'UNDERWATER',     pct };
-  if (equityPct >= 50)  return { cls: 'high',       label: `HIGH EQ ${pct}%`, pct };
-  if (equityPct >= 25)  return { cls: 'med',        label: `MED EQ ${pct}%`,  pct };
-  return                       { cls: 'low',        label: `LOW EQ ${pct}%`,  pct };
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1741,20 +1197,6 @@ async function skipTrace(id) {
         propTypes[l.id] = { type: data.propertyType, bedrooms: data.bedrooms, units: data.units };
         localStorage.setItem('intel_propTypes', JSON.stringify(propTypes));
       }
-      // Capture value/equity data if BatchData returned it (free piggyback on the trace)
-      if (data.estimatedValue || data.estimatedEquity || data.mortgageBalance) {
-        const vEntry = {
-          estimatedValue:  data.estimatedValue  || null,
-          estimatedEquity: data.estimatedEquity || null,
-          mortgageBalance: data.mortgageBalance || null,
-          enrichedAt:      Date.now(),
-        };
-        values[l.id]            = vEntry;
-        l.estimatedValue        = vEntry.estimatedValue;
-        l.estimatedEquity       = vEntry.estimatedEquity;
-        l.mortgageBalance       = vEntry.mortgageBalance;
-        localStorage.setItem('intel_values', JSON.stringify(values));
-      }
       localStorage.setItem('intel_phones', JSON.stringify(phones));
       btn.textContent = '✓ TRACED';
       btn.classList.remove('loading');
@@ -1777,128 +1219,6 @@ async function skipTrace(id) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// BATCHDATA PROPERTY VALUE ENRICHMENT
-// ═══════════════════════════════════════════════════════════
-
-// Single-lead enrichment — calls /.netlify/functions/enrich-property
-async function enrichOne(lead) {
-  try {
-    const res = await fetch('/.netlify/functions/enrich-property', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        address: lead.address,
-        county:  lead.county,
-      })
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (!data.estimatedValue && !data.estimatedEquity) return null;
-
-    const entry = {
-      estimatedValue:  data.estimatedValue  || null,
-      estimatedEquity: data.estimatedEquity || null,
-      mortgageBalance: data.mortgageBalance || null,
-      enrichedAt:      Date.now(),
-    };
-    values[lead.id]         = entry;
-    lead.estimatedValue     = entry.estimatedValue;
-    lead.estimatedEquity    = entry.estimatedEquity;
-    lead.mortgageBalance    = entry.mortgageBalance;
-    return entry;
-  } catch {
-    return null;
-  }
-}
-
-// Per-lead enrichment — wired to the row-level "💰 VALUE" button
-async function enrichLead(id) {
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-
-  const btn = document.getElementById(`en-${l.id}`);
-  if (!btn) return;
-
-  btn.textContent = 'ENRICHING...';
-  btn.classList.add('loading');
-  btn.disabled = true;
-
-  const result = await enrichOne(l);
-
-  if (result && result.estimatedValue) {
-    localStorage.setItem('intel_values', JSON.stringify(values));
-    render();
-    toast(`Enriched — value $${Math.round(result.estimatedValue).toLocaleString()}`, 'ok');
-  } else {
-    btn.textContent = '💰 VALUE';
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    toast('No value data found for this address', 'err');
-  }
-}
-
-// Bulk enrichment for all currently-visible leads missing value data
-async function enrichVisibleValues() {
-  const visible = getFiltered();
-  // Only enrich leads that don't already have value data and aren't PropStream-sourced
-  // (PropStream listings already come with estimatedValue baked in)
-  const targets = visible.filter(l => {
-    const hasValue = toNum(l.estimatedValue) > 0;
-    return !hasValue && l.address;
-  });
-
-  if (!targets.length) {
-    toast('All visible leads already have value data ✓', 'ok');
-    return;
-  }
-
-  // Cost confirmation for larger batches (BatchData property lookups cost money)
-  const COST_PER_LOOKUP = 0.05; // approx — adjust to your actual contract
-  const estCost = (targets.length * COST_PER_LOOKUP).toFixed(2);
-  if (targets.length > 25) {
-    if (!confirm(`Enrich ${targets.length} leads with BatchData property values?\n\nEstimated cost: ~$${estCost}\n\nThis will populate the EST VALUE column and equity badges for these leads.`)) {
-      return;
-    }
-  }
-
-  const btn = document.getElementById('btnEnrich');
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = `⏳ ENRICHING 0/${targets.length}...`;
-  }
-
-  let success = 0;
-  let failed  = 0;
-
-  // Process serially with small concurrency to avoid hammering the API
-  const CONCURRENCY = 4;
-  let cursor = 0;
-
-  async function worker() {
-    while (cursor < targets.length) {
-      const idx = cursor++;
-      const lead = targets[idx];
-      const result = await enrichOne(lead);
-      if (result) success++; else failed++;
-      if (btn) btn.textContent = `⏳ ENRICHING ${success + failed}/${targets.length}...`;
-    }
-  }
-
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
-
-  // Persist all updates at once
-  localStorage.setItem('intel_values', JSON.stringify(values));
-
-  if (btn) {
-    btn.disabled = false;
-    btn.textContent = '🔍 ENRICH VALUES';
-  }
-
-  render();
-  toast(`Enrichment complete — ${success} found, ${failed} missed`, success ? 'ok' : 'err');
-}
-
-// ═══════════════════════════════════════════════════════════
 // MONDAY PUSH
 // ═══════════════════════════════════════════════════════════
 async function pushMonday(id) {
@@ -1910,16 +1230,18 @@ async function pushMonday(id) {
   btn.disabled    = true;
 
   try {
-    // Route to different Monday boards based on lead type
-    // Zapier can branch on list_id: "stale-listings" -> different board than "intel-main"
-    // Stale and Failed listings share the same Monday board per user preference
-    const isListing = l.type === 'stale-listing' || l.type === 'failed-listing';
+    // Stale, Failed, New, and Price-Drop listings all share the same Monday board
+    const isListing = ['stale-listing','failed-listing','new-listing','price-drop'].includes(l.type);
     const listId = isListing ? 'stale-listings' : 'intel-main';
     let sourceLabel;
     if (l.type === 'stale-listing') {
       sourceLabel = `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`;
     } else if (l.type === 'failed-listing') {
       sourceLabel = `INTEL Failed Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'new-listing') {
+      sourceLabel = `INTEL New Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'price-drop') {
+      sourceLabel = `INTEL Price Drops — ${(l.county || '').toUpperCase()}`;
     } else {
       sourceLabel = `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
     }
@@ -2130,7 +1452,7 @@ function openPanel(id) {
     <a class="panel-link" href="https://www.google.com/maps/place/${addrEncoded}" target="_blank" rel="noopener" title="Open in Google Maps">
       🗺️ MAPS
     </a>
-    <a class="panel-link" id="panelStreetviewLink" href="https://maps.google.com/?layer=c&q=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
+    <a class="panel-link" href="https://www.google.com/maps/@?api=1&map_action=pano&query=${addrEncoded}" target="_blank" rel="noopener" title="Open Street View">
       📸 STREETVIEW
     </a>
     <a class="panel-link" href="https://www.redfin.com/stingray/do/location-autocomplete?location=${addrEncoded}&v=2" target="_blank" rel="noopener" title="Search on Redfin">
@@ -2138,56 +1460,12 @@ function openPanel(id) {
     </a>
   ` : '';
 
-  // Kick off async geocoding so the Street View link can use proper lat/lng
-  // coords (Google's URL spec requires coordinates for street view, not
-  // addresses). If geocoding succeeds before user clicks, the link upgrades
-  // to a precise viewpoint URL. If user clicks before geocode completes or
-  // geocoding fails, the fallback URL above still opens — just less reliable.
-  if (l.address) {
-    upgradeStreetviewLink(l.address);
-  }
-
-  // Details — labels and values flex by lead type
-  // Stale listing → "List Price" + "List Date" (uses mlsDate)
-  // Failed listing → "List Price" + "Expiration Date" (uses mlsDate)
-  // Other types → "Amount Owed" + "Filing Date" (uses filingDate)
-  const isStale  = l.type === 'stale-listing';
-  const isFailed = l.type === 'failed-listing';
-
-  document.getElementById('panelAmountLabel').textContent = (isStale || isFailed) ? 'List Price' : 'Amount Owed';
+  // Details
   document.getElementById('panelAmount').textContent = l.amount || '—';
   document.getElementById('panelAmount').className   = l.amount ? 'panel-val money' : 'panel-val';
-
-  let dateLabel, dateValue;
-  if (isStale) {
-    dateLabel = 'List Date';
-    dateValue = l.mlsDate || l.scrapedAt;
-  } else if (isFailed) {
-    dateLabel = 'Expiration Date';
-    dateValue = l.mlsDate || l.scrapedAt;
-  } else {
-    dateLabel = 'Filing Date';
-    dateValue = l.filingDate || l.scrapedAt;
-  }
-  document.getElementById('panelDateLabel').textContent = dateLabel;
-  document.getElementById('panelDate').textContent      = fmtDate(dateValue);
-
-  // Hide the Case Number row entirely when there isn't one (stale/failed listings)
-  const caseRow = document.getElementById('panelCaseRow');
-  if (l.caseNumber) {
-    caseRow.style.display = '';
-    document.getElementById('panelCase').textContent = l.caseNumber;
-  } else {
-    caseRow.style.display = 'none';
-  }
-
-  // Source — dynamic by lead type and county
-  const countyName = (l.county || 'unknown').replace(/\b\w/g, c => c.toUpperCase());
-  let sourceLabel;
-  if (isStale)         sourceLabel = `INTEL — Stale Listings · ${countyName} County`;
-  else if (isFailed)   sourceLabel = `INTEL — Failed Listings · ${countyName} County`;
-  else                 sourceLabel = `INTEL — ${countyName} County`;
-  document.getElementById('panelSource').textContent = sourceLabel;
+  document.getElementById('panelDate').textContent   = fmtDate(l.filingDate || l.scrapedAt);
+  document.getElementById('panelCase').textContent   = l.caseNumber || '—';
+  document.getElementById('panelSource').textContent = 'INTEL — Sedgwick County';
 
   const phoneEl = document.getElementById('panelPhone');
   if (l.phone) {
@@ -2249,9 +1527,6 @@ function openPanel(id) {
   document.getElementById('panelGoogleLink').href =
     `https://www.google.com/maps/search/${encodeURIComponent(l.address || 'Wichita KS')}`;
 
-  // Photo analysis section (only for stale/failed listings)
-  renderPhotoAnalysisSection(l);
-
   // Open
   document.getElementById('panelOverlay').classList.add('open');
   document.getElementById('leadPanel').classList.add('open');
@@ -2263,44 +1538,6 @@ function closePanel() {
   document.getElementById('leadPanel').classList.remove('open');
   document.body.style.overflow = '';
   panelLeadId = null;
-}
-
-// ═══════════════════════════════════════════════════════════
-// PHOTO ANALYSIS PANEL SECTION
-// ═══════════════════════════════════════════════════════════
-function renderPhotoAnalysisSection(l) {
-  // Remove any prior section first
-  const existing = document.getElementById('panelPhotoSection');
-  if (existing) existing.remove();
-
-  // Only show for stale/failed listings — those are the only types with reliable Zillow URLs
-  if (l.type !== 'stale-listing' && l.type !== 'failed-listing') return;
-
-  const zillowUrl = buildZillowUrl(l);
-  const safeUrl = zillowUrl.replace(/'/g, "\\'");
-  const section = document.createElement('div');
-  section.className = 'panel-section';
-  section.id        = 'panelPhotoSection';
-  section.innerHTML = `
-    <div class="panel-section-title">Photo Analysis</div>
-    <button class="panel-btn"
-      id="analyze-btn-${l.id}"
-      onclick="window.analyzePhotos('${l.id}', '${safeUrl}')">
-      📷 ANALYZE LISTING PHOTOS
-    </button>
-    <div id="photo-result-${l.id}"></div>
-  `;
-
-  // Insert right after the Distress Signals section (first .panel-section in body)
-  const firstSection = document.querySelector('.panel-body .panel-section');
-  if (firstSection) firstSection.insertAdjacentElement('afterend', section);
-
-  // If we have a cached result, auto-render it (does NOT trigger a fresh API call)
-  setTimeout(() => {
-    if (window.renderCachedPhotoResult) {
-      window.renderCachedPhotoResult(l.id, zillowUrl);
-    }
-  }, 0);
 }
 
 // Panel action wrappers
@@ -2346,31 +1583,20 @@ function exportCSV(mode) {
     return;
   }
 
-  const headers = ['Owner','Address','Phone','Type','Score','Amount','Case Number','Date','Notes','Source'];
+  const headers = ['Owner','Address','Phone','Type','Score','Amount Owed','Case Number','Filing Date','Notes','Source'];
 
-  const rows = leads.map(l => {
-    const isStale  = l.type === 'stale-listing';
-    const isFailed = l.type === 'failed-listing';
-    const dateVal  = (isStale || isFailed) ? (l.mlsDate || '') : (l.filingDate || '');
-    const countyName = (l.county || 'unknown').replace(/\b\w/g, c => c.toUpperCase());
-    let sourceLabel;
-    if      (isStale)  sourceLabel = `INTEL — Stale Listings · ${countyName} County`;
-    else if (isFailed) sourceLabel = `INTEL — Failed Listings · ${countyName} County`;
-    else               sourceLabel = `INTEL — ${countyName} County`;
-
-    return [
-      csvCell(l.owner),
-      csvCell(l.address),
-      csvCell(l.phone || ''),
-      csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
-      l.score,
-      csvCell(l.amount || ''),
-      csvCell(l.caseNumber || ''),
-      csvCell(dateVal),
-      csvCell(l.notes || ''),
-      csvCell(sourceLabel),
-    ];
-  });
+  const rows = leads.map(l => [
+    csvCell(l.owner),
+    csvCell(l.address),
+    csvCell(l.phone || ''),
+    csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
+    l.score,
+    csvCell(l.amount || ''),
+    csvCell(l.caseNumber || ''),
+    csvCell(l.filingDate || ''),
+    csvCell(l.notes || ''),
+    csvCell('INTEL — Sedgwick County'),
+  ]);
 
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
@@ -2412,6 +1638,5 @@ function sampleLeads() {
   ];
 }
 </script>
-<script src="intel-photo-analysis.js"></script>
 </body>
 </html>
