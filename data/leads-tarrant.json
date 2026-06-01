@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-29T12:46:11.261344+00:00",
+  "lastUpdated": "2026-06-01T15:52:11.965682+00:00",
   "county": "tarrant",
   "totalLeads": 5,
   "sources": {
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-29T12:46:11.260551+00:00"
+      "scrapedAt": "2026-06-01T15:52:11.964844+00:00"
     },
     {
       "id": "adb3caa1d9fb",
@@ -31,7 +31,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-29T12:46:11.260721+00:00"
+      "scrapedAt": "2026-06-01T15:52:11.965026+00:00"
     },
     {
       "id": "0af2eb3c4909",
@@ -43,7 +43,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-29T12:46:11.260767+00:00"
+      "scrapedAt": "2026-06-01T15:52:11.965075+00:00"
     },
     {
       "id": "a3c897215a86",
@@ -55,7 +55,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-29T12:46:11.260797+00:00"
+      "scrapedAt": "2026-06-01T15:52:11.965104+00:00"
     },
     {
       "id": "ef7f4f14045f",
@@ -67,7 +67,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-05-29T12:46:11.260897+00:00"
+      "scrapedAt": "2026-06-01T15:52:11.965218+00:00"
     }
   ]
 }
