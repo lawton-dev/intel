@@ -33,6 +33,22 @@ STALE_MIN_DAYS       = 90    # active 90+ days = "stale"
 STALE_MAX_DAYS       = 180   # cap at 180 to avoid ancient listings
 FAILED_MAX_DAYS_AGO  = 14    # listing removed in last 14 days = "failed"
 
+# Statuses that mean the listing ended for a "good" reason (sale in progress or sold)
+# We DON'T want these in the failed bucket — only true expires/withdraws/cancellations
+EXCLUDED_END_STATUSES = {
+    'pending',
+    'sale pending',
+    'under contract',
+    'contingent',
+    'active under contract',
+    'accepting backup',
+    'accepting backup offers',
+    'sold',
+    'closed',
+    'leased',
+    'rented',
+}
+
 # Property types we care about (no condos, townhouses, manufactured, or land)
 # RentCast enum: Single Family, Condo, Townhouse, Manufactured, Multi-Family, Apartment, Land
 ALLOWED_PROPERTY_TYPES = {
@@ -60,6 +76,33 @@ log = logging.getLogger()
 
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
+
+
+def _is_excluded_status(listing):
+    """Check if a listing ended for a non-failure reason (sold, pending, etc.).
+    Returns True if we should SKIP this listing from the failed bucket.
+    """
+    # Check top-level mlsStatus / listingType
+    for key in ('mlsStatus', 'listingType', 'status'):
+        v = (listing.get(key) or '').strip().lower()
+        if v and any(excl in v for excl in EXCLUDED_END_STATUSES):
+            return True
+
+    # Check the most recent history entry — RentCast tracks status changes there
+    history = listing.get('history') or {}
+    if isinstance(history, dict) and history:
+        try:
+            # Get the most recent entry by date
+            latest_key = max(history.keys())
+            latest = history[latest_key] or {}
+            for key in ('listingType', 'event', 'status'):
+                v = (latest.get(key) or '').strip().lower()
+                if v and any(excl in v for excl in EXCLUDED_END_STATUSES):
+                    return True
+        except Exception:
+            pass
+
+    return False
 
 
 def fetch_listings(zip_code, status='Active', days_old=None):
@@ -339,6 +382,11 @@ def scrape_market(key, info):
                 if days_ago > FAILED_MAX_DAYS_AGO or days_ago < 0:
                     continue
             except Exception:
+                continue
+
+            # Skip if the listing ended for a non-failure reason (pending/sold/etc.)
+            # Check both top-level mlsStatus and the most recent history entry
+            if _is_excluded_status(listing):
                 continue
 
             lead = parse_listing(listing, info['county'], 'failed-listing')
