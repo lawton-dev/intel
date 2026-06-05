@@ -1245,9 +1245,10 @@ async function pushMonday(id) {
   btn.disabled    = true;
 
   try {
-    // Stale, Failed, New, and Price-Drop listings all share the same Monday board
+    // Listing-type leads (stale/failed/new/price-drop) go to Lawton's personal Monday board
+    // Distress-type leads (tax/pre-foreclosure/probate/etc.) go to the main INTEL board for VAs
     const isListing = ['stale-listing','failed-listing','new-listing','price-drop'].includes(l.type);
-    const listId = isListing ? 'stale-listings' : 'intel-main';
+    const listId = isListing ? 'listings-personal' : 'intel-main';
     let sourceLabel;
     if (l.type === 'stale-listing') {
       sourceLabel = `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`;
