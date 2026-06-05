@@ -17,6 +17,7 @@ import json
 import logging
 import os
 import sys
+import hashlib
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -78,29 +79,52 @@ def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
 
+def _get_latest_status(listing):
+    """Return the most recent status string from a listing's history, or None.
+    Checks event, listingType, and status fields in that priority order.
+    """
+    history = listing.get('history') or {}
+    if not isinstance(history, dict) or not history:
+        return None
+    try:
+        latest_key = max(history.keys())
+        latest = history[latest_key] or {}
+        for key in ('event', 'listingType', 'status'):
+            v = (latest.get(key) or '').strip()
+            if v:
+                return v
+    except Exception:
+        return None
+    return None
+
+
 def _is_excluded_status(listing):
     """Check if a listing ended for a non-failure reason (sold, pending, etc.).
     Returns True if we should SKIP this listing from the failed bucket.
+
+    Aggressive: scans all top-level string fields AND every history entry's
+    event/listingType/status fields for any excluded keyword.
     """
-    # Check top-level mlsStatus / listingType
-    for key in ('mlsStatus', 'listingType', 'status'):
-        v = (listing.get(key) or '').strip().lower()
-        if v and any(excl in v for excl in EXCLUDED_END_STATUSES):
+    def contains_excluded(v):
+        if not v: return False
+        v = str(v).strip().lower()
+        return any(excl in v for excl in EXCLUDED_END_STATUSES)
+
+    # Check key top-level fields
+    for key in ('mlsStatus', 'listingType', 'status', 'event', 'lastEvent'):
+        if contains_excluded(listing.get(key)):
             return True
 
-    # Check the most recent history entry — RentCast tracks status changes there
+    # Check EVERY history entry, not just the latest — if it was EVER pending,
+    # there's likely a sale in motion
     history = listing.get('history') or {}
-    if isinstance(history, dict) and history:
-        try:
-            # Get the most recent entry by date
-            latest_key = max(history.keys())
-            latest = history[latest_key] or {}
-            for key in ('listingType', 'event', 'status'):
-                v = (latest.get(key) or '').strip().lower()
-                if v and any(excl in v for excl in EXCLUDED_END_STATUSES):
+    if isinstance(history, dict):
+        for date_str, entry in history.items():
+            if not isinstance(entry, dict):
+                continue
+            for key in ('event', 'listingType', 'status'):
+                if contains_excluded(entry.get(key)):
                     return True
-        except Exception:
-            pass
 
     return False
 
@@ -200,9 +224,12 @@ def parse_listing(listing, county_key, lead_type, drop_info=None):
     agent = listing.get('listingAgent') or {}
     office = listing.get('listingOffice') or {}
 
-    # Make a stable ID. RentCast gives one but it's huge — hash it instead
+    # Stable lead ID — must be DETERMINISTIC across runs (Python's hash() is randomized,
+    # which previously caused duplicates on every run). Use MD5 of address+type.
     rentcast_id = listing.get('id', '')
-    lead_id = f'rc-{lead_type[:2]}-' + str(abs(hash(rentcast_id)))[:10]
+    # Hash on address (most stable identifier) rather than rentcast_id which may change
+    hash_input = f"{addr}|{lead_type}".lower()
+    lead_id = f'rc-{lead_type[:2]}-' + hashlib.md5(hash_input.encode()).hexdigest()[:10]
 
     base = {
         'id':            lead_id,
@@ -263,11 +290,13 @@ def parse_listing(listing, county_key, lead_type, drop_info=None):
                 days_since_failed = (datetime.now(timezone.utc) - rd).days
             except Exception:
                 pass
+        # Pull the actual most-recent status from history (not hardcoded "EXPIRED")
+        actual_status = _get_latest_status(listing) or 'INACTIVE'
         base['daysSinceFailed'] = days_since_failed
         base['removedDate']     = removed
-        base['mlsStatus']       = 'EXPIRED'  # RentCast doesn't distinguish; default to EXPIRED
-        base['notes']           = (f"Listing removed {days_since_failed}d ago · "
-                                    f"was ${price:,} · {days_on_market}d on market total")
+        base['mlsStatus']       = actual_status.upper()
+        base['notes']           = (f"{actual_status} {days_since_failed}d ago · "
+                                    f"was ${price:,} · {days_on_market}d on market")
         base['highEquity']      = False
         base['vacant']          = False
         base['absenteeOwner']   = False
@@ -279,14 +308,58 @@ def parse_listing(listing, county_key, lead_type, drop_info=None):
 
 
 def load_existing(market_key, lead_type):
-    """Read existing JSON for this market+type. Empty dict if none."""
+    """Read existing JSON for this market+type. Empty dict if none.
+
+    Also dedupes by address — earlier scraper versions used Python's randomized
+    hash() which generated different IDs for the same property each run, causing
+    duplicates in the saved file. We re-key by address+type to collapse those.
+
+    For failed-listing files: also drops any existing entry whose mlsStatus
+    matches an excluded keyword (cleans up old "EXPIRED"-labeled pendings).
+    """
     path = DATA_DIR / f'leads-{market_key}-{lead_type}.json'
     if not path.exists():
         return {}
     try:
         with open(path) as f:
             d = json.load(f)
-        return {lead['id']: lead for lead in d.get('leads', [])}
+        leads = d.get('leads', [])
+
+        # Re-key everything by deterministic ID (address-based hash)
+        # If multiple old records collide on the new ID, keep the one with phone data
+        deduped = {}
+        excluded = 0
+        for lead in leads:
+            addr = lead.get('address', '')
+            if not addr:
+                continue
+
+            # For failed listings: drop any entry whose status matches excluded keywords
+            # (cleans up old data where pending/sold were saved as "EXPIRED")
+            if lead_type == 'failed-listing':
+                status_str = str(lead.get('mlsStatus') or '').lower()
+                notes_str  = str(lead.get('notes') or '').lower()
+                if any(excl in status_str or excl in notes_str for excl in EXCLUDED_END_STATUSES):
+                    excluded += 1
+                    continue
+
+            hash_input = f"{addr}|{lead_type}".lower()
+            new_id = f'rc-{lead_type[:2]}-' + hashlib.md5(hash_input.encode()).hexdigest()[:10]
+            lead['id'] = new_id  # rewrite to new stable ID
+
+            if new_id in deduped:
+                # Collision — keep the better of the two
+                existing = deduped[new_id]
+                if lead.get('phone') and not existing.get('phone'):
+                    deduped[new_id] = lead  # new one has phone, prefer it
+                # else keep existing
+            else:
+                deduped[new_id] = lead
+
+        if len(deduped) < len(leads):
+            log.info(f'  Cleaned {len(leads) - len(deduped)} {lead_type} entries from existing file ({excluded} status-excluded, rest duplicates)')
+
+        return deduped
     except Exception as e:
         log.warning(f'  Could not read {path}: {e}')
         return {}
@@ -371,6 +444,9 @@ def scrape_market(key, info):
         listings = [l for l in listings if l.get('propertyType') in ALLOWED_PROPERTY_TYPES]
         total_inactive += len(listings)
 
+        excluded_count = 0
+        prior_failed_count = len(failed_leads)
+
         for listing in listings:
             # Only keep if removedDate is within FAILED_MAX_DAYS_AGO
             removed = listing.get('removedDate')
@@ -387,10 +463,13 @@ def scrape_market(key, info):
             # Skip if the listing ended for a non-failure reason (pending/sold/etc.)
             # Check both top-level mlsStatus and the most recent history entry
             if _is_excluded_status(listing):
+                excluded_count += 1
                 continue
 
             lead = parse_listing(listing, info['county'], 'failed-listing')
             failed_leads[lead['id']] = lead
+
+        log.info(f'  zip {zip_code} INACTIVE: {len(listings)} pulled, {excluded_count} excluded (pending/sold/etc.) → {len([k for k in failed_leads if k.startswith("rc-fa-")]) - prior_failed_count} kept')
 
         log.info(f'  zip {zip_code} INACTIVE: {len(listings)} (kept within 14d window)')
 
@@ -411,7 +490,15 @@ def scrape_market(key, info):
     merged_new    = merge(new_leads,    existing_new)
     merged_drop   = merge(drop_leads,   existing_drop)
     merged_stale  = merge(stale_leads,  existing_stale)
-    merged_failed = merge(failed_leads, existing_failed)
+    # Failed listings: REBUILD FRESH each run — don't merge with existing.
+    # The 14-day rolling window means leads drop off naturally; merging keeps
+    # stale entries from old scraper versions that mislabeled pending as expired.
+    # Preserve phones from existing failed leads though.
+    merged_failed = {}
+    for lid, lead in failed_leads.items():
+        if lid in existing_failed and existing_failed[lid].get('phone'):
+            lead['phone'] = existing_failed[lid]['phone']
+        merged_failed[lid] = lead
 
     save(key, 'new-listing',    sorted(merged_new.values(),   key=lambda l: l.get('daysOnMarket', 999)),        total_active)
     save(key, 'price-drop',     sorted(merged_drop.values(),  key=lambda l: l.get('priceDropPct', 0), reverse=True), total_active)
