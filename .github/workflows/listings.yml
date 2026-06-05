@@ -1,0 +1,37 @@
+name: INTEL Listings Scraper
+
+on:
+  schedule:
+    - cron: '17 9 * * *'   # 4:17 AM CT daily (off-hour odd minute for reliability)
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Run listings scraper
+        env:
+          RENTCAST_API_KEY: ${{ secrets.RENTCAST_API_KEY }}
+        run: python scripts/scrape_listings.py
+
+      - name: Commit + push data
+        run: |
+          git config user.name  "intel-bot"
+          git config user.email "intel-bot@oneroofre.net"
+          git add data/
+          git diff --quiet --cached || git commit -m "📊 RentCast listings: $(date -u +%Y-%m-%d)"
+          git push
