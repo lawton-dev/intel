@@ -1244,6 +1244,35 @@ async function pushMonday(id) {
   btn.textContent = 'PUSHING...';
   btn.disabled    = true;
 
+  // ── Fetch estimated ARV from RentCast AVM (non-blocking — never fails the push) ──
+  // We use the address as the lookup key. If RentCast doesn't return an AVM,
+  // we still send the lead to Monday, just without an ARV value.
+  let arvData = { arv: null, priceRangeLow: null, priceRangeHigh: null };
+  if (l.address) {
+    try {
+      btn.textContent = 'GETTING ARV...';
+      const avmRes = await fetch('/.netlify/functions/avm', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          address:        l.address,
+          propertyType:   l.propertyType || undefined,
+          bedrooms:       l.bedrooms || undefined,
+          bathrooms:      l.bathrooms || undefined,
+          squareFootage:  l.sqft || undefined,
+        }),
+      });
+      if (avmRes.ok) {
+        const j = await avmRes.json();
+        if (j.success && j.arv) {
+          arvData = j;
+        }
+      }
+    } catch (e) {
+      console.warn('AVM lookup failed, pushing without ARV:', e);
+    }
+  }
+
   try {
     // Listing-type leads (stale/failed/new/price-drop) go to Lawton's personal Monday board
     // Distress-type leads (tax/pre-foreclosure/probate/etc.) go to the main INTEL board for VAs
@@ -1296,6 +1325,11 @@ async function pushMonday(id) {
         maps_url:         mapsUrl,
         streetview_url:   streetViewUrl,
         redfin_url:       redfinUrl,
+        // Estimated ARV from RentCast AVM (null if lookup failed or address unknown)
+        estimated_arv:        arvData.arv          || '',
+        arv_range_low:        arvData.priceRangeLow  || '',
+        arv_range_high:       arvData.priceRangeHigh || '',
+        arv_formatted:        arvData.arv ? `$${Math.round(arvData.arv).toLocaleString()}` : '',
         source:           sourceLabel,
         pushed_at:        new Date().toISOString(),
       })
