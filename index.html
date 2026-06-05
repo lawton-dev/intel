@@ -450,6 +450,7 @@
           <th style="width:100px">TYPE</th>
           <th>OWNER / ADDRESS</th>
           <th style="width:80px">SIGNALS</th>
+          <th style="width:110px">LIST PRICE</th>
           <th style="width:110px">AMT OWED</th>
           <th style="width:90px">DATE</th>
           <th style="width:130px">PHONE</th>
@@ -1124,6 +1125,20 @@ function row(l) {
       </div>
     </td>
     <td>
+      ${(() => {
+        // List price: use listingPrice for listings, or for price-drop show current vs original
+        const lp = l.listingPrice;
+        if (l.type === 'price-drop' && l.originalPrice && l.currentPrice) {
+          return `<span class="amount-val" style="color:#ec4899">$${Math.round(l.currentPrice).toLocaleString()}</span>
+                  <div style="font-size:8px;color:var(--muted);margin-top:2px;text-decoration:line-through">$${Math.round(l.originalPrice).toLocaleString()}</div>`;
+        }
+        if (lp && parseFloat(lp) > 0) {
+          return `<span class="amount-val">$${Math.round(parseFloat(lp)).toLocaleString()}</span>`;
+        }
+        return `<span class="amount-nil">—</span>`;
+      })()}
+    </td>
+    <td>
       ${l.amount
         ? `<span class="amount-val">${l.amount}</span>`
         : `<span class="amount-nil">—</span>`}
@@ -1583,7 +1598,7 @@ function exportCSV(mode) {
     return;
   }
 
-  const headers = ['Owner','Address','Phone','Type','Score','Amount Owed','Case Number','Filing Date','Notes','Source'];
+  const headers = ['Owner','Address','Phone','Type','Score','List Price','Amount Owed','Case Number','Filing Date','Notes','Source'];
 
   const rows = leads.map(l => [
     csvCell(l.owner),
@@ -1591,6 +1606,7 @@ function exportCSV(mode) {
     csvCell(l.phone || ''),
     csvCell((TYPE_LABELS[l.type] || l.type).replace(/,/g,'')),
     l.score,
+    csvCell(l.listingPrice ? `$${Math.round(parseFloat(l.listingPrice)).toLocaleString()}` : ''),
     csvCell(l.amount || ''),
     csvCell(l.caseNumber || ''),
     csvCell(l.filingDate || ''),
