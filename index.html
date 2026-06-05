@@ -1262,6 +1262,13 @@ async function pushMonday(id) {
       sourceLabel = `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
     }
 
+    // Pre-build property research links for Monday board
+    const addrEnc = encodeURIComponent(l.address || '');
+    const zillowUrl     = l.address ? `https://www.zillow.com/homes/${addrEnc}_rb/` : '';
+    const mapsUrl       = l.address ? `https://www.google.com/maps/place/${addrEnc}` : '';
+    const streetViewUrl = l.address ? `https://www.google.com/maps/@?api=1&map_action=pano&query=${addrEnc}` : '';
+    const redfinUrl     = l.address ? `https://www.redfin.com/stingray/do/location-autocomplete?location=${addrEnc}&v=2` : '';
+
     await fetch(CONFIG.zapierWebhook, {
       method: 'POST',
       mode:   'no-cors',
@@ -1284,6 +1291,11 @@ async function pushMonday(id) {
         estimated_value:  l.estimatedValue || '',
         estimated_equity: l.estimatedEquity || '',
         mls_status:       l.mlsStatus || '',
+        // Property research links
+        zillow_url:       zillowUrl,
+        maps_url:         mapsUrl,
+        streetview_url:   streetViewUrl,
+        redfin_url:       redfinUrl,
         source:           sourceLabel,
         pushed_at:        new Date().toISOString(),
       })
