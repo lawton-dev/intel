@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-06-05T14:44:32.018685+00:00",
+  "lastUpdated": "2026-06-06T10:59:55.895914+00:00",
   "totalLeads": 13,
-  "totalFound": 831,
+  "totalFound": 879,
   "source": "RentCast",
   "leadType": "price-drop",
   "market": "wichita",
@@ -21,7 +21,7 @@
       "agentEmail": "jake@athomewichita.com",
       "officeName": "At Home Wichita Real Estate",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:20.838800+00:00",
+      "scrapedAt": "2026-06-06T10:59:46.038408+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 1.5,
@@ -59,7 +59,7 @@
       "agentEmail": "christy@theneedlesteam.com",
       "officeName": "Berkshire Hathaway Penfed - East",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:23.203169+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.893424+00:00",
       "propertyType": "Multi-Family",
       "bedrooms": null,
       "bathrooms": null,
@@ -69,7 +69,7 @@
       "listingPrice": 325000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 29,
+      "daysOnMarket": 30,
       "listedDate": "2026-05-08T00:00:00.000Z",
       "zipCode": "67219",
       "rentcastId": "1725-1727-E-69th-Ct-N,-Park-City,-KS-67219",
@@ -80,7 +80,7 @@
       "priceDropPct": 9.7,
       "originalPrice": 360000,
       "currentPrice": 325000,
-      "notes": "Price dropped $35,000 (9.7%) on 2026-05-08 \u00b7 29d on market \u00b7 now $325,000"
+      "notes": "Price dropped $35,000 (9.7%) on 2026-05-08 \u00b7 30d on market \u00b7 now $325,000"
     },
     {
       "id": "rc-pr-9ed448e0ff",
@@ -97,7 +97,7 @@
       "agentEmail": "mary@nexthomeprofessionals.net",
       "officeName": "NextHome Professionals",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:21.319390+00:00",
+      "scrapedAt": "2026-06-06T10:59:46.425717+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 3,
@@ -107,7 +107,7 @@
       "listingPrice": 263000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 17,
+      "daysOnMarket": 18,
       "listedDate": "2026-05-20T00:00:00.000Z",
       "zipCode": "67207",
       "rentcastId": "2022-S-Webb-Rd,-Wichita,-KS-67207",
@@ -118,7 +118,7 @@
       "priceDropPct": 7.9,
       "originalPrice": 330000,
       "currentPrice": 263000,
-      "notes": "Price dropped $26,000 (7.9%) on 2026-05-20 \u00b7 17d on market \u00b7 now $263,000"
+      "notes": "Price dropped $26,000 (7.9%) on 2026-05-20 \u00b7 18d on market \u00b7 now $263,000"
     },
     {
       "id": "rc-pr-6fb14c39b3",
@@ -135,7 +135,7 @@
       "agentEmail": "joeykate@reecenichols.com",
       "officeName": "Reece Nichols South Central Kansas",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:23.673180+00:00",
+      "scrapedAt": "2026-06-06T10:59:48.258839+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 2.5,
@@ -145,7 +145,7 @@
       "listingPrice": 600000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 23,
+      "daysOnMarket": 24,
       "listedDate": "2026-05-14T00:00:00.000Z",
       "zipCode": "67226",
       "rentcastId": "11407-E-Fairfax-St,-Wichita,-KS-67226",
@@ -156,7 +156,7 @@
       "priceDropPct": 7.7,
       "originalPrice": 650000,
       "currentPrice": 600000,
-      "notes": "Price dropped $50,000 (7.7%) on 2026-05-14 \u00b7 23d on market \u00b7 now $600,000"
+      "notes": "Price dropped $50,000 (7.7%) on 2026-05-14 \u00b7 24d on market \u00b7 now $600,000"
     },
     {
       "id": "rc-pr-bb66c0ec21",
@@ -173,7 +173,7 @@
       "agentEmail": "nicks@langere.com",
       "officeName": "Lange Real Estate",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:22.763115+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.556482+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 1.5,
@@ -183,7 +183,7 @@
       "listingPrice": 130000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 29,
+      "daysOnMarket": 30,
       "listedDate": "2026-05-08T00:00:00.000Z",
       "zipCode": "67217",
       "rentcastId": "4704-S-Water-St,-Wichita,-KS-67217",
@@ -194,7 +194,7 @@
       "priceDropPct": 6.7,
       "originalPrice": 139400,
       "currentPrice": 130000,
-      "notes": "Price dropped $9,400 (6.7%) on 2026-05-08 \u00b7 29d on market \u00b7 now $130,000"
+      "notes": "Price dropped $9,400 (6.7%) on 2026-05-08 \u00b7 30d on market \u00b7 now $130,000"
     },
     {
       "id": "rc-pr-c5d9e54319",
@@ -211,7 +211,7 @@
       "agentEmail": "bill@grahamrealtors.com",
       "officeName": "GRAHAM, INC., REALTORS",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:24.195036+00:00",
+      "scrapedAt": "2026-06-06T10:59:48.647592+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 2,
@@ -221,7 +221,7 @@
       "listingPrice": 649900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 8,
+      "daysOnMarket": 9,
       "listedDate": "2026-05-29T00:00:00.000Z",
       "zipCode": "67235",
       "rentcastId": "1434-S-Monument-St,-Wichita,-KS-67235",
@@ -232,7 +232,7 @@
       "priceDropPct": 5.2,
       "originalPrice": 715000,
       "currentPrice": 649900,
-      "notes": "Price dropped $37,100 (5.2%) on 2026-05-29 \u00b7 8d on market \u00b7 now $649,900"
+      "notes": "Price dropped $37,100 (5.2%) on 2026-05-29 \u00b7 9d on market \u00b7 now $649,900"
     },
     {
       "id": "rc-pr-958c0f55e2",
@@ -249,7 +249,7 @@
       "agentEmail": "cbaltazart007@gmail.com",
       "officeName": "Real Broker, LLC",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:22.559851+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.398452+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 1,
@@ -259,7 +259,7 @@
       "listingPrice": 99000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 16,
+      "daysOnMarket": 17,
       "listedDate": "2026-05-21T00:00:00.000Z",
       "zipCode": "67214",
       "rentcastId": "1833-N-Green-St,-Wichita,-KS-67214",
@@ -270,7 +270,7 @@
       "priceDropPct": 4.8,
       "originalPrice": 104000,
       "currentPrice": 99000,
-      "notes": "Price dropped $5,000 (4.8%) on 2026-05-21 \u00b7 16d on market \u00b7 now $99,000"
+      "notes": "Price dropped $5,000 (4.8%) on 2026-05-21 \u00b7 17d on market \u00b7 now $99,000"
     },
     {
       "id": "rc-pr-5d283c4bb5",
@@ -287,7 +287,7 @@
       "agentEmail": "don@wheatstaterealty.com",
       "officeName": "Wheat State Realty, Llc",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:23.203192+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.893453+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 3,
@@ -297,7 +297,7 @@
       "listingPrice": 295900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 23,
+      "daysOnMarket": 24,
       "listedDate": "2026-05-14T00:00:00.000Z",
       "zipCode": "67219",
       "rentcastId": "5102-N-Blackhawk-St,-Wichita,-KS-67219",
@@ -308,7 +308,7 @@
       "priceDropPct": 4.0,
       "originalPrice": 329900,
       "currentPrice": 295900,
-      "notes": "Price dropped $13,100 (4.0%) on 2026-05-14 \u00b7 23d on market \u00b7 now $295,900"
+      "notes": "Price dropped $13,100 (4.0%) on 2026-05-14 \u00b7 24d on market \u00b7 now $295,900"
     },
     {
       "id": "rc-pr-ae8da1e78c",
@@ -325,7 +325,7 @@
       "agentEmail": "ron.smith@cosh.us",
       "officeName": "Platinum Realty",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:21.741332+00:00",
+      "scrapedAt": "2026-06-06T10:59:46.735969+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 3,
@@ -335,7 +335,7 @@
       "listingPrice": 329900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 26,
+      "daysOnMarket": 27,
       "listedDate": "2026-05-11T00:00:00.000Z",
       "zipCode": "67209",
       "rentcastId": "1300-S-Fieldcrest-St,-Wichita,-KS-67209",
@@ -346,7 +346,7 @@
       "priceDropPct": 2.9,
       "originalPrice": 339900,
       "currentPrice": 329900,
-      "notes": "Price dropped $10,000 (2.9%) on 2026-05-11 \u00b7 26d on market \u00b7 now $329,900"
+      "notes": "Price dropped $10,000 (2.9%) on 2026-05-11 \u00b7 27d on market \u00b7 now $329,900"
     },
     {
       "id": "rc-pr-cf1d18faa9",
@@ -363,7 +363,7 @@
       "agentEmail": "eric@listwithlocke.com",
       "officeName": "Real Broker, LLC",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:22.362000+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.258474+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2,
@@ -373,7 +373,7 @@
       "listingPrice": 175000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 8,
+      "daysOnMarket": 9,
       "listedDate": "2026-05-29T00:00:00.000Z",
       "zipCode": "67213",
       "rentcastId": "2337-S-Glenn-Ave,-Wichita,-KS-67213",
@@ -384,7 +384,7 @@
       "priceDropPct": 2.8,
       "originalPrice": 180000,
       "currentPrice": 175000,
-      "notes": "Price dropped $5,000 (2.8%) on 2026-05-29 \u00b7 8d on market \u00b7 now $175,000"
+      "notes": "Price dropped $5,000 (2.8%) on 2026-05-29 \u00b7 9d on market \u00b7 now $175,000"
     },
     {
       "id": "rc-pr-f5286711bf",
@@ -401,7 +401,7 @@
       "agentEmail": "nhu.realtor@gmail.com",
       "officeName": "Abode Real Estate",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:22.763163+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.556546+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 1,
@@ -411,7 +411,7 @@
       "listingPrice": 174900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 6,
+      "daysOnMarket": 7,
       "listedDate": "2026-05-31T00:00:00.000Z",
       "zipCode": "67217",
       "rentcastId": "2747-S-Seneca-St,-Wichita,-KS-67217",
@@ -422,7 +422,7 @@
       "priceDropPct": 2.8,
       "originalPrice": 179900,
       "currentPrice": 174900,
-      "notes": "Price dropped $5,000 (2.8%) on 2026-05-31 \u00b7 6d on market \u00b7 now $174,900"
+      "notes": "Price dropped $5,000 (2.8%) on 2026-05-31 \u00b7 7d on market \u00b7 now $174,900"
     },
     {
       "id": "rc-pr-9144e730ec",
@@ -439,7 +439,7 @@
       "agentEmail": "daisy@cultivatinggroup.com",
       "officeName": "Heritage 1st Realty",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:22.763140+00:00",
+      "scrapedAt": "2026-06-06T10:59:47.556514+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2.5,
@@ -449,7 +449,7 @@
       "listingPrice": 275000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 9,
+      "daysOnMarket": 10,
       "listedDate": "2026-05-28T00:00:00.000Z",
       "zipCode": "67217",
       "rentcastId": "1400-W-51st-St-S,-Wichita,-KS-67217",
@@ -460,7 +460,7 @@
       "priceDropPct": 1.8,
       "originalPrice": 280000,
       "currentPrice": 275000,
-      "notes": "Price dropped $5,000 (1.8%) on 2026-05-28 \u00b7 9d on market \u00b7 now $275,000"
+      "notes": "Price dropped $5,000 (1.8%) on 2026-05-28 \u00b7 10d on market \u00b7 now $275,000"
     },
     {
       "id": "rc-pr-1feac3c8f3",
@@ -477,7 +477,7 @@
       "agentEmail": "tiffany.wells@penfedrealty.com",
       "officeName": "Berkshire Hathaway Penfed - Derby",
       "score": 50,
-      "scrapedAt": "2026-06-05T14:44:20.382605+00:00",
+      "scrapedAt": "2026-06-06T10:59:45.667418+00:00",
       "propertyType": "Single Family",
       "bedrooms": 5,
       "bathrooms": 3,
@@ -487,7 +487,7 @@
       "listingPrice": 525000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 10,
+      "daysOnMarket": 11,
       "listedDate": "2026-05-27T00:00:00.000Z",
       "zipCode": "67037",
       "rentcastId": "2531-N-Rough-Creek-Rd,-Derby,-KS-67037",
@@ -498,7 +498,7 @@
       "priceDropPct": 0.7,
       "originalPrice": 545000,
       "currentPrice": 525000,
-      "notes": "Price dropped $4,000 (0.7%) on 2026-05-27 \u00b7 10d on market \u00b7 now $525,000"
+      "notes": "Price dropped $4,000 (0.7%) on 2026-05-27 \u00b7 11d on market \u00b7 now $525,000"
     }
   ]
 }
