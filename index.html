@@ -193,7 +193,7 @@
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-card,.btn-scout{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -205,6 +205,12 @@
     .btn-mon{color:var(--dim);}
     .btn-mon:hover{border-color:var(--green);color:var(--green);}
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
+    .btn-card{color:var(--dim);}
+    .btn-card:hover:not(:disabled){border-color:#a855f7;color:#a855f7;}
+    .btn-card:disabled{opacity:.3;cursor:not-allowed;}
+    .btn-card.mailed{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
+    .btn-scout{color:var(--dim);}
+    .btn-scout:hover{border-color:#e8ff47;color:#e8ff47;}
     .btn-contacted{color:var(--dim);}
     .btn-contacted.on{border-color:var(--green);color:var(--green);}
 
@@ -570,6 +576,17 @@
   </div>
 </div>
 
+<div class="overlay" id="postcardOverlay">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">✉ Postcard — Confirm Mailing</div>
+    <div id="postcardModalBody" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);line-height:1.6;margin:14px 0;"></div>
+    <div class="mactions">
+      <button class="btn-cancel" onclick="cancelPostcard()">Cancel</button>
+      <button class="btn-confirm" id="postcardConfirmBtn" onclick="confirmPostcard()" style="background:#a855f7;color:white;border:none">Send Postcard</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -579,6 +596,7 @@
 const CONFIG = {
   password:      'OneRoof2025',
   zapierWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
+  postcardWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/REPLACE_WITH_POSTCARD_HOOK/',
   dataUrl:       '/data/leads.json',
 };
 
@@ -716,6 +734,7 @@ let minBaths    = 0;
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
 let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
+let mailed     = new Set(JSON.parse(localStorage.getItem('intel_mailed')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
 let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
 
@@ -769,6 +788,7 @@ async function loadLeads() {
       contacted:    contacted.has(l.id),
       pushed:       pushed.has(l.id),
       texted:       texted.has(l.id),
+      mailed:       mailed.has(l.id),
       phone:        phones[l.id] || l.phone || null,
       propertyType: l.propertyType || pt.type || null,
       bedrooms:     l.bedrooms || pt.bedrooms || null,
@@ -1063,6 +1083,18 @@ const TYPE_LABELS = {
   'lis-pendens':     'LIS PENDENS',
 };
 
+// Lead types eligible for the ✉ POSTCARD button. Excludes new-listing and price-drop
+// since those don't make sense for direct mail (too time-sensitive, list is the seller's intent).
+const POSTCARD_TYPES = new Set([
+  'tax-delinquent',
+  'tax-foreclosure',
+  'pre-foreclosure',
+  'probate',
+  'state-warrant',
+  'stale-listing',
+  'failed-listing',
+]);
+
 function render() {
   const leads = getFiltered();
   const body  = document.getElementById('leadBody');
@@ -1158,6 +1190,14 @@ function row(l) {
         <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
           ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
+        <button class="btn-scout" onclick="openInScout('${l.id}')" title="Score this property in SCOUT">
+          🔍 SCOUT
+        </button>
+        ${POSTCARD_TYPES.has(l.type) ? `
+          <button class="btn-card${l.mailed?' mailed':''}" id="card-${l.id}" onclick="sendPostcard('${l.id}')" ${l.mailed?'disabled':''}>
+            ${l.mailed ? '✓ MAILED' : '✉ POSTCARD'}
+          </button>
+        ` : ''}
         <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
           ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
         </button>
@@ -1236,6 +1276,24 @@ async function skipTrace(id) {
 // ═══════════════════════════════════════════════════════════
 // MONDAY PUSH
 // ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// SCOUT — open lead in scout.oneroofre.net for AI scoring + Street View eval
+// ═══════════════════════════════════════════════════════════
+function openInScout(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l || !l.address) {
+    toast('No address to send to Scout', 'err');
+    return;
+  }
+  const params = new URLSearchParams({
+    address:   l.address,
+    owner:     l.owner || '',
+    lead_type: TYPE_LABELS[l.type] || l.type,
+    county:    l.county || '',
+  });
+  window.open(`https://scout.oneroofre.net/?${params.toString()}`, '_blank', 'noopener');
+}
+
 async function pushMonday(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l) return;
@@ -1347,6 +1405,204 @@ async function pushMonday(id) {
   }
 }
 
+// ═══════════════════════════════════════════════════════════
+// POSTCARD — skip-trace first (owner/mailing), confirm, then fire webhook
+// ═══════════════════════════════════════════════════════════
+let pendingPostcard = null; // holds the lead + enriched data while modal is open
+
+async function sendPostcard(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  if (l.mailed) return; // already sent, locked
+
+  const btn = document.getElementById(`card-${l.id}`);
+  if (!btn) return;
+  btn.textContent = 'ENRICHING...';
+  btn.disabled    = true;
+
+  // Step 1: Skip-trace via BatchData to get current owner name + mailing address
+  let enriched = null;
+  try {
+    const res = await fetch('/.netlify/functions/skip-trace', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        owner:   l.owner   || '',
+        address: l.address || '',
+        county:  l.county  || '',
+      })
+    });
+    enriched = await res.json();
+  } catch (e) {
+    console.error('Postcard skip-trace failed:', e);
+    enriched = null;
+  }
+
+  // Reset button while modal is up
+  btn.textContent = '✉ POSTCARD';
+  btn.disabled    = false;
+
+  // Parse address fallback (from the property address) in case enrichment didn't return one
+  const propParts  = (l.address || '').split(',').map(s => s.trim()).filter(Boolean);
+  const propStreet = propParts[0] || '';
+  const propTail   = (propParts[1] || '').toUpperCase();
+  const propCsZip  = propTail.match(/^(.+?)\s+([A-Z]{2})(?:\s+(\d{5}))?/);
+  const propCity   = propCsZip ? propCsZip[1].trim() : '';
+  const propState  = propCsZip ? propCsZip[2] : '';
+  const propZip    = propCsZip?.[3] || (l.address || '').match(/\b(\d{5})\b/)?.[1] || '';
+
+  // Build merged data — prefer enriched, fall back to lead data
+  const data = {
+    lead:           l,
+    ownerName:      enriched?.owner_full || l.owner || '',
+    ownerFirst:     enriched?.owner_first || '',
+    ownerLast:      enriched?.owner_last || '',
+    mailingStreet:  enriched?.mailing_street || '',
+    mailingCity:    enriched?.mailing_city   || '',
+    mailingState:   enriched?.mailing_state  || '',
+    mailingZip:     enriched?.mailing_zip    || '',
+    propStreet, propCity, propState, propZip,
+    enriched: !!enriched?.owner_full,
+    hasMailing: !!(enriched?.mailing_street),
+    phone:      enriched?.phone || l.phone || '',
+  };
+
+  // If owner not enriched at all, build fallback owner name parts from lead.owner
+  if (!data.ownerFirst && !data.ownerLast && data.ownerName) {
+    const op = data.ownerName.trim().split(/\s+/);
+    data.ownerFirst = op[0] || '';
+    data.ownerLast  = op.slice(1).join(' ') || '';
+  }
+
+  pendingPostcard = data;
+  showPostcardModal(data);
+}
+
+function showPostcardModal(d) {
+  const l = d.lead;
+  let mailingBlock;
+  let warning = '';
+
+  if (d.hasMailing) {
+    // Mailing different from property?
+    const mailingFull = `${d.mailingStreet}, ${d.mailingCity} ${d.mailingState} ${d.mailingZip}`;
+    const propertyFull = `${d.propStreet}, ${d.propCity} ${d.propState} ${d.propZip}`.replace(/,\s*$/,'');
+    const isDifferent = d.mailingStreet && d.mailingStreet.toUpperCase() !== d.propStreet.toUpperCase();
+    mailingBlock = `
+      <div style="margin-top:10px;padding:10px;background:rgba(71,255,138,.06);border:1px solid rgba(71,255,138,.25);border-radius:6px">
+        <div style="color:#47ff8a;font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">✓ Mailing Address Found</div>
+        <div style="color:var(--text)">${mailingFull}</div>
+        ${isDifferent ? `<div style="color:var(--muted);font-size:9px;margin-top:4px">(Absentee — property is at ${propertyFull})</div>` : ''}
+      </div>`;
+  } else {
+    warning = 'true';
+    mailingBlock = `
+      <div style="margin-top:10px;padding:10px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:6px">
+        <div style="color:#ef4444;font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">⚠ No Mailing Address Found</div>
+        <div style="color:var(--text)">BatchData couldn't return an owner mailing address for this property.</div>
+        <div style="color:var(--muted);font-size:10px;margin-top:6px">Sending will use the <strong>property address</strong> as the fallback mailing address. Continue?</div>
+      </div>`;
+  }
+
+  document.getElementById('postcardModalBody').innerHTML = `
+    <div><span style="color:var(--muted)">Owner:</span> ${d.ownerName || '<em style="color:var(--dim)">(unknown)</em>'}</div>
+    <div style="margin-top:4px"><span style="color:var(--muted)">Property:</span> ${l.address || '—'}</div>
+    <div style="margin-top:4px"><span style="color:var(--muted)">Lead type:</span> ${TYPE_LABELS[l.type] || l.type}</div>
+    ${mailingBlock}
+  `;
+  document.getElementById('postcardOverlay').classList.add('open');
+
+  // Re-color the confirm button based on warning state
+  const btn = document.getElementById('postcardConfirmBtn');
+  btn.style.background = warning ? '#ef4444' : '#a855f7';
+  btn.textContent = warning ? 'Send Anyway' : 'Send Postcard';
+}
+
+function cancelPostcard() {
+  document.getElementById('postcardOverlay').classList.remove('open');
+  pendingPostcard = null;
+}
+
+async function confirmPostcard() {
+  const d = pendingPostcard;
+  if (!d) return;
+  document.getElementById('postcardOverlay').classList.remove('open');
+
+  const l = d.lead;
+  const btn = document.getElementById(`card-${l.id}`);
+  if (btn) {
+    btn.textContent = 'SENDING...';
+    btn.disabled    = true;
+  }
+
+  // If no mailing address from BatchData, use property address as fallback
+  const useStreet = d.mailingStreet || d.propStreet;
+  const useCity   = d.mailingCity   || d.propCity;
+  const useState  = d.mailingState  || d.propState;
+  const useZip    = d.mailingZip    || d.propZip;
+  const usedFallback = !d.hasMailing;
+
+  try {
+    await fetch(CONFIG.postcardWebhook, {
+      method: 'POST',
+      mode:   'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        // Recipient (enriched if possible)
+        name:        d.ownerName,
+        first_name:  d.ownerFirst,
+        last_name:   d.ownerLast,
+        // Mailing address — owner's real mailing addr (or property as fallback)
+        street:      useStreet,
+        city:        useCity,
+        state:       useState,
+        zip:         useZip,
+        full_mailing_address: `${useStreet}, ${useCity} ${useState} ${useZip}`.replace(/\s+/g,' ').trim(),
+        // Property (the SUBJECT of the postcard, even if mailing differs)
+        property_address: l.address || '',
+        property_street:  d.propStreet,
+        property_city:    d.propCity,
+        property_state:   d.propState,
+        property_zip:     d.propZip,
+        // Lead context
+        lead_type:        TYPE_LABELS[l.type] || l.type,
+        lead_type_key:    l.type,
+        county:           l.county || '',
+        score:            l.score,
+        amount:           l.amount || '',
+        case_number:      l.caseNumber || '',
+        filing_date:      l.filingDate || '',
+        notes:            l.notes || '',
+        listing_price:    l.listingPrice || '',
+        mls_status:       l.mlsStatus || '',
+        days_on_market:   l.daysOnMarket || '',
+        // Enrichment status (lets Zapier know to flag fallbacks for review)
+        mailing_enriched: !usedFallback,
+        used_property_as_mailing: usedFallback,
+        skip_trace_phone: d.phone || '',
+        source:           'INTEL',
+        triggered_at:     new Date().toISOString(),
+      })
+    });
+
+    // Lock the button
+    l.mailed = true;
+    mailed.add(l.id);
+    localStorage.setItem('intel_mailed', JSON.stringify([...mailed]));
+    if (btn) {
+      btn.textContent = '✓ MAILED';
+      btn.classList.add('mailed');
+    }
+    toast(usedFallback ? 'Postcard queued (to property addr) ✓' : 'Postcard queued ✓', 'ok');
+  } catch {
+    if (btn) {
+      btn.textContent = '✉ POSTCARD';
+      btn.disabled    = false;
+    }
+    toast('Postcard send failed', 'err');
+  }
+  pendingPostcard = null;
+}
 // ═══════════════════════════════════════════════════════════
 // CONTACTED
 // ═══════════════════════════════════════════════════════════

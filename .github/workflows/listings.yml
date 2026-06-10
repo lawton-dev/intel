@@ -2,7 +2,7 @@ name: INTEL Listings Scraper
 
 on:
   schedule:
-    - cron: '17 9 * * *'   # 4:17 AM CT daily (off-hour odd minute for reliability)
+    - cron: '22 9 * * *'   # 4:22 AM CT daily (staggered 5min after Daily Scraper to avoid push race)
   workflow_dispatch:
 
 jobs:
@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency:
+      group: intel-data-push
+      cancel-in-progress: false
 
     steps:
       - name: Checkout
@@ -33,5 +36,15 @@ jobs:
           git config user.name  "intel-bot"
           git config user.email "intel-bot@oneroofre.net"
           git add data/
-          git diff --quiet --cached || git commit -m "📊 RentCast listings: $(date -u +%Y-%m-%d)"
-          git push
+          if git diff --quiet --cached; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "📊 RentCast listings: $(date -u +%Y-%m-%d)"
+          # Retry up to 5 times in case another workflow pushed concurrently
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break || {
+              echo "Push attempt $i failed, retrying in 5s..."
+              sleep 5
+            }
+          done

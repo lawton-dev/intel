@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency:
+      group: intel-data-push
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repo
@@ -34,9 +37,18 @@ jobs:
           git config user.name  "INTEL Bot"
           git config user.email "intel-bot@oneroofre.net"
           git add data/leads*.json
-          git diff --cached --quiet && echo "No changes" || \
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git commit -m "🤖 INTEL: Daily refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
-          git push
+          # Retry up to 5 times in case another workflow pushed concurrently
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break || {
+              echo "Push attempt $i failed, retrying in 5s..."
+              sleep 5
+            }
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
