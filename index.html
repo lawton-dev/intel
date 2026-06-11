@@ -193,7 +193,7 @@
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-card,.btn-scout{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-card,.btn-scout,.btn-drew{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -211,6 +211,8 @@
     .btn-card.mailed{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
     .btn-scout{color:var(--dim);}
     .btn-scout:hover{border-color:#e8ff47;color:#e8ff47;}
+    .btn-drew{color:var(--dim);}
+    .btn-drew:hover{border-color:#388bfd;color:#388bfd;}
     .btn-contacted{color:var(--dim);}
     .btn-contacted.on{border-color:var(--green);color:var(--green);}
 
@@ -1193,6 +1195,9 @@ function row(l) {
         <button class="btn-scout" onclick="openInScout('${l.id}')" title="Score this property in SCOUT">
           🔍 SCOUT
         </button>
+        <button class="btn-drew" onclick="openInDrew('${l.id}')" title="Underwrite this property in DREW">
+          📐 DREW
+        </button>
         ${POSTCARD_TYPES.has(l.type) ? `
           <button class="btn-card${l.mailed?' mailed':''}" id="card-${l.id}" onclick="sendPostcard('${l.id}')" ${l.mailed?'disabled':''}>
             ${l.mailed ? '✓ MAILED' : '✉ POSTCARD'}
@@ -1292,6 +1297,27 @@ function openInScout(id) {
     county:    l.county || '',
   });
   window.open(`https://scout.oneroofre.net/?${params.toString()}`, '_blank', 'noopener');
+}
+
+// ═══════════════════════════════════════════════════════════
+// DREW — open lead in uw.oneroofre.net for AI underwriting
+// ═══════════════════════════════════════════════════════════
+function openInDrew(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l || !l.address) {
+    toast('No address to send to Drew', 'err');
+    return;
+  }
+  const params = new URLSearchParams({
+    address:   l.address,
+    lead_type: TYPE_LABELS[l.type] || l.type,
+  });
+  // Pass property characteristics if we have them (saves manual entry in DREW)
+  if (l.bedrooms)     params.set('beds',   l.bedrooms);
+  if (l.bathrooms)    params.set('baths',  l.bathrooms);
+  if (l.sqft)         params.set('sqft',   l.sqft);
+  if (l.listingPrice) params.set('asking', l.listingPrice);
+  window.open(`https://uw.oneroofre.net/?${params.toString()}`, '_blank', 'noopener');
 }
 
 async function pushMonday(id) {
