@@ -743,9 +743,21 @@ let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
 // ═══════════════════════════════════════════════════════════
 // AUTH
 // ═══════════════════════════════════════════════════════════
+// Shared SSO across INTEL / SCOUT / DREW via a domain-wide cookie
+// Cookie is on .oneroofre.net so all three subdomains can read it.
+// 24-hour expiry — refreshed each time you unlock any tool.
+function setOneRoofSSOCookie() {
+  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000).toUTCString();
+  document.cookie = `oneroof_authed=1; expires=${expires}; domain=.oneroofre.net; path=/; SameSite=Lax; Secure`;
+}
+function hasOneRoofSSOCookie() {
+  return document.cookie.split(';').some(c => c.trim().startsWith('oneroof_authed=1'));
+}
+
 function unlock() {
   if (document.getElementById('gPwd').value === CONFIG.password) {
     localStorage.setItem('intel_auth', btoa(CONFIG.password));
+    setOneRoofSSOCookie();
     boot();
   } else {
     const err = document.getElementById('gErr');
@@ -754,7 +766,12 @@ function unlock() {
   }
 }
 document.getElementById('gPwd').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
-if (localStorage.getItem('intel_auth') === btoa(CONFIG.password)) boot();
+// Unlock automatically if either: local INTEL auth is set, OR the shared SSO cookie is present
+if (localStorage.getItem('intel_auth') === btoa(CONFIG.password) || hasOneRoofSSOCookie()) {
+  // Refresh the cookie (keeps it rolling forward)
+  if (hasOneRoofSSOCookie()) setOneRoofSSOCookie();
+  boot();
+}
 
 function boot() {
   document.getElementById('gate').style.display = 'none';
