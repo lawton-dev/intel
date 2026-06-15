@@ -447,6 +447,8 @@
       </select>
     </label>
     <button class="ftab" onclick="clearRefineFilters()" style="font-size:8px;padding:5px 10px;" title="Reset price/beds/baths filters">✕ CLEAR</button>
+    <span style="flex:1"></span>
+    <button class="ftab" id="priceSortBtn" onclick="togglePriceSort()" style="font-size:8px;padding:5px 12px;" title="Sort table by list price — click to toggle high→low / low→high">LIST PRICE ↕</button>
   </div>
 
   <!-- LEAD TABLE -->
@@ -460,7 +462,7 @@
           <th style="width:80px">SIGNALS</th>
           <th style="width:110px">LIST PRICE</th>
           <th style="width:110px">AMT OWED</th>
-          <th style="width:90px">DATE</th>
+          <th style="width:90px" id="dateColHeader">DATE</th>
           <th style="width:130px">PHONE</th>
           <th style="width:260px">ACTIONS</th>
         </tr>
@@ -507,7 +509,7 @@
         <span class="panel-val money" id="panelAmount">—</span>
       </div>
       <div class="panel-row">
-        <span class="panel-key">Filing Date</span>
+        <span class="panel-key" id="panelDateKey">Filing Date</span>
         <span class="panel-val" id="panelDate">—</span>
       </div>
       <div class="panel-row">
@@ -726,6 +728,8 @@ let allLeads   = [];
 let activeFilter = 'all';
 let activeCounty = 'sck';
 let sortBy     = 'score';
+let priceSortActive = false;      // when true, sort overrides sortBy and sorts by list price
+let priceSortDir    = 'desc';     // 'desc' = high→low, 'asc' = low→high
 let searchQ    = '';
 let activeLead = null;
 let showExpired = false; // hide pre-foreclosure leads with auctions >30 days past
@@ -933,7 +937,37 @@ function setFilter(f, el) {
 }
 
 function handleSearch(q) { searchQ = q; render(); }
-function setSort(s)       { sortBy  = s; render(); }
+function setSort(s)       { sortBy  = s; priceSortActive = false; updatePriceSortBtn(); render(); }
+
+// LISTING-TYPE detection — shared helper
+const LISTING_TYPES = ['stale-listing','failed-listing','new-listing','price-drop'];
+function isListingType(t) { return LISTING_TYPES.includes(t); }
+
+// List price used for sorting (price-drop uses current price)
+function priceVal(l) {
+  if (l.type === 'price-drop' && l.currentPrice) return parseFloat(l.currentPrice) || 0;
+  return parseFloat(l.listingPrice) || 0;
+}
+
+function togglePriceSort() {
+  if (!priceSortActive) {
+    priceSortActive = true;
+    priceSortDir = 'desc';            // first click = high → low
+  } else {
+    priceSortDir = priceSortDir === 'desc' ? 'asc' : 'desc';
+  }
+  updatePriceSortBtn();
+  render();
+}
+
+function updatePriceSortBtn() {
+  const btn = document.getElementById('priceSortBtn');
+  if (!btn) return;
+  btn.classList.toggle('active', priceSortActive);
+  btn.textContent = priceSortActive
+    ? (priceSortDir === 'desc' ? 'LIST PRICE ↓' : 'LIST PRICE ↑')
+    : 'LIST PRICE ↕';
+}
 function toggleExpired() {
   showExpired = !showExpired;
   const btn = document.getElementById('expiredToggle');
@@ -1069,6 +1103,15 @@ function getFiltered() {
   }
 
   leads.sort((a,b) => {
+    // List-price toggle overrides the dropdown sort when active
+    if (priceSortActive) {
+      const ap = priceVal(a), bp = priceVal(b);
+      // leads with no list price (tax warrants, probate, etc.) sink to the bottom either way
+      if (ap === 0 && bp === 0) return 0;
+      if (ap === 0) return 1;
+      if (bp === 0) return -1;
+      return priceSortDir === 'desc' ? bp - ap : ap - bp;
+    }
     if (sortBy === 'score') {
       const scoreDiff = b.score - a.score;
       if (scoreDiff !== 0) return scoreDiff;
@@ -1119,6 +1162,10 @@ function render() {
   const body  = document.getElementById('leadBody');
   const empty = document.getElementById('emptyState');
 
+  // Header shows DOM when viewing a pure listing filter, DATE otherwise
+  const dateColHeader = document.getElementById('dateColHeader');
+  if (dateColHeader) dateColHeader.textContent = isListingType(activeFilter) ? 'DOM' : 'DATE';
+
   if (!leads.length) {
     body.innerHTML = '';
     empty.style.display = 'block';
@@ -1134,6 +1181,16 @@ function row(l) {
   const scCls = scoreClass(sc);
   const lbl   = TYPE_LABELS[l.type] || l.type.toUpperCase();
   const date  = fmtDate(l.filingDate || l.scrapedAt);
+  // Listings show cumulative Days On Market here instead of a filing date
+  let dateCell;
+  if (isListingType(l.type)) {
+    const dom = parseInt(l.daysOnMarket);
+    dateCell = (Number.isFinite(dom) && dom > 0)
+      ? `<span style="font-size:11px;color:var(--text);font-weight:600">${dom}<span style="font-size:8px;color:var(--muted);font-weight:400;margin-left:1px">d</span></span>`
+      : `<span class="amount-nil">—</span>`;
+  } else {
+    dateCell = `<span style="font-size:9px;color:var(--dim)">${date}</span>`;
+  }
   const hasPhone = !!l.phone;
 
   // Check if auction date has passed (for pre-foreclosure leads)
@@ -1194,7 +1251,7 @@ function row(l) {
         ? `<span class="amount-val">${l.amount}</span>`
         : `<span class="amount-nil">—</span>`}
     </td>
-    <td style="font-size:9px;color:var(--dim)">${date}</td>
+    <td>${dateCell}</td>
     <td>
       ${hasPhone
         ? `<span class="phone-val">${l.phone}</span>`
@@ -1824,7 +1881,16 @@ function openPanel(id) {
   // Details
   document.getElementById('panelAmount').textContent = l.amount || '—';
   document.getElementById('panelAmount').className   = l.amount ? 'panel-val money' : 'panel-val';
-  document.getElementById('panelDate').textContent   = fmtDate(l.filingDate || l.scrapedAt);
+  const panelDateKey = document.getElementById('panelDateKey');
+  if (isListingType(l.type)) {
+    const dom = parseInt(l.daysOnMarket);
+    if (panelDateKey) panelDateKey.textContent = 'Days on Market';
+    document.getElementById('panelDate').textContent =
+      (Number.isFinite(dom) && dom > 0) ? `${dom} days` : '—';
+  } else {
+    if (panelDateKey) panelDateKey.textContent = 'Filing Date';
+    document.getElementById('panelDate').textContent = fmtDate(l.filingDate || l.scrapedAt);
+  }
   document.getElementById('panelCase').textContent   = l.caseNumber || '—';
   document.getElementById('panelSource').textContent = 'INTEL — Sedgwick County';
 
