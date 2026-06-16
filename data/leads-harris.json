@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T15:28:23.273902+00:00",
+  "lastUpdated": "2026-06-16T14:29:25.890838+00:00",
   "county": "harris",
   "totalLeads": 29,
   "sources": {
@@ -19,7 +19,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:18.737093+00:00"
+      "scrapedAt": "2026-06-16T14:29:21.668568+00:00"
     },
     {
       "id": "41d30328b3c5",
@@ -31,7 +31,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:18.831895+00:00"
+      "scrapedAt": "2026-06-16T14:29:21.756977+00:00"
     },
     {
       "id": "be219518d137",
@@ -43,187 +43,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:18.978926+00:00"
-    },
-    {
-      "id": "7ff52f010dda",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12223 Castano Creek Drive, Humble, Tx 77346 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.073155+00:00"
-    },
-    {
-      "id": "7b5fffebc028",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19919 Brookway Oak Ct, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.161641+00:00"
-    },
-    {
-      "id": "b7505fbe4d78",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "1302 Yucca Mountain Dr, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.266391+00:00"
-    },
-    {
-      "id": "bae0dd0df845",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "14614 Cypress Cottage Ct, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.376078+00:00"
-    },
-    {
-      "id": "9d5f98733b4d",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "19914 Bridgedale Lane, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.475208+00:00"
-    },
-    {
-      "id": "94a46d29fef8",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12018 Timpnogos Dr, Tomball, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.562895+00:00"
-    },
-    {
-      "id": "6d94a946313f",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "1829 Country Village Blvd, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.648863+00:00"
-    },
-    {
-      "id": "9af207998539",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "6242 Agassi Ace Ct, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.737356+00:00"
-    },
-    {
-      "id": "4beb5bfe2907",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "15419 Redbud Berry Way, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.843295+00:00"
-    },
-    {
-      "id": "b432caddc1ab",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "21822 Avalon Queen Dr, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:19.929510+00:00"
-    },
-    {
-      "id": "f21234d160af",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "17011 Kettle Creek Dr, Spring, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.024607+00:00"
-    },
-    {
-      "id": "8570bd76e398",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "6410 Cobble Manor Ln, Spring, Tx 77379 (\"Property\"), Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.118034+00:00"
-    },
-    {
-      "id": "bb2bffbc3fd4",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "12815 Firbrae Drive, Humble, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.230993+00:00"
-    },
-    {
-      "id": "d53d1c3ccb17",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "16618 Fiesta Rose Ct, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.320269+00:00"
-    },
-    {
-      "id": "6323363611e6",
-      "county": "harris",
-      "type": "tax-foreclosure",
-      "owner": "SEE HARRIS COUNTY RECORDS",
-      "address": "22122 Dancing Green Dr, Cypress, Tx, Houston TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.407138+00:00"
+      "scrapedAt": "2026-06-16T14:29:21.844321+00:00"
     },
     {
       "id": "06d287371536",
@@ -235,7 +55,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.501900+00:00"
+      "scrapedAt": "2026-06-16T14:29:21.931946+00:00"
     },
     {
       "id": "82388fa0505e",
@@ -247,7 +67,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.610497+00:00"
+      "scrapedAt": "2026-06-16T14:29:22.021990+00:00"
     },
     {
       "id": "4acd04f64e20",
@@ -259,7 +79,31 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.701952+00:00"
+      "scrapedAt": "2026-06-16T14:29:22.101720+00:00"
+    },
+    {
+      "id": "7ff52f010dda",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "12223 Castano Creek Drive, Humble, Tx 77346 (\"Property\"), Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.198220+00:00"
+    },
+    {
+      "id": "7b5fffebc028",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "19919 Brookway Oak Ct, Spring, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.279484+00:00"
     },
     {
       "id": "69f545722cdc",
@@ -271,7 +115,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.808724+00:00"
+      "scrapedAt": "2026-06-16T14:29:22.364897+00:00"
     },
     {
       "id": "b7cbd6a66b9b",
@@ -283,7 +127,115 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.902450+00:00"
+      "scrapedAt": "2026-06-16T14:29:22.451936+00:00"
+    },
+    {
+      "id": "b7505fbe4d78",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "1302 Yucca Mountain Dr, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.528903+00:00"
+    },
+    {
+      "id": "bae0dd0df845",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "14614 Cypress Cottage Ct, Cypress, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.612030+00:00"
+    },
+    {
+      "id": "9d5f98733b4d",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "19914 Bridgedale Lane, Humble, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.694432+00:00"
+    },
+    {
+      "id": "94a46d29fef8",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "12018 Timpnogos Dr, Tomball, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.785107+00:00"
+    },
+    {
+      "id": "6d94a946313f",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "1829 Country Village Blvd, Humble, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.888442+00:00"
+    },
+    {
+      "id": "9af207998539",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "6242 Agassi Ace Ct, Spring, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:22.970435+00:00"
+    },
+    {
+      "id": "4beb5bfe2907",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "15419 Redbud Berry Way, Cypress, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.061683+00:00"
+    },
+    {
+      "id": "b432caddc1ab",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "21822 Avalon Queen Dr, Spring, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.142748+00:00"
+    },
+    {
+      "id": "f21234d160af",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "17011 Kettle Creek Dr, Spring, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.225729+00:00"
     },
     {
       "id": "4d061cb9336c",
@@ -295,7 +247,43 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:20.985477+00:00"
+      "scrapedAt": "2026-06-16T14:29:23.320485+00:00"
+    },
+    {
+      "id": "8570bd76e398",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "6410 Cobble Manor Ln, Spring, Tx 77379 (\"Property\"), Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.398722+00:00"
+    },
+    {
+      "id": "bb2bffbc3fd4",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "12815 Firbrae Drive, Humble, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.489708+00:00"
+    },
+    {
+      "id": "d53d1c3ccb17",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "16618 Fiesta Rose Ct, Cypress, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.585916+00:00"
     },
     {
       "id": "441586b3b229",
@@ -307,7 +295,19 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:21.122770+00:00"
+      "scrapedAt": "2026-06-16T14:29:23.667445+00:00"
+    },
+    {
+      "id": "6323363611e6",
+      "county": "harris",
+      "type": "tax-foreclosure",
+      "owner": "SEE HARRIS COUNTY RECORDS",
+      "address": "22122 Dancing Green Dr, Cypress, Tx, Houston TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Harris County tax sale listing",
+      "scrapedAt": "2026-06-16T14:29:23.768214+00:00"
     },
     {
       "id": "4f51bbeff778",
@@ -319,7 +319,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:21.213931+00:00"
+      "scrapedAt": "2026-06-16T14:29:23.849908+00:00"
     },
     {
       "id": "d6c9ab78f1c4",
@@ -331,7 +331,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:21.313809+00:00"
+      "scrapedAt": "2026-06-16T14:29:23.924355+00:00"
     },
     {
       "id": "af4dc3a41e7a",
@@ -343,7 +343,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:21.408628+00:00"
+      "scrapedAt": "2026-06-16T14:29:24.007513+00:00"
     },
     {
       "id": "8d38cf6a4f6e",
@@ -355,7 +355,7 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-06-15T15:28:21.497043+00:00"
+      "scrapedAt": "2026-06-16T14:29:24.093339+00:00"
     }
   ]
 }
