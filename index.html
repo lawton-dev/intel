@@ -1881,27 +1881,18 @@ function openEmail(id) {
   }
   first = toTitle(first.trim()) || 'there';
 
-  // Street + city from the address
+  // Street from the address
   const parts  = (l.address || '').split(',');
   const street = (parts[0] || '').trim() || 'your listing';
-  const city   = ((parts[1] || '').trim().split(/\s+/)[0]) || 'the area';
 
-  const subject = `Quick one on ${street}`;
+  const subject = street;
   const body =
-`Hi ${first},
+`Hey ${first} -
 
-Saw your listing at ${street}. We're an active cash buyer here in ${city} and I wanted to put a simple offer in front of you:
+I wanted to reach out about ${street}. It looks like something that could be a fit for our buybox - have you guys had a lot of traction on it?
 
-If it's a fit for us, you keep your full listing commission AND we'll pay you the buyer side directly — you get paid both ends on one address. We come with proof of funds, close on your title company's timeline, and there's no exclusivity, so you can keep marketing it while our offer sits.
 
-Most of what we buy gets renovated and relisted, and the agent who brings us the deal gets first crack at the relist.
-
-Worth a quick look? Reply here or call me direct.
-
-— Lawton
-OneRoof Real Estate
-(316) 800-9287
-agents.oneroofre.net`;
+Thanks,`;
 
   document.getElementById('emailName').value    = `${toTitle(rawName) || 'Listing Agent'}${l.officeName ? ' · ' + l.officeName : ''}`;
   document.getElementById('emailAddr').value     = l.agentEmail;
