@@ -193,7 +193,7 @@
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-mon,.btn-contacted,.btn-card,.btn-scout,.btn-drew{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-email,.btn-mon,.btn-contacted,.btn-card,.btn-scout,.btn-drew{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -202,6 +202,10 @@
     .btn-sms:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
     .btn-sms:disabled{opacity:.3;cursor:not-allowed;}
     .btn-sms.texted{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
+    .btn-email{color:var(--dim);}
+    .btn-email:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+    .btn-email:disabled{opacity:.3;cursor:not-allowed;}
+    .btn-email.emailed{border-color:var(--green);color:var(--green);opacity:.5;cursor:not-allowed;}
     .btn-mon{color:var(--dim);}
     .btn-mon:hover{border-color:var(--green);color:var(--green);}
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
@@ -524,6 +528,10 @@
         <span class="panel-key">Phone</span>
         <span class="panel-val phone" id="panelPhone">NOT TRACED</span>
       </div>
+      <div class="panel-row" id="panelAgentEmailRow" style="display:none">
+        <span class="panel-key">Agent Email</span>
+        <span class="panel-val" id="panelAgentEmail">—</span>
+      </div>
       <div class="panel-row" id="panelPropTypeRow" style="display:none">
         <span class="panel-key">Property Type</span>
         <span class="panel-val" id="panelPropType">—</span>
@@ -542,6 +550,7 @@
       <div class="panel-actions">
         <button class="panel-btn" id="panelBtnST" onclick="panelSkipTrace()">⚡ Skip Trace — Find Phone Number</button>
         <button class="panel-btn blue" id="panelBtnSMS" onclick="panelSendSMS()" disabled>📱 Send Text Message</button>
+        <button class="panel-btn" id="panelBtnEmail" onclick="panelSendEmail()" style="display:none">📧 Email Listing Agent</button>
         <button class="panel-btn green" id="panelBtnMon" onclick="panelPushMonday()">📋 Push to Monday.com</button>
         <button class="panel-btn red-btn" id="panelBtnContacted" onclick="panelToggleContacted()">○ Mark as Contacted</button>
         <a class="panel-link" id="panelApprLink" href="#" target="_blank" rel="noopener">
@@ -553,6 +562,33 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="overlay" id="emailOverlay">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-title">📧 Email Listing Agent</div>
+    <div class="mfield">
+      <label class="mlbl">To</label>
+      <input class="minput" id="emailName" readonly />
+    </div>
+    <div class="mfield">
+      <label class="mlbl">Agent Email</label>
+      <input class="minput" id="emailAddr" placeholder="agent@brokerage.com" />
+    </div>
+    <div class="mfield">
+      <label class="mlbl">Subject</label>
+      <input class="minput" id="emailSubject" />
+    </div>
+    <div class="mfield">
+      <label class="mlbl">Message</label>
+      <textarea class="mta" id="emailBody" style="min-height:240px"></textarea>
+    </div>
+    <div class="mactions">
+      <button class="btn-cancel" onclick="closeEmailModal()">Cancel</button>
+      <button class="btn-send" id="emailSendBtn" onclick="sendEmail()">SEND EMAIL</button>
+    </div>
   </div>
 </div>
 
@@ -601,6 +637,7 @@ const CONFIG = {
   password:      'OneRoof2025',
   zapierWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
   postcardWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/REPLACE_WITH_POSTCARD_HOOK/',
+  emailWebhook:    'https://hooks.zapier.com/hooks/catch/8732778/43gvoxx/',
   dataUrl:       '/data/leads.json',
 };
 
@@ -740,6 +777,7 @@ let minBaths    = 0;
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
 let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
+let emailed    = new Set(JSON.parse(localStorage.getItem('intel_emailed')   || '[]'));
 let mailed     = new Set(JSON.parse(localStorage.getItem('intel_mailed')    || '[]'));
 let phones     = JSON.parse(localStorage.getItem('intel_phones') || '{}');
 let propTypes  = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
@@ -811,6 +849,7 @@ async function loadLeads() {
       contacted:    contacted.has(l.id),
       pushed:       pushed.has(l.id),
       texted:       texted.has(l.id),
+      emailed:      emailed.has(l.id),
       mailed:       mailed.has(l.id),
       phone:        phones[l.id] || l.phone || null,
       propertyType: l.propertyType || pt.type || null,
@@ -1153,8 +1192,6 @@ const POSTCARD_TYPES = new Set([
   'pre-foreclosure',
   'probate',
   'state-warrant',
-  'stale-listing',
-  'failed-listing',
 ]);
 
 function render() {
@@ -1266,6 +1303,11 @@ function row(l) {
         <button class="btn-sms${l.texted?' texted':''}" id="sms-${l.id}" onclick="openSMS('${l.id}')" ${(!hasPhone || l.texted)?'disabled':''}>
           ${l.texted ? '✓ TEXTED' : '📱 TEXT'}
         </button>
+        ${(isListingType(l.type) && l.agentEmail) ? `
+          <button class="btn-email${l.emailed?' emailed':''}" id="email-${l.id}" onclick="openEmail('${l.id}')" ${l.emailed?'disabled':''}>
+            ${l.emailed ? '✓ EMAILED' : '📧 EMAIL'}
+          </button>
+        ` : ''}
         <button class="btn-scout" onclick="openInScout('${l.id}')" title="Score this property in SCOUT">
           🔍 SCOUT
         </button>
@@ -1816,6 +1858,138 @@ async function sendSMS() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// EMAIL — one-off compose to the listing agent
+// ═══════════════════════════════════════════════════════════
+let emailLeadId = null;
+
+function openEmail(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l)            { toast('Lead not found', 'err'); return; }
+  if (!l.agentEmail) { toast('No agent email on this listing', 'err'); return; }
+  if (l.emailed)     { toast('Already emailed this agent', 'err'); return; }
+  emailLeadId = id;
+
+  // Agent first name — "Jane Smith" / "SMITH, JANE" → "Jane"
+  const toTitle = s => (s||'').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  let rawName = (l.agentName || '').trim();
+  let first = '';
+  if (rawName.includes(',')) {
+    // "Last, First" format
+    first = rawName.split(',')[1] || '';
+  } else {
+    first = rawName.split(/\s+/)[0] || '';
+  }
+  first = toTitle(first.trim()) || 'there';
+
+  // Street + city from the address
+  const parts  = (l.address || '').split(',');
+  const street = (parts[0] || '').trim() || 'your listing';
+  const city   = ((parts[1] || '').trim().split(/\s+/)[0]) || 'the area';
+
+  const subject = `Quick one on ${street}`;
+  const body =
+`Hi ${first},
+
+Saw your listing at ${street}. We're an active cash buyer here in ${city} and I wanted to put a simple offer in front of you:
+
+If it's a fit for us, you keep your full listing commission AND we'll pay you the buyer side directly — you get paid both ends on one address. We come with proof of funds, close on your title company's timeline, and there's no exclusivity, so you can keep marketing it while our offer sits.
+
+Most of what we buy gets renovated and relisted, and the agent who brings us the deal gets first crack at the relist.
+
+Worth a quick look? Reply here or call me direct.
+
+— Lawton
+OneRoof Real Estate
+(316) 800-9287
+agents.oneroofre.net`;
+
+  document.getElementById('emailName').value    = `${toTitle(rawName) || 'Listing Agent'}${l.officeName ? ' · ' + l.officeName : ''}`;
+  document.getElementById('emailAddr').value     = l.agentEmail;
+  document.getElementById('emailSubject').value  = subject;
+  document.getElementById('emailBody').value     = body;
+
+  const btn = document.getElementById('emailSendBtn');
+  btn.disabled = false;
+  btn.textContent = 'SEND EMAIL';
+
+  document.getElementById('emailOverlay').classList.add('open');
+}
+
+function closeEmailModal() {
+  document.getElementById('emailOverlay').classList.remove('open');
+  emailLeadId = null;
+}
+
+async function sendEmail() {
+  const to      = document.getElementById('emailAddr').value.trim();
+  const subject = document.getElementById('emailSubject').value.trim();
+  const body    = document.getElementById('emailBody').value.trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) { toast('Enter a valid email', 'err'); return; }
+  if (!subject) { toast('Subject is empty', 'err'); return; }
+  if (!body)    { toast('Message is empty', 'err'); return; }
+
+  const l = allLeads.find(x => x.id === emailLeadId);
+  const btn = document.getElementById('emailSendBtn');
+  btn.disabled = true;
+  btn.textContent = 'SENDING…';
+
+  // Form-encoded POST → Zapier catch hook (Zap sends the actual email).
+  // URLSearchParams keeps it a "simple" request so it skips the CORS
+  // preflight that blocks JSON posts to Zapier hooks.
+  const params = new URLSearchParams({
+    to,
+    subject,
+    body,
+    agent_name: l?.agentName || '',
+    office:     l?.officeName || '',
+    address:    l?.address    || '',
+    lead_id:    emailLeadId   || '',
+    lead_type:  l?.type       || '',
+    reply_to:   'lawton@oneroofre.net',
+    source:     'INTEL',
+    sent_at:    new Date().toISOString(),
+  });
+
+  try {
+    await fetch(CONFIG.emailWebhook, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body:    params,
+    });
+    // Zapier catch hooks accept the payload on delivery; mark as sent.
+    if (emailLeadId) {
+      emailed.add(emailLeadId);
+      localStorage.setItem('intel_emailed', JSON.stringify([...emailed]));
+      if (l) l.emailed = true;
+      const rowBtn = document.getElementById(`email-${emailLeadId}`);
+      if (rowBtn) {
+        rowBtn.classList.add('emailed');
+        rowBtn.textContent = '✓ EMAILED';
+        rowBtn.disabled = true;
+      }
+      const panelBtn = document.getElementById('panelBtnEmail');
+      if (panelBtn) {
+        panelBtn.textContent = '✓ Agent Emailed';
+        panelBtn.classList.add('done');
+        panelBtn.disabled = true;
+      }
+    }
+    closeEmailModal();
+    toast('Email sent ✓', 'ok');
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'SEND EMAIL';
+    toast('Email failed — webhook unreachable', 'err');
+  }
+}
+
+function panelSendEmail() {
+  if (!panelLeadId) return;
+  closePanel();
+  openEmail(panelLeadId);
+}
+
+// ═══════════════════════════════════════════════════════════
 // TOAST
 // ═══════════════════════════════════════════════════════════
 function toast(msg, type='ok') {
@@ -1903,6 +2077,15 @@ function openPanel(id) {
     phoneEl.className   = 'panel-val';
   }
 
+  // Agent email row — listings only
+  const agentEmailRow = document.getElementById('panelAgentEmailRow');
+  if (isListingType(l.type) && l.agentEmail) {
+    agentEmailRow.style.display = 'flex';
+    document.getElementById('panelAgentEmail').textContent = l.agentEmail;
+  } else {
+    agentEmailRow.style.display = 'none';
+  }
+
   // Signals
   const stacked = l.stackedSignals || [];
   document.getElementById('panelSignals').innerHTML = SIGNAL_DEFS.map(s => {
@@ -1933,6 +2116,23 @@ function openPanel(id) {
 
   const smsBtn = document.getElementById('panelBtnSMS');
   smsBtn.disabled = !l.phone;
+
+  // Email Agent — listings only, requires an agent email
+  const emailBtn = document.getElementById('panelBtnEmail');
+  if (isListingType(l.type) && l.agentEmail) {
+    emailBtn.style.display = 'block';
+    if (l.emailed) {
+      emailBtn.textContent = '✓ Agent Emailed';
+      emailBtn.classList.add('done');
+      emailBtn.disabled = true;
+    } else {
+      emailBtn.textContent = '📧 Email Listing Agent';
+      emailBtn.classList.remove('done');
+      emailBtn.disabled = false;
+    }
+  } else {
+    emailBtn.style.display = 'none';
+  }
 
   const monBtn = document.getElementById('panelBtnMon');
   if (l.pushed) {
@@ -1995,7 +2195,7 @@ function panelToggleContacted() {
 }
 
 // Close panel on Escape key
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePanel(); closeEmailModal(); } });
 
 // ═══════════════════════════════════════════════════════════
 // EXPORT CSV
