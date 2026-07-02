@@ -1,14 +1,98 @@
 {
-  "lastUpdated": "2026-06-29T13:35:11.517579+00:00",
+  "lastUpdated": "2026-07-02T12:02:06.696449+00:00",
   "county": "tarrant",
-  "totalLeads": 5,
+  "totalLeads": 12,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 5,
+    "tax_foreclosure": 12,
     "probate": 0,
     "state_warrant": 0
   },
   "leads": [
+    {
+      "id": "d6f27f12777d",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "5819 Summerwood Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695557+00:00"
+    },
+    {
+      "id": "d0f1105f9b32",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "10875 Of The Plat Record, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695607+00:00"
+    },
+    {
+      "id": "251125e7c5aa",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "008499 Pallida Llc Successor In Interest, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695642+00:00"
+    },
+    {
+      "id": "671a482c2111",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "5800 Creekridge Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695665+00:00"
+    },
+    {
+      "id": "09d8aa27ed22",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "9342 Of The Plat Record, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695734+00:00"
+    },
+    {
+      "id": "be014a22f46a",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "9924 Butte Meadow Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695905+00:00"
+    },
+    {
+      "id": "ff12dbd9f451",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "5225 Memorial Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-07-02T12:02:06.695952+00:00"
+    },
     {
       "id": "83ca12d73559",
       "county": "tarrant",
