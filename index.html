@@ -867,6 +867,10 @@ async function loadLeads() {
   // Counties that have BatchData pre-foreclosure data
   const PREFC_COUNTIES = ['sedgwick','harris','clark'];
 
+  // Counties that have RentCast listing data (market key = county key).
+  // These load the four listing buckets: new / price-drop / stale / failed.
+  const LISTING_COUNTIES = ['clark','harris'];
+
   function mapLead(l) {
     const pt = propTypes[l.id] || {};
     return {
@@ -931,20 +935,28 @@ async function loadLeads() {
       }
     } else {
       const dataUrl = `/data/leads-${activeCounty}.json`;
-      const [res, pfLeads] = await Promise.all([
-        fetch(dataUrl + '?v=' + Date.now()),
-        PREFC_COUNTIES.includes(activeCounty) ? loadPreforeclosure(activeCounty) : Promise.resolve([])
+      const wantsListings = LISTING_COUNTIES.includes(activeCounty);
+      // Base county file is optional here — if it's missing we still want the
+      // pre-foreclosure + listing overlays to render, so treat a 404 as empty
+      // rather than throwing out everything we loaded in parallel.
+      const [baseData, pfLeads, newL, dropL, staleL, failedL] = await Promise.all([
+        fetch(dataUrl + '?v=' + Date.now()).then(r => r.ok ? r.json() : { leads: [] }).catch(() => ({ leads: [] })),
+        PREFC_COUNTIES.includes(activeCounty) ? loadPreforeclosure(activeCounty) : Promise.resolve([]),
+        wantsListings ? loadListingsFile(activeCounty, 'new-listing')    : Promise.resolve([]),
+        wantsListings ? loadListingsFile(activeCounty, 'price-drop')     : Promise.resolve([]),
+        wantsListings ? loadListingsFile(activeCounty, 'stale-listing')  : Promise.resolve([]),
+        wantsListings ? loadListingsFile(activeCounty, 'failed-listing') : Promise.resolve([]),
       ]);
-      if (!res.ok) throw new Error('no data');
-      const data = await res.json();
-      const merged = [...(data.leads || []), ...pfLeads];
+      const merged = [...(baseData.leads || []), ...pfLeads, ...newL, ...dropL, ...staleL, ...failedL];
       migrateLegacyIds(merged);
       allLeads = merged.map(mapLead);
-      if (data.lastUpdated) {
-        const d = new Date(data.lastUpdated);
+      if (baseData.lastUpdated) {
+        const d = new Date(baseData.lastUpdated);
         document.getElementById('updatedAt').textContent =
           'Updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) +
           ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      } else if (!allLeads.length) {
+        document.getElementById('updatedAt').textContent = 'No data yet — run scraper';
       }
     }
 
