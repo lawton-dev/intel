@@ -824,6 +824,32 @@ function boot() {
 // ═══════════════════════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════════════════════
+// One-time-per-lead remap: when the scraper hardened its ID scheme it stamped the
+// prior ID as `legacyId`. Carry any per-lead flags (contacted / pushed / texted /
+// emailed / mailed / traced phone / property type) from the old ID to the new one
+// so a re-keyed lead doesn't lose its history. Idempotent — safe to run every load.
+function migrateLegacyIds(leads) {
+  const sets = { intel_contacted: contacted, intel_pushed: pushed, intel_texted: texted,
+                 intel_emailed: emailed, intel_mailed: mailed };
+  const maps = { intel_phones: phones, intel_propTypes: propTypes };
+  const dirtySets = new Set(), dirtyMaps = new Set();
+  for (const l of leads) {
+    const legacy = l && l.legacyId;
+    if (!legacy || legacy === l.id) continue;
+    for (const [key, set] of Object.entries(sets)) {
+      if (set.has(legacy)) { set.add(l.id); set.delete(legacy); dirtySets.add(key); }
+    }
+    for (const [key, map] of Object.entries(maps)) {
+      if (Object.prototype.hasOwnProperty.call(map, legacy)) {
+        if (!(l.id in map)) map[l.id] = map[legacy];
+        delete map[legacy]; dirtyMaps.add(key);
+      }
+    }
+  }
+  dirtySets.forEach(key => localStorage.setItem(key, JSON.stringify([...sets[key]])));
+  dirtyMaps.forEach(key => localStorage.setItem(key, JSON.stringify(maps[key])));
+}
+
 async function loadLeads() {
   setLoading(true);
 
@@ -892,6 +918,7 @@ async function loadLeads() {
         loadListingsFile('wichita', 'failed-listing'),
       ]);
       const merged = [...files.flatMap(d => d.leads || []), ...pfLeads, ...newL, ...dropL, ...staleL, ...failedL];
+      migrateLegacyIds(merged);
       allLeads = merged.map(mapLead);
 
       // Show most recent update across all four
@@ -911,6 +938,7 @@ async function loadLeads() {
       if (!res.ok) throw new Error('no data');
       const data = await res.json();
       const merged = [...(data.leads || []), ...pfLeads];
+      migrateLegacyIds(merged);
       allLeads = merged.map(mapLead);
       if (data.lastUpdated) {
         const d = new Date(data.lastUpdated);
@@ -1095,8 +1123,15 @@ function getFiltered() {
 
   if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
   else if (activeFilter === 'new-today') {
-    const today = new Date().toDateString();
-    leads = leads.filter(l => new Date(l.scrapedAt).toDateString() === today);
+    // firstSeenDate is a plain 'YYYY-MM-DD' stamp set once when a property first
+    // appears, so a pure string compare against local today is timezone-safe.
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    leads = leads.filter(l => {
+      if (l.firstSeenDate) return String(l.firstSeenDate).slice(0,10) === today;
+      // Legacy fallback: leads scraped before firstSeenDate existed
+      return l.scrapedAt && new Date(l.scrapedAt).toDateString() === now.toDateString();
+    });
   }
   else if (activeFilter === 'not-contacted') leads = leads.filter(l => !l.contacted);
   else if (activeFilter === 'sfr') {

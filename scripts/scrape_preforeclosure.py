@@ -26,9 +26,39 @@ COUNTIES = [
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
+# firstSeenDate/lastSeenDate are compared against the browser's LOCAL "today" in
+# INTEL, and Lawton browses from Central time — so stamp the run date in Central
+# so a 6am CDT run lines up with the same calendar day in the UI.
+try:
+    from zoneinfo import ZoneInfo
+    CENTRAL = ZoneInfo('America/Chicago')
+except Exception:
+    CENTRAL = None
+
+def today_str():
+    """Run date as YYYY-MM-DD in Central time (falls back to UTC)."""
+    if CENTRAL:
+        return datetime.now(CENTRAL).strftime('%Y-%m-%d')
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
 def make_id(*parts):
     s = '|'.join(str(p or '') for p in parts).lower()
     return hashlib.md5(s.encode()).hexdigest()[:16]
+
+def _norm(s):
+    """Collapse to lowercase alphanumerics + single spaces for stable hashing."""
+    return re.sub(r'[^a-z0-9]+', ' ', str(s or '').lower()).strip()
+
+def lead_id(county_key, address_str):
+    """Deterministic, owner-independent lead ID.
+
+    Keyed only on county + normalized street address (NOT owner name, which
+    flips between a real name and 'SEE COUNTY RECORDS' between runs, and NOT the
+    raw street/houseNumber fallback). Fresh records and migrated existing records
+    both run through this against the same assembled address string, so the same
+    property always resolves to the same ID.
+    """
+    return make_id(county_key, 'pre-foreclosure', _norm(address_str))
 
 def fetch_preforeclosures(query, skip=0, min_recording_date=None):
     """Fetch one page of pre-foreclosure results.
@@ -111,8 +141,9 @@ def parse_property(prop, county_key, city, state):
     if val.get('estimatedValue'): notes_parts.append(f"Est. Value: ${val['estimatedValue']:,}")
     if listing.get('propertyType'): notes_parts.append(f"Type: {listing['propertyType']}")
 
+    run_date = today_str()
     return {
-        'id':          make_id(county_key, 'preforeclosure', street, owner_name),
+        'id':          lead_id(county_key, full_addr),
         'county':      county_key,
         'type':        'pre-foreclosure',
         'owner':       owner_name,
@@ -124,6 +155,10 @@ def parse_property(prop, county_key, city, state):
         'phone':       None,
         'score':       min(int(intel.get('salePropensity', 50)), 100) if intel.get('salePropensity') else 50,
         'scrapedAt':   now_iso(),
+        # firstSeenDate is the authoritative "new" signal (set once, preserved on
+        # merge). lastSeenDate is refreshed every run BatchData returns this record.
+        'firstSeenDate': run_date,
+        'lastSeenDate':  run_date,
         'propertyType': listing.get('propertyType', ''),
         'bedrooms':    listing.get('bedroomCount'),
         'estimatedValue': val.get('estimatedValue'),
@@ -134,15 +169,52 @@ def parse_property(prop, county_key, city, state):
     }
 
 def load_existing(county_key):
-    """Load existing leads from the county's pre-foreclosure file."""
+    """Load existing leads, re-keyed under the current deterministic ID scheme.
+
+    Older files were keyed on an owner-dependent ID. We re-derive each lead's ID
+    from its stored address so it matches what fresh records now produce, stash
+    the prior ID as ``legacyId`` (so INTEL can carry over contacted/phone flags),
+    and backfill firstSeenDate/lastSeenDate from prior data so nothing already on
+    file gets falsely flagged as "new today" on the first run after this change.
+    """
     path = DATA_DIR / f'leads-{county_key}-preforeclosure.json'
-    if path.exists():
-        try:
-            with open(path) as f:
-                data = json.load(f)
-                return {l['id']: l for l in data.get('leads', [])}
-        except: pass
-    return {}
+    if not path.exists():
+        return {}
+    try:
+        with open(path) as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+
+    migrated = {}
+    for lead in data.get('leads', []):
+        old_id = lead.get('id', '')
+        new_id = lead_id(lead.get('county', county_key), lead.get('address', ''))
+
+        if old_id and old_id != new_id and 'legacyId' not in lead:
+            lead['legacyId'] = old_id
+        lead['id'] = new_id
+
+        # Backfill first/last seen for records written before these existed.
+        # Prefer any existing stamp, then the prior scrape date, then filing date.
+        seen_proxy = (lead.get('scrapedAt', '') or '')[:10] \
+            or (lead.get('recordingDate', '') or '')[:10] \
+            or (lead.get('filingDate', '') or '')[:10]
+        if not lead.get('firstSeenDate'):
+            lead['firstSeenDate'] = seen_proxy or today_str()
+        if not lead.get('lastSeenDate'):
+            lead['lastSeenDate'] = seen_proxy or lead['firstSeenDate']
+
+        # If two legacy rows collapse to the same property, keep the earliest first-seen.
+        if new_id in migrated:
+            prev = migrated[new_id]
+            if lead['firstSeenDate'] and prev.get('firstSeenDate'):
+                lead['firstSeenDate'] = min(lead['firstSeenDate'], prev['firstSeenDate'])
+            if not lead.get('phone') and prev.get('phone'):
+                lead['phone'] = prev['phone']
+        migrated[new_id] = lead
+
+    return migrated
 
 def save(county_key, leads, total_found):
     path = DATA_DIR / f'leads-{county_key}-preforeclosure.json'
@@ -217,11 +289,21 @@ def scrape_county(county):
         return len(existing)
 
     # Merge new leads into existing (never wipe what we have, only add)
+    run_date = today_str()
     merged = dict(existing)  # start with everything we have
     for lid, lead in new_leads.items():
-        # If this lead already exists, preserve any manually traced phone
-        if lid in existing and existing[lid].get('phone'):
-            lead['phone'] = existing[lid]['phone']
+        prior = existing.get(lid)
+        if prior:
+            # Known property re-returned by BatchData: it is NOT new today.
+            # Preserve the original first-seen date and any manually traced phone,
+            # and carry the legacyId so the UI keeps matching prior flags.
+            lead['firstSeenDate'] = prior.get('firstSeenDate') or lead.get('firstSeenDate')
+            if prior.get('legacyId') and 'legacyId' not in lead:
+                lead['legacyId'] = prior['legacyId']
+            if prior.get('phone'):
+                lead['phone'] = prior['phone']
+        # We physically saw this record in the API results this run.
+        lead['lastSeenDate'] = run_date
         merged[lid] = lead
 
     log.info(f'  Merge: {len(existing)} existing + {len(new_leads)} fetched = {len(merged)} total')
