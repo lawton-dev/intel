@@ -1374,6 +1374,41 @@ function fmtDate(d) {
 // ═══════════════════════════════════════════════════════════
 // SKIP TRACE
 // ═══════════════════════════════════════════════════════════
+// Shared skip-trace: looks up a phone (and property type) for a lead via BatchData,
+// persists the result to the lead + localStorage, and returns the raw payload.
+// No-ops when we already have a phone so we never pay for a duplicate trace.
+// Used by the Skip Trace button and auto-invoked by the Monday push.
+async function enrichPhone(l) {
+  if (!l) return null;
+  if (l.phone) return { phone: l.phone, cached: true };
+
+  const res = await fetch('/.netlify/functions/skip-trace', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      owner:   l.owner   || '',
+      address: l.address || '',
+      county:  l.county  || '',
+    })
+  });
+  const data = await res.json();
+
+  if (data && data.phone) {
+    l.phone = data.phone;
+    phones[l.id] = data.phone;
+    localStorage.setItem('intel_phones', JSON.stringify(phones));
+    // Store property type if returned (feeds SFR/multi filters, ARV, DREW)
+    if (data.propertyType) {
+      l.propertyType = data.propertyType;
+      l.bedrooms     = data.bedrooms || null;
+      l.units        = data.units || null;
+      propTypes[l.id] = { type: data.propertyType, bedrooms: data.bedrooms, units: data.units };
+      localStorage.setItem('intel_propTypes', JSON.stringify(propTypes));
+    }
+  }
+  return data;
+}
+
 async function skipTrace(id) {
   const l = allLeads.find(x => x.id === id);
   if (!l) return;
@@ -1384,31 +1419,9 @@ async function skipTrace(id) {
   btn.disabled = true;
 
   try {
-    const res = await fetch('/.netlify/functions/skip-trace', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        owner:   l.owner,
-        address: l.address,
-        county:  l.county,
-      })
-    });
+    const data = await enrichPhone(l);
 
-    const data = await res.json();
-
-    if (data.phone) {
-      l.phone = data.phone;
-      phones[l.id] = data.phone;
-      // Store property type if returned
-      if (data.propertyType) {
-        l.propertyType = data.propertyType;
-        l.bedrooms     = data.bedrooms || null;
-        l.units        = data.units || null;
-        const propTypes = JSON.parse(localStorage.getItem('intel_propTypes') || '{}');
-        propTypes[l.id] = { type: data.propertyType, bedrooms: data.bedrooms, units: data.units };
-        localStorage.setItem('intel_propTypes', JSON.stringify(propTypes));
-      }
-      localStorage.setItem('intel_phones', JSON.stringify(phones));
+    if (data && data.phone) {
       btn.textContent = '✓ TRACED';
       btn.classList.remove('loading');
       btn.classList.add('done');
@@ -1478,6 +1491,19 @@ async function pushMonday(id) {
   const btn = document.getElementById(`mon-${l.id}`);
   btn.textContent = 'PUSHING...';
   btn.disabled    = true;
+
+  // ── Skip-trace for a phone before it hits the board (non-blocking) ──
+  // VAs work the Monday board by phone, so any lead pushed without a number
+  // gets auto-traced first. enrichPhone no-ops if we already have a phone, so
+  // this never double-charges. A trace failure logs and still pushes the lead.
+  if (!l.phone) {
+    try {
+      btn.textContent = 'TRACING...';
+      await enrichPhone(l);
+    } catch (e) {
+      console.warn('Monday push skip-trace failed, pushing without phone:', e);
+    }
+  }
 
   // ── Fetch estimated ARV from RentCast AVM (non-blocking — never fails the push) ──
   // We use the address as the lookup key. If RentCast doesn't return an AVM,
