@@ -95,6 +95,23 @@ def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
 
+# firstSeenDate/lastSeenDate are compared against the browser's LOCAL "today" in
+# INTEL, and Lawton browses from Central — so stamp the run date in Central so a
+# morning run lines up with the same calendar day shown in the UI. (Matches the
+# pre-foreclosure scraper's convention.)
+try:
+    from zoneinfo import ZoneInfo
+    _CENTRAL = ZoneInfo('America/Chicago')
+except Exception:
+    _CENTRAL = None
+
+
+def today_str():
+    if _CENTRAL:
+        return datetime.now(_CENTRAL).strftime('%Y-%m-%d')
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
+
 def _get_latest_status(listing):
     """Return the most recent status string from a listing's history, or None.
     Checks event, listingType, and status fields in that priority order.
@@ -263,6 +280,8 @@ def parse_listing(listing, county_key, lead_type, drop_info=None):
         'officeName':    office.get('name', ''),
         'score':         50,  # computed in frontend
         'scrapedAt':     now_iso(),
+        'firstSeenDate': today_str(),   # set once; preserved across runs on merge
+        'lastSeenDate':  today_str(),   # refreshed every run the lead is re-seen
         'propertyType':  listing.get('propertyType', ''),
         'bedrooms':      listing.get('bedrooms'),
         'bathrooms':     listing.get('bathrooms'),
@@ -362,6 +381,18 @@ def load_existing(market_key, lead_type):
             hash_input = f"{addr}|{lead_type}".lower()
             new_id = f'rc-{lead_type[:2]}-' + hashlib.md5(hash_input.encode()).hexdigest()[:10]
             lead['id'] = new_id  # rewrite to new stable ID
+
+            # Backfill first/last seen for records written before these fields
+            # existed. scrapedAt is rewritten every run (useless as a "first seen"
+            # signal), so fall back to the MLS listedDate for a sensible PAST date.
+            # This is what stops 2-3-day-old listings from showing under "New Today"
+            # on the first run after this change.
+            if not lead.get('firstSeenDate'):
+                lead['firstSeenDate'] = (str(lead.get('listedDate') or '')[:10]
+                                         or str(lead.get('scrapedAt') or '')[:10]
+                                         or today_str())
+            if not lead.get('lastSeenDate'):
+                lead['lastSeenDate'] = str(lead.get('scrapedAt') or '')[:10] or lead['firstSeenDate']
 
             if new_id in deduped:
                 # Collision — keep the better of the two
@@ -498,8 +529,14 @@ def scrape_market(key, info):
     def merge(new_set, existing):
         out = dict(existing)
         for lid, lead in new_set.items():
-            if lid in existing and existing[lid].get('phone'):
-                lead['phone'] = existing[lid]['phone']
+            if lid in existing:
+                # Known lead re-seen: keep its ORIGINAL first-seen date (and any
+                # manually traced phone). Only lastSeenDate rolls forward.
+                if existing[lid].get('firstSeenDate'):
+                    lead['firstSeenDate'] = existing[lid]['firstSeenDate']
+                if existing[lid].get('phone'):
+                    lead['phone'] = existing[lid]['phone']
+            lead['lastSeenDate'] = today_str()
             out[lid] = lead
         return out
 
@@ -512,8 +549,12 @@ def scrape_market(key, info):
     # Preserve phones from existing failed leads though.
     merged_failed = {}
     for lid, lead in failed_leads.items():
-        if lid in existing_failed and existing_failed[lid].get('phone'):
-            lead['phone'] = existing_failed[lid]['phone']
+        if lid in existing_failed:
+            if existing_failed[lid].get('firstSeenDate'):
+                lead['firstSeenDate'] = existing_failed[lid]['firstSeenDate']
+            if existing_failed[lid].get('phone'):
+                lead['phone'] = existing_failed[lid]['phone']
+        lead['lastSeenDate'] = today_str()
         merged_failed[lid] = lead
 
     save(key, 'new-listing',    sorted(merged_new.values(),   key=lambda l: l.get('daysOnMarket', 999)),        total_active)

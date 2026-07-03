@@ -32,6 +32,21 @@ def make_id(*parts):
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
+# firstSeenDate/lastSeenDate are compared against the browser's LOCAL "today" in
+# INTEL, and Lawton browses from Central — so stamp the run date in Central so a
+# morning run lines up with the same calendar day shown in the UI. (Matches the
+# pre-foreclosure and listings scrapers.)
+try:
+    from zoneinfo import ZoneInfo
+    _CENTRAL = ZoneInfo('America/Chicago')
+except Exception:
+    _CENTRAL = None
+
+def today_str():
+    if _CENTRAL:
+        return datetime.now(_CENTRAL).strftime('%Y-%m-%d')
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
 def fmt_amount(s):
     if not s: return None
     clean = re.sub(r'[^\d.]', '', str(s).replace(',', ''))
@@ -74,6 +89,8 @@ def lead(county, ltype, owner, address, amount=None, date=None, case=None, notes
         'caseNumber': case,
         'notes':      notes or '',
         'scrapedAt':  now_iso(),
+        'firstSeenDate': today_str(),   # set once; preserved across runs in save()
+        'lastSeenDate':  today_str(),   # refreshed every run the lead is re-scraped
     }
 
 def dedup(leads):
@@ -96,6 +113,17 @@ def save(county, leads):
                 old_data = json.load(f)
             cutoff = datetime.now(timezone.utc).timestamp() - (7 * 24 * 3600)
             for l in old_data.get('leads', []):
+                # Backfill first/last seen for records written before these fields
+                # existed. scrapedAt is refreshed every run (useless as a "first
+                # seen" signal), so use the record's filingDate as a real PAST date
+                # (falling back to scrapedAt's date). This is what stops still-on-
+                # file records from re-appearing under INTEL's "New Today".
+                if not l.get('firstSeenDate'):
+                    l['firstSeenDate'] = (str(l.get('filingDate') or '')[:10]
+                                          or str(l.get('scrapedAt') or '')[:10]
+                                          or today_str())
+                if not l.get('lastSeenDate'):
+                    l['lastSeenDate'] = str(l.get('scrapedAt') or '')[:10] or l['firstSeenDate']
                 try:
                     scraped_ts = datetime.fromisoformat(l['scrapedAt']).timestamp()
                     if scraped_ts >= cutoff:
@@ -105,6 +133,14 @@ def save(county, leads):
             log.info(f'  Loaded {len(existing)} existing leads (≤7 days) from {path.name}')
         except Exception as e:
             log.warning(f'  Could not load existing leads: {e}')
+
+    # Preserve each still-present lead's ORIGINAL first-seen date across runs. A
+    # freshly scraped lead carries firstSeenDate=today from lead(); if we already
+    # had that id on file, restore the earlier date so it isn't flagged new again.
+    prior_first = {l['id']: l.get('firstSeenDate') for l in existing}
+    for l in leads:
+        if prior_first.get(l['id']):
+            l['firstSeenDate'] = prior_first[l['id']]
 
     # Merge: new leads take precedence (freshen scrapedAt), old leads fill the rest
     new_ids = {l['id'] for l in leads}
