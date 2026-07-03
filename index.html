@@ -193,7 +193,7 @@
 
     /* Action buttons */
     .actions{display:flex;gap:6px;align-items:center;}
-    .btn-st,.btn-sms,.btn-email,.btn-mon,.btn-contacted,.btn-card,.btn-scout,.btn-drew{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+    .btn-st,.btn-sms,.btn-email,.btn-mon,.btn-va,.btn-contacted,.btn-card,.btn-scout,.btn-drew{border:1px solid var(--border2);background:transparent;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
     .btn-st{color:var(--dim);}
     .btn-st:hover{border-color:var(--accent);color:var(--accent);}
     .btn-st.loading{color:var(--muted);cursor:wait;}
@@ -209,6 +209,9 @@
     .btn-mon{color:var(--dim);}
     .btn-mon:hover{border-color:var(--green);color:var(--green);}
     .btn-mon.pushed{border-color:var(--green);color:var(--green);}
+    .btn-va{color:var(--dim);}
+    .btn-va:hover{border-color:var(--blue);color:var(--blue);}
+    .btn-va.pushed{border-color:var(--blue);color:var(--blue);}
     .btn-card{color:var(--dim);}
     .btn-card:hover:not(:disabled){border-color:#a855f7;color:#a855f7;}
     .btn-card:disabled{opacity:.3;cursor:not-allowed;}
@@ -552,6 +555,7 @@
         <button class="panel-btn blue" id="panelBtnSMS" onclick="panelSendSMS()" disabled>📱 Send Text Message</button>
         <button class="panel-btn" id="panelBtnEmail" onclick="panelSendEmail()" style="display:none">📧 Email Listing Agent</button>
         <button class="panel-btn green" id="panelBtnMon" onclick="panelPushMonday()">📋 Push to Monday.com</button>
+        <button class="panel-btn blue" id="panelBtnVA" onclick="panelPushVA()">👤 Push to VA Board</button>
         <button class="panel-btn red-btn" id="panelBtnContacted" onclick="panelToggleContacted()">○ Mark as Contacted</button>
         <a class="panel-link" id="panelApprLink" href="#" target="_blank" rel="noopener">
           🏠 View on Sedgwick County Appraiser
@@ -636,6 +640,7 @@
 const CONFIG = {
   password:      'OneRoof2025',
   zapierWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',
+  vaWebhook:     'https://hooks.zapier.com/hooks/catch/8732778/u7w466j/',  // same hook as Monday — branch on board:'va' in the Zap
   postcardWebhook: 'https://hooks.zapier.com/hooks/catch/8732778/REPLACE_WITH_POSTCARD_HOOK/',
   emailWebhook:    'https://hooks.zapier.com/hooks/catch/8732778/43gvoxx/',
   dataUrl:       '/data/leads.json',
@@ -776,6 +781,7 @@ let minBeds     = 0;
 let minBaths    = 0;
 let contacted  = new Set(JSON.parse(localStorage.getItem('intel_contacted') || '[]'));
 let pushed     = new Set(JSON.parse(localStorage.getItem('intel_pushed')    || '[]'));
+let vaPushed   = new Set(JSON.parse(localStorage.getItem('intel_va_pushed') || '[]'));
 let texted     = new Set(JSON.parse(localStorage.getItem('intel_texted')    || '[]'));
 let emailed    = new Set(JSON.parse(localStorage.getItem('intel_emailed')   || '[]'));
 let mailed     = new Set(JSON.parse(localStorage.getItem('intel_mailed')    || '[]'));
@@ -830,7 +836,7 @@ function boot() {
 // so a re-keyed lead doesn't lose its history. Idempotent — safe to run every load.
 function migrateLegacyIds(leads) {
   const sets = { intel_contacted: contacted, intel_pushed: pushed, intel_texted: texted,
-                 intel_emailed: emailed, intel_mailed: mailed };
+                 intel_emailed: emailed, intel_mailed: mailed, intel_va_pushed: vaPushed };
   const maps = { intel_phones: phones, intel_propTypes: propTypes };
   const dirtySets = new Set(), dirtyMaps = new Set();
   for (const l of leads) {
@@ -878,6 +884,7 @@ async function loadLeads() {
       score:        computeScore(l),
       contacted:    contacted.has(l.id),
       pushed:       pushed.has(l.id),
+      vaPushed:     vaPushed.has(l.id),
       texted:       texted.has(l.id),
       emailed:      emailed.has(l.id),
       mailed:       mailed.has(l.id),
@@ -1369,6 +1376,9 @@ function row(l) {
         <button class="btn-mon${l.pushed?' pushed':''}" id="mon-${l.id}" onclick="pushMonday('${l.id}')">
           ${l.pushed ? '✓ SENT' : '📋 MONDAY'}
         </button>
+        <button class="btn-va${l.vaPushed?' pushed':''}" id="va-${l.id}" onclick="pushVA('${l.id}')" title="Push to the VA Monday board">
+          ${l.vaPushed ? '✓ VA' : '👤 VA'}
+        </button>
         <button class="btn-contacted${l.contacted?' on':''}" onclick="toggleContacted('${l.id}')">
           ${l.contacted ? '✓' : '○'}
         </button>
@@ -1617,6 +1627,123 @@ async function pushMonday(id) {
     btn.textContent = '📋 MONDAY';
     btn.disabled    = false;
     toast('Push failed', 'err');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// VA PUSH — same enrichment as the Monday push, but routed to the VA board.
+// Tracked independently (intel_va_pushed), so a lead can sit on both boards.
+// ═══════════════════════════════════════════════════════════
+async function pushVA(id) {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+
+  const btn = document.getElementById(`va-${l.id}`);
+  btn.textContent = 'PUSHING...';
+  btn.disabled    = true;
+
+  // ── Skip-trace for a phone first (non-blocking) — VAs work the board by phone.
+  // enrichPhone no-ops if we already have one (e.g. from a prior Monday push).
+  if (!l.phone) {
+    try {
+      btn.textContent = 'TRACING...';
+      await enrichPhone(l);
+    } catch (e) {
+      console.warn('VA push skip-trace failed, pushing without phone:', e);
+    }
+  }
+
+  // ── Estimated ARV from RentCast AVM (non-blocking — never fails the push) ──
+  let arvData = { arv: null, priceRangeLow: null, priceRangeHigh: null };
+  if (l.address) {
+    try {
+      btn.textContent = 'GETTING ARV...';
+      const avmRes = await fetch('/.netlify/functions/avm', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          address:        l.address,
+          propertyType:   l.propertyType || undefined,
+          bedrooms:       l.bedrooms || undefined,
+          bathrooms:      l.bathrooms || undefined,
+          squareFootage:  l.sqft || undefined,
+        }),
+      });
+      if (avmRes.ok) {
+        const j = await avmRes.json();
+        if (j.success && j.arv) arvData = j;
+      }
+    } catch (e) {
+      console.warn('AVM lookup failed, pushing without ARV:', e);
+    }
+  }
+
+  try {
+    let sourceLabel;
+    if (l.type === 'stale-listing') {
+      sourceLabel = `INTEL Stale Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'failed-listing') {
+      sourceLabel = `INTEL Failed Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'new-listing') {
+      sourceLabel = `INTEL New Listings — ${(l.county || '').toUpperCase()}`;
+    } else if (l.type === 'price-drop') {
+      sourceLabel = `INTEL Price Drops — ${(l.county || '').toUpperCase()}`;
+    } else {
+      sourceLabel = `INTEL — ${(l.county || 'unknown').toUpperCase()} County`;
+    }
+
+    const addrEnc = encodeURIComponent(l.address || '');
+    const zillowUrl     = l.address ? `https://www.zillow.com/homes/${addrEnc}_rb/` : '';
+    const mapsUrl       = l.address ? `https://www.google.com/maps/place/${addrEnc}` : '';
+    const streetViewUrl = l.address ? `https://www.google.com/maps/@?api=1&map_action=pano&query=${addrEnc}` : '';
+    const redfinUrl     = l.address ? `https://www.redfin.com/stingray/do/location-autocomplete?location=${addrEnc}&v=2` : '';
+
+    await fetch(CONFIG.vaWebhook, {
+      method: 'POST',
+      mode:   'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        // Routes this push to the VA board. Point CONFIG.vaWebhook at a dedicated
+        // Zap, OR set it equal to zapierWebhook and branch on list_id / board.
+        list_id:     'va-board',
+        board:       'va',
+        name:        l.owner || 'Unknown',
+        address:     l.address || '',
+        lead_type:   TYPE_LABELS[l.type] || l.type,
+        amount:      l.amount || '',
+        case_number: l.caseNumber || '',
+        filing_date: l.filingDate || '',
+        score:       l.score,
+        phone:       l.phone || '',
+        notes:       l.notes || '',
+        county:      l.county || '',
+        days_on_market:   l.daysOnMarket || '',
+        listing_price:    l.listingPrice || '',
+        estimated_value:  l.estimatedValue || '',
+        estimated_equity: l.estimatedEquity || '',
+        mls_status:       l.mlsStatus || '',
+        zillow_url:       zillowUrl,
+        maps_url:         mapsUrl,
+        streetview_url:   streetViewUrl,
+        redfin_url:       redfinUrl,
+        estimated_arv:    arvData.arv           || '',
+        arv_range_low:    arvData.priceRangeLow || '',
+        arv_range_high:   arvData.priceRangeHigh|| '',
+        arv_formatted:    arvData.arv ? `$${Math.round(arvData.arv).toLocaleString()}` : '',
+        source:           sourceLabel,
+        pushed_at:        new Date().toISOString(),
+      })
+    });
+    l.vaPushed = true;
+    vaPushed.add(id);
+    localStorage.setItem('intel_va_pushed', JSON.stringify([...vaPushed]));
+    btn.textContent = '✓ VA';
+    btn.classList.add('pushed');
+    toast('Pushed to VA board ✓', 'ok');
+  } catch {
+    btn.textContent = '👤 VA';
+    btn.disabled    = false;
+    toast('VA push failed', 'err');
   }
 }
 
@@ -2209,6 +2336,15 @@ function openPanel(id) {
     monBtn.classList.remove('pushed');
   }
 
+  const vaBtn = document.getElementById('panelBtnVA');
+  if (l.vaPushed) {
+    vaBtn.textContent = '✓ Already Pushed to VA Board';
+    vaBtn.classList.add('pushed');
+  } else {
+    vaBtn.textContent = '👤 Push to VA Board';
+    vaBtn.classList.remove('pushed');
+  }
+
   const contactBtn = document.getElementById('panelBtnContacted');
   contactBtn.textContent = l.contacted ? '✓ Mark as Not Contacted' : '○ Mark as Contacted';
   contactBtn.classList.toggle('done', l.contacted);
@@ -2251,6 +2387,12 @@ function panelSendSMS() {
 async function panelPushMonday() {
   if (!panelLeadId) return;
   await pushMonday(panelLeadId);
+  openPanel(panelLeadId); // refresh panel state
+}
+
+async function panelPushVA() {
+  if (!panelLeadId) return;
+  await pushVA(panelLeadId);
   openPanel(panelLeadId); // refresh panel state
 }
 
