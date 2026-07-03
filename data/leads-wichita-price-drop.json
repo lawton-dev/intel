@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-07-01T12:36:52.449237+00:00",
-  "totalLeads": 34,
-  "totalFound": 836,
+  "lastUpdated": "2026-07-03T12:01:07.957680+00:00",
+  "totalLeads": 36,
+  "totalFound": 861,
   "source": "RentCast",
   "leadType": "price-drop",
   "market": "wichita",
@@ -59,7 +59,7 @@
       "agentEmail": "bobby@highpointks.com",
       "officeName": "High Point Realty, LLC",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.884045+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.928413+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 2,
@@ -69,7 +69,7 @@
       "listingPrice": 195000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 16,
+      "daysOnMarket": 18,
       "listedDate": "2026-06-16T00:00:00.000Z",
       "zipCode": "67226",
       "rentcastId": "9157-E-Chris,-Bel-Aire,-KS-67226",
@@ -80,7 +80,7 @@
       "priceDropPct": 50.0,
       "originalPrice": 390000,
       "currentPrice": 195000,
-      "notes": "Price dropped $195,000 (50.0%) on 2026-06-16 \u00b7 16d on market \u00b7 now $195,000"
+      "notes": "Price dropped $195,000 (50.0%) on 2026-06-16 \u00b7 18d on market \u00b7 now $195,000"
     },
     {
       "id": "rc-pr-3fc3940f3c",
@@ -135,7 +135,7 @@
       "agentEmail": "micahallan94@gmail.com",
       "officeName": "Keller Williams Signature Partners",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:40.105724+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.677403+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 1,
@@ -145,7 +145,7 @@
       "listingPrice": 125000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 20,
+      "daysOnMarket": 22,
       "listedDate": "2026-06-12T00:00:00.000Z",
       "zipCode": "67211",
       "rentcastId": "1957-S-Market-St,-Wichita,-KS-67211",
@@ -156,7 +156,7 @@
       "priceDropPct": 20.0,
       "originalPrice": 70000,
       "currentPrice": 125000,
-      "notes": "Price dropped $14,000 (20.0%) on 2026-06-12 \u00b7 20d on market \u00b7 now $125,000"
+      "notes": "Price dropped $14,000 (20.0%) on 2026-06-12 \u00b7 22d on market \u00b7 now $125,000"
     },
     {
       "id": "rc-pr-afc1d14fc1",
@@ -173,7 +173,7 @@
       "agentEmail": "nhu.realtor@gmail.com",
       "officeName": "Abode Real Estate",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:40.551235+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.925836+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 2,
@@ -183,7 +183,7 @@
       "listingPrice": 79999,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 23,
+      "daysOnMarket": 25,
       "listedDate": "2026-06-09T00:00:00.000Z",
       "zipCode": "67213",
       "rentcastId": "2020-S-Palisade-Ave,-Wichita,-KS-67213",
@@ -194,7 +194,7 @@
       "priceDropPct": 11.1,
       "originalPrice": 89999,
       "currentPrice": 79999,
-      "notes": "Price dropped $10,000 (11.1%) on 2026-06-09 \u00b7 23d on market \u00b7 now $79,999"
+      "notes": "Price dropped $10,000 (11.1%) on 2026-06-09 \u00b7 25d on market \u00b7 now $79,999"
     },
     {
       "id": "rc-pr-8136bf53f5",
@@ -363,7 +363,7 @@
       "agentEmail": "domeandrew@yahoo.com",
       "officeName": "High Point Realty, LLC",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:39.249411+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.100854+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 2,
@@ -373,7 +373,7 @@
       "listingPrice": 245000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 2,
+      "daysOnMarket": 4,
       "listedDate": "2026-06-30T00:00:00.000Z",
       "zipCode": "67204",
       "rentcastId": "3955-N-Athenian-Ave,-Wichita,-KS-67204",
@@ -384,7 +384,7 @@
       "priceDropPct": 7.5,
       "originalPrice": 265000,
       "currentPrice": 245000,
-      "notes": "Price dropped $20,000 (7.5%) on 2026-06-30 \u00b7 2d on market \u00b7 now $245,000"
+      "notes": "Price dropped $20,000 (7.5%) on 2026-06-30 \u00b7 4d on market \u00b7 now $245,000"
     },
     {
       "id": "rc-pr-bb66c0ec21",
@@ -477,7 +477,7 @@
       "agentEmail": "tdtdbland@yahoo.com",
       "officeName": "Keller Williams Signature Partners",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.392173+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.586372+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 3.5,
@@ -487,7 +487,7 @@
       "listingPrice": 495000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 13,
+      "daysOnMarket": 15,
       "listedDate": "2026-06-19T00:00:00.000Z",
       "zipCode": "67219",
       "rentcastId": "4821-N-Peregrine-St,-Wichita,-KS-67219",
@@ -498,7 +498,7 @@
       "priceDropPct": 6.6,
       "originalPrice": 530000,
       "currentPrice": 495000,
-      "notes": "Price dropped $35,000 (6.6%) on 2026-06-19 \u00b7 13d on market \u00b7 now $495,000"
+      "notes": "Price dropped $35,000 (6.6%) on 2026-06-19 \u00b7 15d on market \u00b7 now $495,000"
     },
     {
       "id": "rc-pr-d47a4a89f6",
@@ -515,7 +515,7 @@
       "agentEmail": "samanthaaguilar_03@yahoo.com",
       "officeName": "Golden Inc, REALTORS",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:39.249305+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.100745+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 2,
@@ -525,7 +525,7 @@
       "listingPrice": 249900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 19,
+      "daysOnMarket": 21,
       "listedDate": "2026-06-13T00:00:00.000Z",
       "zipCode": "67204",
       "rentcastId": "3509-N-Sedgwick-St,-Wichita,-KS-67204",
@@ -536,7 +536,7 @@
       "priceDropPct": 6.4,
       "originalPrice": 267000,
       "currentPrice": 249900,
-      "notes": "Price dropped $17,100 (6.4%) on 2026-06-13 \u00b7 19d on market \u00b7 now $249,900"
+      "notes": "Price dropped $17,100 (6.4%) on 2026-06-13 \u00b7 21d on market \u00b7 now $249,900"
     },
     {
       "id": "rc-pr-ac95db9054",
@@ -553,7 +553,7 @@
       "agentEmail": "dlynam5972@gmail.com",
       "officeName": "Heritage 1st Realty",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:39.497744+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.274506+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2.5,
@@ -563,7 +563,7 @@
       "listingPrice": 329900,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 20,
+      "daysOnMarket": 22,
       "listedDate": "2026-06-12T00:00:00.000Z",
       "zipCode": "67207",
       "rentcastId": "262-S-Bonnie-Brae-St,-Wichita,-KS-67207",
@@ -574,7 +574,7 @@
       "priceDropPct": 5.5,
       "originalPrice": 365000,
       "currentPrice": 329900,
-      "notes": "Price dropped $20,100 (5.5%) on 2026-06-12 \u00b7 20d on market \u00b7 now $329,900"
+      "notes": "Price dropped $20,100 (5.5%) on 2026-06-12 \u00b7 22d on market \u00b7 now $329,900"
     },
     {
       "id": "rc-pr-c5d9e54319",
@@ -613,6 +613,44 @@
       "originalPrice": 715000,
       "currentPrice": 649900,
       "notes": "Price dropped $37,100 (5.2%) on 2026-05-29 \u00b7 30d on market \u00b7 now $649,900"
+    },
+    {
+      "id": "rc-pr-1609bae5de",
+      "county": "sedgwick",
+      "type": "price-drop",
+      "owner": "Listing Agent: Heather Holmes",
+      "address": "941 S Sandalwood St, Wichita, KS 67230",
+      "amount": "$370,000",
+      "filingDate": "2026-07-02T00:00:00.000Z",
+      "caseNumber": "675395",
+      "phone": "3167757717",
+      "agentName": "Heather Holmes",
+      "agentPhone": "3167757717",
+      "agentEmail": "heather@sudduthrealty.com",
+      "officeName": "Sudduth Realty, Inc.",
+      "score": 50,
+      "scrapedAt": "2026-07-03T12:01:00.128092+00:00",
+      "propertyType": "Single Family",
+      "bedrooms": 5,
+      "bathrooms": 3,
+      "sqft": 2850,
+      "lotSize": 17860,
+      "yearBuilt": 1997,
+      "listingPrice": 370000,
+      "mlsStatus": "Active",
+      "mlsName": "SouthCentralKS",
+      "daysOnMarket": 2,
+      "listedDate": "2026-07-02T00:00:00.000Z",
+      "zipCode": "67230",
+      "rentcastId": "941-S-Sandalwood-St,-Wichita,-KS-67230",
+      "source": "RentCast",
+      "priceReduced": true,
+      "priceDropAmount": 20000,
+      "priceDropDate": "2026-07-02",
+      "priceDropPct": 5.1,
+      "originalPrice": 390000,
+      "currentPrice": 370000,
+      "notes": "Price dropped $20,000 (5.1%) on 2026-07-02 \u00b7 2d on market \u00b7 now $370,000"
     },
     {
       "id": "rc-pr-03bb10a395",
@@ -667,7 +705,7 @@
       "agentEmail": "steven@urbancoolhomes.com",
       "officeName": "LPT Realty, LLC",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.884060+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.928431+00:00",
       "propertyType": "Single Family",
       "bedrooms": 6,
       "bathrooms": 4,
@@ -677,7 +715,7 @@
       "listingPrice": 1000000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 16,
+      "daysOnMarket": 18,
       "listedDate": "2026-06-16T00:00:00.000Z",
       "zipCode": "67226",
       "rentcastId": "7972-E-Caribou-Pl,-Bel-Aire,-KS-67226",
@@ -688,7 +726,7 @@
       "priceDropPct": 4.8,
       "originalPrice": 1050000,
       "currentPrice": 1000000,
-      "notes": "Price dropped $50,000 (4.8%) on 2026-06-16 \u00b7 16d on market \u00b7 now $1,000,000"
+      "notes": "Price dropped $50,000 (4.8%) on 2026-06-16 \u00b7 18d on market \u00b7 now $1,000,000"
     },
     {
       "id": "rc-pr-e1d7184807",
@@ -705,7 +743,7 @@
       "agentEmail": "kellyh689@gmail.com",
       "officeName": "RE MAX Premier",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:40.348524+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.811436+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 2.5,
@@ -715,7 +753,7 @@
       "listingPrice": 295000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 15,
+      "daysOnMarket": 17,
       "listedDate": "2026-06-17T00:00:00.000Z",
       "zipCode": "67212",
       "rentcastId": "10531-W-Millpond-St,-Wichita,-KS-67212",
@@ -726,7 +764,7 @@
       "priceDropPct": 4.8,
       "originalPrice": 310000,
       "currentPrice": 295000,
-      "notes": "Price dropped $15,000 (4.8%) on 2026-06-17 \u00b7 15d on market \u00b7 now $295,000"
+      "notes": "Price dropped $15,000 (4.8%) on 2026-06-17 \u00b7 17d on market \u00b7 now $295,000"
     },
     {
       "id": "rc-pr-a5d18eadc8",
@@ -743,7 +781,7 @@
       "agentEmail": "glenda.flores@penfedrealty.com",
       "officeName": "Berkshire Hathaway Penfed - East",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:40.105764+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.677450+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2,
@@ -753,7 +791,7 @@
       "listingPrice": 210000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 6,
+      "daysOnMarket": 8,
       "listedDate": "2026-06-26T00:00:00.000Z",
       "zipCode": "67211",
       "rentcastId": "1901-S-Emporia-Ave,-Wichita,-KS-67211",
@@ -764,7 +802,7 @@
       "priceDropPct": 4.5,
       "originalPrice": 220000,
       "currentPrice": 210000,
-      "notes": "Price dropped $10,000 (4.5%) on 2026-06-26 \u00b7 6d on market \u00b7 now $210,000"
+      "notes": "Price dropped $10,000 (4.5%) on 2026-06-26 \u00b7 8d on market \u00b7 now $210,000"
     },
     {
       "id": "rc-pr-8a6108bde9",
@@ -781,7 +819,7 @@
       "agentEmail": "pepper.kyle@yahoo.com",
       "officeName": "At Home Wichita Real Estate",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:39.693186+00:00",
+      "scrapedAt": "2026-07-03T12:00:58.400691+00:00",
       "propertyType": "Single Family",
       "bedrooms": 3,
       "bathrooms": 1,
@@ -791,7 +829,7 @@
       "listingPrice": 110000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 8,
+      "daysOnMarket": 10,
       "listedDate": "2026-06-24T00:00:00.000Z",
       "zipCode": "67208",
       "rentcastId": "1227-Harding-St,-Wichita,-KS-67208",
@@ -802,7 +840,7 @@
       "priceDropPct": 4.3,
       "originalPrice": 115000,
       "currentPrice": 110000,
-      "notes": "Price dropped $5,000 (4.3%) on 2026-06-24 \u00b7 8d on market \u00b7 now $110,000"
+      "notes": "Price dropped $5,000 (4.3%) on 2026-06-24 \u00b7 10d on market \u00b7 now $110,000"
     },
     {
       "id": "rc-pr-f2b70a81a0",
@@ -819,7 +857,7 @@
       "agentEmail": "nhu.realtor@gmail.com",
       "officeName": "Abode Real Estate",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.884016+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.928383+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 4,
@@ -829,7 +867,7 @@
       "listingPrice": 474000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 24,
+      "daysOnMarket": 26,
       "listedDate": "2026-06-08T00:00:00.000Z",
       "zipCode": "67226",
       "rentcastId": "8253-E-Oxford-Ct,-Wichita,-KS-67226",
@@ -840,7 +878,7 @@
       "priceDropPct": 4.2,
       "originalPrice": 494800,
       "currentPrice": 474000,
-      "notes": "Price dropped $20,800 (4.2%) on 2026-06-08 \u00b7 24d on market \u00b7 now $474,000"
+      "notes": "Price dropped $20,800 (4.2%) on 2026-06-08 \u00b7 26d on market \u00b7 now $474,000"
     },
     {
       "id": "rc-pr-5d283c4bb5",
@@ -933,7 +971,7 @@
       "agentEmail": "kirkshort@wichitahometeam.com",
       "officeName": "Keller Williams Signature Partners",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:42.397631+00:00",
+      "scrapedAt": "2026-07-03T12:01:00.341539+00:00",
       "propertyType": "Single Family",
       "bedrooms": 6,
       "bathrooms": 3,
@@ -943,7 +981,7 @@
       "listingPrice": 469000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 2,
+      "daysOnMarket": 4,
       "listedDate": "2026-06-30T00:00:00.000Z",
       "zipCode": "67235",
       "rentcastId": "1252-N-Hickory-Creek-Ct,-Wichita,-KS-67235",
@@ -954,7 +992,7 @@
       "priceDropPct": 3.2,
       "originalPrice": 489900,
       "currentPrice": 469000,
-      "notes": "Price dropped $15,500 (3.2%) on 2026-06-30 \u00b7 2d on market \u00b7 now $469,000"
+      "notes": "Price dropped $15,500 (3.2%) on 2026-06-30 \u00b7 4d on market \u00b7 now $469,000"
     },
     {
       "id": "rc-pr-ae8da1e78c",
@@ -1085,7 +1123,7 @@
       "agentEmail": "bree@weigand.com",
       "officeName": "Russell Real Resources LLC",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.624651+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.769405+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2,
@@ -1095,7 +1133,7 @@
       "listingPrice": 234500,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 22,
+      "daysOnMarket": 24,
       "listedDate": "2026-06-10T00:00:00.000Z",
       "zipCode": "67220",
       "rentcastId": "3207-E-Thunder-St,-Wichita,-KS-67220",
@@ -1106,7 +1144,7 @@
       "priceDropPct": 1.9,
       "originalPrice": 239000,
       "currentPrice": 234500,
-      "notes": "Price dropped $4,500 (1.9%) on 2026-06-10 \u00b7 22d on market \u00b7 now $234,500"
+      "notes": "Price dropped $4,500 (1.9%) on 2026-06-10 \u00b7 24d on market \u00b7 now $234,500"
     },
     {
       "id": "rc-pr-b503330db0",
@@ -1123,7 +1161,7 @@
       "agentEmail": "",
       "officeName": "J Russell Real Estate",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:41.624683+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.769436+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2,
@@ -1133,7 +1171,7 @@
       "listingPrice": 234500,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 8,
+      "daysOnMarket": 10,
       "listedDate": "2026-06-24T00:00:00.000Z",
       "zipCode": "67220",
       "rentcastId": "3331-E-Thunder-St,-Wichita,-KS-67220",
@@ -1144,7 +1182,7 @@
       "priceDropPct": 1.9,
       "originalPrice": 239000,
       "currentPrice": 234500,
-      "notes": "Price dropped $4,500 (1.9%) on 2026-06-24 \u00b7 8d on market \u00b7 now $234,500"
+      "notes": "Price dropped $4,500 (1.9%) on 2026-06-24 \u00b7 10d on market \u00b7 now $234,500"
     },
     {
       "id": "rc-pr-9144e730ec",
@@ -1185,6 +1223,44 @@
       "notes": "Price dropped $5,000 (1.8%) on 2026-05-28 \u00b7 30d on market \u00b7 now $275,000"
     },
     {
+      "id": "rc-pr-77ed82206f",
+      "county": "sedgwick",
+      "type": "price-drop",
+      "owner": "Listing Agent: Lesley Perreault, Wichita Realtor",
+      "address": "2327 N Brandon Cir, Wichita, KS 67226",
+      "amount": "$300,000",
+      "filingDate": "2026-07-01T00:00:00.000Z",
+      "caseNumber": "675367",
+      "phone": "3166554069",
+      "agentName": "Lesley Perreault, Wichita Realtor",
+      "agentPhone": "3166554069",
+      "agentEmail": "ictrealtor@hotmail.com",
+      "officeName": "Real Broker, LLC",
+      "score": 50,
+      "scrapedAt": "2026-07-03T12:00:59.928512+00:00",
+      "propertyType": "Single Family",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2420,
+      "lotSize": 10019,
+      "yearBuilt": 2001,
+      "listingPrice": 300000,
+      "mlsStatus": "Active",
+      "mlsName": "SouthCentralKS",
+      "daysOnMarket": 3,
+      "listedDate": "2026-07-01T00:00:00.000Z",
+      "zipCode": "67226",
+      "rentcastId": "2327-N-Brandon-Cir,-Wichita,-KS-67226",
+      "source": "RentCast",
+      "priceReduced": true,
+      "priceDropAmount": 5000,
+      "priceDropDate": "2026-07-01",
+      "priceDropPct": 1.6,
+      "originalPrice": 305000,
+      "currentPrice": 300000,
+      "notes": "Price dropped $5,000 (1.6%) on 2026-07-01 \u00b7 3d on market \u00b7 now $300,000"
+    },
+    {
       "id": "rc-pr-f0202c4873",
       "county": "sedgwick",
       "type": "price-drop",
@@ -1199,7 +1275,7 @@
       "agentEmail": "johannacampos@kw.com",
       "officeName": "Heritage 1st Realty",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:40.752290+00:00",
+      "scrapedAt": "2026-07-03T12:00:59.089027+00:00",
       "propertyType": "Single Family",
       "bedrooms": 4,
       "bathrooms": 2,
@@ -1209,7 +1285,7 @@
       "listingPrice": 157500,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 3,
+      "daysOnMarket": 5,
       "listedDate": "2026-06-29T00:00:00.000Z",
       "zipCode": "67214",
       "rentcastId": "706-N-Piatt-Ave,-Wichita,-KS-67214",
@@ -1220,7 +1296,7 @@
       "priceDropPct": 1.5,
       "originalPrice": 167700,
       "currentPrice": 157500,
-      "notes": "Price dropped $2,500 (1.5%) on 2026-06-29 \u00b7 3d on market \u00b7 now $157,500"
+      "notes": "Price dropped $2,500 (1.5%) on 2026-06-29 \u00b7 5d on market \u00b7 now $157,500"
     },
     {
       "id": "rc-pr-917e48a2f1",
@@ -1237,7 +1313,7 @@
       "agentEmail": "kristenjoyal3@gmail.com",
       "officeName": "Coldwell Banker Plaza Real Estate",
       "score": 50,
-      "scrapedAt": "2026-07-01T12:36:38.573231+00:00",
+      "scrapedAt": "2026-07-03T12:00:57.578673+00:00",
       "propertyType": "Single Family",
       "bedrooms": 2,
       "bathrooms": 2,
@@ -1247,7 +1323,7 @@
       "listingPrice": 350000,
       "mlsStatus": "Active",
       "mlsName": "SouthCentralKS",
-      "daysOnMarket": 9,
+      "daysOnMarket": 11,
       "listedDate": "2026-06-23T00:00:00.000Z",
       "zipCode": "67037",
       "rentcastId": "925-E-Clearlake-St,-Derby,-KS-67037",
@@ -1258,7 +1334,7 @@
       "priceDropPct": 1.4,
       "originalPrice": 354900,
       "currentPrice": 350000,
-      "notes": "Price dropped $4,900 (1.4%) on 2026-06-23 \u00b7 9d on market \u00b7 now $350,000"
+      "notes": "Price dropped $4,900 (1.4%) on 2026-06-23 \u00b7 11d on market \u00b7 now $350,000"
     },
     {
       "id": "rc-pr-1feac3c8f3",
