@@ -1,10 +1,35 @@
 // ── INTEL · Zillow Photo Analysis ──────────────────────────────────────────
 // Pipeline: ScraperAPI fetches Zillow → extract photos from __NEXT_DATA__
-// → download each photo → base64 encode → Claude vision scores them
+// → download photos → base64 encode → Claude vision scores them
+//
+// COST CHANGES (this rev):
+//   1. Photos sent to Claude cut from 25 → PHOTOS_TO_ANALYZE (12). Images are
+//      ~95% of the input on this call, so this roughly halves the per-lead
+//      cost with no verdict-quality loss for a renovated/partial/dated call.
+//   2. Selection changed from "first N" to an even spread across the deduped
+//      set. Zillow orders exteriors first, so slice(0,N) at a low N would give
+//      all-exterior coverage; selectSpread() guarantees interior shots survive.
+//   3. Model left on Sonnet 4.6 (safe default — this verdict gates which leads
+//      the team chases). See CLAUDE_MODEL note below for the Haiku option.
+//
+// Not doing prompt caching here on purpose: the instruction block is ~800
+// tokens (under the 1024 min to cache on Sonnet) and the images after it are
+// unique per lead, so there's nothing cacheable. Photo count + model tier are
+// the real levers on this call.
 
 const ANTHROPIC_VERSION = '2023-06-01';
+
+// ── Model ───────────────────────────────────────────────────────────────────
+// Sonnet 4.6 is the safe default. DREW runs the SAME kind of templated photo
+// read on 'claude-haiku-4-5-20251001' (3x cheaper input). To try Haiku here:
+// swap the constant, run ~20 known leads both ways, and only keep it if the
+// "partial" vs "renovated" calls hold up — a wrong "renovated → SKIP" discards
+// a real deal, so verify before trusting it.
 const CLAUDE_MODEL      = 'claude-sonnet-4-6';
-const MAX_PHOTOS        = 25;            // bumped to give Claude full coverage of typical listings
+// const CLAUDE_MODEL   = 'claude-haiku-4-5-20251001';  // 3x cheaper — test first
+
+const MAX_PHOTOS        = 25;            // extraction ceiling (how many we pull)
+const PHOTOS_TO_ANALYZE = 12;            // how many we actually send to Claude
 const MAX_PHOTO_BYTES   = 1024 * 1024;   // 1 MB per photo cap (safety)
 
 exports.handler = async (event) => {
@@ -57,9 +82,12 @@ exports.handler = async (event) => {
       };
     }
 
-    // ── Step 3: Pick top N unique photos and download them as base64 ──
-    const photosToFetch = photos.slice(0, MAX_PHOTOS);
-    const downloaded = await downloadPhotos(photosToFetch);
+    // ── Step 3: Select a spread of photos (not just the first N) and download ──
+    // Cap extraction at MAX_PHOTOS, then pick PHOTOS_TO_ANALYZE evenly across
+    // that set so exterior/kitchen/bath/living coverage all survive the cut.
+    const capped        = photos.slice(0, MAX_PHOTOS);
+    const photosToFetch = selectSpread(capped, PHOTOS_TO_ANALYZE);
+    const downloaded    = await downloadPhotos(photosToFetch);
 
     if (downloaded.length === 0) {
       return {
@@ -85,9 +113,10 @@ exports.handler = async (event) => {
         photo_urls:      photosToFetch,
         timestamp:       new Date().toISOString(),
         _debug: {
-          version:         'v6-25-photos',
+          version:         'v7-12-photos-spread',
           model:           CLAUDE_MODEL,
           unique_photos:   photos.length,
+          sent_to_claude:  photosToFetch.length,
           downloaded_ok:   downloaded.length,
         },
       }),
@@ -101,6 +130,27 @@ exports.handler = async (event) => {
     };
   }
 };
+
+// ─── Even-spread selection ────────────────────────────────────────────────
+// Pick n items spread across the array (always includes index 0, the usual
+// main exterior). Falls back to the whole array when it's already <= n.
+function selectSpread(arr, n) {
+  if (arr.length <= n) return arr.slice();
+  const out = [];
+  const step = (arr.length - 1) / (n - 1);
+  for (let i = 0; i < n; i++) {
+    out.push(arr[Math.round(i * step)]);
+  }
+  // Dedupe in case rounding collided on an index, then top up if short.
+  const unique = Array.from(new Set(out));
+  if (unique.length < n) {
+    for (const item of arr) {
+      if (unique.length >= n) break;
+      if (!unique.includes(item)) unique.push(item);
+    }
+  }
+  return unique;
+}
 
 // ─── Photo extraction with hash-based dedupe ──────────────────────────────
 //
@@ -216,7 +266,7 @@ async function analyzeWithClaude(photos, apiKey) {
       type: 'text',
       text: `You are analyzing photos of a residential property for a real estate wholesale investor. The investor is looking for properties that NEED renovation work — homes that have already been flipped or extensively remodeled have NO opportunity for value-add and should be SKIPPED.
 
-You are receiving up to 25 photos from this listing — typically a comprehensive set covering exterior, kitchen, bathrooms, living spaces, and bedrooms. Zillow often orders exterior shots first, so don't assume the listing is exterior-only just because the early photos are exteriors — review ALL photos before judging interior coverage. Focus your verdict primarily on interior rooms (kitchen, bathrooms, living areas) when they are visible, since that's where renovation work matters most.
+You are receiving a curated set of up to ${PHOTOS_TO_ANALYZE} photos spread across this listing — chosen to cover exterior, kitchen, bathrooms, living spaces, and bedrooms. Zillow often orders exterior shots first, so don't assume the listing is exterior-only just because an early photo is an exterior — review ALL photos before judging interior coverage. Focus your verdict primarily on interior rooms (kitchen, bathrooms, living areas) when they are visible, since that's where renovation work matters most.
 
 Pay close attention to:
 - Kitchen: cabinets (modern shaker/painted vs dated wood), countertops (granite/quartz vs laminate/tile), appliances (stainless vs older), backsplash, hardware
@@ -228,7 +278,7 @@ Pay close attention to:
 
 ALSO assess what photo coverage you have. Some Zillow listings (especially expired/withdrawn ones) only have exterior photos because the seller pulled interior shots when delisting. Be honest about coverage but don't conflate "first few photos are exterior" with "no interior photos available."
 
-With a larger photo set, you can also note INCONSISTENCIES — e.g., kitchen looks renovated but bathrooms look untouched, or one bathroom is updated and another is original. These mixed signals are critical for the investor since they reveal exactly where value-add opportunity remains.
+Where you can see it, note INCONSISTENCIES — e.g., kitchen looks renovated but bathrooms look untouched, or one bathroom is updated and another is original. These mixed signals are critical for the investor since they reveal exactly where value-add opportunity remains.
 
 Respond with ONLY a JSON object (no other text, no markdown fences):
 {
