@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-16T11:15:00.666567+00:00",
+  "lastUpdated": "2026-07-17T11:00:21.729851+00:00",
   "county": "harris",
   "totalLeads": 48,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.406894+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.338800+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "b713821ed1e9",
@@ -33,9 +33,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.495477+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.444855+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "9f9bbefccc02",
@@ -47,9 +47,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.578958+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.558640+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "9e6d077a37b8",
@@ -61,9 +61,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.672863+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.654820+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "20c752e765de",
@@ -75,9 +75,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.760530+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.760142+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "60a2f874fa47",
@@ -89,9 +89,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.846608+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.867301+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "c3b64bc06846",
@@ -103,9 +103,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:54.931833+00:00",
+      "scrapedAt": "2026-07-17T11:00:15.968119+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "087816e137f3",
@@ -117,9 +117,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.020623+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.071700+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "4a7f1170722c",
@@ -131,9 +131,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.103985+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.175434+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "6604e0aa9db7",
@@ -145,9 +145,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.208290+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.268352+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "6f25d7f9f8a8",
@@ -159,9 +159,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.298785+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.367820+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d39ab9aa59ba",
@@ -173,9 +173,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.387908+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.462769+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "7a20f0358294",
@@ -187,9 +187,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.474512+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.562086+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "0ea644b9732f",
@@ -201,9 +201,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.688427+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.680277+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "a03257f7ae70",
@@ -215,9 +215,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.770083+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.778254+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "ae9976ce66b0",
@@ -229,9 +229,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.865004+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.879756+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "06fbafb2340a",
@@ -243,9 +243,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:55.951246+00:00",
+      "scrapedAt": "2026-07-17T11:00:16.981830+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "e3e118ec96f7",
@@ -257,9 +257,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.039013+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.091785+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "b82bdb27d4a5",
@@ -271,9 +271,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.134349+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.184851+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "eb6102d80090",
@@ -285,9 +285,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.222113+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.285465+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "dd9f292abe19",
@@ -299,9 +299,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.307207+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.390949+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d513c8d3bfae",
@@ -313,9 +313,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.401313+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.494968+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "68ee6def7ac6",
@@ -327,9 +327,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.493551+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.593068+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d3afb8ddb3f2",
@@ -341,9 +341,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.582763+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.695083+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d23d67b5a8b4",
@@ -355,9 +355,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.675645+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.795636+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "19a13ac734fe",
@@ -369,9 +369,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.762046+00:00",
+      "scrapedAt": "2026-07-17T11:00:17.897845+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "4ac5d03c1ca4",
@@ -383,9 +383,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.848552+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.005573+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "06ed8ebcdead",
@@ -397,9 +397,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:56.946055+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.102043+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "e44376bb199d",
@@ -411,9 +411,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.036864+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.202178+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "ba308a7fbd8b",
@@ -425,9 +425,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.122790+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.298488+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "4fb3d135e95e",
@@ -439,9 +439,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.209632+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.391650+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "34a28c549c52",
@@ -453,9 +453,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.301153+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.491386+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "dac6346877bb",
@@ -467,9 +467,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.526866+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.594857+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "5c974df63264",
@@ -481,9 +481,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.618158+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.691079+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "24c5a06f9e53",
@@ -495,9 +495,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.708054+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.789083+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "b3b2b9b1cbe7",
@@ -509,9 +509,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.794664+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.889171+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d43c88a8ac1c",
@@ -523,9 +523,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.882082+00:00",
+      "scrapedAt": "2026-07-17T11:00:18.986582+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "92b437d5c04d",
@@ -537,9 +537,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:57.971815+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.094519+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "d9f2ead270df",
@@ -551,9 +551,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.055581+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.190463+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "bcd1a248fad8",
@@ -565,9 +565,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.146837+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.301221+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "ffe80f4c8080",
@@ -579,9 +579,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.230908+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.399371+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "a9fb0e9523c9",
@@ -593,9 +593,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.319960+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.499206+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "8683bf15dda6",
@@ -607,9 +607,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.407183+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.603404+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "dd516612ce18",
@@ -621,9 +621,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.490914+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.698239+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "34ada0867895",
@@ -635,9 +635,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.584600+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.822239+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "760137e277e7",
@@ -649,9 +649,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.666814+00:00",
+      "scrapedAt": "2026-07-17T11:00:19.923124+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "7e55c75afebc",
@@ -663,9 +663,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.754630+00:00",
+      "scrapedAt": "2026-07-17T11:00:20.021761+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     },
     {
       "id": "1b182030abb6",
@@ -677,9 +677,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Harris County tax sale listing",
-      "scrapedAt": "2026-07-16T11:14:58.848528+00:00",
+      "scrapedAt": "2026-07-17T11:00:20.123613+00:00",
       "firstSeenDate": "2026-07-13",
-      "lastSeenDate": "2026-07-16"
+      "lastSeenDate": "2026-07-17"
     }
   ]
 }
