@@ -85,6 +85,14 @@ MARKETS = {
                   '77045', '77051', '77087', '77088', '77091', '77093'],
         'county': 'harris',
     },
+    'shelby': {
+        'city':  'Memphis',
+        'state': 'TN',
+        'zips':  ['38104', '38109', '38111', '38114', '38115', '38116',
+                  '38117', '38118', '38119', '38122', '38125', '38127',
+                  '38128', '38133', '38134', '38141'],
+        'county': 'shelby',
+    },
 }
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s\t%(message)s')

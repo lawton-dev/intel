@@ -368,6 +368,9 @@
     <button class="ctab" onclick="setCounty('clark',this)">
       Clark <span class="cnt" id="cnt-clark">—</span>
     </button>
+    <button class="ctab" onclick="setCounty('shelby',this)">
+      Shelby <span class="cnt" id="cnt-shelby">—</span>
+    </button>
     <button class="ctab" onclick="setCounty('maricopa',this)">
       Maricopa <span class="cnt" id="cnt-maricopa">—</span>
     </button>
@@ -871,11 +874,11 @@ async function loadLeads() {
   const isSCK = activeCounty === 'sck';
 
   // Counties that have BatchData pre-foreclosure data
-  const PREFC_COUNTIES = ['sedgwick','harris','clark'];
+  const PREFC_COUNTIES = ['sedgwick','harris','clark','shelby'];
 
   // Counties that have RentCast listing data (market key = county key).
   // These load the four listing buckets: new / price-drop / stale / failed.
-  const LISTING_COUNTIES = ['clark','harris'];
+  const LISTING_COUNTIES = ['clark','harris','shelby'];
 
   function mapLead(l) {
     const pt = propTypes[l.id] || {};

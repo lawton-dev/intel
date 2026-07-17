@@ -1,6 +1,6 @@
 """
 BatchData Pre-Foreclosure Scraper
-Runs Mon/Thu at 6am CDT — Sedgwick KS, Harris TX, Clark NV
+Runs Mon/Thu at 6am CDT — Sedgwick KS, Harris TX, Clark NV, Shelby TN
 Cost: ~$0.06/result
 """
 
@@ -21,6 +21,7 @@ COUNTIES = [
     {'query': 'Sedgwick County, KS', 'key': 'sedgwick', 'city': 'Wichita',    'state': 'KS'},
     {'query': 'Harris County, TX',   'key': 'harris',   'city': 'Houston',    'state': 'TX'},
     {'query': 'Clark County, NV',    'key': 'clark',    'city': 'Las Vegas',  'state': 'NV'},
+    {'query': 'Shelby County, TN',   'key': 'shelby',   'city': 'Memphis',    'state': 'TN'},
 ]
 
 def now_iso():
