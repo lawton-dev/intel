@@ -246,20 +246,15 @@ def scrape_county(county):
     total_found = 0
     skip = 0
     fetch_succeeded = False  # track if we got at least one successful page
+    paging_error    = False  # a page threw mid-pagination → pull is incomplete
 
-    # Find the most recent recordingDate across existing leads
-    # We ask BatchData to only return records newer than this to avoid paying for dupes
+    # NOTE: we deliberately do a FULL pull every run (no min_recording_date /
+    # incremental filter). Auto-prune needs to know which existing records are
+    # STILL in the active pre-foreclosure pull, and the only way to know a record
+    # has left (sold / cured / auctioned) is to fetch the full current set and see
+    # it's absent. This costs more per run than the old incremental fetch, but it
+    # is required for cured properties to drop out of the JSON.
     min_recording_date = None
-    if existing:
-        existing_dates = []
-        for lead in existing.values():
-            # Try recordingDate first, fall back to filingDate
-            rd = lead.get('recordingDate') or lead.get('filingDate')
-            if rd:
-                existing_dates.append(rd[:10])  # just YYYY-MM-DD
-        if existing_dates:
-            min_recording_date = max(existing_dates)
-            log.info(f'  Found {len(existing)} existing leads. Latest recordingDate: {min_recording_date}')
 
     while True:
         try:
@@ -281,6 +276,7 @@ def scrape_county(county):
 
         except Exception as e:
             log.error(f'  Error fetching page skip={skip}: {e}')
+            paging_error = True
             break
 
     # If fetch completely failed, preserve existing data rather than wiping it
@@ -289,9 +285,25 @@ def scrape_county(county):
         log.info(f'  → {len(existing)} pre-foreclosure leads (preserved from last successful run)')
         return len(existing)
 
-    # Merge new leads into existing (never wipe what we have, only add)
+    # ── Auto-prune decision ─────────────────────────────────────────────────
+    # Prune ONLY on a clean, COMPLETE full pull: at least one page succeeded, no
+    # page errored mid-way, and we actually got results back. When those hold we
+    # rebuild the county from ONLY what this run returned, so any property no
+    # longer in pre-foreclosure (cured / sold / auctioned) drops from the JSON
+    # entirely — main view and archive alike.
+    #
+    # Guards that fall back to the additive merge (keep existing, add new):
+    #   • paging_error   → the pull is partial, pruning could wipe real leads
+    #   • new_leads == 0 → a clean run returning zero for a county that normally
+    #                      has hundreds is almost certainly an API anomaly, not a
+    #                      genuinely empty county; never wipe everything on that.
     run_date = today_str()
-    merged = dict(existing)  # start with everything we have
+    prune = fetch_succeeded and not paging_error and len(new_leads) > 0
+    if not prune and existing:
+        reason = 'incomplete pull' if paging_error else ('zero results' if not new_leads else 'n/a')
+        log.warning(f'  ⚠ Skipping auto-prune for {key} ({reason}) — existing leads preserved')
+
+    merged = {} if prune else dict(existing)  # prune → rebuild fresh; else additive
     for lid, lead in new_leads.items():
         prior = existing.get(lid)
         if prior:
@@ -307,7 +319,12 @@ def scrape_county(county):
         lead['lastSeenDate'] = run_date
         merged[lid] = lead
 
-    log.info(f'  Merge: {len(existing)} existing + {len(new_leads)} fetched = {len(merged)} total')
+    if prune:
+        pruned = len(existing) - len([k for k in merged if k in existing])
+        log.info(f'  Prune: {len(existing)} existing → {len(merged)} kept '
+                 f'({len(new_leads)} in fresh pull, {pruned} dropped from active pull)')
+    else:
+        log.info(f'  Merge: {len(existing)} existing + {len(new_leads)} fetched = {len(merged)} total')
 
     leads_list = sorted(merged.values(), key=lambda l: l.get('score', 0), reverse=True)
     save(key, leads_list, total_found)

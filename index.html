@@ -408,6 +408,7 @@
     <button class="ftab" onclick="setFilter('state-warrant',this)">State Warrant</button>
     <button class="ftab" onclick="setFilter('hot',this)">🔥 Hot (60+)</button>
     <button class="ftab" onclick="setFilter('new-today',this)">New Today</button>
+    <button class="ftab" onclick="setFilter('archive',this)">🗄 Archive</button>
     <div class="sort-wrap">
       SORT
       <select class="sort-select" onchange="setSort(this.value)">
@@ -648,6 +649,30 @@ const CONFIG = {
   emailWebhook:    'https://hooks.zapier.com/hooks/catch/8732778/43gvoxx/',
   dataUrl:       '/data/leads.json',
 };
+
+// ═══════════════════════════════════════════════════════════
+// ARCHIVE
+// ═══════════════════════════════════════════════════════════
+// A lead is "archived" once its firstSeenDate is this many days old (or older).
+// Archived leads are hidden from every normal view and surface only under the
+// "Archive" filter tab. This is the single knob — change it to re-tune the window.
+const ARCHIVE_CUTOFF_DAYS = 14;
+
+// 'YYYY-MM-DD' string for (today − ARCHIVE_CUTOFF_DAYS) in the browser's local
+// time. A plain string compare against a lead's firstSeenDate stamp (also
+// 'YYYY-MM-DD') is timezone-safe — same approach the "New Today" filter uses.
+function archiveCutoffStr() {
+  const d = new Date();
+  d.setDate(d.getDate() - ARCHIVE_CUTOFF_DAYS);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// Archived = first seen ARCHIVE_CUTOFF_DAYS+ days ago. Leads with no firstSeenDate
+// stamp are treated as active (never auto-hidden) since we can't age them.
+function isArchived(lead) {
+  if (!lead || !lead.firstSeenDate) return false;
+  return String(lead.firstSeenDate).slice(0, 10) <= archiveCutoffStr();
+}
 
 // ═══════════════════════════════════════════════════════════
 // SCORING ENGINE
@@ -1143,6 +1168,18 @@ function getFiltered() {
     });
   }
 
+  // ── ARCHIVE VISIBILITY ──────────────────────────────────────
+  // The Archive tab shows ONLY archived leads; every other view (All, New Today,
+  // Hot, each lead type, the traced-only filters) hides archived leads by default.
+  // Applies uniformly on every county tab. The detail panel and all action
+  // buttons still work on archived leads because they resolve via allLeads, not
+  // this filtered set.
+  if (activeFilter === 'archive') {
+    leads = leads.filter(isArchived);
+  } else {
+    leads = leads.filter(l => !isArchived(l));
+  }
+
   if (activeFilter === 'hot')           leads = leads.filter(l => l.score >= 60);
   else if (activeFilter === 'new-today') {
     // firstSeenDate is a plain 'YYYY-MM-DD' stamp set once when a property first
@@ -1187,7 +1224,7 @@ function getFiltered() {
              t.includes('400') || t.includes('apartment');
     });
   }
-  else if (activeFilter !== 'all') leads = leads.filter(l => l.type === activeFilter);
+  else if (activeFilter !== 'all' && activeFilter !== 'archive') leads = leads.filter(l => l.type === activeFilter);
 
   if (searchQ) {
     const q = searchQ.toLowerCase();

@@ -175,6 +175,12 @@ def fetch_listings(zip_code, status='Active', days_old=None):
 
     status: 'Active' or 'Inactive'
     days_old: optional string like '90:180' for a range, or None for all
+
+    Returns a list on success (possibly empty — a zip may legitimately have no
+    listings). Returns None on a HARD failure (401/429/network error). The
+    caller uses this distinction to decide whether auto-pruning is safe: we only
+    prune records absent from a run where NO zip hard-failed, so a transient API
+    error can never wipe good leads out of the saved JSON.
     """
     params = {
         'zipCode': zip_code,
@@ -195,16 +201,16 @@ def fetch_listings(zip_code, status='Active', days_old=None):
         log.info(f'  HTTP {resp.status_code} — body length: {len(resp.text)}')
         if resp.status_code == 401:
             log.error('  401 — RENTCAST_API_KEY missing or invalid')
-            return []
+            return None
         if resp.status_code == 429:
             log.warning('  429 — rate limited, skipping this zip')
-            return []
+            return None
         resp.raise_for_status()
         data = resp.json()
         return data if isinstance(data, list) else data.get('listings', [])
     except requests.exceptions.RequestException as e:
         log.error(f'  Request failed: {type(e).__name__}: {e}')
-        return []
+        return None
 
 
 def parse_history_for_price_drop(history):
@@ -451,18 +457,22 @@ def scrape_market(key, info):
     new_leads, drop_leads, stale_leads, failed_leads = {}, {}, {}, {}
     total_active    = 0
     total_inactive  = 0
-    fetch_succeeded = False
+    fetch_succeeded = False   # at least one zip returned a real response
+    fetch_error     = False   # at least one zip HARD-failed (401/429/network)
 
     # ── Pass 1: ACTIVE listings (covers new + price-drop + stale all at once) ────
     # One call per zip returns up to 500 active listings; we filter client-side
     # so the cost is the same regardless of how many lead buckets we make from it.
     for zip_code in info['zips']:
-        listings = fetch_listings(zip_code, status='Active')
-        if listings:
+        result = fetch_listings(zip_code, status='Active')
+        if result is None:
+            fetch_error = True
+            result = []
+        else:
             fetch_succeeded = True
 
         # Filter to allowed property types (skip condos, land, etc.)
-        listings = [l for l in listings if l.get('propertyType') in ALLOWED_PROPERTY_TYPES]
+        listings = [l for l in result if l.get('propertyType') in ALLOWED_PROPERTY_TYPES]
         total_active += len(listings)
 
         for listing in listings:
@@ -491,12 +501,15 @@ def scrape_market(key, info):
     # daysOld here means how many days ago the listing first went up — not what we want.
     # We pull all inactive and filter by removedDate client-side.
     for zip_code in info['zips']:
-        listings = fetch_listings(zip_code, status='Inactive')
-        if listings:
+        result = fetch_listings(zip_code, status='Inactive')
+        if result is None:
+            fetch_error = True
+            result = []
+        else:
             fetch_succeeded = True
 
         # Filter to allowed property types
-        listings = [l for l in listings if l.get('propertyType') in ALLOWED_PROPERTY_TYPES]
+        listings = [l for l in result if l.get('propertyType') in ALLOWED_PROPERTY_TYPES]
         total_inactive += len(listings)
 
         excluded_count = 0
@@ -533,17 +546,37 @@ def scrape_market(key, info):
         log.warning(f'  ⚠ All fetches failed — preserving existing data for {key}')
         return 0, 0, 0, 0
 
+    # ── Auto-prune decision ─────────────────────────────────────────────────
+    # On a CLEAN run (every zip returned a real response, none hard-failed) each
+    # bucket is rebuilt from ONLY what this run's fresh scrape produced. Any
+    # property that has left the active pull — sold, went pending, was cured, or
+    # simply aged out of the bucket's day-window — drops from the JSON entirely,
+    # so it disappears from both the main view AND the archive in INTEL.
+    #
+    # If ANY zip hard-failed (401/429/network) we do NOT prune: we fall back to
+    # the additive merge and keep existing records, so a transient RentCast error
+    # can never wipe good leads. (Full wipe on TOTAL failure is already guarded
+    # above.)
+    prune = fetch_succeeded and not fetch_error
+    if fetch_error:
+        log.warning(f'  ⚠ One or more zips hard-failed for {key} — skipping auto-prune; '
+                    f'existing records preserved this run')
+
     # ── Merge each bucket with existing (preserve traced phones across runs) ──
     def merge(new_set, existing):
-        out = dict(existing)
+        # prune=True  → start empty; keep only records seen in THIS fresh scrape.
+        # prune=False → start from existing (legacy additive behavior) as a safety
+        #               net when a hard fetch error means the scrape is incomplete.
+        out = {} if prune else dict(existing)
         for lid, lead in new_set.items():
-            if lid in existing:
+            prior = existing.get(lid)
+            if prior:
                 # Known lead re-seen: keep its ORIGINAL first-seen date (and any
                 # manually traced phone). Only lastSeenDate rolls forward.
-                if existing[lid].get('firstSeenDate'):
-                    lead['firstSeenDate'] = existing[lid]['firstSeenDate']
-                if existing[lid].get('phone'):
-                    lead['phone'] = existing[lid]['phone']
+                if prior.get('firstSeenDate'):
+                    lead['firstSeenDate'] = prior['firstSeenDate']
+                if prior.get('phone'):
+                    lead['phone'] = prior['phone']
             lead['lastSeenDate'] = today_str()
             out[lid] = lead
         return out
@@ -551,19 +584,10 @@ def scrape_market(key, info):
     merged_new    = merge(new_leads,    existing_new)
     merged_drop   = merge(drop_leads,   existing_drop)
     merged_stale  = merge(stale_leads,  existing_stale)
-    # Failed listings: REBUILD FRESH each run — don't merge with existing.
-    # The 14-day rolling window means leads drop off naturally; merging keeps
-    # stale entries from old scraper versions that mislabeled pending as expired.
-    # Preserve phones from existing failed leads though.
-    merged_failed = {}
-    for lid, lead in failed_leads.items():
-        if lid in existing_failed:
-            if existing_failed[lid].get('firstSeenDate'):
-                lead['firstSeenDate'] = existing_failed[lid]['firstSeenDate']
-            if existing_failed[lid].get('phone'):
-                lead['phone'] = existing_failed[lid]['phone']
-        lead['lastSeenDate'] = today_str()
-        merged_failed[lid] = lead
+    # Failed listings also route through merge(): on a clean run this rebuilds the
+    # bucket fresh (the 14-day rolling window means old fails prune out naturally),
+    # and on an error run it preserves what we had.
+    merged_failed = merge(failed_leads, existing_failed)
 
     save(key, 'new-listing',    sorted(merged_new.values(),   key=lambda l: l.get('daysOnMarket', 999)),        total_active)
     save(key, 'price-drop',     sorted(merged_drop.values(),  key=lambda l: l.get('priceDropPct', 0), reverse=True), total_active)
