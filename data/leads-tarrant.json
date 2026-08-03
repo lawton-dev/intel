@@ -1,14 +1,28 @@
 {
-  "lastUpdated": "2026-07-31T11:54:18.713561+00:00",
+  "lastUpdated": "2026-08-03T12:55:17.656807+00:00",
   "county": "tarrant",
-  "totalLeads": 7,
+  "totalLeads": 8,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 7,
+    "tax_foreclosure": 8,
     "probate": 0,
     "state_warrant": 0
   },
   "leads": [
+    {
+      "id": "8be674ed12f3",
+      "county": "tarrant",
+      "type": "tax-foreclosure",
+      "owner": "SEE TARRANT COUNTY RECORDS",
+      "address": "1737 Escondido Dr, Fort Worth TX",
+      "amount": null,
+      "filingDate": null,
+      "caseNumber": null,
+      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
+      "scrapedAt": "2026-08-03T12:55:17.656310+00:00",
+      "firstSeenDate": "2026-08-03",
+      "lastSeenDate": "2026-08-03"
+    },
     {
       "id": "d6f27f12777d",
       "county": "tarrant",
