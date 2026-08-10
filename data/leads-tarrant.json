@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-08-07T10:30:39.353392+00:00",
+  "lastUpdated": "2026-08-10T10:55:07.144498+00:00",
   "county": "tarrant",
-  "totalLeads": 8,
+  "totalLeads": 1,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 8,
+    "tax_foreclosure": 1,
     "probate": 0,
     "state_warrant": 0
   },
@@ -19,107 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-08-07T10:30:39.352896+00:00",
+      "scrapedAt": "2026-08-10T10:55:07.143981+00:00",
       "firstSeenDate": "2026-08-03",
-      "lastSeenDate": "2026-08-07"
-    },
-    {
-      "id": "d6f27f12777d",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "5819 Summerwood Dr, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.712632+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "d0f1105f9b32",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "10875 Of The Plat Record, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.712726+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "251125e7c5aa",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "008499 Pallida Llc Successor In Interest, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.712767+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "671a482c2111",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "5800 Creekridge Dr, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.712793+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "09d8aa27ed22",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "9342 Of The Plat Record, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.712868+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "be014a22f46a",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "9924 Butte Meadow Dr, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.713037+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
-    },
-    {
-      "id": "ff12dbd9f451",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "5225 Memorial Dr, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-07-31T11:54:18.713087+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-07-31"
+      "lastSeenDate": "2026-08-10"
     }
   ]
 }
