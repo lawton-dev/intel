@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-14T10:36:14.636730+00:00",
+  "lastUpdated": "2026-08-17T10:17:14.247535+00:00",
   "county": "dallas",
   "totalLeads": 2,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Struck-off property \u2014 Dallas County Public Works",
-      "scrapedAt": "2026-08-14T10:36:14.636215+00:00",
+      "scrapedAt": "2026-08-17T10:17:14.246939+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-14"
+      "lastSeenDate": "2026-08-17"
     },
     {
       "id": "443ffcfe7931",
@@ -33,9 +33,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Struck-off property \u2014 Dallas County Public Works",
-      "scrapedAt": "2026-08-14T10:36:14.636367+00:00",
+      "scrapedAt": "2026-08-17T10:17:14.247097+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-14"
+      "lastSeenDate": "2026-08-17"
     }
   ]
 }
