@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-27T20:09:43.003490+00:00",
+  "lastUpdated": "2026-08-28T21:09:46.615210+00:00",
   "county": "sumner",
   "totalLeads": 1,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Sumner County Sheriff Sale \u2014 sumnersheriff.net",
-      "scrapedAt": "2026-08-27T20:09:37.614985+00:00",
+      "scrapedAt": "2026-08-28T21:09:41.112324+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-27"
+      "lastSeenDate": "2026-08-28"
     }
   ]
 }
