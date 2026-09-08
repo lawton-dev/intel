@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-09-07T15:07:05.699979+00:00",
+  "lastUpdated": "2026-09-08T13:42:19.205270+00:00",
   "county": "sedgwick",
-  "totalLeads": 343,
+  "totalLeads": 248,
   "sources": {
-    "tax_delinquent": 342,
+    "tax_delinquent": 247,
     "tax_foreclosure": 1,
     "probate": 0,
     "state_warrant": 0
@@ -19,9 +19,9 @@
       "filingDate": "October 1, 2026",
       "caseNumber": null,
       "notes": "Tax foreclosure auction. Visit sedgwickcounty.org/treasurer",
-      "scrapedAt": "2026-09-07T15:07:00.390723+00:00",
+      "scrapedAt": "2026-09-08T13:42:13.776263+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3d468ff082a1",
@@ -33,9 +33,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.275884+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.738631+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1054af3aeac7",
@@ -47,9 +47,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.293269+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.756742+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c5842fccba1b",
@@ -61,9 +61,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.311916+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.774819+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e6e4859ed9d1",
@@ -75,9 +75,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.328860+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.790992+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3b1c65893840",
@@ -89,9 +89,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.345883+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.807139+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2c4bfd896851",
@@ -103,9 +103,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.361944+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.823341+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "15d17621dda2",
@@ -117,9 +117,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.381616+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.842840+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d235cfaa1bdd",
@@ -131,9 +131,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.397460+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.859317+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "76944849cbdf",
@@ -145,9 +145,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.414784+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.874940+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c833493ac450",
@@ -159,9 +159,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:15.431043+00:00",
+      "scrapedAt": "2026-09-08T13:39:41.891509+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "cf4e4bc42f9a",
@@ -173,9 +173,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.335522+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.661799+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "78d24ababddb",
@@ -187,9 +187,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.351638+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.677606+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d3d0bc2817b7",
@@ -201,9 +201,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.366872+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.693010+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8f1a3f1120d8",
@@ -215,9 +215,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.383767+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.709063+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8f60a8c9a976",
@@ -229,9 +229,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.400083+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.725013+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c8bb8771542b",
@@ -243,9 +243,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.416360+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.742024+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3209770b3bc1",
@@ -257,9 +257,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.432930+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.758156+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "eadcad131f3a",
@@ -271,9 +271,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.449371+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.773885+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f8cf339f78a8",
@@ -285,9 +285,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.464886+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.789817+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e2a48ad7c6c3",
@@ -299,9 +299,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:26.481162+00:00",
+      "scrapedAt": "2026-09-08T13:39:52.806182+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "38d78aa652ad",
@@ -313,9 +313,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.612276+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.317798+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9b862d101390",
@@ -327,9 +327,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.630644+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.334396+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "922aff8cc050",
@@ -341,9 +341,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.646464+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.349169+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ca21f5cb63e5",
@@ -355,9 +355,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.662757+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.364787+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "817ceb4bea84",
@@ -369,9 +369,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.678219+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.379767+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f2136dbae34e",
@@ -383,9 +383,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.693898+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.394900+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c7eceb981e9a",
@@ -397,9 +397,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.709321+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.409715+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "07e95ff41dc3",
@@ -411,9 +411,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.724796+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.424575+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9e0af59d0a99",
@@ -425,9 +425,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.740615+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.440280+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2916caea5960",
@@ -439,9 +439,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:31.755405+00:00",
+      "scrapedAt": "2026-09-08T13:39:58.455835+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "85107a5ac2df",
@@ -453,9 +453,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.844083+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.384759+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "98894b863868",
@@ -467,9 +467,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.860648+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.400921+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b7ee5bedaf11",
@@ -481,9 +481,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.876623+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.416505+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "295fb2a6ebc1",
@@ -495,9 +495,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.892967+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.432447+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0c4d8ce07d47",
@@ -509,9 +509,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.908725+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.449545+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "526f93f1b53f",
@@ -523,9 +523,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.925292+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.464410+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "57da602e21eb",
@@ -537,9 +537,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.941596+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.479209+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "fff1c12236eb",
@@ -551,9 +551,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.957544+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.493785+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1864aa15bbb2",
@@ -565,9 +565,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.974438+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.509147+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1c2afa1323c0",
@@ -579,9 +579,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:38.991163+00:00",
+      "scrapedAt": "2026-09-08T13:40:05.524354+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ce04ad6c7741",
@@ -593,9 +593,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.146397+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.754422+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "dcc0cab993c9",
@@ -607,9 +607,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.162324+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.769535+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c7454917d7ca",
@@ -621,9 +621,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.177577+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.784009+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "88ea23e786af",
@@ -635,9 +635,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.193528+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.799255+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f923116e40a3",
@@ -649,9 +649,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.208785+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.814018+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "266360d31987",
@@ -663,9 +663,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.224818+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.828772+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2f9c69165d18",
@@ -677,9 +677,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.241104+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.843956+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7ddeecfe72b0",
@@ -691,9 +691,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.275433+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.875980+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6ac3ad6ee662",
@@ -705,9 +705,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:47.291277+00:00",
+      "scrapedAt": "2026-09-08T13:40:10.891295+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "516a24cfcac2",
@@ -719,9 +719,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.585208+00:00",
+      "scrapedAt": "2026-09-08T13:40:17.957200+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0931031dc17e",
@@ -733,9 +733,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.605807+00:00",
+      "scrapedAt": "2026-09-08T13:40:17.972482+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "52327925a08e",
@@ -747,9 +747,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.628576+00:00",
+      "scrapedAt": "2026-09-08T13:40:17.987148+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0cf9fc103b47",
@@ -761,9 +761,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.643883+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.001196+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6051c86606e6",
@@ -775,9 +775,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.658672+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.015682+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d624a4e3f4fd",
@@ -789,9 +789,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.673107+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.030480+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "a765dd83e75d",
@@ -803,9 +803,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.687977+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.045054+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6e15f7a427a3",
@@ -817,9 +817,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.703162+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.060323+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "093c9d1d70d2",
@@ -831,9 +831,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.718637+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.075113+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e68b1dd4d9c1",
@@ -845,9 +845,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:04:55.734204+00:00",
+      "scrapedAt": "2026-09-08T13:40:18.093653+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d32e4aa5f8e5",
@@ -859,9 +859,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.430544+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.489254+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "82cf7371d381",
@@ -873,9 +873,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.446423+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.505676+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1b01274269c2",
@@ -887,9 +887,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.461955+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.520236+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "4f091f2cdf37",
@@ -901,9 +901,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.476907+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.534933+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d2922161d2d9",
@@ -915,9 +915,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.491907+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.549415+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8d886aecf017",
@@ -929,9 +929,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.506911+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.565933+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "688c2c97ddf3",
@@ -943,9 +943,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.521779+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.580697+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f995cfe68d59",
@@ -957,9 +957,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.536315+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.595175+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "02ab2f0cf3bb",
@@ -971,9 +971,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:01.550612+00:00",
+      "scrapedAt": "2026-09-08T13:40:23.609941+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7b7f6aec03b2",
@@ -985,9 +985,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.139640+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.561236+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ed92dfde98b6",
@@ -999,9 +999,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.155074+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.577089+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8c55ee77d3cc",
@@ -1013,9 +1013,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.169412+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.592038+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e08b28417a41",
@@ -1027,9 +1027,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.183991+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.608080+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "eb8b45d919ab",
@@ -1041,9 +1041,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.199008+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.630608+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1774dd529480",
@@ -1055,9 +1055,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.213559+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.654055+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "cb50699c9d4c",
@@ -1069,9 +1069,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.228378+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.674137+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1d862af1de6a",
@@ -1083,9 +1083,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.243067+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.688968+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "71d62e7f1ca5",
@@ -1097,9 +1097,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.258169+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.704784+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c3048834a2b8",
@@ -1111,9 +1111,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:09.273746+00:00",
+      "scrapedAt": "2026-09-08T13:40:31.719924+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b8a734c6d48d",
@@ -1125,9 +1125,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:12.930429+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.369634+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "929083732d7e",
@@ -1139,9 +1139,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:12.945462+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.406416+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "aa29737157d7",
@@ -1153,9 +1153,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:12.960211+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.421751+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "60992fc4300c",
@@ -1167,9 +1167,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:12.974919+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.440144+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "09b061e1c4a8",
@@ -1181,9 +1181,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:12.989368+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.454889+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e3d8a770a043",
@@ -1195,9 +1195,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:13.003789+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.469413+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6a1ed76dc1b9",
@@ -1209,9 +1209,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:13.018466+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.483738+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6106835cd051",
@@ -1223,9 +1223,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:13.033187+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.500107+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2b56c0a835d0",
@@ -1237,9 +1237,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:13.048181+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.514598+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "fcc8e8007ebc",
@@ -1251,9 +1251,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:13.062547+00:00",
+      "scrapedAt": "2026-09-08T13:40:35.529090+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0a6087ad0dd9",
@@ -1265,9 +1265,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.155432+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.073571+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f987ce640b72",
@@ -1279,9 +1279,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.170715+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.088634+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2c116cb9e5c4",
@@ -1293,9 +1293,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.185342+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.103727+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "09f6e79715d7",
@@ -1307,9 +1307,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.201188+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.118475+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6c134e09436c",
@@ -1321,9 +1321,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.215677+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.133325+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "233b9c0a3bc6",
@@ -1335,9 +1335,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.230363+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.148285+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "fa0b7e82b46b",
@@ -1349,9 +1349,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.245015+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.163243+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "53fc00b5d30f",
@@ -1363,9 +1363,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.262474+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.178277+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1e2f5aca58ba",
@@ -1377,9 +1377,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:21.292245+00:00",
+      "scrapedAt": "2026-09-08T13:40:41.209615+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "36ff09389e26",
@@ -1391,9 +1391,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.450117+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.584412+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9746b29a48a3",
@@ -1405,9 +1405,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.465187+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.600048+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0576ce2f6d59",
@@ -1419,9 +1419,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.480424+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.614972+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6c775810029e",
@@ -1433,9 +1433,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.494870+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.630554+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "049d3fa0a59d",
@@ -1447,9 +1447,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.510331+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.645303+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b1ee7c4aca15",
@@ -1461,9 +1461,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.526496+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.660118+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e31506c06490",
@@ -1475,9 +1475,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.541434+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.675783+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8fb7224c2942",
@@ -1489,9 +1489,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.556278+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.690466+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e20f142ac8c5",
@@ -1503,9 +1503,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.571829+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.705824+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3147cc1dab8b",
@@ -1517,9 +1517,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:28.586828+00:00",
+      "scrapedAt": "2026-09-08T13:40:48.720782+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "178f60cd95a2",
@@ -1531,9 +1531,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.017833+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.635692+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3d7a691d8fdb",
@@ -1545,9 +1545,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.034237+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.650709+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7cc4d97253b8",
@@ -1559,9 +1559,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.048950+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.665956+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "987dfd772db2",
@@ -1573,9 +1573,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.064381+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.680651+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ea4e1057a71b",
@@ -1587,9 +1587,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.079220+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.695669+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f921230fcdd0",
@@ -1601,9 +1601,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.094518+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.711005+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "df77fe96172f",
@@ -1615,9 +1615,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.108805+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.728841+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6c3c4c45b29e",
@@ -1629,9 +1629,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.123821+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.743600+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "bb4ca13e70aa",
@@ -1643,9 +1643,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.138869+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.759055+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "567533220dfe",
@@ -1657,9 +1657,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:35.153706+00:00",
+      "scrapedAt": "2026-09-08T13:40:54.774013+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b3118c91c4aa",
@@ -1671,9 +1671,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.180245+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.830911+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "30f1deaea51f",
@@ -1685,9 +1685,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.195685+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.845771+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c8782d49588e",
@@ -1699,9 +1699,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.210356+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.860456+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2e4984e78904",
@@ -1713,9 +1713,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.224835+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.874965+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "91aa7f4d8106",
@@ -1727,9 +1727,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.239313+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.889443+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "54c25d052760",
@@ -1741,9 +1741,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.253731+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.904489+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "63c2fb8fa513",
@@ -1755,9 +1755,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.283723+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.919130+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e8e92b3bcc6c",
@@ -1769,9 +1769,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.298233+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.933621+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c870828d57fa",
@@ -1783,9 +1783,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.312593+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.948199+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "49613d56cad4",
@@ -1797,9 +1797,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:44.327048+00:00",
+      "scrapedAt": "2026-09-08T13:41:01.962753+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "22d41b3bbfeb",
@@ -1811,9 +1811,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.555037+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.186836+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5bfc668ad47a",
@@ -1825,9 +1825,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.569806+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.201976+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "789ac90dc9a4",
@@ -1839,9 +1839,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.585999+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.219149+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "68ef52dee4c2",
@@ -1853,9 +1853,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.601457+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.233676+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "709c8662b3d7",
@@ -1867,9 +1867,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.616126+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.247929+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "62830f130512",
@@ -1881,9 +1881,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.630643+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.262547+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "104477e41c48",
@@ -1895,9 +1895,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.645719+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.277187+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "114eab48425b",
@@ -1909,9 +1909,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.660431+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.292461+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7794c2afd7a2",
@@ -1923,9 +1923,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.674629+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.306855+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "217d6308ed41",
@@ -1937,9 +1937,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:50.689105+00:00",
+      "scrapedAt": "2026-09-08T13:41:07.321896+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "bdbf2facf3f5",
@@ -1951,9 +1951,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.467435+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.304884+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "675cfeeebc0f",
@@ -1965,9 +1965,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.482192+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.320035+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5688c8600cdf",
@@ -1979,9 +1979,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.496971+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.334915+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "210b53a98dbb",
@@ -1993,9 +1993,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.511119+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.349907+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "8e1778d98055",
@@ -2007,9 +2007,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.525907+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.365416+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f2adfa5a1ad4",
@@ -2021,9 +2021,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.541055+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.380163+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "27def0da316c",
@@ -2035,9 +2035,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.555641+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.394895+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b932d8248152",
@@ -2049,9 +2049,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.571626+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.409217+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "da3b9cef99cd",
@@ -2063,9 +2063,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.586328+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.423761+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "46f045b39ef0",
@@ -2077,9 +2077,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:05:55.600673+00:00",
+      "scrapedAt": "2026-09-08T13:41:12.438687+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e14e49f2357f",
@@ -2091,9 +2091,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.614792+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.009040+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "43aaebdc2ec3",
@@ -2105,9 +2105,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.629869+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.023714+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "232a7607b8bc",
@@ -2119,9 +2119,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.644546+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.038591+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9d19c08b8e8d",
@@ -2133,9 +2133,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.659010+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.053173+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5132505edbc1",
@@ -2147,9 +2147,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.673430+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.067530+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7b62149e8b12",
@@ -2161,9 +2161,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.687989+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.082390+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "384d34aeff21",
@@ -2175,9 +2175,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.702717+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.096557+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "719500b473e8",
@@ -2189,9 +2189,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.717300+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.111016+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "44bc4f55be01",
@@ -2203,9 +2203,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.731926+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.125895+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7264781f474d",
@@ -2217,9 +2217,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:01.746855+00:00",
+      "scrapedAt": "2026-09-08T13:41:18.140715+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "12102134db74",
@@ -2231,9 +2231,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:06.992207+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.622214+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "cb9f4b3e2ee5",
@@ -2245,9 +2245,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.006484+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.636724+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7d2b19405015",
@@ -2259,9 +2259,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.021537+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.651289+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ae767fe2c0f9",
@@ -2273,9 +2273,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.035945+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.665700+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f15ff8b62e4e",
@@ -2287,9 +2287,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.050712+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.680536+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "359027624326",
@@ -2301,9 +2301,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.065562+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.696323+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "4c65125f03e3",
@@ -2315,9 +2315,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.081391+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.712511+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3fc140500890",
@@ -2329,9 +2329,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.095309+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.729025+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0401099df9e0",
@@ -2343,9 +2343,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.120648+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.755256+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d47c623cf520",
@@ -2357,9 +2357,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:07.134878+00:00",
+      "scrapedAt": "2026-09-08T13:41:21.769536+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5d9bd55a07bb",
@@ -2371,9 +2371,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.336204+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.450562+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c52f60595151",
@@ -2385,9 +2385,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.352542+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.464966+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3a219fdc8601",
@@ -2399,9 +2399,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.367109+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.482073+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7149e1f13e05",
@@ -2413,9 +2413,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.382314+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.497332+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "652e55f02852",
@@ -2427,9 +2427,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.413203+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.527118+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9ce98a86812b",
@@ -2441,9 +2441,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:14.430196+00:00",
+      "scrapedAt": "2026-09-08T13:41:27.542134+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "89fe0d9df33e",
@@ -2455,9 +2455,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.333129+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.251730+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "a2f0421d07b1",
@@ -2469,9 +2469,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.347764+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.267170+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9ce7e7cf033f",
@@ -2483,9 +2483,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.362564+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.282758+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d86766ff6e6d",
@@ -2497,9 +2497,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.377291+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.297404+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3fa4b7d1b226",
@@ -2511,9 +2511,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.392336+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.335356+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f9cc000ce6bb",
@@ -2525,9 +2525,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.406690+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.350441+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "462e1b3e939d",
@@ -2539,9 +2539,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.421017+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.364707+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b20c9df3cd28",
@@ -2553,9 +2553,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.435752+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.379046+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "82e19e105ba0",
@@ -2567,9 +2567,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.450436+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.393204+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c6c775208e4f",
@@ -2581,9 +2581,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:21.465067+00:00",
+      "scrapedAt": "2026-09-08T13:41:34.407488+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "73a886899915",
@@ -2595,9 +2595,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.514422+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.778861+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c100dcb3baa8",
@@ -2609,9 +2609,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.529082+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.794963+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "310ce5c821d6",
@@ -2623,9 +2623,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.543377+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.809318+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "750fb114f35e",
@@ -2637,9 +2637,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.558205+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.823777+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "41f23b0e1fd2",
@@ -2651,9 +2651,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.572626+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.838425+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "c0e4b1e3fdb3",
@@ -2665,9 +2665,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.586974+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.852541+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "a66182e9556b",
@@ -2679,9 +2679,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.601215+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.867176+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ff22fc3dddaf",
@@ -2693,9 +2693,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.615564+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.881145+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9dc5a0547409",
@@ -2707,9 +2707,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.629579+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.895674+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "95962f822e96",
@@ -2721,9 +2721,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:26.643719+00:00",
+      "scrapedAt": "2026-09-08T13:41:39.909929+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "14088221465b",
@@ -2735,9 +2735,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.244638+00:00",
+      "scrapedAt": "2026-09-08T13:41:45.960270+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "166637f668a0",
@@ -2749,9 +2749,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.259799+00:00",
+      "scrapedAt": "2026-09-08T13:41:45.975179+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0225799017bb",
@@ -2763,9 +2763,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.274331+00:00",
+      "scrapedAt": "2026-09-08T13:41:45.990945+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1da66cd3a460",
@@ -2777,9 +2777,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.288798+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.005295+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "397330c4ea01",
@@ -2791,9 +2791,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.303380+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.020189+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "bda71c9f789e",
@@ -2805,9 +2805,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.317903+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.035228+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "baae1c9b1114",
@@ -2819,9 +2819,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.332896+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.049628+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ca9ee834b615",
@@ -2833,9 +2833,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.347469+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.064264+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "b33eec2fcea9",
@@ -2847,9 +2847,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.362010+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.078626+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5a8e95be6353",
@@ -2861,9 +2861,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:32.376646+00:00",
+      "scrapedAt": "2026-09-08T13:41:46.092970+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "51541b0dce01",
@@ -2875,9 +2875,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.559235+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.449007+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "491aae99c084",
@@ -2889,9 +2889,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.575888+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.463832+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3392e2837ce5",
@@ -2903,9 +2903,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.590932+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.478505+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0523ad2655b6",
@@ -2917,9 +2917,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.605154+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.492875+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "249f80d94600",
@@ -2931,9 +2931,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.619148+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.507196+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "710d806d94cd",
@@ -2945,9 +2945,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.633607+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.521798+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0a000a4b04e9",
@@ -2959,9 +2959,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.647968+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.536161+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "ee96976ce59c",
@@ -2973,9 +2973,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.662171+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.550531+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5007409c82b4",
@@ -2987,9 +2987,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.676490+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.564692+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "73256c51056b",
@@ -3001,9 +3001,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:38.690847+00:00",
+      "scrapedAt": "2026-09-08T13:41:51.578965+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e29aba7cee24",
@@ -3015,9 +3015,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.335724+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.702360+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "fc90692fcdc7",
@@ -3029,9 +3029,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.350654+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.716750+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "499af0adb15d",
@@ -3043,9 +3043,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.365179+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.731388+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "edebaadade8a",
@@ -3057,9 +3057,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.379826+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.745354+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "a0ccc24b4911",
@@ -3071,9 +3071,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.394359+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.759094+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e4cb82dd20a5",
@@ -3085,9 +3085,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.409441+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.774293+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "654b8b2607ea",
@@ -3099,9 +3099,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.424024+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.788716+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f4263f65012f",
@@ -3113,9 +3113,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.458698+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.805291+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "fcf4e1e3a6b0",
@@ -3127,9 +3127,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.473344+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.820112+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1e737820378a",
@@ -3141,9 +3141,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:46.487732+00:00",
+      "scrapedAt": "2026-09-08T13:42:00.834491+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "1681dc4ebe1a",
@@ -3155,9 +3155,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:49.342779+00:00",
+      "scrapedAt": "2026-09-08T13:42:03.691128+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0c2965cb762e",
@@ -3169,9 +3169,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:49.358538+00:00",
+      "scrapedAt": "2026-09-08T13:42:03.705855+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "0c45e9e48b89",
@@ -3183,9 +3183,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:49.373912+00:00",
+      "scrapedAt": "2026-09-08T13:42:03.721430+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "7fe7ab172798",
@@ -3197,9 +3197,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:49.388160+00:00",
+      "scrapedAt": "2026-09-08T13:42:03.742730+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "cb82353485c1",
@@ -3211,9 +3211,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.098339+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.436002+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "21d2b65f497d",
@@ -3225,9 +3225,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.113807+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.451183+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "3cb7781e0e6a",
@@ -3239,9 +3239,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.128625+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.465963+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "9b92d3b57273",
@@ -3253,9 +3253,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.143492+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.480502+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "df9db0417db0",
@@ -3267,9 +3267,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.158359+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.494415+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "f2578dcf2484",
@@ -3281,9 +3281,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.173418+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.508916+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "5bd461b1e8e6",
@@ -3295,9 +3295,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.188035+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.523908+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "544ad51945cb",
@@ -3309,9 +3309,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.202875+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.538351+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "121fe32519d1",
@@ -3323,9 +3323,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.217420+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.552334+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "dd61e8b93a95",
@@ -3337,9 +3337,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:53.232242+00:00",
+      "scrapedAt": "2026-09-08T13:42:07.566647+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "6e95065d953a",
@@ -3351,9 +3351,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.915773+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.373731+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "69d41b979cca",
@@ -3365,9 +3365,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.930789+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.388438+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "2d03f0b406c1",
@@ -3379,9 +3379,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.945837+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.402892+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "529ba2df0e7a",
@@ -3393,9 +3393,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.960008+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.417517+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "25d15736a6b7",
@@ -3407,9 +3407,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.974753+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.452130+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "017f27b05d99",
@@ -3421,9 +3421,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:55.989454+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.467695+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "cb6e71fd03a5",
@@ -3435,9 +3435,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:56.003987+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.481934+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "e5bb2772a809",
@@ -3449,9 +3449,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:56.018787+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.496845+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "d61a478b462f",
@@ -3463,9 +3463,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:56.034248+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.511837+00:00",
       "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-09-07"
+      "lastSeenDate": "2026-09-08"
     },
     {
       "id": "52b741c35a6e",
@@ -3477,1339 +3477,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-09-07T15:06:56.049014+00:00",
+      "scrapedAt": "2026-09-08T13:42:10.526140+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-09-07"
-    },
-    {
-      "id": "4a3306dbcb31",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "A&V INVESTMENT LP",
-      "address": "632 N GRANDSTONE ST KECHI, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:47.773589+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "cd3dc4a3766c",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C & J REALTY",
-      "address": "1118 S TERRACE DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.628424+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "93b5e8ebbb5a",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C & J REALTY",
-      "address": "4300 E BAYLEY DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.644231+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "18273b3580c4",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C & J REALTY",
-      "address": "4316 E BAYLEY DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.659940+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "4cb2627667db",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C & J REALTY",
-      "address": "4465 E BOSTON DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.675398+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "ec29d2a31b4e",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C & J REALTY",
-      "address": "4517 E LINCOLN ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.690824+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c5170568689d",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C F C PARTNERSHIP",
-      "address": "6914 S RUTAN ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.706258+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b77e571450c3",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C&A EMPIRE LLC",
-      "address": "10301 W 13TH ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.721407+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "d2a102e37196",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "C&R HOLDINGS LLC",
-      "address": "LOTS 25-27 DODGE AVE. LAWRENCE'S 2ND. ADD., Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.737878+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "5a76d422ed4d",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "CAB PROPERTIES LLC",
-      "address": "2015 E 11TH ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:04:57.753840+00:00",
-      "firstSeenDate": "2026-08-25",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "96ac3eabf675",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "D & R MOTORS",
-      "address": "110 N PARK AVE MAIZE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:01.409800+00:00",
-      "firstSeenDate": "2026-07-09",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "24a1014763b1",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "LOT 1 BLOCK A EAGLE RIDGE ESTATES, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:04.653461+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "3d5c3f0005dd",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "LOT 2 BLOCK A EAGLE RIDGE ESTATES, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:04.668814+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "317628a9c352",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "LOT 5 BLOCK A EAGLE RIDGE ESTATES, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:04.685804+00:00",
-      "firstSeenDate": "2026-08-10",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "4ebb9eb00422",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "EAGLE RIDGE HOLDINGS LLC",
-      "address": "",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:04.701473+00:00",
-      "firstSeenDate": "2026-08-10",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "193513bc2a7b",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "EAR NOSE & THROAT SURG GR OF WICH PA",
-      "address": "1301 N WEST ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:04.716426+00:00",
-      "firstSeenDate": "2026-08-20",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "a7fa0dd6f73d",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "FAE BETTER HOMES LLC",
-      "address": "5111 S MERIDIAN, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:08.885932+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "4c0c0922d39e",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "GABEL TRUST LLC",
-      "address": "2131 S BROADWAY AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:13.709298+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "f3ba68e98dc2",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "GABRIEL-LOPEZ ANA DELY",
-      "address": "4124 S BROADWAY AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:13.724464+00:00",
-      "firstSeenDate": "2026-08-11",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "58f79c3f0857",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HAAS MYRNA S LIV TR",
-      "address": "3016 E MOUNT VERNON RD, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.920997+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "07de39dfb70a",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HAAS MYRNA S LIV TR",
-      "address": "3536 W 2ND ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.936209+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "cd981ce2ca15",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "1805 W CAMPUS ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.951374+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "524d923ab18e",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "3210 S GREENHAVEN, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.966103+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "d3c8f312fcc9",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "4443 S JUNIPER AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.981254+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "f1dcc49a07e5",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HABTEMARIAM TESFABERHAN",
-      "address": "517 W BOSTON HEIGHTS ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:18.996722+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "aaabc4cd6510",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "HACK LAWRENCE E",
-      "address": "1030 E 55TH ST S, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:19.011653+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "3081a2be1ced",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA ARMANDO & ADELA",
-      "address": "1511 N SAINT FRANCIS AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.172360+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c53acc6a9e37",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA BERNARDO IVAN",
-      "address": "2047 N PARK PL, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.187712+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "012c83ef09e0",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA ELEAZAR & MA GUADALUPE OLIVAREZ OLIVAREZ",
-      "address": "3308 S FERN ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.202412+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "a42a8b619eb3",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA GLORIA",
-      "address": "1744 N MINNEAPOLIS AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.218279+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "067f0727e429",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA JAIME",
-      "address": "1539 N SAINT FRANCIS AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.234353+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "2ce217d64cbd",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "IBARRA MARISOL",
-      "address": "N 1/2 LOT 35 ALEY PARK ADD., Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:23.249907+00:00",
-      "firstSeenDate": "2026-07-09",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "d49bf5969562",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "JAAX EDWARD K",
-      "address": "25701 W 39TH ST S, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:27.583534+00:00",
-      "firstSeenDate": "2026-08-17",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "92076e6c586d",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "JABARA STEVEN A",
-      "address": "1685 S ELPYCO AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:27.599526+00:00",
-      "firstSeenDate": "2026-08-17",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "3d9d59ef5729",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "JABES DEBRA D",
-      "address": "416 E LINCOLN ST DERBY, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:27.614536+00:00",
-      "firstSeenDate": "2026-08-17",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "5e3081176846",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "JACK MARVIN T OR KARA S",
-      "address": "11700 E WATERMAN ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:27.630303+00:00",
-      "firstSeenDate": "2026-08-17",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "9e05857a96ed",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "KABIRPANTHI SWATI",
-      "address": "LOT 8 BLOCK A SUNSET 2ND. ADD. TO BEL AIRE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:31.442298+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "4757d97cac8a",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "KACKLEY MAYBELLE S",
-      "address": "1121 W IRVING AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:31.458025+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b78974fbcbf0",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "KAE PROPERTIES LLC",
-      "address": "1621 S LULU AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:31.472966+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "514d39487394",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "LA CASITA HOMES LLC",
-      "address": "3201 E MACARTHUR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:35.746161+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b78ab930174b",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "LA CENTRE DE MUSIQUE",
-      "address": "2030 E 9TH ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:35.761220+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "4ad32b423f67",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "LA CHALLE SHAY",
-      "address": "1149 N DELLROSE AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:35.776012+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "9d9d3d6781fe",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "LA HACIENDA TORTILLERIA",
-      "address": "3108 E 31ST ST S, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:35.791063+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "e2d50e5ffd72",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "LA POSADA",
-      "address": "",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:35.806658+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "e28a98751434",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "M E E H ENTERPRISES",
-      "address": "1322 N GREEN ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:40.239990+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "6c94bfbbb747",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "M E E H ENTERPRISES",
-      "address": "1611 N HILLSIDE AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:40.255147+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "6054a27f9e1a",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "M E E H ENTERPRISES",
-      "address": "3108 E CARMEN DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:40.269877+00:00",
-      "firstSeenDate": "2026-08-17",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b185a1647677",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "NAILS PLUS",
-      "address": "6606 W SCHOOL CIR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:43.909934+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "6a7802baff8a",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "NAJERA-PEREZ JUAN CARLOS",
-      "address": "3102 E TIMBERLANE ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:43.925085+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "63a83677397f",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "O'DONOGHUE SEAN",
-      "address": "2215 S BROADVIEW AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:47.669759+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "41a19a8013c1",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "O'GILVIE KEVIN",
-      "address": "1420 S WACO AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:47.685123+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "a23b6f6577b8",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "O'GILVIE KEVIN M",
-      "address": "240 N KESSLER ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:47.700558+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "e9d3158e8771",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "O'MALLEY REBECCA R",
-      "address": "1717 N MCCOMAS AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:47.716208+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b77af58650ba",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "P D S DEVELOPMENT COMPANY INC",
-      "address": "LOT 9 BLOCK A MARINITA 3RD ADDITION, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:51.464166+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "2fd3dd75d7c6",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "PACIFIC MIDWEST GROUP LLC",
-      "address": "2532 N AMIDON AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:51.481169+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c6c0000a1c48",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3161 S CLIFTON ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:54.397094+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c6f3b61e3e78",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3360 E ROSEBERRY CT, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:54.415991+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "df6c811235ae",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "QUALITY REAL ESTATE LLC",
-      "address": "3561 E ROSS PKY, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:54.433728+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "6d14ff8ccb75",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "QUALITY REAL ESTATE LLC",
-      "address": "4514 S JUNIPER AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:54.469585+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "7f0a7979b367",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "QUALITY REAL ESTATE LLC",
-      "address": "LOT 39 BLOCK A PLANEVIEW SUB. NO. 2, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:54.485800+00:00",
-      "firstSeenDate": "2026-08-20",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "d2aabc9bd5ed",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "R & W INC",
-      "address": "2507 S HYDRAULIC AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:05:59.095508+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "5aeb4366fd43",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "S & H RANCH LLC",
-      "address": "W1/2 SW1/4 EXC BEG 2019.2 FT N SW COR SW1/4 E 166.1 FT S 132 FT E 493.9 FT S 904.2 FT E 208 FT S 323 FT E 33 FT S 660 FT W TO SW COR SW 1/4 N TO BEG & EXC BEG 843.5 FT E NW COR SW 1/4 E TO E LI W 1/2 SW 1/4 S 348 FT W TO PT S OF BEG N 348 FT TO BEG & EXC WW1/2 SW1/4 EXC BEG 2019.2 FT N SW COR SW1/4 E 166.1 FT S 132 FT E493.9 FT S 904.2 FT E 208 FT S 323 FT E 33 FT S 660 FT W TO SW COR SW 150 FT E 317 FT S 155 FT N 933 FT & EXC TH PT PLATTED AS S & H RANCH ADDITION (#30013926) & EXC RDS SEC 26-26-3W1/4 N TO BEG & EXC BEG 843.5 FT E NW COR SW 1/4 E TO E LI W 1/2 SW1/4 S 348 FT W TO PT S OF BEG N 348FT TO BEG & EXC W 150 FT E 317 FT S155 FT N 933 FT & EXC RDS SEC 26-26-3W, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:06.000793+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "8140b5a9ccb0",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "TA MINH V",
-      "address": "2229 S FLYNN LN, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:10.191269+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "bedf07855e21",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "TABORSKY JERRY J",
-      "address": "4444 S WEST ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:10.206180+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "2a258a625dfd",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "TACKETT WILLIAM T",
-      "address": "919 E MORRISON DR DERBY, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:10.221020+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "6eaea02a9ea5",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "TACO BUENO RESTAURANTS INC",
-      "address": "3530 N ROCK RD, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:10.236188+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "fb6948bd8458",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UNGER JOSEPH W & CAROLINE A",
-      "address": "2 N LINDEN DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:14.053437+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "076fdae3bce4",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UNGER MARY A TR",
-      "address": "606 W 33RD ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:14.089348+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "1b0d2fbb8dd7",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UNIFIED 440 HALSTEAD-BENTLEY KANSAS",
-      "address": "160 N PHELPS AVE BENTLEY, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:14.105665+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "99c42a63bb27",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UNITED STATES OF AMERICA",
-      "address": "2999 N 391ST ST W, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:14.121126+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "572d5d46d8e2",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UNITED STATES OF AMERICA",
-      "address": "E1/2 NE1/4 SEC 6-27-4W PART OF CHENEY RESERVOIR EXEMPT, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:14.137030+00:00",
-      "firstSeenDate": "2026-07-10",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "9cb255c01db0",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALDOIS ERNEST K",
-      "address": "1302 E MACARTHUR RD, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.857976+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c06d42115ef6",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALENT NICOLE MICHELLE",
-      "address": "13 E SEMINOLE DR PARK CITY, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.873276+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "7e8a5fc7db6e",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALENTINE DARIN",
-      "address": "9 N HIGH POINT RD VALLEY CENTER, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.889169+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "94d6f4faf6a8",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALENTINE DARIN S",
-      "address": "9 N HIGH POINT RD VALLEY CENTER, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.905261+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "44efa0f33790",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALENZUELA MARTHA VALERIA",
-      "address": "7213 S PATTIE AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.923317+00:00",
-      "firstSeenDate": "2026-07-15",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "d7d9ef853a6f",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "VALLE SUSAN",
-      "address": "LOT 5 BLOCK 3 CHILDS ACRES ADD., Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:17.939720+00:00",
-      "firstSeenDate": "2026-08-13",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "05170b16b4c0",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGES JAMES L",
-      "address": "3342 N COOLIDGE AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:22.987315+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c63a8d5c73a7",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGNER IRENE K",
-      "address": "2812 E MENLO DR, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.002433+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "8c6778abd38b",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGNER MICHAEL S",
-      "address": "1539 W 35TH ST N, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.018032+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "c5d1ce2f8682",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGNER NICHOLAS MARTIN",
-      "address": "146 S SAINT CLAIR AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.033757+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "3c796f6dc1d8",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGNER ORLIN",
-      "address": "",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.049217+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "b58ee7d5bda9",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAGOR TIMOTHY DOUGLAS",
-      "address": "333 N WEST ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.064019+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "74ab3a53d104",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "WAINSCOTT WALTER T & DEBORAH L",
-      "address": "PT LOT 8 SW OF LI 12.5 FT NE SW COREXT TO SE COR BLOCK 2 HARTZLER ESTATES, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:23.079171+00:00",
-      "firstSeenDate": "2026-08-13",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "db1ac329ed04",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "YANG FEI",
-      "address": "LOT 2 BLOCK 2 PARK GLEN ESTATES, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:27.869586+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "47eff7ab4ddb",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "YARBROUGH CHAD E",
-      "address": "4645 S WATER ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:27.884844+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "46abda317625",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "YARBROUGH CHERIE MARIE",
-      "address": "4645 S WATER ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:27.900061+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "ca76c99002ca",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "YATES RUTH EST",
-      "address": "2100 W WALKER AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:27.914989+00:00",
-      "firstSeenDate": "2026-07-09",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "32801992b7d1",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAD ENTERPRISES INC",
-      "address": "1953 S HYDRAULIC AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.601808+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "cf7c9d4b86b1",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAD ENTERPRISES INC",
-      "address": "2405 E PAWNEE AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.617221+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "acca92c25f11",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAD ENTERPRISES INC",
-      "address": "837 S OLIVER AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.631489+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "10357a5c7832",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAD ENTERPRISES INC",
-      "address": "CC-31610 LOTS 1-3 EXC E 10 FT & S 20 FT FOR RD & EXC COMM SE COR LOT 5 IN STRONG\u2019S ADDITION TH W 10 FT S 5.88 FT FOR POB TH S 24.12 FT W 22.69 FT NELY 33.16 FT TO BEG HYDRAULIC AVE STRONG'S ADDITION, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.646972+00:00",
-      "firstSeenDate": "2026-08-04",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "1b9f1a25b6e8",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZALDIVAR BIANCA MARGARITA GONZALEZ & MARTIN BENITES RAMOS",
-      "address": "LOTS 82-84 MT. VERNON NOW ERIE AVE. GIRARD ADD., Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.662058+00:00",
-      "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "5e7605a0ee30",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAMARRIPA AGUSTIN & SAN JUANA LOPEZ",
-      "address": "2242 N WACO AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.676567+00:00",
-      "firstSeenDate": "2026-07-27",
-      "lastSeenDate": "2026-08-31"
-    },
-    {
-      "id": "9dfd7be1c267",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "ZAMORA DAVID",
-      "address": "208 N CHAUTAUQUA AVE, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-08-31T17:06:30.691554+00:00",
-      "firstSeenDate": "2026-07-27",
-      "lastSeenDate": "2026-08-31"
+      "lastSeenDate": "2026-09-08"
     }
   ]
 }
