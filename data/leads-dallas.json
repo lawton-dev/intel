@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-08T16:49:17.854748+00:00",
+  "lastUpdated": "2026-10-09T16:32:56.542352+00:00",
   "county": "dallas",
   "totalLeads": 1,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Struck-off property \u2014 Dallas County Public Works",
-      "scrapedAt": "2026-10-08T16:49:17.854322+00:00",
+      "scrapedAt": "2026-10-09T16:32:56.541969+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-10-08"
+      "lastSeenDate": "2026-10-09"
     }
   ]
 }
