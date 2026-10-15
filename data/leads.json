@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-10-14T14:32:05.952677+00:00",
+  "lastUpdated": "2026-10-15T14:11:56.959201+00:00",
   "county": "sedgwick",
-  "totalLeads": 249,
+  "totalLeads": 248,
   "sources": {
-    "tax_delinquent": 248,
+    "tax_delinquent": 247,
     "tax_foreclosure": 1,
     "probate": 0,
     "state_warrant": 0
@@ -3480,20 +3480,6 @@
       "scrapedAt": "2026-10-12T19:07:11.498041+00:00",
       "firstSeenDate": "2026-07-03",
       "lastSeenDate": "2026-10-12"
-    },
-    {
-      "id": "1da66cd3a460",
-      "county": "sedgwick",
-      "type": "tax-delinquent",
-      "owner": "UCH AQUISITIONS LLC",
-      "address": "2026 N LITCHFIELD ST, Wichita KS",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Real estate tax delinquent \u2014 Sedgwick County Treasurer",
-      "scrapedAt": "2026-10-07T16:32:57.560876+00:00",
-      "firstSeenDate": "2026-09-01",
-      "lastSeenDate": "2026-10-07"
     }
   ]
 }
