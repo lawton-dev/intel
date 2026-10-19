@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-16T14:01:49.939709+00:00",
+  "lastUpdated": "2026-10-19T16:29:35.071858+00:00",
   "county": "sedgwick",
   "totalLeads": 248,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": "October 1, 2026",
       "caseNumber": null,
       "notes": "Tax foreclosure auction. Visit sedgwickcounty.org/treasurer",
-      "scrapedAt": "2026-10-16T14:01:44.454863+00:00",
+      "scrapedAt": "2026-10-19T16:29:29.088231+00:00",
       "firstSeenDate": "2026-07-03",
-      "lastSeenDate": "2026-10-16"
+      "lastSeenDate": "2026-10-19"
     },
     {
       "id": "3d468ff082a1",
