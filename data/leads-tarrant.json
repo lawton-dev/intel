@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-11-06T17:05:09.014322+00:00",
+  "lastUpdated": "2026-11-09T20:07:42.682435+00:00",
   "county": "tarrant",
-  "totalLeads": 6,
+  "totalLeads": 5,
   "sources": {
     "tax_delinquent": 0,
-    "tax_foreclosure": 6,
+    "tax_foreclosure": 5,
     "probate": 0,
     "state_warrant": 0
   },
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-06T17:05:09.013515+00:00",
+      "scrapedAt": "2026-11-09T20:07:42.681773+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-06"
+      "lastSeenDate": "2026-11-09"
     },
     {
       "id": "6f962c130e1d",
@@ -33,9 +33,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-06T17:05:09.013576+00:00",
+      "scrapedAt": "2026-11-09T20:07:42.681831+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-06"
+      "lastSeenDate": "2026-11-09"
     },
     {
       "id": "85e768803d7b",
@@ -47,9 +47,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-06T17:05:09.013623+00:00",
+      "scrapedAt": "2026-11-09T20:07:42.681866+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-06"
+      "lastSeenDate": "2026-11-09"
     },
     {
       "id": "cdfbd8c9f3c4",
@@ -61,9 +61,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-06T17:05:09.013724+00:00",
+      "scrapedAt": "2026-11-09T20:07:42.681943+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-06"
+      "lastSeenDate": "2026-11-09"
     },
     {
       "id": "f7c06a6c8f9d",
@@ -75,23 +75,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-06T17:05:09.013814+00:00",
+      "scrapedAt": "2026-11-09T20:07:42.682012+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-06"
-    },
-    {
-      "id": "c446315cabf5",
-      "county": "tarrant",
-      "type": "tax-foreclosure",
-      "owner": "SEE TARRANT COUNTY RECORDS",
-      "address": "2026 Amerist, Fort Worth TX",
-      "amount": null,
-      "filingDate": null,
-      "caseNumber": null,
-      "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-02T19:48:21.720143+00:00",
-      "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-02"
+      "lastSeenDate": "2026-11-09"
     }
   ]
 }
