@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-26T19:19:38.307451+00:00",
+  "lastUpdated": "2026-11-27T19:17:55.304680+00:00",
   "county": "tarrant",
   "totalLeads": 5,
   "sources": {
@@ -19,9 +19,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-26T19:19:38.306875+00:00",
+      "scrapedAt": "2026-11-27T19:17:55.303900+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-26"
+      "lastSeenDate": "2026-11-27"
     },
     {
       "id": "6f962c130e1d",
@@ -33,9 +33,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-26T19:19:38.306932+00:00",
+      "scrapedAt": "2026-11-27T19:17:55.303966+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-26"
+      "lastSeenDate": "2026-11-27"
     },
     {
       "id": "85e768803d7b",
@@ -47,9 +47,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-26T19:19:38.306963+00:00",
+      "scrapedAt": "2026-11-27T19:17:55.304014+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-26"
+      "lastSeenDate": "2026-11-27"
     },
     {
       "id": "cdfbd8c9f3c4",
@@ -61,9 +61,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-26T19:19:38.307027+00:00",
+      "scrapedAt": "2026-11-27T19:17:55.304112+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-26"
+      "lastSeenDate": "2026-11-27"
     },
     {
       "id": "f7c06a6c8f9d",
@@ -75,9 +75,9 @@
       "filingDate": null,
       "caseNumber": null,
       "notes": "Monthly tax sale \u2014 Tarrant County Constable 3",
-      "scrapedAt": "2026-11-26T19:19:38.307085+00:00",
+      "scrapedAt": "2026-11-27T19:17:55.304202+00:00",
       "firstSeenDate": "2026-11-02",
-      "lastSeenDate": "2026-11-26"
+      "lastSeenDate": "2026-11-27"
     }
   ]
 }
